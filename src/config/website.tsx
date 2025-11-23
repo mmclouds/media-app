@@ -48,7 +48,7 @@ export const websiteConfig: WebsiteConfig = {
   },
   auth: {
     enableGoogleLogin: true,
-    enableGithubLogin: true,
+    enableGithubLogin: false,
     enableCredentialLogin: true,
   },
   i18n: {
