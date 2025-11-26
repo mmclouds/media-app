@@ -12,6 +12,7 @@ import StatsSection from '@/components/blocks/stats/stats';
 import TestimonialsSection from '@/components/blocks/testimonials/testimonials';
 import CrispChat from '@/components/layout/crisp-chat';
 import { NewsletterCard } from '@/components/newsletter/newsletter-card';
+import { VideoGeneratorSection } from '@/components/marketing/video-generator-section';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
@@ -49,6 +50,9 @@ export default async function HomePage(props: HomePageProps) {
     <>
       <div className="flex flex-col">
         <HeroSection />
+
+        <VideoGeneratorSection locale={locale} fullWidth={false} />
+
 
         <LogoCloud />
 
