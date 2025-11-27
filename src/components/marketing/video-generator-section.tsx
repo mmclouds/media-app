@@ -20,18 +20,6 @@ export function VideoGeneratorSection({
 }: VideoGeneratorSectionProps) {
   const content = (
     <div className="space-y-10">
-      <div className="space-y-2">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-          {locale ?? 'en'} · Internal Preview
-        </p>
-        <h1 className="text-3xl font-semibold tracking-tight">
-          AI Video Generator
-        </h1>
-        <p className="text-lg text-muted-foreground max-w-2xl">
-          Configure prompts, fine-tune render details, and review each output in
-          a focused workspace designed for storytelling workflows.
-        </p>
-      </div>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(320px,380px)_1fr]">
         <Card className="border-zinc-800/60 bg-muted/30 backdrop-blur">
