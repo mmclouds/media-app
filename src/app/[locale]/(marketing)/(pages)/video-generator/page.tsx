@@ -23,24 +23,8 @@ export async function generateMetadata({
 
 export default async function VideoGeneratorPage() {
   return (
-    <main className="min-h-screen bg-[#020202] pb-24 pt-16 text-white">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-4 sm:px-6 lg:px-8">
-        <div className="space-y-5 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.5em] text-white/60">
-            Video intelligence
-          </p>
-          <h1 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            Multi-modal AI video generation, demo ready
-          </h1>
-          <p className="mx-auto max-w-2xl text-base text-white/70 sm:text-lg">
-            Swap subjects across footage, blend stills with animation, and
-            preview motion in real time. This interactive workspace mirrors the
-            production tooling we are shipping for enterprise creators.
-          </p>
-        </div>
-
-        <VideoGeneratorWorkspace />
-      </div>
+    <main className="h-screen w-full overflow-hidden bg-[#020202] text-white">
+      <VideoGeneratorWorkspace className="h-full w-full" />
     </main>
   );
 }

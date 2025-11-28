@@ -10,12 +10,7 @@ type EditorPanelProps = {
   prompts: VideoGeneratorHistory;
 };
 
-const generatorTabs = [
-  'Text to Video',
-  'Image to Video',
-  'Multi Elements',
-] as const;
-const workflowTabs = ['Swap', 'Add', 'Delete'] as const;
+const generatorTabs = ['Text to Video', 'Image to Video'] as const;
 
 export function VideoGeneratorEditorPanel({
   onGenerate,
@@ -23,9 +18,7 @@ export function VideoGeneratorEditorPanel({
   prompts,
 }: EditorPanelProps) {
   const [activeTab, setActiveTab] =
-    useState<(typeof generatorTabs)[number]>('Multi Elements');
-  const [activeWorkflow, setActiveWorkflow] =
-    useState<(typeof workflowTabs)[number]>('Swap');
+    useState<(typeof generatorTabs)[number]>('Text to Video');
   const [prompt, setPrompt] = useState(
     'swap [subject] from [@Image] for [subject] from [@Video]'
   );
@@ -68,24 +61,6 @@ export function VideoGeneratorEditorPanel({
       </div>
 
       <div className="flex-1 space-y-6 overflow-y-auto px-5 py-6">
-        {activeTab === 'Multi Elements' ? (
-          <div className="flex rounded-2xl bg-white/5 p-1">
-            {workflowTabs.map((workflow) => (
-              <button
-                key={workflow}
-                className={`flex-1 rounded-xl px-3 py-1.5 text-xs font-semibold transition ${
-                  workflow === activeWorkflow
-                    ? 'bg-white text-black shadow'
-                    : 'text-white/60'
-                }`}
-                onClick={() => setActiveWorkflow(workflow)}
-              >
-                {workflow}
-              </button>
-            ))}
-          </div>
-        ) : null}
-
         <div className="space-y-4 rounded-2xl border border-white/5 bg-gradient-to-br from-white/5 to-transparent p-4">
           <div>
             <p className="text-sm font-semibold">Upload Video to Edit</p>
@@ -129,9 +104,6 @@ export function VideoGeneratorEditorPanel({
             <label className="text-sm font-semibold">
               Prompt <span className="text-xs font-normal text-white/40">(Required)</span>
             </label>
-            <span className="text-[11px] uppercase tracking-[0.24em] text-white/40">
-              {activeWorkflow}
-            </span>
           </div>
           <textarea
             className="h-32 w-full resize-none rounded-2xl border border-white/5 bg-black/60 p-4 text-sm text-white/80 outline-none transition focus:border-white/30"
