@@ -72,38 +72,6 @@ const EditorPanel: React.FC<EditorPanelProps> = ({ onGenerate, isGenerating }) =
           </div>
         )}
 
-        {/* Upload Video Section */}
-        <div className="mb-4">
-          <div className="border border-[#2a2a2a] bg-[#0a0a0a] rounded-xl p-4 relative group hover:border-[#3a3a3a] transition-colors cursor-pointer h-[160px] flex flex-col justify-center">
-             <div className="absolute top-4 left-4 z-10">
-                <h3 className="text-sm font-medium text-gray-200">Upload Video to Edit</h3>
-                <div className="flex items-center gap-2 mt-1">
-                   <p className="text-[10px] text-gray-500">Select from</p>
-                   <span className="text-[10px] text-gray-300 hover:underline">History</span>
-                </div>
-             </div>
-             
-             <div className="absolute bottom-4 left-4 max-w-[180px] z-10">
-                 <p className="text-[10px] text-gray-500 leading-tight">
-                    Supports MP4/MOV files, 100MB max file size 10s max duration, 720P/1080P in resolution
-                 </p>
-             </div>
-
-             {/* Placeholder Image Logic */}
-             <div className="absolute right-2 top-2 bottom-2 w-[140px] bg-[#151515] rounded-lg overflow-hidden border border-[#222]">
-                <img 
-                  src="https://picsum.photos/300/400?grayscale" 
-                  alt="placeholder" 
-                  className="w-full h-full object-cover opacity-50"
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-8 h-8 rounded-full bg-[#333] flex items-center justify-center">
-                        <Film size={14} className="text-gray-400" />
-                    </div>
-                </div>
-             </div>
-          </div>
-        </div>
 
         {/* Upload Image Section */}
         <div className="mb-6">

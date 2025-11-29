@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDown, Film, Loader2, RefreshCw } from 'lucide-react';
+import { ChevronDown, Loader2, RefreshCw } from 'lucide-react';
 import type { VideoGeneratorHistory } from './types';
 
 type EditorPanelProps = {
@@ -11,6 +11,26 @@ type EditorPanelProps = {
 };
 
 const generatorTabs = ['Text to Video', 'Image to Video'] as const;
+type GeneratorTab = (typeof generatorTabs)[number];
+
+type TabConfig = {
+  promptLabel: string;
+  promptPlaceholder: string;
+  quickSettings: string[];
+};
+
+const tabConfigs: Record<GeneratorTab, TabConfig> = {
+  'Text to Video': {
+    promptLabel: 'Prompt',
+    promptPlaceholder: 'Describe the cinematic scene, camera moves, and mood you want to create.',
+    quickSettings: ['Professional', '7s', '1 Output'],
+  },
+  'Image to Video': {
+    promptLabel: 'Prompt',
+    promptPlaceholder: 'Explain how the uploaded image should evolve, animate, or transform.',
+    quickSettings: ['Professional', '7s', '1 Output'],
+  },
+};
 
 export function VideoGeneratorEditorPanel({
   onGenerate,
@@ -22,6 +42,8 @@ export function VideoGeneratorEditorPanel({
   const [prompt, setPrompt] = useState(
     'swap [subject] from [@Image] for [subject] from [@Video]'
   );
+  const isImageToVideo = activeTab === 'Image to Video';
+  const activeConfig = tabConfigs[activeTab];
 
   const handleGenerate = async () => {
     await onGenerate(prompt);
@@ -60,107 +82,106 @@ export function VideoGeneratorEditorPanel({
         </div>
       </div>
 
-      <div className="flex-1 space-y-6 overflow-y-auto px-5 py-6">
-        <div className="space-y-4 rounded-2xl border border-white/5 bg-gradient-to-br from-white/5 to-transparent p-4">
-          <div>
-            <p className="text-sm font-semibold">Upload Video to Edit</p>
-            <p className="mt-1 text-xs text-white/50">
-              Drop MOV/MP4 files (10s, 1080p) or choose from history.
-            </p>
-          </div>
-          <div className="relative h-40 rounded-xl border border-white/5 bg-black/40">
-            <div className="absolute inset-0 rounded-xl border border-dashed border-white/10" />
-            <div className="absolute left-4 top-4 space-y-2 text-xs text-white/60">
-              <p>Edit single shots or multi-camera compositions.</p>
-              <p className="opacity-70">Supports transparency passes.</p>
+      <div className="flex flex-1 flex-col gap-6 px-5 py-6 overflow-hidden">
+        {isImageToVideo ? (
+          <div className="flex items-center justify-between rounded-2xl border border-white/5 bg-white/5 p-4">
+            <div>
+              <p className="text-sm font-semibold">Upload Image</p>
+              <p className="text-xs text-white/50">History · Stock Library</p>
             </div>
-            <div className="absolute bottom-4 left-4 flex items-center gap-2 text-[11px] uppercase tracking-[0.24em] text-white/40">
-              <Film className="h-4 w-4" />
-              Import footage
-            </div>
-            <div className="absolute right-4 top-4 h-24 w-32 overflow-hidden rounded-lg border border-white/5">
-              <img
-                src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=600&q=60"
-                alt=""
-                className="h-full w-full object-cover opacity-60"
-                loading="lazy"
-              />
+            <div className="flex h-16 w-16 items-center justify-center rounded-xl border border-white/10 bg-black/40">
+              <RefreshCw className="h-4 w-4 text-white/70" />
             </div>
           </div>
-        </div>
+        ) : null}
 
-        <div className="flex items-center justify-between rounded-2xl border border-white/5 bg-white/5 p-4">
-          <div>
-            <p className="text-sm font-semibold">Upload Image</p>
-            <p className="text-xs text-white/50">History · Stock Library</p>
-          </div>
-          <div className="flex h-16 w-16 items-center justify-center rounded-xl border border-white/10 bg-black/40">
-            <RefreshCw className="h-4 w-4 text-white/70" />
-          </div>
-        </div>
+        <PromptEditor
+          label={activeConfig.promptLabel}
+          placeholder={activeConfig.promptPlaceholder}
+          requiredNote="(Required)"
+          value={prompt}
+          onChange={setPrompt}
+        />
 
-        <div className="space-y-3">
-          <div className="flex items-end justify-between">
-            <label className="text-sm font-semibold">
-              Prompt <span className="text-xs font-normal text-white/40">(Required)</span>
-            </label>
-          </div>
-          <textarea
-            className="h-32 w-full resize-none rounded-2xl border border-white/5 bg-black/60 p-4 text-sm text-white/80 outline-none transition focus:border-white/30"
-            value={prompt}
-            onChange={(event) => setPrompt(event.target.value)}
-          />
-        </div>
+        <div className="flex flex-1 flex-col gap-4">
 
-        <div className="grid grid-cols-3 gap-3 text-xs font-semibold">
-          {['Professional', '7s', '1 Output'].map((label, index) => (
+          <div className="mt-auto space-y-3">
+            <QuickSettingsBar options={activeConfig.quickSettings} />
+
             <button
-              key={label}
-              className="flex items-center justify-between rounded-xl border border-white/5 bg-black/60 px-3 py-2 text-white/80"
+              onClick={handleGenerate}
+              disabled={isGenerating}
+              className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[#64ff6a] text-sm font-semibold uppercase tracking-[0.2em] text-black transition hover:bg-[#4ae052] disabled:bg-white/10 disabled:text-white/40"
             >
-              <span>{label}</span>
-              <ChevronDown className="h-3 w-3 text-white/50" />
+              {isGenerating ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Generating
+                </>
+              ) : (
+                'Generate'
+              )}
             </button>
-          ))}
-        </div>
-
-        <button
-          onClick={handleGenerate}
-          disabled={isGenerating}
-          className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[#64ff6a] text-sm font-semibold uppercase tracking-[0.2em] text-black transition hover:bg-[#4ae052] disabled:bg-white/10 disabled:text-white/40"
-        >
-          {isGenerating ? (
-            <>
-              <Loader2 className="h-4 w-4 animate-spin" />
-              Generating
-            </>
-          ) : (
-            'Generate'
-          )}
-        </button>
-
-        <div className="space-y-3">
-          <p className="text-[11px] uppercase tracking-[0.2em] text-white/40">
-            Recent prompts
-          </p>
-          {recentPrompts.length ? (
-            <ul className="space-y-2 text-xs text-white/70">
-              {recentPrompts.map((item, index) => (
-                <li
-                  key={`${item}-${index}`}
-                  className="rounded-xl border border-white/5 bg-black/50 p-3 font-mono"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-xs text-white/40">
-              Prompts you generate will show up here.
-            </p>
-          )}
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+type PromptEditorProps = {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  requiredNote?: string;
+};
+
+function PromptEditor({
+  label,
+  value,
+  onChange,
+  placeholder,
+  requiredNote,
+}: PromptEditorProps) {
+  return (
+    <div className="space-y-3">
+      <div className="flex items-end justify-between">
+        <label className="text-sm font-semibold">
+          {label}{' '}
+          {requiredNote ? (
+            <span className="text-xs font-normal text-white/40">
+              {requiredNote}
+            </span>
+          ) : null}
+        </label>
+      </div>
+      <textarea
+        className="h-48 w-full resize-none rounded-2xl border border-white/30 bg-black/60 p-5 text-base text-white/80 outline-none transition focus:border-white/50"
+        placeholder={placeholder}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+      />
+    </div>
+  );
+}
+
+type QuickSettingsBarProps = {
+  options: string[];
+};
+
+function QuickSettingsBar({ options }: QuickSettingsBarProps) {
+  return (
+    <div className="grid grid-cols-3 gap-3 text-xs font-semibold">
+      {options.map((label) => (
+        <button
+          key={label}
+          className="flex items-center justify-between rounded-xl border border-white/5 bg-black/60 px-3 py-2 text-white/80"
+        >
+          <span>{label}</span>
+          <ChevronDown className="h-3 w-3 text-white/50" />
+        </button>
+      ))}
+    </div>
   );
 }
