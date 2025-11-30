@@ -1,6 +1,5 @@
 import { VideoGeneratorWorkspace } from '@/components/marketing/video-generator/workspace';
 import { constructMetadata } from '@/lib/metadata';
-import { getUrlWithLocale } from '@/lib/urls/urls';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
@@ -17,7 +16,8 @@ export async function generateMetadata({
     title: 'Video Generator | ' + t('title'),
     description:
       'Experience a cinematic AI video workflow with text-to-video, image-to-video, and multi-element editing.',
-    canonicalUrl: getUrlWithLocale('/video-generator', locale),
+    locale,
+    pathname: '/video-generator',
   });
 }
 
