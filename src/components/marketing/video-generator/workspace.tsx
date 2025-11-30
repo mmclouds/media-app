@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import { useState } from 'react';
 import { demoVideoAssets } from './data';
 import { VideoGeneratorEditorPanel } from './editor-panel';
 import { VideoGeneratorPreviewPanel } from './preview-panel';

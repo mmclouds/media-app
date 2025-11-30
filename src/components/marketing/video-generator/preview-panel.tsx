@@ -1,22 +1,45 @@
 'use client';
 
+import { useCurrentUser } from '@/hooks/use-current-user';
 import { FolderOpen } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { demoVideoAssets } from './data';
-import type { VideoGeneratorAsset } from './types';
+import type {
+  MediaFeedItem,
+  MediaFeedResponse,
+  VideoGeneratorAsset,
+} from './types';
 
 type PreviewPanelProps = {
   asset: VideoGeneratorAsset;
   loading: boolean;
 };
 
+const DEFAULT_VIDEO_SRC = demoVideoAssets[0]?.src ?? '';
+const DEFAULT_POSTER = demoVideoAssets[0]?.poster;
+const FEED_LIMIT = 6;
+
 export function VideoGeneratorPreviewPanel({
   asset,
   loading,
 }: PreviewPanelProps) {
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const nextCursorRef = useRef<string | null>(null);
+  const hasMoreRef = useRef(true);
+  const isFetchingRef = useRef(false);
 
-  const feedItems = useMemo(() => {
+  const [remoteFeed, setRemoteFeed] = useState<VideoGeneratorAsset[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
+  const [feedNotice, setFeedNotice] = useState<{
+    message: string;
+    allowRetry?: boolean;
+  } | null>(null);
+
+  const user = useCurrentUser();
+  const isLoggedIn = !!user?.id;
+
+  const fallbackFeed = useMemo(() => {
     const uniqueAssets = [
       asset,
       ...demoVideoAssets.filter((item) => item.id !== asset.id),
@@ -37,14 +60,132 @@ export function VideoGeneratorPreviewPanel({
       .slice(0, 9);
   }, [asset]);
 
-  const feedLength = feedItems.length;
+  const fallbackLength = fallbackFeed.length;
   const [visibleCount, setVisibleCount] = useState(() =>
-    Math.min(2, feedLength || 1)
+    Math.min(2, fallbackLength || 1)
+  );
+
+  const usingRemoteFeed = isLoggedIn && remoteFeed.length > 0;
+
+  useEffect(() => {
+    if (!usingRemoteFeed) {
+      setVisibleCount(Math.min(2, fallbackLength || 1));
+    }
+  }, [fallbackLength, usingRemoteFeed]);
+
+  const loadFeed = useCallback(
+    async ({ reset = false }: { reset?: boolean } = {}) => {
+      if (!isLoggedIn) {
+        return;
+      }
+
+      if (isFetchingRef.current) {
+        return;
+      }
+
+      if (!reset && !hasMoreRef.current) {
+        return;
+      }
+
+      isFetchingRef.current = true;
+      setIsFetching(true);
+      setFeedNotice(null);
+
+      if (reset) {
+        nextCursorRef.current = null;
+        hasMoreRef.current = true;
+        setRemoteFeed([]);
+      }
+
+      const params = new URLSearchParams({
+        limit: FEED_LIMIT.toString(),
+        sort: 'desc',
+      });
+
+      if (!reset && nextCursorRef.current) {
+        params.set('cursor', nextCursorRef.current);
+      }
+
+      try {
+        const response = await fetch(`/api/media/feed?${params.toString()}`, {
+          method: 'GET',
+          cache: 'no-store',
+        });
+        const result = (await response.json().catch(() => null)) as
+          | MediaFeedResponse
+          | { error?: string; message?: string }
+          | null;
+
+        if (!response.ok || !result) {
+          const errorMessage =
+            (result as { error?: string; message?: string })?.error ??
+            (result as { error?: string; message?: string })?.message ??
+            'Unable to load media feed.';
+          throw new Error(errorMessage);
+        }
+
+        const data = result as MediaFeedResponse;
+        const normalizedItems = (data.content ?? [])
+          .map((task) => mapTaskToAsset(task))
+          .filter((item): item is VideoGeneratorAsset => Boolean(item));
+
+        setRemoteFeed((prev) => {
+          if (reset) {
+            return normalizedItems;
+          }
+          const existingIds = new Set(prev.map((entry) => entry.id));
+          const appended = normalizedItems.filter(
+            (entry) => !existingIds.has(entry.id)
+          );
+          return [...prev, ...appended];
+        });
+
+        const nextCursor = data.nextCursor ?? null;
+        const more = Boolean(data.hasMore) && Boolean(nextCursor);
+        nextCursorRef.current = nextCursor;
+        hasMoreRef.current = more;
+        setHasMore(more);
+
+        if (!normalizedItems.length && !more) {
+          setFeedNotice({
+            message: 'No renders yet. Start by generating your first video.',
+          });
+        }
+      } catch (error) {
+        const message =
+          error instanceof Error ? error.message : 'Failed to load your feed.';
+        console.error('加载媒体 Feed 失败:', error);
+        setFeedNotice({
+          message,
+          allowRetry: true,
+        });
+        nextCursorRef.current = null;
+        hasMoreRef.current = false;
+        setHasMore(false);
+      } finally {
+        isFetchingRef.current = false;
+        setIsFetching(false);
+      }
+    },
+    [isLoggedIn]
   );
 
   useEffect(() => {
-    setVisibleCount(Math.min(2, feedLength || 1));
-  }, [feedLength]);
+    if (isLoggedIn) {
+      setFeedNotice(null);
+      setRemoteFeed([]);
+      nextCursorRef.current = null;
+      hasMoreRef.current = true;
+      setHasMore(true);
+      void loadFeed({ reset: true });
+    } else {
+      setRemoteFeed([]);
+      setFeedNotice(null);
+      nextCursorRef.current = null;
+      hasMoreRef.current = true;
+      setHasMore(true);
+    }
+  }, [isLoggedIn, loadFeed]);
 
   useEffect(() => {
     const container = scrollRef.current;
@@ -59,9 +200,13 @@ export function VideoGeneratorPreviewPanel({
       window.requestAnimationFrame(() => {
         const { scrollTop, clientHeight, scrollHeight } = container;
         if (scrollTop + clientHeight >= scrollHeight - 240) {
-          setVisibleCount((prev) =>
-            prev >= feedLength ? prev : prev + 1
-          );
+          if (usingRemoteFeed) {
+            void loadFeed();
+          } else {
+            setVisibleCount((prev) =>
+              prev >= fallbackLength ? prev : prev + 1
+            );
+          }
         }
         ticking = false;
       });
@@ -71,9 +216,11 @@ export function VideoGeneratorPreviewPanel({
     return () => {
       container.removeEventListener('scroll', handleScroll);
     };
-  }, [feedLength]);
+  }, [fallbackLength, loadFeed, usingRemoteFeed]);
 
-  const visibleItems = feedItems.slice(0, visibleCount);
+  const visibleItems = usingRemoteFeed
+    ? remoteFeed
+    : fallbackFeed.slice(0, visibleCount);
 
   return (
     <section className="flex flex-1 flex-col bg-gradient-to-br from-[#050505] via-[#050505] to-[#0c0c0c] text-white">
@@ -110,15 +257,51 @@ export function VideoGeneratorPreviewPanel({
           </div>
         )}
 
-        {visibleItems.map((item) => (
+        {!isLoggedIn && (
+          <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/80">
+            <div className="h-2 w-2 rounded-full bg-[#64ff6a]" />
+            Sign in to view your recent renders. Showing demo feed.
+          </div>
+        )}
+
+        {feedNotice && (
+          <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/80">
+            <div className="h-2 w-2 rounded-full bg-[#64ff6a]" />
+            <span>{feedNotice.message}</span>
+            {feedNotice.allowRetry && (
+              <button
+                className="rounded-full border border-white/40 px-3 py-1 text-white"
+                onClick={() => loadFeed({ reset: true })}
+              >
+                Try again
+              </button>
+            )}
+          </div>
+        )}
+
+        {visibleItems.map((item, index) => (
           <VideoPreviewCard
             key={item.id}
             asset={item}
-            isActive={item.id === asset.id}
+            isActive={usingRemoteFeed ? index === 0 : item.id === asset.id}
           />
         ))}
 
-        {visibleCount < feedLength ? (
+        {usingRemoteFeed ? (
+          <>
+            {isFetching && (
+              <div className="flex items-center justify-center gap-2 py-8 text-xs text-white/60">
+                <div className="h-2 w-2 animate-pulse rounded-full bg-[#64ff6a]" />
+                Loading your feed...
+              </div>
+            )}
+            {!hasMore && remoteFeed.length > 0 && (
+              <div className="py-8 text-center text-xs text-white/40">
+                You reached the end of this feed.
+              </div>
+            )}
+          </>
+        ) : visibleCount < fallbackLength ? (
           <div className="flex items-center justify-center gap-2 py-8 text-xs uppercase tracking-[0.2em] text-white/40">
             <div className="h-2 w-2 animate-pulse rounded-full bg-[#64ff6a]" />
             Keep scrolling to load more videos
@@ -170,9 +353,7 @@ function VideoPreviewCard({
         <p className="text-2xl font-semibold tracking-tight text-white">
           {asset.title}
         </p>
-        <p className="text-sm text-white/60">
-          {asset.tags.join(' · ')}
-        </p>
+        <p className="text-sm text-white/60">{asset.tags.join(' · ')}</p>
         <div className="flex flex-wrap gap-2 text-xs">
           {asset.tags.map((tag) => (
             <span
@@ -187,14 +368,95 @@ function VideoPreviewCard({
       <div className="bg-black">
         <video
           key={asset.id}
-          src={asset.src}
+          src={asset.src || DEFAULT_VIDEO_SRC}
           controls
           loop
           playsInline
-          poster={asset.poster}
+          poster={asset.poster ?? DEFAULT_POSTER}
           className="aspect-video w-full bg-black object-cover"
         />
       </div>
     </article>
   );
+}
+
+function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
+  if (!task.uuid && !task.taskId) {
+    return null;
+  }
+
+  const parsed = parseParameters(task.parameters);
+  const prompt = typeof parsed?.prompt === 'string' ? parsed.prompt : undefined;
+  const seconds =
+    typeof parsed?.seconds === 'number' && parsed.seconds > 0
+      ? `${parsed.seconds}s`
+      : '—';
+  const resolution =
+    typeof parsed?.size === 'string' && parsed.size.length > 0
+      ? parsed.size
+      : '—';
+
+  const tags = buildTags(task, parsed);
+
+  return {
+    id: task.uuid ?? task.taskId ?? crypto.randomUUID(),
+    title: prompt ?? `Task ${task.taskId ?? task.uuid}`,
+    duration: seconds,
+    resolution,
+    src: task.onlineUrl ?? task.downloadUrl ?? DEFAULT_VIDEO_SRC,
+    poster: task.onlineUrl ? undefined : DEFAULT_POSTER,
+    tags,
+    status: task.status,
+    createdAt: task.createdAt,
+    errorMessage: task.errorMessage,
+  };
+}
+
+function parseParameters(parameters?: string | null) {
+  if (!parameters) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(parameters) as {
+      prompt?: string;
+      size?: string;
+      seconds?: number;
+      model?: string;
+    };
+  } catch (error) {
+    console.warn('解析视频参数失败:', error);
+    return null;
+  }
+}
+
+function buildTags(
+  task: MediaFeedItem,
+  parsed: ReturnType<typeof parseParameters>
+) {
+  const tags = [
+    formatLabel(task.mediaType ?? 'Video'),
+    task.modelName,
+    parsed?.size,
+    formatLabel(task.status),
+  ].filter(Boolean) as string[];
+
+  if (!tags.length) {
+    return ['AI Video'];
+  }
+
+  return Array.from(new Set(tags));
+}
+
+function formatLabel(label?: string | null) {
+  if (!label) {
+    return undefined;
+  }
+
+  return label
+    .toLowerCase()
+    .split(/[_\s]+/)
+    .filter(Boolean)
+    .map((chunk) => chunk.charAt(0).toUpperCase() + chunk.slice(1))
+    .join(' ');
 }

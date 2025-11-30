@@ -11,13 +11,13 @@ import PricingSection from '@/components/blocks/pricing/pricing';
 import StatsSection from '@/components/blocks/stats/stats';
 import TestimonialsSection from '@/components/blocks/testimonials/testimonials';
 import CrispChat from '@/components/layout/crisp-chat';
-import { NewsletterCard } from '@/components/newsletter/newsletter-card';
 import { VideoGeneratorSection } from '@/components/marketing/video-generator-section';
+import { VideoGeneratorWorkspace } from '@/components/marketing/video-generator/workspace';
+import { NewsletterCard } from '@/components/newsletter/newsletter-card';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
-import { VideoGeneratorWorkspace } from '@/components/marketing/video-generator/workspace';
 
 /**
  * https://next-intl.dev/docs/environments/actions-metadata-route-handlers#metadata-api

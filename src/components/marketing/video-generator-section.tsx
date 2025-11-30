@@ -20,7 +20,6 @@ export function VideoGeneratorSection({
 }: VideoGeneratorSectionProps) {
   const content = (
     <div className="space-y-10">
-
       <div className="grid gap-6 lg:grid-cols-[minmax(320px,380px)_1fr]">
         <Card className="border-zinc-800/60 bg-muted/30 backdrop-blur">
           <CardHeader>
@@ -125,9 +124,7 @@ export function VideoGeneratorSection({
 
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="space-y-1 text-sm">
-                <p className="font-medium text-foreground">
-                  Frame annotations
-                </p>
+                <p className="font-medium text-foreground">Frame annotations</p>
                 <p className="text-muted-foreground">
                   Log notes, feedback, or sync comments per output.
                 </p>

@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { ChevronDown, Loader2, RefreshCw } from 'lucide-react';
+import { useState } from 'react';
 import type { VideoGeneratorHistory } from './types';
 
 type EditorPanelProps = {
@@ -22,12 +22,14 @@ type TabConfig = {
 const tabConfigs: Record<GeneratorTab, TabConfig> = {
   'Text to Video': {
     promptLabel: 'Prompt',
-    promptPlaceholder: 'Describe the cinematic scene, camera moves, and mood you want to create.',
+    promptPlaceholder:
+      'Describe the cinematic scene, camera moves, and mood you want to create.',
     quickSettings: ['Professional', '7s', '1 Output'],
   },
   'Image to Video': {
     promptLabel: 'Prompt',
-    promptPlaceholder: 'Explain how the uploaded image should evolve, animate, or transform.',
+    promptPlaceholder:
+      'Explain how the uploaded image should evolve, animate, or transform.',
     quickSettings: ['Professional', '7s', '1 Output'],
   },
 };
@@ -104,7 +106,6 @@ export function VideoGeneratorEditorPanel({
         />
 
         <div className="flex flex-1 flex-col gap-4">
-
           <div className="mt-auto space-y-3">
             <QuickSettingsBar options={activeConfig.quickSettings} />
 
