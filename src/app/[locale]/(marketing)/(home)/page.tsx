@@ -17,6 +17,7 @@ import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
+import { VideoGeneratorWorkspace } from '@/components/marketing/video-generator/workspace';
 
 /**
  * https://next-intl.dev/docs/environments/actions-metadata-route-handlers#metadata-api
@@ -51,8 +52,9 @@ export default async function HomePage(props: HomePageProps) {
       <div className="flex flex-col">
         <HeroSection />
 
-        <VideoGeneratorSection locale={locale} fullWidth={false} />
-
+        <div className="mx-auto w-full max-w-7xl px-6">
+          <VideoGeneratorWorkspace className="h-full w-full" />
+        </div>
 
         <LogoCloud />
 
