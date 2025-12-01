@@ -7,12 +7,14 @@ import { demoVideoAssets } from './data';
 import type {
   MediaFeedItem,
   MediaFeedResponse,
+  VideoGenerationState,
   VideoGeneratorAsset,
 } from './types';
 
 type PreviewPanelProps = {
   asset: VideoGeneratorAsset;
   loading: boolean;
+  activeGeneration?: VideoGenerationState | null;
 };
 
 const DEFAULT_VIDEO_SRC = demoVideoAssets[0]?.src ?? '';
@@ -22,6 +24,7 @@ const FEED_LIMIT = 6;
 export function VideoGeneratorPreviewPanel({
   asset,
   loading,
+  activeGeneration,
 }: PreviewPanelProps) {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const nextCursorRef = useRef<string | null>(null);
@@ -257,6 +260,10 @@ export function VideoGeneratorPreviewPanel({
           </div>
         )}
 
+        {activeGeneration ? (
+          <GenerationStatusCard generation={activeGeneration} />
+        ) : null}
+
         {!isLoggedIn && (
           <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/80">
             <div className="h-2 w-2 rounded-full bg-[#64ff6a]" />
@@ -313,6 +320,94 @@ export function VideoGeneratorPreviewPanel({
         )}
       </div>
     </section>
+  );
+}
+
+function GenerationStatusCard({
+  generation,
+}: {
+  generation: VideoGenerationState;
+}) {
+  const status = generation.status;
+  const formattedStatus = formatLabel(status);
+  const isRunning = status === 'pending' || status === 'processing';
+  const isSuccess = status === 'completed';
+  const isError = status === 'failed' || status === 'timeout';
+  const rawProgress = typeof generation.progress === 'number'
+    ? generation.progress
+    : null;
+  const progressWidth = Math.min(100, Math.max(8, rawProgress ?? 24));
+  const videoSrc = generation.onlineUrl ?? generation.downloadUrl ?? '';
+  const showVideo = isSuccess && videoSrc.length > 0;
+  const statusDetail =
+    generation.statusDescription ??
+    (isRunning ? 'Waiting for the model to finish...' : '');
+  const errorMessage =
+    generation.errorMessage ??
+    (status === 'timeout'
+      ? 'The request timed out. Please try again.'
+      : 'Generation failed. Please try again.');
+
+  return (
+    <article className="rounded-[32px] border border-white/10 bg-white/5 p-5">
+      <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-white/50">
+        <span>Live generation</span>
+        <span
+          className={
+            isSuccess
+              ? 'text-[#64ff6a]'
+              : isError
+                ? 'text-rose-300'
+                : 'text-white'
+          }
+        >
+          {formattedStatus}
+        </span>
+      </div>
+      <p className="mt-4 text-lg font-semibold leading-tight text-white">
+        {generation.prompt}
+      </p>
+
+      {isRunning ? (
+        <div className="mt-5 space-y-3">
+          <div className="flex items-center justify-between text-xs text-white/60">
+            <span>{statusDetail}</span>
+            {rawProgress !== null ? (
+              <span className="text-white">{Math.round(rawProgress)}%</span>
+            ) : null}
+          </div>
+          <div className="h-2 rounded-full bg-white/10">
+            <div
+              className="h-2 rounded-full bg-[#64ff6a]"
+              style={{ width: `${progressWidth}%` }}
+            />
+          </div>
+        </div>
+      ) : isSuccess ? (
+        showVideo ? (
+          <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-black">
+            <video
+              key={generation.taskId}
+              src={videoSrc}
+              controls
+              autoPlay
+              loop
+              playsInline
+              poster={generation.onlineUrl ? undefined : DEFAULT_POSTER}
+              className="aspect-video w-full object-cover"
+            />
+          </div>
+        ) : (
+          <div className="mt-5 rounded-2xl border border-white/10 bg-black/40 p-4 text-sm text-white/70">
+            Video is ready, but the URL is missing. Check the media feed for the final clip.
+          </div>
+        )
+      ) : (
+        <div className="mt-5 rounded-2xl border border-rose-500/40 bg-rose-500/10 p-4 text-sm text-rose-100">
+          {errorMessage}
+        </div>
+      )}
+    </article>
   );
 }
 

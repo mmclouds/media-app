@@ -12,3 +12,10 @@
 - 前端在 `VideoGeneratorPreviewPanel` 中使用 `useCurrentUser` 判断是否登录，已登录时触发 `loadFeed({ reset: true })`，并用 `nextCursorRef`/`hasMoreRef` 管理游标翻页。
 - 滚动监听沿用原懒加载逻辑：远端 Feed 时调用 `loadFeed()` 自动拉下一批；未登录或接口失败则继续展示 demo 列表，通过 banner 告知“Sign in / Try again”。
 - `mapTaskToAsset` 会解析接口的 `parameters` 字段，将 prompt/size/seconds 转成 UI 所需的 `title`、`resolution`、`duration`，并在缺少视频 URL 时降级到本地 demo 视频，保证播放器始终可播。
+
+# Video Generation Trigger & Polling
+- 新增 `/api/media/generate` 与 `/api/media/result/[taskId]` 两个 API Route，通过 Better Auth session 注入 `userId`，并统一使用 `AI_GATEWAY_URL` + `AI_GATEWAY_API_KEY` 代理后台的 `/api/v1/media/generate` 与 `/api/v1/media/result/{taskId}`，前者校验 prompt、补齐默认 `model / seconds / size` 后原样透传 body，后者校验返回的 `success` 字段，只输出 `TaskResultDto`。
+- `VideoGeneratorWorkspace` 现在驱动真实生成：`handleGenerate` POST `/api/media/generate`，获得 `taskId` 后将状态保存到 `activeGeneration`，并以 `setInterval` 每 5s 调用 `/api/media/result/{taskId}` 更新 `status / progress / video URL`，终态（completed/failed/timeout）会自动停止轮询。
+- 因 AI 网关要求 query 也带参数，前端会在请求 `/api/media/generate` 时附加 `mediaType` 与 `modelName`，API Route 也会优先读取 query，再回退 body/default，保证 curl/浏览器两种调用方式都能触发同一套配置。
+- 为避免 UI 卡死另起 `isSubmitting`，Button 禁用条件 = `isSubmitting || activeGeneration` 仍在运行；轮询阶段若 API 抛错，会把错误提示写进 `activeGeneration.errorMessage`，方便预览区展示。
+- Preview 区新增 “Live generation” 卡片（`GenerationStatusCard`）：pending/processing 时展示进度条与描述，completed 直接播放返回的 `onlineUrl/downloadUrl` 视频，failed/timeout 显示错误提示，满足“在右侧生成视频加载区域 + 成功即展示视频”的交互需求。

@@ -13,6 +13,30 @@ export type VideoGeneratorAsset = {
 
 export type VideoGeneratorHistory = string[];
 
+export type MediaTaskStatus =
+  | 'pending'
+  | 'processing'
+  | 'completed'
+  | 'failed'
+  | 'timeout';
+
+export type MediaTaskResult = {
+  taskId: string;
+  status: MediaTaskStatus;
+  statusDescription?: string | null;
+  onlineUrl?: string | null;
+  downloadUrl?: string | null;
+  providerName?: string | null;
+  createdAt?: string | null;
+  completedAt?: string | null;
+  errorMessage?: string | null;
+  progress?: number | null;
+};
+
+export type VideoGenerationState = MediaTaskResult & {
+  prompt: string;
+};
+
 export type MediaFeedItem = {
   uuid: string;
   taskId: string;

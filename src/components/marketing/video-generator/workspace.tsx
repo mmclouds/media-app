@@ -1,28 +1,221 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { demoVideoAssets } from './data';
 import { VideoGeneratorEditorPanel } from './editor-panel';
 import { VideoGeneratorPreviewPanel } from './preview-panel';
 import { VideoGeneratorSidebar } from './sidebar';
+import type {
+  MediaTaskResult,
+  MediaTaskStatus,
+  VideoGenerationState,
+} from './types';
+
+const DEFAULT_GENERATION_PARAMS = {
+  mediaType: 'VIDEO',
+  modelName: 'sora-2',
+  model: 'sora-2',
+  seconds: 4,
+  size: '1280x720',
+};
+
+const POLLING_INTERVAL_MS = 5000;
+const FINAL_STATUSES: MediaTaskStatus[] = ['completed', 'failed', 'timeout'];
+
+const clampProgress = (value: unknown): number | null => {
+  const numeric =
+    typeof value === 'number'
+      ? value
+      : typeof value === 'string'
+        ? Number(value)
+        : null;
+
+  if (numeric === null || !Number.isFinite(numeric)) {
+    return null;
+  }
+
+  return Math.min(100, Math.max(0, numeric));
+};
+
+const hasReachedTerminalState = (status?: MediaTaskStatus) =>
+  status ? FINAL_STATUSES.includes(status) : false;
 
 export function VideoGeneratorWorkspace({ className }: { className?: string }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isGenerating, setIsGenerating] = useState(false);
   const [history, setHistory] = useState<string[]>([]);
+  const [activeGeneration, setActiveGeneration] =
+    useState<VideoGenerationState | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const asset = demoVideoAssets[activeIndex % demoVideoAssets.length];
+  const asset = demoVideoAssets[0];
 
-  const handleGenerate = async (prompt: string) => {
-    setIsGenerating(true);
+  const isPollingActive = Boolean(
+    activeGeneration?.status && !hasReachedTerminalState(activeGeneration.status)
+  );
+  const isGenerating = isSubmitting || isPollingActive;
+
+  const handleGenerate = useCallback(async (rawPrompt: string) => {
+    const prompt = rawPrompt.trim();
+    if (!prompt) {
+      return;
+    }
+
+    setIsSubmitting(true);
     setHistory((prev) => {
       const next = [...prev, prompt];
       return next.slice(-5);
     });
-    await new Promise((resolve) => setTimeout(resolve, 1600));
-    setActiveIndex((prev) => (prev + 1) % demoVideoAssets.length);
-    setIsGenerating(false);
+
+    try {
+      const queryParams = new URLSearchParams();
+      if (DEFAULT_GENERATION_PARAMS.mediaType) {
+        queryParams.set('mediaType', DEFAULT_GENERATION_PARAMS.mediaType);
+      }
+      if (DEFAULT_GENERATION_PARAMS.modelName) {
+        queryParams.set('modelName', DEFAULT_GENERATION_PARAMS.modelName);
+      }
+
+      const queryString = queryParams.toString();
+      const endpoint = queryString
+        ? `/api/media/generate?${queryString}`
+        : '/api/media/generate';
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...DEFAULT_GENERATION_PARAMS,
+          prompt,
+        }),
+      });
+
+      const result = (await response.json().catch(() => null)) as
+        | { taskId?: string; error?: string; message?: string }
+        | null;
+
+      if (!response.ok || !result?.taskId) {
+        const errorMessage =
+          result?.error ?? result?.message ?? 'Failed to start generation.';
+        throw new Error(errorMessage);
+      }
+
+      setActiveGeneration({
+        taskId: result.taskId,
+        status: 'pending',
+        prompt,
+        progress: 0,
+      });
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'Failed to start generation.';
+      console.error('触发视频生成失败:', error);
+      setActiveGeneration({
+        taskId: `local-${Date.now()}`,
+        status: 'failed',
+        prompt,
+        progress: 0,
+        errorMessage: message,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const taskId = activeGeneration?.taskId;
+    const status = activeGeneration?.status;
+
+    if (!taskId || !status || hasReachedTerminalState(status)) {
+      return undefined;
+    }
+
+    let cancelled = false;
+
+    const pollTask = async () => {
+      try {
+        const response = await fetch(`/api/media/result/${taskId}`, {
+          method: 'GET',
+          cache: 'no-store',
+        });
+
+        const payload = (await response.json().catch(() => null)) as
+          | MediaTaskResult
+          | { error?: string }
+          | null;
+
+        if (cancelled) {
+          return;
+        }
+
+        if (
+          !response.ok ||
+          !payload ||
+          typeof payload !== 'object' ||
+          Array.isArray(payload) ||
+          !('taskId' in payload)
+        ) {
+          const message =
+            (payload as { error?: string })?.error ??
+            'Unable to fetch generation task.';
+          throw new Error(message);
+        }
+
+        const data = payload as MediaTaskResult;
+
+        setActiveGeneration((prev) => {
+          if (!prev || prev.taskId !== taskId) {
+            return prev;
+          }
+
+          return {
+            ...prev,
+            ...data,
+            progress:
+              data.progress !== undefined
+                ? clampProgress(data.progress)
+                : prev.progress ?? null,
+          } satisfies VideoGenerationState;
+        });
+      } catch (error) {
+        if (cancelled) {
+          return;
+        }
+        const message =
+          error instanceof Error
+            ? error.message
+            : 'Failed to poll generation task.';
+        console.error('轮询媒体任务失败:', error);
+        setActiveGeneration((prev) =>
+          prev && prev.taskId === taskId
+            ? {
+                ...prev,
+                errorMessage: message,
+              }
+            : prev
+        );
+      }
+    };
+
+    void pollTask();
+    const intervalId = setInterval(pollTask, POLLING_INTERVAL_MS);
+
+    return () => {
+      cancelled = true;
+      clearInterval(intervalId);
+    };
+  }, [activeGeneration?.status, activeGeneration?.taskId]);
+
+  const currentAsset = asset ?? {
+    id: 'demo-video',
+    title: 'AI Video',
+    duration: '5s',
+    resolution: '720p',
+    src: '',
+    tags: ['AI Video'],
   };
 
   return (
@@ -38,7 +231,11 @@ export function VideoGeneratorWorkspace({ className }: { className?: string }) {
         isGenerating={isGenerating}
         prompts={history}
       />
-      <VideoGeneratorPreviewPanel asset={asset} loading={isGenerating} />
+      <VideoGeneratorPreviewPanel
+        asset={currentAsset}
+        loading={isGenerating}
+        activeGeneration={activeGeneration}
+      />
     </div>
   );
 }
