@@ -1,6 +1,7 @@
 'use client';
 
 import { useCurrentUser } from '@/hooks/use-current-user';
+import { useVideoPoster } from '@/hooks/use-video-poster';
 import { FolderOpen } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { demoVideoAssets } from './data';
@@ -430,6 +431,20 @@ function VideoPreviewCard({
   asset: VideoGeneratorAsset;
   isActive?: boolean;
 }) {
+  const shouldCapturePoster = !asset.poster && Boolean(asset.src);
+  const { poster: capturedPoster, error: posterError } = useVideoPoster(
+    shouldCapturePoster ? asset.src : undefined,
+    { auto: shouldCapturePoster, frameTime: 0.15 }
+  );
+
+  useEffect(() => {
+    if (posterError) {
+      console.warn('生成视频封面失败:', posterError);
+    }
+  }, [asset.id, posterError]);
+
+  const resolvedPoster = asset.poster ?? capturedPoster ?? DEFAULT_POSTER;
+
   return (
     <article className="overflow-hidden rounded-[32px] border border-white/5 bg-gradient-to-b from-white/[0.04] to-black/70 shadow-2xl shadow-black/40">
       <div className="space-y-3 border-b border-white/5 px-6 py-5">
@@ -467,7 +482,7 @@ function VideoPreviewCard({
           controls
           loop
           playsInline
-          poster={asset.poster ?? DEFAULT_POSTER}
+          poster={resolvedPoster}
           className="aspect-video w-full bg-black object-cover"
         />
       </div>

@@ -19,3 +19,10 @@
 - 因 AI 网关要求 query 也带参数，前端会在请求 `/api/media/generate` 时附加 `mediaType` 与 `modelName`，API Route 也会优先读取 query，再回退 body/default，保证 curl/浏览器两种调用方式都能触发同一套配置。
 - 为避免 UI 卡死另起 `isSubmitting`，Button 禁用条件 = `isSubmitting || activeGeneration` 仍在运行；轮询阶段若 API 抛错，会把错误提示写进 `activeGeneration.errorMessage`，方便预览区展示。
 - Preview 区新增 “Live generation” 卡片（`GenerationStatusCard`）：pending/processing 时展示进度条与描述，completed 直接播放返回的 `onlineUrl/downloadUrl` 视频，failed/timeout 显示错误提示，满足“在右侧生成视频加载区域 + 成功即展示视频”的交互需求。
+
+# Video Poster Capture
+- 浏览器允许前端用 `<video>` + `<canvas>` 抓取任意帧：先创建隐藏的 `video` 元素，`preload="metadata"` 并 `crossOrigin="anonymous"`，待 `loadeddata` 事件触发后把 `video.currentTime` 设置为想截取的秒数，再在 `seeked` 事件里用 `canvas.drawImage(video, 0, 0)` 把该帧绘制到画布。
+- 把 `canvas.toDataURL('image/png')` 得到的 Base64 字符串缓存到 state，即可在 `<video poster={thumb} />` 或 `<Image src={thumb} />` 中复用；注意远端视频必须正确返回 `Access-Control-Allow-Origin`，否则 Canvas 会被标记为 tainted，无法导出数据。
+- 在 React 中通常使用 `useRef` 保存 video/canvas 元素，`useEffect` 里挂载事件并触发 `video.load()`，最后在 `return () => {}` 中清理事件监听，避免内存泄漏。
+- 封装成工具：`src/lib/video-poster.ts` 暴露 `captureVideoPoster(url, { frameTime, crossOrigin, timeoutMs })`，只能在浏览器端调用；`src/hooks/use-video-poster.ts` 基于该工具提供 `poster/loading/error/capture/reset`，默认自动截取第一帧，可直接在客户端组件里消费。
+- 预览面板 `VideoPreviewCard` 会在 `asset.poster` 缺失时自动用 `useVideoPoster(asset.src)` 捕获第一帧，得到的 Base64 会回填到 `<video poster>`，这样远端 Feed / demo 视频都能显示专属封面。
