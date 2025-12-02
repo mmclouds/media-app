@@ -47,7 +47,7 @@ export async function captureVideoPoster(
       fn();
     };
 
-    const handleError = (event?: Event | string | null) => {
+    const handleError = (event?: Event | string | Error | null) => {
       settle(() => {
         const payload =
           event instanceof Event && video.error
