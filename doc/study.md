@@ -26,3 +26,7 @@
 - 在 React 中通常使用 `useRef` 保存 video/canvas 元素，`useEffect` 里挂载事件并触发 `video.load()`，最后在 `return () => {}` 中清理事件监听，避免内存泄漏。
 - 封装成工具：`src/lib/video-poster.ts` 暴露 `captureVideoPoster(url, { frameTime, crossOrigin, timeoutMs })`，只能在浏览器端调用；`src/hooks/use-video-poster.ts` 基于该工具提供 `poster/loading/error/capture/reset`，默认自动截取第一帧，可直接在客户端组件里消费。
 - 预览面板 `VideoPreviewCard` 会在 `asset.poster` 缺失时自动用 `useVideoPoster(asset.src)` 捕获第一帧，得到的 Base64 会回填到 `<video poster>`，这样远端 Feed / demo 视频都能显示专属封面。
+
+# Hover Playback
+- 为了“移入自动播放、移出自动暂停”，可以定义 `useHoverPlayback` 自定义 hook：内部用 `useRef<HTMLVideoElement>` 绑定到 `<video>`，在 `onMouseEnter` 时调用 `video.play()`，`onMouseLeave` 时执行 `video.pause()`，必要时可将 `resetOnLeave` 设为 `true` 在离开后重置时间轴。
+- `GenerationStatusCard` 与 `VideoPreviewCard` 均通过该 hook 绑定事件，把事件处理器挂到包裹视频的容器上，这样整个视频区域都能触发播放/暂停，同时 `play()` 返回 Promise 时用 `.catch` 捕获潜在错误（例如浏览器阻止自动播放），避免报错打断交互。

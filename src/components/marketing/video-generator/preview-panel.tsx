@@ -329,6 +329,11 @@ function GenerationStatusCard({
 }: {
   generation: VideoGenerationState;
 }) {
+  const {
+    videoRef,
+    handleMouseEnter,
+    handleMouseLeave,
+  } = useHoverPlayback();
   const status = generation.status;
   const formattedStatus = formatLabel(status);
   const isRunning = status === 'pending' || status === 'processing';
@@ -386,12 +391,16 @@ function GenerationStatusCard({
         </div>
       ) : isSuccess ? (
         showVideo ? (
-          <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-black">
+          <div
+            className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-black"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
             <video
+              ref={videoRef}
               key={generation.taskId}
               src={videoSrc}
               controls
-              autoPlay
               loop
               playsInline
               poster={generation.onlineUrl ? undefined : DEFAULT_POSTER}
@@ -431,6 +440,11 @@ function VideoPreviewCard({
   asset: VideoGeneratorAsset;
   isActive?: boolean;
 }) {
+  const {
+    videoRef,
+    handleMouseEnter,
+    handleMouseLeave,
+  } = useHoverPlayback();
   const shouldCapturePoster = !asset.poster && Boolean(asset.src);
   const { poster: capturedPoster, error: posterError } = useVideoPoster(
     shouldCapturePoster ? asset.src : undefined,
@@ -475,8 +489,13 @@ function VideoPreviewCard({
           ))}
         </div>
       </div>
-      <div className="bg-black">
+      <div
+        className="bg-black"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <video
+          ref={videoRef}
           key={asset.id}
           src={asset.src || DEFAULT_VIDEO_SRC}
           controls
@@ -569,4 +588,38 @@ function formatLabel(label?: string | null) {
     .filter(Boolean)
     .map((chunk) => chunk.charAt(0).toUpperCase() + chunk.slice(1))
     .join(' ');
+}
+
+function useHoverPlayback({ resetOnLeave = false }: { resetOnLeave?: boolean } = {}) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const handleMouseEnter = useCallback(() => {
+    const instance = videoRef.current;
+    if (!instance) {
+      return;
+    }
+    const playPromise = instance.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch((error) => {
+        console.warn('视频悬停播放失败:', error);
+      });
+    }
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    const instance = videoRef.current;
+    if (!instance) {
+      return;
+    }
+    instance.pause();
+    if (resetOnLeave) {
+      instance.currentTime = 0;
+    }
+  }, [resetOnLeave]);
+
+  return {
+    videoRef,
+    handleMouseEnter,
+    handleMouseLeave,
+  };
 }
