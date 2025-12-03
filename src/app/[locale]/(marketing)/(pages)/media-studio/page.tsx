@@ -13,15 +13,15 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'Metadata' });
 
   return constructMetadata({
-    title: 'Video Generator | ' + t('title'),
+    title: 'Media Studio | ' + t('title'),
     description:
-      'Experience a cinematic AI video workflow with text-to-video, image-to-video, and multi-element editing.',
+      'Create immersive AI media with unified workflows for video, image, and audio generation plus multi-track editing.',
     locale,
-    pathname: '/video-generator',
+    pathname: '/media-studio',
   });
 }
 
-export default async function VideoGeneratorPage() {
+export default async function MediaStudioPage() {
   return (
     <main className="h-screen w-full overflow-hidden bg-[#020202] text-white">
       <VideoGeneratorWorkspace className="h-full w-full" />

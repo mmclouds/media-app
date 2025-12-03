@@ -2,7 +2,7 @@
 
 ## 2025-11-27
 - 新增 Kling Demo 风格的营销组件（Sidebar、EditorPanel、PreviewPanel、Workspace），实现可循环示例视频与提示历史交互。
-- 更新 `src/app/[locale]/(marketing)/(pages)/video-generator/page.tsx`，使用新的工作台组件并加入页面文案结构。
+- 更新 `src/app/[locale]/(marketing)/(pages)/media-studio/page.tsx`，使用新的工作台组件并加入页面文案结构。
 - 调整视频生成页面布局，采用全屏铺满与 Flex 布局，让工作台占据剩余视窗高度。
 
 ## 2025-11-28
@@ -18,5 +18,5 @@
 - Prompt 文本区域默认使用更明显的边框高亮（`border-white/30`），聚焦状态进一步增强，提升输入引导性。
 
 ## 2025-11-29
-- 修复 `video-generator` 页面 `generateMetadata` 中 `constructMetadata` 的参数类型错误，改用 `locale` 与 `pathname` 生成 canonical 链接，解决 `canonicalUrl` 未被识别导致的构建失败。
+- 修复 `media-studio` 页面 `generateMetadata` 中 `constructMetadata` 的参数类型错误，改用 `locale` 与 `pathname` 生成 canonical 链接，解决 `canonicalUrl` 未被识别导致的构建失败。
 - 重新排版 `AGENTS.md`，采用分节要点与更新后的 metadata 示例，提升可读性并避免示例代码类型冲突。

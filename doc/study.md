@@ -1,6 +1,6 @@
 # 布局对齐：VideoGeneratorWorkspace
 - 首页 `HeroSection` 使用 `mx-auto max-w-7xl px-6` 宽度容器；为了让 `VideoGeneratorWorkspace` 视觉宽度与 header 一致，需要在首页使用同样的容器包裹组件，再让内部继续 `w-full` 以占满容器。
-- 在独立的 Video Generator 页面中，仍然把 `VideoGeneratorWorkspace` 直接放在 `w-full` 的 `main` 内，保证它占满全屏，方便展示全宽体验。
+- 在独立的 Media Studio 页面中，仍然把 `VideoGeneratorWorkspace` 直接放在 `w-full` 的 `main` 内，保证它占满全屏，方便展示全宽体验。
 
 # Preview Panel 流式预览
 - Preview 区域直接渲染视频流：用 `useMemo` 组装当前 asset + demo 列表，再复制几遍制造可滚动的 feed。
@@ -31,3 +31,9 @@
 - 为了“移入自动播放、移出自动暂停”，可以定义 `useHoverPlayback` 自定义 hook：内部用 `useRef<HTMLVideoElement>` 绑定到 `<video>`，在 `onMouseEnter` 时调用 `video.play()`，`onMouseLeave` 时执行 `video.pause()`，必要时可将 `resetOnLeave` 设为 `true` 在离开后重置时间轴。
 - `GenerationStatusCard` 与 `VideoPreviewCard` 均通过该 hook 绑定事件，把事件处理器挂到包裹视频的容器上，这样整个视频区域都能触发播放/暂停，同时 `play()` 返回 Promise 时用 `.catch` 捕获潜在错误（例如浏览器阻止自动播放），避免报错打断交互。
 - 为了处理“鼠标进入时视频尚未加载完成”的场景，hook 使用 `isHoveringRef` 记录当前 hover 状态，并把 `handleMediaReady` 绑定到 `<video onLoadedData>`，只要首帧准备好且仍在 hover，就再调用 `play()`，这样无需额外点击即可恢复自动播放。
+
+# Media Studio 页面定位
+- `src/app/[locale]/(marketing)/(pages)/media-studio/page.tsx` 依旧导出 `generateMetadata`，但把 `title` 与 `description` 更新为 “Media Studio” 语境，用一句话说明页面会同时承载视频/图片/音频等生成工作流。
+- Next.js 的 `constructMetadata` 会自动合并 locale、pathname 等字段，所以只要替换标题/描述即可完成 SEO 文案切换，SSR 渲染与 edge runtime 不需额外配置。
+- 默认导出的组件更名为 `MediaStudioPage`，虽然名称不会影响路由，但有助于在 React DevTools 中一眼识别该页面已经延展为统一的多媒体生成入口。
+- 将路由文件夹从 `video-generator` 重命名为 `media-studio`，同时把 `constructMetadata` 的 `pathname` 改为 `/media-studio`，这样 URL slug 与新定位保持一致，`MarketingLayout` 里按路径隐藏 footer 的逻辑也随之更新。
