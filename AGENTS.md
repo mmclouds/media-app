@@ -55,27 +55,27 @@
 # 项目摘要
 - 本项目聚焦 AI 视频生成（图生视频、文生视频），需保持 SEO 友好。
 
-# Media Generator 页面设计
+# Media Studio 页面设计
 
 ## 三大模块的职责
-1. **Menu (`MediaGeneratorMenu`)**
+1. **Menu (`MediaStudioMenu`)**
    - 只负责媒体类型（视频/音频/图片等）选择。
    - 通过 `onMediaTypeChange(mediaType)` 通知父级，自己不处理生成逻辑。
-   - 仅存在于 `media-generator` 主页面，类似 `video-generator` 的子页可不渲染此组件。
+   - 仅存在于 `media-studio` 主页面，类似 `video-studio` 的子页可不渲染此组件。
 
-2. **Config (`MediaGeneratorConfigPanel`)**
+2. **Config (`MediaStudioConfigPanel`)**
    - 收到当前媒体类型、可用模型列表、默认模型后展示模型选项与配置表单。
    - 根据所选模型渲染对应的模型子组件，统一收集配置数据并在父级维护状态。
    - 暴露 `onConfigChange(model, config)` 与 `onModelChange(model)` 等回调配合父级状态同步。
 
-3. **Result (`MediaGeneratorResultPane`)**
+3. **Result (`MediaStudioResultPane`)**
    - 负责 loading / 成功 / 失败状态展示，适配图片、音频、视频的不同预览 UI。
    - 可扩展生成历史、重试、下载等能力，但与菜单、配置完全解耦，只依赖父级传入的结果数据。
 
 ## 模型级配置组件
 - 每个模型独立一个表单组件（如 `SoraConfigForm`、`Veo3ConfigForm`、`AudioCraftConfigForm`）。
 - 组件内部包含字段、校验、默认值和说明文案，并在表单发生变化时回调 `onChange(config)`。
-- `MediaGeneratorConfigPanel` 负责将表单回调包裹成 `onConfigChange(model, config)` 传给父级，父级仅保存 `{ mediaType, model, config }` 三元组即可。
+- `MediaStudioConfigPanel` 负责将表单回调包裹成 `onConfigChange(model, config)` 传给父级，父级仅保存 `{ mediaType, model, config }` 三元组即可。
 - 当切换模型时，面板根据 `model` 动态切换对应的配置组件，实现“模型与配置逻辑绑定”的低耦合结构。
 
 ## 通用生成按钮
@@ -88,8 +88,8 @@
 - 所有页面（主页面或子页）共享同一按钮逻辑，保证行为一致。
 
 ## 页面组合方式
-- **`media-generator` 主页面**：`Menu` + `ConfigPanel` + `ResultPane` 并列布局，父级状态维护媒体类型、模型和生成结果。菜单变更时重置配置；配置面板内部引用模型表单与 `GenerateButton`。
-- **`video-generator` 等子页**：直接复用 `ConfigPanel` 与 `ResultPane`，由页面层在 props 中固定媒体类型为 `video`，同时传入允许的模型集合（如 `['sora', 'veo3']`）。这样即可只展示视频用配置与结果，且按钮逻辑无需重复实现。
+- **`media-Studio` 主页面**：`Menu` + `ConfigPanel` + `ResultPane` 并列布局，父级状态维护媒体类型、模型和生成结果。菜单变更时重置配置；配置面板内部引用模型表单与 `GenerateButton`。
+- **`video-Studio` 等子页**：直接复用 `ConfigPanel` 与 `ResultPane`，由页面层在 props 中固定媒体类型为 `video`，同时传入允许的模型集合（如 `['sora', 'veo3']`）。这样即可只展示视频用配置与结果，且按钮逻辑无需重复实现。
 
 ## 交互流程
 1. 用户在菜单选择媒体类型 → 父级更新 `mediaType` 并通知配置面板。
