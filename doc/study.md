@@ -30,3 +30,4 @@
 # Hover Playback
 - 为了“移入自动播放、移出自动暂停”，可以定义 `useHoverPlayback` 自定义 hook：内部用 `useRef<HTMLVideoElement>` 绑定到 `<video>`，在 `onMouseEnter` 时调用 `video.play()`，`onMouseLeave` 时执行 `video.pause()`，必要时可将 `resetOnLeave` 设为 `true` 在离开后重置时间轴。
 - `GenerationStatusCard` 与 `VideoPreviewCard` 均通过该 hook 绑定事件，把事件处理器挂到包裹视频的容器上，这样整个视频区域都能触发播放/暂停，同时 `play()` 返回 Promise 时用 `.catch` 捕获潜在错误（例如浏览器阻止自动播放），避免报错打断交互。
+- 为了处理“鼠标进入时视频尚未加载完成”的场景，hook 使用 `isHoveringRef` 记录当前 hover 状态，并把 `handleMediaReady` 绑定到 `<video onLoadedData>`，只要首帧准备好且仍在 hover，就再调用 `play()`，这样无需额外点击即可恢复自动播放。

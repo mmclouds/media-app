@@ -333,6 +333,7 @@ function GenerationStatusCard({
     videoRef,
     handleMouseEnter,
     handleMouseLeave,
+    handleMediaReady,
   } = useHoverPlayback();
   const status = generation.status;
   const formattedStatus = formatLabel(status);
@@ -405,6 +406,7 @@ function GenerationStatusCard({
               playsInline
               poster={generation.onlineUrl ? undefined : DEFAULT_POSTER}
               className="aspect-video w-full object-cover"
+              onLoadedData={handleMediaReady}
             />
           </div>
         ) : (
@@ -444,6 +446,7 @@ function VideoPreviewCard({
     videoRef,
     handleMouseEnter,
     handleMouseLeave,
+    handleMediaReady,
   } = useHoverPlayback();
   const shouldCapturePoster = !asset.poster && Boolean(asset.src);
   const { poster: capturedPoster, error: posterError } = useVideoPoster(
@@ -503,6 +506,7 @@ function VideoPreviewCard({
           playsInline
           poster={resolvedPoster}
           className="aspect-video w-full bg-black object-cover"
+          onLoadedData={handleMediaReady}
         />
       </div>
     </article>
@@ -592,8 +596,9 @@ function formatLabel(label?: string | null) {
 
 function useHoverPlayback({ resetOnLeave = false }: { resetOnLeave?: boolean } = {}) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const isHoveringRef = useRef(false);
 
-  const handleMouseEnter = useCallback(() => {
+  const attemptPlay = useCallback(() => {
     const instance = videoRef.current;
     if (!instance) {
       return;
@@ -606,7 +611,13 @@ function useHoverPlayback({ resetOnLeave = false }: { resetOnLeave?: boolean } =
     }
   }, []);
 
+  const handleMouseEnter = useCallback(() => {
+    isHoveringRef.current = true;
+    attemptPlay();
+  }, [attemptPlay]);
+
   const handleMouseLeave = useCallback(() => {
+    isHoveringRef.current = false;
     const instance = videoRef.current;
     if (!instance) {
       return;
@@ -617,9 +628,16 @@ function useHoverPlayback({ resetOnLeave = false }: { resetOnLeave?: boolean } =
     }
   }, [resetOnLeave]);
 
+  const handleMediaReady = useCallback(() => {
+    if (isHoveringRef.current) {
+      attemptPlay();
+    }
+  }, [attemptPlay]);
+
   return {
     videoRef,
     handleMouseEnter,
     handleMouseLeave,
+    handleMediaReady,
   };
 }
