@@ -7,7 +7,7 @@ import type { ReactNode } from 'react';
 
 export default function MarketingLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const hideFooter = pathname?.includes('/video-generator');
+  const hideFooter = pathname?.includes('/media-generator');
 
   return (
     <div className="flex flex-col min-h-screen">
