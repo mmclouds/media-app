@@ -1,4 +1,4 @@
-export type VideoGeneratorAsset = {
+export type MediaGeneratorAsset = {
   id: string;
   title: string;
   duration: string;
@@ -11,7 +11,21 @@ export type VideoGeneratorAsset = {
   errorMessage?: string | null;
 };
 
-export type VideoGeneratorHistory = string[];
+export type MediaGeneratorHistory = string[];
+
+export type MediaModelPreset = {
+  id: string;
+  label: string;
+  mediaType: string;
+  modelName: string;
+  defaults: {
+    mediaType: string;
+    modelName: string;
+    model: string;
+    seconds: number;
+    size: string;
+  };
+};
 
 export type MediaTaskStatus =
   | 'pending'
@@ -33,7 +47,7 @@ export type MediaTaskResult = {
   progress?: number | null;
 };
 
-export type VideoGenerationState = MediaTaskResult & {
+export type MediaGenerationState = MediaTaskResult & {
   prompt: string;
 };
 

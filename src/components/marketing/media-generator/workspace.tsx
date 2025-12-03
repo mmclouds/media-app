@@ -2,23 +2,18 @@
 
 import { cn } from '@/lib/utils';
 import { useCallback, useEffect, useState } from 'react';
-import { demoVideoAssets } from './data';
-import { VideoGeneratorEditorPanel } from './editor-panel';
-import { VideoGeneratorPreviewPanel } from './preview-panel';
-import { VideoGeneratorSidebar } from './sidebar';
+import { demoMediaAssets, soraVideoPreset } from './data';
+import { MediaGeneratorEditorPanel } from './editor-panel';
+import { MediaGeneratorPreviewPanel } from './preview-panel';
+import { MediaGeneratorSidebar } from './sidebar';
 import type {
+  MediaGenerationState,
+  MediaGeneratorHistory,
   MediaTaskResult,
   MediaTaskStatus,
-  VideoGenerationState,
 } from './types';
 
-const DEFAULT_GENERATION_PARAMS = {
-  mediaType: 'VIDEO',
-  modelName: 'sora-2',
-  model: 'sora-2',
-  seconds: 4,
-  size: '1280x720',
-};
+const DEFAULT_GENERATION_PARAMS = soraVideoPreset.defaults;
 
 const POLLING_INTERVAL_MS = 5000;
 const FINAL_STATUSES: MediaTaskStatus[] = ['completed', 'failed', 'timeout'];
@@ -41,13 +36,13 @@ const clampProgress = (value: unknown): number | null => {
 const hasReachedTerminalState = (status?: MediaTaskStatus) =>
   status ? FINAL_STATUSES.includes(status) : false;
 
-export function VideoGeneratorWorkspace({ className }: { className?: string }) {
-  const [history, setHistory] = useState<string[]>([]);
+export function MediaGeneratorWorkspace({ className }: { className?: string }) {
+  const [history, setHistory] = useState<MediaGeneratorHistory>([]);
   const [activeGeneration, setActiveGeneration] =
-    useState<VideoGenerationState | null>(null);
+    useState<MediaGenerationState | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const asset = demoVideoAssets[0];
+  const asset = demoMediaAssets[0];
 
   const isPollingActive = Boolean(
     activeGeneration?.status && !hasReachedTerminalState(activeGeneration.status)
@@ -178,7 +173,7 @@ export function VideoGeneratorWorkspace({ className }: { className?: string }) {
               data.progress !== undefined
                 ? clampProgress(data.progress)
                 : prev.progress ?? null,
-          } satisfies VideoGenerationState;
+          } satisfies MediaGenerationState;
         });
       } catch (error) {
         if (cancelled) {
@@ -225,13 +220,14 @@ export function VideoGeneratorWorkspace({ className }: { className?: string }) {
         className
       )}
     >
-      <VideoGeneratorSidebar />
-      <VideoGeneratorEditorPanel
+      <MediaGeneratorSidebar />
+      <MediaGeneratorEditorPanel
         onGenerate={handleGenerate}
         isGenerating={isGenerating}
         prompts={history}
+        activeModel={soraVideoPreset}
       />
-      <VideoGeneratorPreviewPanel
+      <MediaGeneratorPreviewPanel
         asset={currentAsset}
         loading={isGenerating}
         activeGeneration={activeGeneration}

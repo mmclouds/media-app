@@ -2,12 +2,13 @@
 
 import { ChevronDown, Loader2, RefreshCw } from 'lucide-react';
 import { useState } from 'react';
-import type { VideoGeneratorHistory } from './types';
+import type { MediaGeneratorHistory, MediaModelPreset } from './types';
 
 type EditorPanelProps = {
   onGenerate: (prompt: string) => Promise<void> | void;
   isGenerating: boolean;
-  prompts: VideoGeneratorHistory;
+  prompts: MediaGeneratorHistory;
+  activeModel: MediaModelPreset;
 };
 
 const generatorTabs = ['Text to Video', 'Image to Video'] as const;
@@ -34,10 +35,11 @@ const tabConfigs: Record<GeneratorTab, TabConfig> = {
   },
 };
 
-export function VideoGeneratorEditorPanel({
+export function MediaGeneratorEditorPanel({
   onGenerate,
   isGenerating,
   prompts,
+  activeModel,
 }: EditorPanelProps) {
   const [activeTab, setActiveTab] =
     useState<(typeof generatorTabs)[number]>('Text to Video');
@@ -60,7 +62,7 @@ export function VideoGeneratorEditorPanel({
           Creator
         </h2>
         <button className="flex items-center gap-2 rounded-md border border-white/5 bg-white/5 px-3 py-1.5 text-xs text-white/80">
-          VIDEO 3.1
+          {activeModel.label}
           <ChevronDown className="h-3 w-3" />
         </button>
       </div>

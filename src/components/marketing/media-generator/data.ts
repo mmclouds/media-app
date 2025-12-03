@@ -1,6 +1,20 @@
-import type { VideoGeneratorAsset } from './types';
+import type { MediaGeneratorAsset, MediaModelPreset } from './types';
 
-export const demoVideoAssets: VideoGeneratorAsset[] = [
+export const soraVideoPreset: MediaModelPreset = {
+  id: 'video-sora',
+  label: 'Sora Video 2',
+  mediaType: 'VIDEO',
+  modelName: 'sora-2',
+  defaults: {
+    mediaType: 'VIDEO',
+    modelName: 'sora-2',
+    model: 'sora-2',
+    seconds: 6,
+    size: '1280x720',
+  },
+};
+
+export const demoMediaAssets: MediaGeneratorAsset[] = [
   {
     id: 'aurora-overdrive',
     title: 'Aurora Overdrive',

@@ -1,4 +1,4 @@
-import { VideoGeneratorWorkspace } from '@/components/marketing/video-generator/workspace';
+import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/workspace';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
@@ -13,18 +13,18 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'Metadata' });
 
   return constructMetadata({
-    title: 'Video Generator | ' + t('title'),
+    title: 'Media Generator | ' + t('title'),
     description:
-      'Experience a cinematic AI video workflow with text-to-video, image-to-video, and multi-element editing.',
+      'Experiment with AI-generated media across video, image, and audio workflows with flexible model presets.',
     locale,
-    pathname: '/video-generator',
+    pathname: '/media-generator',
   });
 }
 
-export default async function VideoGeneratorPage() {
+export default async function MediaGeneratorPage() {
   return (
     <main className="h-screen w-full overflow-hidden bg-[#020202] text-white">
-      <VideoGeneratorWorkspace className="h-full w-full" />
+      <MediaGeneratorWorkspace className="h-full w-full" />
     </main>
   );
 }

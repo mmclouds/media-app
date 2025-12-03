@@ -22,7 +22,7 @@ const navItems: Array<{ icon: LucideIcon; label: string; active?: boolean }> = [
   { icon: Clock, label: 'History' },
 ];
 
-export function VideoGeneratorSidebar() {
+export function MediaGeneratorSidebar() {
   return (
     <aside className="flex h-full w-[72px] flex-col items-center justify-between border-r border-white/5 bg-[#060606] py-5 text-white">
       <div className="flex flex-col items-center gap-8">

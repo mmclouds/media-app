@@ -4,25 +4,25 @@ import { useCurrentUser } from '@/hooks/use-current-user';
 import { useVideoPoster } from '@/hooks/use-video-poster';
 import { FolderOpen } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { demoVideoAssets } from './data';
+import { demoMediaAssets } from './data';
 import type {
   MediaFeedItem,
   MediaFeedResponse,
-  VideoGenerationState,
-  VideoGeneratorAsset,
+  MediaGenerationState,
+  MediaGeneratorAsset,
 } from './types';
 
 type PreviewPanelProps = {
-  asset: VideoGeneratorAsset;
+  asset: MediaGeneratorAsset;
   loading: boolean;
-  activeGeneration?: VideoGenerationState | null;
+  activeGeneration?: MediaGenerationState | null;
 };
 
-const DEFAULT_VIDEO_SRC = demoVideoAssets[0]?.src ?? '';
-const DEFAULT_POSTER = demoVideoAssets[0]?.poster;
+const DEFAULT_VIDEO_SRC = demoMediaAssets[0]?.src ?? '';
+const DEFAULT_POSTER = demoMediaAssets[0]?.poster;
 const FEED_LIMIT = 6;
 
-export function VideoGeneratorPreviewPanel({
+export function MediaGeneratorPreviewPanel({
   asset,
   loading,
   activeGeneration,
@@ -32,7 +32,7 @@ export function VideoGeneratorPreviewPanel({
   const hasMoreRef = useRef(true);
   const isFetchingRef = useRef(false);
 
-  const [remoteFeed, setRemoteFeed] = useState<VideoGeneratorAsset[]>([]);
+  const [remoteFeed, setRemoteFeed] = useState<MediaGeneratorAsset[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
   const [feedNotice, setFeedNotice] = useState<{
@@ -46,7 +46,7 @@ export function VideoGeneratorPreviewPanel({
   const fallbackFeed = useMemo(() => {
     const uniqueAssets = [
       asset,
-      ...demoVideoAssets.filter((item) => item.id !== asset.id),
+      ...demoMediaAssets.filter((item) => item.id !== asset.id),
     ];
 
     return Array.from({ length: 3 })
@@ -131,7 +131,7 @@ export function VideoGeneratorPreviewPanel({
         const data = result as MediaFeedResponse;
         const normalizedItems = (data.content ?? [])
           .map((task) => mapTaskToAsset(task))
-          .filter((item): item is VideoGeneratorAsset => Boolean(item));
+          .filter((item): item is MediaGeneratorAsset => Boolean(item));
 
         setRemoteFeed((prev) => {
           if (reset) {
@@ -288,7 +288,7 @@ export function VideoGeneratorPreviewPanel({
         )}
 
         {visibleItems.map((item, index) => (
-          <VideoPreviewCard
+          <MediaPreviewCard
             key={item.id}
             asset={item}
             isActive={usingRemoteFeed ? index === 0 : item.id === asset.id}
@@ -327,7 +327,7 @@ export function VideoGeneratorPreviewPanel({
 function GenerationStatusCard({
   generation,
 }: {
-  generation: VideoGenerationState;
+  generation: MediaGenerationState;
 }) {
   const {
     videoRef,
@@ -433,11 +433,11 @@ function Tab({ label, active = false }: { label: string; active?: boolean }) {
   );
 }
 
-function VideoPreviewCard({
+function MediaPreviewCard({
   asset,
   isActive = false,
 }: {
-  asset: VideoGeneratorAsset;
+  asset: MediaGeneratorAsset;
   isActive?: boolean;
 }) {
   const {
@@ -509,7 +509,7 @@ function VideoPreviewCard({
   );
 }
 
-function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
+function mapTaskToAsset(task: MediaFeedItem): MediaGeneratorAsset | null {
   if (!task.uuid && !task.taskId) {
     return null;
   }
