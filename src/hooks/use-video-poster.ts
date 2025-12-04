@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
-  captureVideoPoster,
   type CaptureVideoPosterOptions,
+  captureVideoPoster,
 } from '@/lib/video-poster';
 
 type UseVideoPosterOptions = CaptureVideoPosterOptions & {
@@ -21,12 +21,7 @@ type UseVideoPosterResult = {
 
 export function useVideoPoster(
   src?: string | null,
-  {
-    auto = true,
-    frameTime,
-    crossOrigin,
-    timeoutMs,
-  }: UseVideoPosterOptions = {}
+  { auto = true, frameTime, crossOrigin, timeoutMs }: UseVideoPosterOptions = {}
 ): UseVideoPosterResult {
   const [poster, setPoster] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);

@@ -2,16 +2,17 @@
 
 import { cn } from '@/lib/utils';
 import { MediaGeneratorConfigPanel } from './config-panel';
-import { MEDIA_TYPE_OPTIONS, useMediaGeneratorController } from './controller';
+import { useMediaGeneratorController } from './controller';
 import { demoVideoAssets } from './data';
 import { MediaGeneratorResultPane } from './preview-panel';
-import { MediaGeneratorMenu } from './sidebar';
 
-export function VideoGeneratorWorkspace({ className }: { className?: string }) {
+export function VideoOnlyGeneratorWorkspace({
+  className,
+}: {
+  className?: string;
+}) {
   const {
     mediaType,
-    setMediaType,
-    mediaTypeOptions,
     availableModels,
     activeModelId,
     setActiveModelId,
@@ -23,10 +24,9 @@ export function VideoGeneratorWorkspace({ className }: { className?: string }) {
     onGenerate,
     isGenerating,
     activeGeneration,
-  } = useMediaGeneratorController();
+  } = useMediaGeneratorController({ lockedMediaType: 'video' });
 
   const asset = demoVideoAssets[0];
-
   const currentAsset = asset ?? {
     id: 'demo-video',
     title: 'AI Video',
@@ -43,11 +43,6 @@ export function VideoGeneratorWorkspace({ className }: { className?: string }) {
         className
       )}
     >
-      <MediaGeneratorMenu
-        options={mediaTypeOptions ?? MEDIA_TYPE_OPTIONS}
-        value={mediaType}
-        onChange={setMediaType}
-      />
       <MediaGeneratorConfigPanel
         mediaType={mediaType}
         models={availableModels}

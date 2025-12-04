@@ -59,8 +59,11 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { mediaType: bodyMediaType, modelName: bodyModelName, ...providerPayload } =
-    payload ?? {};
+  const {
+    mediaType: bodyMediaType,
+    modelName: bodyModelName,
+    ...providerPayload
+  } = payload ?? {};
   const prompt =
     typeof providerPayload?.prompt === 'string'
       ? providerPayload.prompt.trim()

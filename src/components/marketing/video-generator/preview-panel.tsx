@@ -22,7 +22,7 @@ const DEFAULT_VIDEO_SRC = demoVideoAssets[0]?.src ?? '';
 const DEFAULT_POSTER = demoVideoAssets[0]?.poster;
 const FEED_LIMIT = 6;
 
-export function VideoGeneratorPreviewPanel({
+export function MediaGeneratorResultPane({
   asset,
   loading,
   activeGeneration,
@@ -243,7 +243,10 @@ export function VideoGeneratorPreviewPanel({
             />
             Favorites
           </label>
-          <button className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-1.5 text-white/80 transition hover:text-white">
+          <button
+            type="button"
+            className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-1.5 text-white/80 transition hover:text-white"
+          >
             <FolderOpen className="h-4 w-4" />
             Assets
           </button>
@@ -278,6 +281,7 @@ export function VideoGeneratorPreviewPanel({
             <span>{feedNotice.message}</span>
             {feedNotice.allowRetry && (
               <button
+                type="button"
                 className="rounded-full border border-white/40 px-3 py-1 text-white"
                 onClick={() => loadFeed({ reset: true })}
               >
@@ -329,20 +333,15 @@ function GenerationStatusCard({
 }: {
   generation: VideoGenerationState;
 }) {
-  const {
-    videoRef,
-    handleMouseEnter,
-    handleMouseLeave,
-    handleMediaReady,
-  } = useHoverPlayback();
+  const { videoRef, handleMouseEnter, handleMouseLeave, handleMediaReady } =
+    useHoverPlayback();
   const status = generation.status;
   const formattedStatus = formatLabel(status);
   const isRunning = status === 'pending' || status === 'processing';
   const isSuccess = status === 'completed';
   const isError = status === 'failed' || status === 'timeout';
-  const rawProgress = typeof generation.progress === 'number'
-    ? generation.progress
-    : null;
+  const rawProgress =
+    typeof generation.progress === 'number' ? generation.progress : null;
   const progressWidth = Math.min(100, Math.max(8, rawProgress ?? 24));
   const videoSrc = generation.onlineUrl ?? generation.downloadUrl ?? '';
   const showVideo = isSuccess && videoSrc.length > 0;
@@ -407,11 +406,19 @@ function GenerationStatusCard({
               poster={generation.onlineUrl ? undefined : DEFAULT_POSTER}
               className="aspect-video w-full object-cover"
               onLoadedData={handleMediaReady}
-            />
+            >
+              <track
+                kind="captions"
+                label="Captions"
+                src="/captions/placeholder.vtt"
+                default
+              />
+            </video>
           </div>
         ) : (
           <div className="mt-5 rounded-2xl border border-white/10 bg-black/40 p-4 text-sm text-white/70">
-            Video is ready, but the URL is missing. Check the media feed for the final clip.
+            Video is ready, but the URL is missing. Check the media feed for the
+            final clip.
           </div>
         )
       ) : (
@@ -426,6 +433,7 @@ function GenerationStatusCard({
 function Tab({ label, active = false }: { label: string; active?: boolean }) {
   return (
     <button
+      type="button"
       className={`rounded-md px-3 py-1 ${
         active ? 'bg-white/10 text-white' : 'text-white/60'
       }`}
@@ -442,12 +450,8 @@ function VideoPreviewCard({
   asset: VideoGeneratorAsset;
   isActive?: boolean;
 }) {
-  const {
-    videoRef,
-    handleMouseEnter,
-    handleMouseLeave,
-    handleMediaReady,
-  } = useHoverPlayback();
+  const { videoRef, handleMouseEnter, handleMouseLeave, handleMediaReady } =
+    useHoverPlayback();
   const shouldCapturePoster = !asset.poster && Boolean(asset.src);
   const { poster: capturedPoster, error: posterError } = useVideoPoster(
     shouldCapturePoster ? asset.src : undefined,
@@ -507,7 +511,14 @@ function VideoPreviewCard({
           poster={resolvedPoster}
           className="aspect-video w-full bg-black object-cover"
           onLoadedData={handleMediaReady}
-        />
+        >
+          <track
+            kind="captions"
+            label="Captions"
+            src="/captions/placeholder.vtt"
+            default
+          />
+        </video>
       </div>
     </article>
   );
@@ -594,7 +605,9 @@ function formatLabel(label?: string | null) {
     .join(' ');
 }
 
-function useHoverPlayback({ resetOnLeave = false }: { resetOnLeave?: boolean } = {}) {
+function useHoverPlayback({
+  resetOnLeave = false,
+}: { resetOnLeave?: boolean } = {}) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const isHoveringRef = useRef(false);
 

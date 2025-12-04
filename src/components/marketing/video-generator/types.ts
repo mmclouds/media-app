@@ -1,3 +1,6 @@
+import type { LucideIcon } from 'lucide-react';
+import type { ComponentType } from 'react';
+
 export type VideoGeneratorAsset = {
   id: string;
   title: string;
@@ -12,6 +15,36 @@ export type VideoGeneratorAsset = {
 };
 
 export type VideoGeneratorHistory = string[];
+
+export type MediaType = 'video' | 'audio' | 'image';
+
+export type MediaTypeOption = {
+  id: MediaType;
+  label: string;
+  icon: LucideIcon;
+};
+
+export type MediaModelConfig = Record<
+  string,
+  string | number | boolean | null | undefined
+>;
+
+export type MediaModelConfigProps = {
+  config: MediaModelConfig;
+  onChange: (config: MediaModelConfig) => void;
+};
+
+export type MediaModelDefinition = {
+  id: string;
+  label: string;
+  description: string;
+  provider?: string;
+  mediaType: MediaType;
+  modelName: string;
+  model?: string;
+  defaultConfig: MediaModelConfig;
+  configComponent: ComponentType<MediaModelConfigProps>;
+};
 
 export type MediaTaskStatus =
   | 'pending'
@@ -35,6 +68,13 @@ export type MediaTaskResult = {
 
 export type VideoGenerationState = MediaTaskResult & {
   prompt: string;
+};
+
+export type MediaGenerationPayload = {
+  mediaType: MediaType;
+  modelId: string;
+  prompt: string;
+  config: MediaModelConfig;
 };
 
 export type MediaFeedItem = {
