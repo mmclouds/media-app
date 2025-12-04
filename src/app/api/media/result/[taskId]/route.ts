@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(
   request: NextRequest,
-  context: { params: { taskId?: string } }
+  context: { params: Promise<{ taskId?: string }> }
 ) {
   const session = await auth.api.getSession({
     headers: request.headers,
@@ -43,7 +43,8 @@ export async function GET(
     );
   }
 
-  const taskId = context.params?.taskId;
+  const params = await context.params;
+  const taskId = params?.taskId;
 
   if (!taskId) {
     return NextResponse.json(
