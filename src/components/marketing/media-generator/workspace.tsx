@@ -7,7 +7,7 @@ import { demoVideoAssets } from './data';
 import { MediaGeneratorResultPane } from './preview-panel';
 import { MediaGeneratorMenu } from './sidebar';
 
-export function VideoGeneratorWorkspace({ className }: { className?: string }) {
+export function MediaGeneratorWorkspace({ className }: { className?: string }) {
   const {
     mediaType,
     setMediaType,

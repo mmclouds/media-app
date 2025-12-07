@@ -42,7 +42,7 @@
 - 生成体验拆成 Menu / Config / Result 三个组件：`MediaGeneratorMenu` 只负责媒体类型切换，`MediaGeneratorConfigPanel` 负责 prompt + 模型配置渲染，`MediaGeneratorResultPane` 专注展示生成状态/历史；`GenerateButton` 也独立封装，统一处理禁用/loading UI。
 - 每个模型都有独立表单组件（如 `SoraConfigFields`、`Veo3ConfigFields`、`StillImageConfigFields`、`AudioCraftConfigFields`），收集的 `MediaModelConfig` 会回传至父级，方便后续扩展不同模型参数。
 - 新增 `useMediaGeneratorController` hook，把 prompt/state/轮询/生成请求全部封装，返回 `mediaType`、`availableModels`、`onGenerate` 等回调；`VideoGeneratorWorkspace` 与 `MediaOnlyGeneratorWorkspace` 共同复用该 hook，实现“主页面三栏 + 子页面双栏”两套布局。
-- 子页 `media-studio` 直接渲染 `MediaOnlyGeneratorWorkspace`，因此只包含配置与展示模块，没有菜单；若未来还需要类型切换，只要改用带菜单的 `VideoGeneratorWorkspace` 或者在页面里额外引入 `MediaGeneratorMenu` 即可。
+- 子页 `media-studio` 现直接渲染三栏版 `MediaGeneratorWorkspace`（含菜单/配置/结果）；如需精简为两栏，可改用 `MediaOnlyGeneratorWorkspace` 或在布局中隐藏菜单。
 
 # 提交 fb76ce7（组件化）拆解要点
 - `useMediaGeneratorController` 统一处理 prompt、模型、生成请求、轮询、历史记录等状态，然后把 `mediaType/options/models/onGenerate/activeGeneration` 一次性送给 `VideoGeneratorWorkspace` 与 `MediaOnlyGeneratorWorkspace`。这样入口页面只关心布局，不再直接写复杂的 `useEffect` 逻辑。

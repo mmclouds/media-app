@@ -1,4 +1,4 @@
-import { MediaOnlyGeneratorWorkspace } from '@/components/marketing/media-generator/media-only-workspace';
+import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/workspace';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
@@ -24,7 +24,7 @@ export async function generateMetadata({
 export default async function MediaStudioPage() {
   return (
     <main className="h-screen w-full overflow-hidden bg-[#020202] text-white">
-      <MediaOnlyGeneratorWorkspace className="h-full w-full" />
+      <MediaGeneratorWorkspace className="h-full w-full" />
     </main>
   );
 }
