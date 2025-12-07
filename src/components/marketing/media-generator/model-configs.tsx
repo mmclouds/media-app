@@ -1,7 +1,7 @@
 'use client';
 
-export { AudioCraftConfigFields } from './audio/config-fields';
-export { StillImageConfigFields } from './image/config-fields';
+export { AudioCraftConfigFields } from './audio/audio-craft-config-fields';
+export { StillImageConfigFields } from './image/still-image-config-fields';
 export {
   SelectField,
   SliderField,

@@ -1,4 +1,4 @@
-import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/workspace';
+import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';

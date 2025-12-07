@@ -1,19 +1,17 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { MediaGeneratorConfigPanel } from './config-panel';
-import { useMediaGeneratorController } from './controller';
+import { MediaGeneratorConfigPanel } from './media-generator-config-panel';
+import { MEDIA_TYPE_OPTIONS, useMediaGeneratorController } from './controller';
 import { demoVideoAssets } from './data';
-import { MediaGeneratorResultPane } from './preview-panel';
+import { MediaGeneratorResultPane } from './media-generator-result-pane';
+import { MediaGeneratorMenu } from './media-generator-menu';
 
-// 双栏布局：固定媒体类型为视频，复用通用配置/结果面板
-export function MediaOnlyGeneratorWorkspace({
-  className,
-}: {
-  className?: string;
-}) {
+export function MediaGeneratorWorkspace({ className }: { className?: string }) {
   const {
     mediaType,
+    setMediaType,
+    mediaTypeOptions,
     availableModels,
     activeModelId,
     setActiveModelId,
@@ -25,9 +23,10 @@ export function MediaOnlyGeneratorWorkspace({
     onGenerate,
     isGenerating,
     activeGeneration,
-  } = useMediaGeneratorController({ lockedMediaType: 'video' });
+  } = useMediaGeneratorController();
 
   const asset = demoVideoAssets[0];
+
   const currentAsset = asset ?? {
     id: 'demo-video',
     title: 'AI Video',
@@ -44,6 +43,11 @@ export function MediaOnlyGeneratorWorkspace({
         className
       )}
     >
+      <MediaGeneratorMenu
+        options={mediaTypeOptions ?? MEDIA_TYPE_OPTIONS}
+        value={mediaType}
+        onChange={setMediaType}
+      />
       <MediaGeneratorConfigPanel
         mediaType={mediaType}
         models={availableModels}

@@ -13,7 +13,7 @@
 - 拆分后路径仍遵循 App Router 的模块化惯例：功能组件放在 `src/components/...`，页面可直接按路径导入，不影响路由行为。
 
 ### 🟦 C. 代码逻辑拆解与架构说明
-- 文件结构：`video/sora-config-fields.tsx` 与 `video/veo3-config-fields.tsx` 分别承载各自模型；`image/config-fields.tsx`、`audio/config-fields.tsx` 按媒体类型分组；`shared/config-field-controls.tsx` 存放通用控件；`model-configs.tsx` 仅做聚合导出。
+- 文件结构：`video/sora-config-fields.tsx` 与 `video/veo3-config-fields.tsx` 分别承载各自模型；`image/still-image-config-fields.tsx`、`audio/audio-craft-config-fields.tsx` 按媒体类型分组；`shared/config-field-controls.tsx` 存放通用控件；`model-configs.tsx` 仅做聚合导出。
 - 每个模型组件负责解析默认值（如秒数、分辨率、预设、是否包含音频），并在字段变化时通过 `onChange` 回传，父级即可统一存储 `{ modelId: config }`。
 - 公共控件封装了视觉与交互样式，避免不同模型重复写 Label/Select/Slider/Toggle，保持 UI 一致性。
 - 相比集中在单文件的实现，按模型拆分降低耦合，新增模型只需复制一份表单文件并在注册表里引用即可。

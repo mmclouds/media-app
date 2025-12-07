@@ -11,7 +11,7 @@ import PricingSection from '@/components/blocks/pricing/pricing';
 import StatsSection from '@/components/blocks/stats/stats';
 import TestimonialsSection from '@/components/blocks/testimonials/testimonials';
 import CrispChat from '@/components/layout/crisp-chat';
-import { MediaOnlyGeneratorWorkspace } from '@/components/marketing/media-generator/media-only-workspace';
+import { MediaOnlyGeneratorWorkspace } from '@/components/marketing/media-generator/media-only-generator-workspace';
 import { NewsletterCard } from '@/components/newsletter/newsletter-card';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';

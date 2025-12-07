@@ -2,8 +2,8 @@
 
 import { Image as ImageIcon, Music, Video } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { AudioCraftConfigFields } from './audio/config-fields';
-import { StillImageConfigFields } from './image/config-fields';
+import { AudioCraftConfigFields } from './audio/audio-craft-config-fields';
+import { StillImageConfigFields } from './image/still-image-config-fields';
 import { SoraConfigFields } from './video/sora-config-fields';
 import { Veo3ConfigFields } from './video/veo3-config-fields';
 import type {

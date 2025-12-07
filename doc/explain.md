@@ -13,7 +13,7 @@
 - 虽未修改路由文件，但组件拆分后依旧可在现有页面直接按新路径引用，符合 Next.js 基于文件路径的模块组织习惯。
 
 ### 🟦 C. 代码逻辑拆解与架构说明
-- 文件结构：新增 `shared/config-field-controls.tsx` 存放通用表单控件；`video/config-fields.tsx` 管理 Sora/Veo3 配置，`image/config-fields.tsx` 管理 Still 配置，`audio/config-fields.tsx` 管理 AudioCraft 配置；`model-configs.tsx` 仅做聚合导出。
+- 文件结构：新增 `shared/config-field-controls.tsx` 存放通用表单控件；`video/sora-config-fields.tsx`、`video/veo3-config-fields.tsx` 管理各自模型；`image/still-image-config-fields.tsx`、`audio/audio-craft-config-fields.tsx` 按媒体类型分组；`model-configs.tsx` 仅做聚合导出。
 - 每个模型组件负责解析自身默认值与选项，并在字段变化时调用父级的 `onChange` 回传最新 config，保持模型内聚。
 - 公共控件统一样式与交互，避免不同模型重复写 label/select/slider 逻辑，同时确保 UI 一致性。
 - 相比集中在单文件，新结构按媒体类型分组，扩展新模型时只需在对应目录新增组件，降低耦合与维护成本。
