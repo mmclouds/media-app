@@ -57,6 +57,7 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
       model: 'sora-2',
       defaultConfig: {
         seconds: 4,
+        modelVersion: 'sora-1.1',
         size: '1280x720',
         cameraStyle: 'Cinematic',
       },

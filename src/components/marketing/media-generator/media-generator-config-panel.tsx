@@ -58,6 +58,7 @@ export function MediaGeneratorConfigPanel({
 
   return (
     <section className="flex h-full w-[420px] flex-col border-r border-white/5 bg-black/80 text-white">
+      {/* 顶层栏 */}
       <div className="flex h-14 items-center justify-between border-b border-white/5 px-5">
         <div>
           <p className="text-xs uppercase tracking-[0.32em] text-white/40">
@@ -77,12 +78,6 @@ export function MediaGeneratorConfigPanel({
       <div className="flex flex-1 flex-col gap-6 overflow-hidden px-5 py-6">
         {activeModel ? (
           <div className="space-y-4">
-            <div>
-              <p className="text-sm font-semibold text-white">
-                {activeModel.label} config
-              </p>
-              <p className="text-xs text-white/50">{activeModel.description}</p>
-            </div>
             <activeModel.configComponent
               config={activeConfig}
               prompt={prompt}

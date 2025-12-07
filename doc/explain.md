@@ -1,34 +1,30 @@
-
 ---
 
 ## 2. explain.md（讲解内容）必须包含以下部分
 
 ### 🟦 A. React 核心概念讲解
-- Workspace/ConfigPanel/ResultPane/菜单仍是函数组件，通过 props 保持单向数据流；新增 Veo3 页面复用现有组件而非重写逻辑。
-- Hook：`useState` 管理媒体类型、模型配置、任务状态；`useEffect` 轮询任务并根据模型列表初始化选中项；`useMemo` 派生可用模型列表；`useCallback` 稳定触发生成的回调，避免子组件重复渲染。
-- 新增 `preferredModelId` 支持：`useEffect` 在模型变更时优先选中匹配的模型（Veo3），锁定默认选择同时保持受控状态。
-- 渲染机制：当 `preferredModelId` 或模型列表变化时仅更新选中的模型，不影响其他 UI；锁定的媒体类型防止菜单切换导致不必要重渲染。
-- 最佳实践：通过 hook 参数化（锁定媒体类型 + 首选模型）来复用 UI 组合，避免为特定模型创建重复状态管理。
+- ModelVersionSwitcher、SliderField、SelectField、ToggleField 依旧是函数组件，靠 props 传入 value/onChange 维持单向数据流，避免本地状态分散。
+- 本次未新增 useState/useEffect 等 Hook；TooltipProvider/TooltipTrigger 依赖 React 组合式渲染，在悬停时才展示描述内容。
+- 渲染机制：父级变更 value 会重新渲染按钮，激活态通过 value 对比决定；Tooltip 悬停后渲染描述，常态保持精简界面。
+- 最佳实践：描述延迟展示减少信息噪音，同时仍使用 options 内的描述字段，保证数据与视图一致。
 
 ### 🟦 B. Next.js 核心概念讲解（若本次代码使用 Next.js）
-- 新增的 `media-studio/veo3/page.tsx` 是 Server Component，负责拉取多语言元数据并输出 SSR 首屏；内部挂载 `'use client'` 的 Workspace 以启用交互。
-- `generateMetadata` 运行在服务端，结合 `constructMetadata` 生成 SEO 友好的 title/description，路径固定为 `/media-studio/veo3`。
-- App Router 路由：`src/app/[locale]/(marketing)/(pages)/media-studio/veo3/page.tsx` 自动映射到 `/[locale]/media-studio/veo3`，与现有 `/media-studio` 并存。
-- 数据获取策略：页面本身无数据请求，客户端组件通过 fetch `/api/media/generate` 与 `/api/media/result/{taskId}`；SSR 仅处理元数据。
-- 客户端组件声明 `"use client"`（在 Workspace 内），保证轮询与受控输入在浏览器执行，SSR 负责初始 HTML，水合后接管事件。
+- 文件标记 "use client"，确保模型切换、Tooltip 等交互在浏览器端运行，上层页面仍可 SSR 提供首屏。
+- 组件位于 App Router 的共享组件目录，下游页面直接引入，无需额外路由配置；目录结构决定 bundle 分割与复用范围。
+- 本次无数据请求，依赖父级客户端状态驱动；SSR 提供初始 HTML，水合后 Tooltip/按钮交互才会生效。
+- TooltipProvider 等客户端组件只能在 client 文件使用，符合 Server/Client 组件的分层约束。
 
 ### 🟦 C. 代码逻辑拆解与架构说明
-- 文件结构：新增页面 `media-studio/veo3/page.tsx`；`media-only-generator-workspace.tsx` 增加 `preferredModelId` 入参；`controller.tsx` 支持首选模型逻辑。
-- 数据流：Server Page → 渲染 `MediaOnlyGeneratorWorkspace`（props: className + preferredModelId）→ hook `useMediaGeneratorController` 输出受控状态 → ConfigPanel/ResultPane 消费同一份模型/Prompt/任务状态 → fetch API 触发生成并轮询。
-- 受控选择：`useEffect` 判断当前选中的模型是否存在；若没有则优先使用 `preferredModelId`，否则回退到列表首项，保证锁定 Veo3 的体验。
-- 可替代实现：也可在页面层自写状态与表单；当前方案重用通用 Hook + Workspace，减少重复代码，并通过参数化实现定制。
-- 隐含最佳实践：通过小型配置（锁定媒体类型、首选模型）扩展产品化场景，保持核心逻辑集中；Server/Page 与 Client/交互解耦，利于测试和复用。
+- 文件结构：`src/components/marketing/media-generator/shared/config-field-controls.tsx` 负责模型版本切换与通用表单控件。
+- ModelVersionSwitcher：遍历 options 渲染按钮，样式根据 value 是否匹配激活；模型描述改为按钮内部的灰色提示文案 “Hover for model details”，仅悬停时通过 TooltipContent 展示描述，常态无图标更简洁。
+- TooltipProvider 包裹整个列表，TooltipTrigger 直接绑定在按钮上，点击仍受控切换版本，悬停触发 tooltip，提示入口与主交互合并且不增加额外视觉元素。
+- 其他控件（SliderField、SelectField、ToggleField）保持受控输入模式，继续与父组件的数据流对齐。
+- 可替代实现：描述也可放入折叠或侧栏，但 Tooltip 占位最小、信息获取成本低，适合轻量提示。
 
 ### 🟦 D. 初学者学习重点总结
-- 在 Hook 中添加可选参数（如首选模型）可复用逻辑又满足新需求。
-- `useEffect` 可用于根据依赖初始化/纠正受控状态，确保下游组件总是有合法值。
-- App Router 路由与目录结构一一对应，新增子目录即可创建新页面。
-- Server Component 负责 SEO 元数据，客户端组件处理交互与网络请求。
-- 通过 props 组合通用组件（Workspace）即可快速定制不同模型场景。
+- 受控组件：value/onChange 决定 UI 状态，避免内部私有状态导致不同步。
+- "use client" 让 Tooltip 与按钮交互在客户端运行，同时保留 SSR 首屏。
+- TooltipProvider/TooltipTrigger/TooltipContent 的组合方式与适用场景。
+- 用描述字段驱动 UI，可轻松扩展新模型而不改逻辑。
 
 ---
