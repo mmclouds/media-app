@@ -2,12 +2,10 @@
 
 import { Image as ImageIcon, Music, Video } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  AudioCraftConfigFields,
-  SoraConfigFields,
-  StillImageConfigFields,
-  Veo3ConfigFields,
-} from './model-configs';
+import { AudioCraftConfigFields } from './audio/config-fields';
+import { StillImageConfigFields } from './image/config-fields';
+import { SoraConfigFields } from './video/sora-config-fields';
+import { Veo3ConfigFields } from './video/veo3-config-fields';
 import type {
   MediaGenerationPayload,
   MediaModelConfig,

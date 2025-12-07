@@ -50,3 +50,8 @@
 - 模型表单组件通过 `configComponent` 注入（`model-configs.tsx`），每个模型都自包含默认值和字段，父级只保存 `{ [modelId]: config }`。新增模型时只要在 `MODEL_REGISTRY` 中注册定义+表单组件即可。
 - `GenerateButton` 把“禁用状态 + 提交参数 + 英文文案”统一封装，外部只要传入 `mediaType + modelId + prompt + config` 即可触发 `onGenerate`，从而保证各页面生成按钮行为一致。
 - `MediaGeneratorResultPane` 同时处理“实时生成状态卡片”“登录用户真实 feed”“游客 demo feed”，滚动懒加载以及 hover 自动播放都封装在组件内部，对上层暴露的 props 只有 `asset/loading/activeGeneration`。
+
+# Media Generator ConfigFields 拆分
+- 按媒体类型拆分配置表单：视频模型表单放在 `src/components/marketing/media-generator/video/*-config-fields.tsx`，图片表单在 `.../image/config-fields.tsx`，音频表单在 `.../audio/config-fields.tsx`，保持路径语义化。
+- 公共的选择/滑杆/开关字段封装在 `shared/config-field-controls.tsx`，不同模型只负责填充选项与默认值，减少重复渲染逻辑。
+- video 组内模型（Sora/Veo3）进一步独立文件：`video/sora-config-fields.tsx`、`video/veo3-config-fields.tsx`，按模型组织逻辑，便于增删改单个模型配置而不影响同组其他模型。
