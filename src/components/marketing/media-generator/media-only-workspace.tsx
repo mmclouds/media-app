@@ -6,7 +6,8 @@ import { useMediaGeneratorController } from './controller';
 import { demoVideoAssets } from './data';
 import { MediaGeneratorResultPane } from './preview-panel';
 
-export function VideoOnlyGeneratorWorkspace({
+// 双栏布局：固定媒体类型为视频，复用通用配置/结果面板
+export function MediaOnlyGeneratorWorkspace({
   className,
 }: {
   className?: string;

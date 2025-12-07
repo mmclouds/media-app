@@ -1,4 +1,4 @@
-import { VideoOnlyGeneratorWorkspace } from '@/components/marketing/video-generator/video-only-workspace';
+import { MediaOnlyGeneratorWorkspace } from '@/components/marketing/media-generator/media-only-workspace';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
@@ -24,7 +24,7 @@ export async function generateMetadata({
 export default async function MediaStudioPage() {
   return (
     <main className="h-screen w-full overflow-hidden bg-[#020202] text-white">
-      <VideoOnlyGeneratorWorkspace className="h-full w-full" />
+      <MediaOnlyGeneratorWorkspace className="h-full w-full" />
     </main>
   );
 }

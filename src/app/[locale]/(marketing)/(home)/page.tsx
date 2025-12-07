@@ -11,8 +11,9 @@ import PricingSection from '@/components/blocks/pricing/pricing';
 import StatsSection from '@/components/blocks/stats/stats';
 import TestimonialsSection from '@/components/blocks/testimonials/testimonials';
 import CrispChat from '@/components/layout/crisp-chat';
-import { VideoGeneratorSection } from '@/components/marketing/video-generator-section';
-import { VideoGeneratorWorkspace } from '@/components/marketing/video-generator/workspace';
+import { MediaGeneratorSection } from '@/components/marketing/media-generator-section';
+import { MediaOnlyGeneratorWorkspace } from '@/components/marketing/media-generator/media-only-workspace';
+import { VideoGeneratorWorkspace } from '@/components/marketing/media-generator/workspace';
 import { NewsletterCard } from '@/components/newsletter/newsletter-card';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
@@ -53,7 +54,7 @@ export default async function HomePage(props: HomePageProps) {
         <HeroSection />
 
         <div className="mx-auto w-full max-w-7xl px-6">
-          <VideoGeneratorWorkspace className="h-full w-full" />
+          <MediaOnlyGeneratorWorkspace className="h-full w-full" />
         </div>
 
         <LogoCloud />

@@ -7,17 +7,17 @@ import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import type { Locale } from 'next-intl';
 
-type VideoGeneratorSectionProps = {
+type MediaGeneratorSectionProps = {
   locale?: Locale;
   className?: string;
   fullWidth?: boolean;
 };
 
-export function VideoGeneratorSection({
+export function MediaGeneratorSection({
   locale,
   className,
   fullWidth = true,
-}: VideoGeneratorSectionProps) {
+}: MediaGeneratorSectionProps) {
   const content = (
     <div className="space-y-10">
       <div className="grid gap-6 lg:grid-cols-[minmax(320px,380px)_1fr]">
