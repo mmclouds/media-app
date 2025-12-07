@@ -145,7 +145,7 @@ export function useMediaGeneratorController({
   const [modelConfigs, setModelConfigs] =
     useState<Record<string, MediaModelConfig>>(createInitialConfigs);
   const [prompt, setPrompt] = useState(
-    'Please describe your ideas.'
+    ''
   );
 
   const effectiveMediaType = lockedMediaType ?? mediaType;

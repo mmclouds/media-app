@@ -32,6 +32,9 @@ export function ModelVersionSwitcher({
 }) {
   return (
     <TooltipProvider>
+      <div className="flex items-center justify-between">
+        <p className="text-sm font-semibold text-white">Model Version</p>
+      </div>
       <div className="space-y-2">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {options.map((option) => {
@@ -41,11 +44,10 @@ export function ModelVersionSwitcher({
                 <TooltipTrigger asChild>
                   <button
                     type="button"
-                    className={`flex w-full flex-col items-start gap-1 rounded-xl border px-4 py-3 text-left transition ${
-                      isActive
-                        ? 'border-white bg-white/10 text-white shadow-lg shadow-white/10'
-                        : 'border-white/15 bg-black/60 text-white/80 hover:border-white/30 hover:bg-white/5'
-                    }`}
+                    className={`flex w-full flex-col items-start gap-1 rounded-xl border px-4 py-3 text-left transition ${isActive
+                      ? 'border-white bg-white/10 text-white shadow-lg shadow-white/10'
+                      : 'border-white/15 bg-black/60 text-white/80 hover:border-white/30 hover:bg-white/5'
+                      }`}
                     onClick={() => onChange(option.value)}
                   >
                     <span className="text-sm font-medium">{option.label}</span>
@@ -86,24 +88,20 @@ export function SliderField({
 }) {
   return (
     <div className="space-y-2">
-      <Label className="text-xs text-white/70">
+      <div className="flex items-center justify-between">
         {label}{' '}
-        <span className="text-white/40">
-          {value}
-          {suffix}
-        </span>
-      </Label>
+      </div>
+
       <div className="flex flex-wrap gap-2">
         {options.map((option) => {
           const isChecked = option === value;
           return (
             <label
               key={option}
-              className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition ${
-                isChecked
-                  ? 'border-white bg-white/10 text-white'
-                  : 'border-white/20 bg-black/40 text-white/70 hover:border-white/40 hover:bg-white/5'
-              }`}
+              className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition ${isChecked
+                ? 'border-white bg-white/10 text-white'
+                : 'border-white/20 bg-black/40 text-white/70 hover:border-white/40 hover:bg-white/5'
+                }`}
             >
               <input
                 type="checkbox"
@@ -185,11 +183,10 @@ export function AspectRatioField({
           return (
             <label
               key={option}
-              className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition ${
-                isChecked
-                  ? 'border-white bg-white/10 text-white'
-                  : 'border-white/20 bg-black/40 text-white/70 hover:border-white/40 hover:bg-white/5'
-              }`}
+              className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition ${isChecked
+                ? 'border-white bg-white/10 text-white'
+                : 'border-white/20 bg-black/40 text-white/70 hover:border-white/40 hover:bg-white/5'
+                }`}
             >
               <input
                 type="checkbox"
