@@ -1,8 +1,12 @@
 'use client';
 
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
-import { ChevronRight } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+} from '@/components/ui/select';
+import * as SelectPrimitive from '@radix-ui/react-select';
+import { CheckIcon } from 'lucide-react';
 import { useMemo } from 'react';
 import { GenerateButton } from './generate-button';
 import type {
@@ -63,20 +67,14 @@ export function MediaGeneratorConfigPanel({
             {mediaType.charAt(0).toUpperCase() + mediaType.slice(1)} generator
           </p>
         </div>
-        {activeModel ? (
-          <Badge className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white">
-            {activeModel.label}
-          </Badge>
-        ) : null}
-      </div>
-
-      <div className="flex flex-1 flex-col gap-6 overflow-hidden px-5 py-6">
-        <ModelSelector
+        <ModelDropdown
           models={models}
           activeModelId={activeModel?.id}
           onChange={onModelChange}
         />
+      </div>
 
+      <div className="flex flex-1 flex-col gap-6 overflow-hidden px-5 py-6">
         <PromptEditor value={prompt} onChange={onPromptChange} />
 
         {activeModel ? (
@@ -117,52 +115,62 @@ export function MediaGeneratorConfigPanel({
   );
 }
 
-type ModelSelectorProps = {
+type ModelSelectProps = {
   models: MediaModelDefinition[];
   activeModelId?: string;
   onChange: (modelId: string) => void;
 };
 
-function ModelSelector({
+function ModelDropdown({
   models,
   activeModelId,
   onChange,
-}: ModelSelectorProps) {
+}: ModelSelectProps) {
   if (!models.length) {
-    return (
-      <div className="rounded-2xl border border-dashed border-white/20 p-4 text-sm text-white/70">
-        No models available for this media type yet.
-      </div>
-    );
+    return null;
   }
 
+  const selectedModel =
+    models.find((model) => model.id === activeModelId) ?? models[0];
+
   return (
-    <div className="space-y-3">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
-        Models
-      </p>
-      <div className="flex flex-col gap-3">
+    <Select value={selectedModel?.id} onValueChange={onChange}>
+      <SelectTrigger
+        className="w-[220px] rounded-full border-white/20 bg-white/5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white focus:ring-0 focus:ring-offset-0"
+        aria-label={selectedModel?.label ?? 'Select model'}
+      >
+        <span className="truncate">
+          {selectedModel?.label ?? 'Select model'}
+        </span>
+      </SelectTrigger>
+      <SelectContent className="w-[240px] border-white/10 bg-black/90 text-white">
         {models.map((model) => (
-          <button
+          <SelectPrimitive.Item
             key={model.id}
-            type="button"
-            onClick={() => onChange(model.id)}
-            className={cn(
-              'flex items-center justify-between rounded-2xl border px-4 py-3 text-left transition',
-              activeModelId === model.id
-                ? 'border-white/40 bg-white/10 text-white'
-                : 'border-white/10 bg-black/50 text-white/60 hover:border-white/30 hover:text-white'
-            )}
+            value={model.id}
+            textValue={model.label}
+            className="relative flex w-full cursor-default select-none items-start gap-2 rounded-md px-3 py-3 text-left text-sm outline-none transition data-[highlighted]:bg-white/10 data-[state=checked]:bg-white/10"
           >
-            <div>
-              <p className="text-sm font-semibold">{model.label}</p>
-              <p className="text-xs text-white/50">{model.description}</p>
+            <span className="absolute right-3 top-1/2 -translate-y-1/2">
+              <SelectPrimitive.ItemIndicator>
+                <CheckIcon className="h-4 w-4 text-white" />
+              </SelectPrimitive.ItemIndicator>
+            </span>
+            <div className="space-y-1 pr-6">
+              <SelectPrimitive.ItemText asChild>
+                <p className="font-semibold leading-tight">{model.label}</p>
+              </SelectPrimitive.ItemText>
+              <p
+                className="text-xs font-normal text-white/60"
+                aria-hidden="true"
+              >
+                {model.description}
+              </p>
             </div>
-            <ChevronRight className="h-4 w-4 text-white/40" />
-          </button>
+          </SelectPrimitive.Item>
         ))}
-      </div>
-    </div>
+      </SelectContent>
+    </Select>
   );
 }
 

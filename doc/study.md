@@ -55,3 +55,23 @@
 - 按媒体类型拆分配置表单：视频模型表单放在 `src/components/marketing/media-generator/video/*-config-fields.tsx`，图片表单在 `.../image/still-image-config-fields.tsx`，音频表单在 `.../audio/audio-craft-config-fields.tsx`，保持路径语义化。
 - 公共的选择/滑杆/开关字段封装在 `shared/config-field-controls.tsx`，不同模型只负责填充选项与默认值，减少重复渲染逻辑。
 - video 组内模型（Sora/Veo3）进一步独立文件：`video/sora-config-fields.tsx`、`video/veo3-config-fields.tsx`，按模型组织逻辑，便于增删改单个模型配置而不影响同组其他模型。
+
+# Model 下拉选择重构
+- 使用 shadcn 的 `Select` 组件集中处理模型切换，`value/onValueChange` 与父级 `activeModelId` 绑定，保持受控组件模式。
+- 当未指定 `activeModelId` 时回退到模型列表的第一项，避免初始渲染无选中状态导致交互失效。
+- 在下拉项中同时展示模型名称与描述，让用户无需额外列表即可快速理解差异，减少重复选择入口。
+
+# Model 下拉信息简化
+- 下拉选项仅显示模型名称，隐藏描述，避免重复信息干扰选择；选中后保持受控状态与父级同步。
+
+# Model 下拉信息简化
+- 下拉选项同时展示模型名称与描述，但通过 `textValue` 将选中态展示限定为名称，既提供选择参考又保持触发器简洁。
+
+# Model 下拉显示优化
+- 触发器手动渲染选中模型的 label，并将 `SelectValue` 隐藏处理，保证收起后只显示名称；下拉项仍包含名称与描述供选择参考。
+
+# Model 下拉显示优化
+- 下拉项改用 Radix 原生 Item：`ItemText` 只写名称，描述放在 `aria-hidden` 的段落里，确保触发器和选中值只展示 label。
+
+# Model 下拉显示优化
+- 去掉默认 `SelectValue`，触发器直接渲染选中模型名称并设置 `aria-label`；下拉项继续显示名称+描述，但描述标记为 `aria-hidden`，避免选中后重复显示。

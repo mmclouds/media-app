@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 
+// 时长控件
 export function SliderField({
   label,
   value,
