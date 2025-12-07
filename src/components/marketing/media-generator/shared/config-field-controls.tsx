@@ -8,7 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Slider } from '@/components/ui/slider';
 import {
   Tooltip,
   TooltipContent,
@@ -75,17 +74,13 @@ export function ModelVersionSwitcher({
 export function SliderField({
   label,
   value,
-  min,
-  max,
-  step,
   suffix,
+  options,
   onChange,
 }: {
   label: string;
   value: number;
-  min: number;
-  max: number;
-  step: number;
+  options: number[];
   suffix?: string;
   onChange: (value: number) => void;
 }) {
@@ -98,13 +93,32 @@ export function SliderField({
           {suffix}
         </span>
       </Label>
-      <Slider
-        value={[value]}
-        min={min}
-        max={max}
-        step={step}
-        onValueChange={([next]) => onChange(next)}
-      />
+      <div className="flex flex-wrap gap-2">
+        {options.map((option) => {
+          const isChecked = option === value;
+          return (
+            <label
+              key={option}
+              className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition ${
+                isChecked
+                  ? 'border-white bg-white/10 text-white'
+                  : 'border-white/20 bg-black/40 text-white/70 hover:border-white/40 hover:bg-white/5'
+              }`}
+            >
+              <input
+                type="checkbox"
+                className="sr-only"
+                checked={isChecked}
+                onChange={() => onChange(option)}
+              />
+              <span className="font-medium">
+                {option}
+                {suffix}
+              </span>
+            </label>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -135,6 +149,66 @@ export function SelectField({
           ))}
         </SelectContent>
       </Select>
+    </div>
+  );
+}
+
+export function AspectRatioField({
+  label,
+  value,
+  options,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  options: string[];
+  onChange: (value: string) => void;
+}) {
+  const getDimensions = (ratio: string) => {
+    const normalized = ratio.includes(':') ? ratio : ratio.replace('x', ':');
+    const [w, h] = normalized.split(':').map((part) => Number(part) || 1);
+    const maxWidth = 34;
+    const maxHeight = 34;
+    const scale = Math.min(maxWidth / w, maxHeight / h);
+    const width = Math.max(12, Math.min(maxWidth, w * scale));
+    const height = Math.max(12, Math.min(maxHeight, h * scale));
+    return { width, height };
+  };
+
+  return (
+    <div className="space-y-2">
+      <Label className="text-xs text-white/70">{label}</Label>
+      <div className="flex flex-wrap gap-2">
+        {options.map((option) => {
+          const isChecked = option === value;
+          const { width, height } = getDimensions(option);
+          return (
+            <label
+              key={option}
+              className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition ${
+                isChecked
+                  ? 'border-white bg-white/10 text-white'
+                  : 'border-white/20 bg-black/40 text-white/70 hover:border-white/40 hover:bg-white/5'
+              }`}
+            >
+              <input
+                type="checkbox"
+                className="sr-only"
+                checked={isChecked}
+                onChange={() => onChange(option)}
+              />
+              <span
+                aria-hidden
+                className="flex items-center justify-center overflow-hidden rounded-sm bg-white/10 ring-1 ring-white/20"
+                style={{ width, height }}
+              >
+                <span className="h-full w-full border border-white/40" />
+              </span>
+              <span className="font-medium">{option}</span>
+            </label>
+          );
+        })}
+      </div>
     </div>
   );
 }

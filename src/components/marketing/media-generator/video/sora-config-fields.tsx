@@ -2,14 +2,14 @@
 
 import { PromptEditor } from '../shared/prompt-editor';
 import {
+  AspectRatioField,
   ModelVersionSwitcher,
   SelectField,
   SliderField,
 } from '../shared/config-field-controls';
 import type { MediaModelConfigProps } from '../types';
 
-const soraCamera = ['Cinematic', 'Handheld', 'Studio', 'Drone'];
-const soraRatios = ['1280x720', '1920x1080', '1080x1080'];
+
 const soraVersions = [
   {
     value: 'sora2',
@@ -33,6 +33,8 @@ export function SoraConfigFields({
   const size = (config.size as string) ?? '1280x720';
   const camera = (config.cameraStyle as string) ?? 'Cinematic';
   const modelVersion = (config.modelVersion as string) ?? 'sora-1.1';
+  const durationOptions = [10,15];
+  const ratioOptions = ['16:9','9:16'];;
 
   return (
     <div className="space-y-4">
@@ -49,11 +51,9 @@ export function SoraConfigFields({
       <PromptEditor value={prompt} onChange={onPromptChange} />
       
       <SliderField
-        label="Duration"
+        label="Video Length"
         value={seconds}
-        min={2}
-        max={10}
-        step={1}
+        options={durationOptions}
         suffix="s"
         onChange={(value) =>
           onChange({
@@ -62,10 +62,10 @@ export function SoraConfigFields({
           })
         }
       />
-      <SelectField
-        label="Resolution"
+      <AspectRatioField
+        label="Aspect Ratio"
         value={size}
-        options={soraRatios}
+        options={ratioOptions}
         onChange={(value) =>
           onChange({
             ...config,
@@ -73,17 +73,7 @@ export function SoraConfigFields({
           })
         }
       />
-      <SelectField
-        label="Camera style"
-        value={camera}
-        options={soraCamera}
-        onChange={(value) =>
-          onChange({
-            ...config,
-            cameraStyle: value,
-          })
-        }
-      />
+
     </div>
   );
 }

@@ -1,7 +1,11 @@
 'use client';
 
 import { PromptEditor } from '../shared/prompt-editor';
-import { SelectField, SliderField } from '../shared/config-field-controls';
+import {
+  AspectRatioField,
+  SelectField,
+  SliderField,
+} from '../shared/config-field-controls';
 import type { MediaModelConfigProps } from '../types';
 
 const stillRatios = ['1:1', '3:4', '16:9'];
@@ -14,11 +18,12 @@ export function StillImageConfigFields({
 }: MediaModelConfigProps) {
   const ratio = (config.aspectRatio as string) ?? '1:1';
   const quality = Number(config.quality ?? 75);
+  const qualityOptions = [50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
 
   return (
     <div className="space-y-4">
       <PromptEditor value={prompt} onChange={onPromptChange} />
-      <SelectField
+      <AspectRatioField
         label="Aspect ratio"
         value={ratio}
         options={stillRatios}
@@ -32,9 +37,7 @@ export function StillImageConfigFields({
       <SliderField
         label="Quality"
         value={quality}
-        min={50}
-        max={100}
-        step={5}
+        options={qualityOptions}
         suffix="%"
         onChange={(value) =>
           onChange({

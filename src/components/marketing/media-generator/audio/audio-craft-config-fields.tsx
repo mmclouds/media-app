@@ -14,6 +14,9 @@ export function AudioCraftConfigFields({
 }: MediaModelConfigProps) {
   const duration = Number(config.duration ?? 8);
   const mood = (config.mood as string) ?? 'Ambient';
+  const durationOptions = [
+    4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30,
+  ];
 
   return (
     <div className="space-y-4">
@@ -21,9 +24,7 @@ export function AudioCraftConfigFields({
       <SliderField
         label="Duration"
         value={duration}
-        min={4}
-        max={30}
-        step={2}
+        options={durationOptions}
         suffix="s"
         onChange={(value) =>
           onChange({
