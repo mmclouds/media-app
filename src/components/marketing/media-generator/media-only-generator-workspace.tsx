@@ -9,8 +9,10 @@ import { MediaGeneratorResultPane } from './media-generator-result-pane';
 // 双栏布局：固定媒体类型为视频，复用通用配置/结果面板
 export function MediaOnlyGeneratorWorkspace({
   className,
+  preferredModelId,
 }: {
   className?: string;
+  preferredModelId?: string;
 }) {
   const {
     mediaType,
@@ -25,7 +27,10 @@ export function MediaOnlyGeneratorWorkspace({
     onGenerate,
     isGenerating,
     activeGeneration,
-  } = useMediaGeneratorController({ lockedMediaType: 'video' });
+  } = useMediaGeneratorController({
+    lockedMediaType: 'video',
+    preferredModelId,
+  });
 
   const asset = demoVideoAssets[0];
   const currentAsset = asset ?? {

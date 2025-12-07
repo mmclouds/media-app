@@ -126,11 +126,13 @@ const createInitialConfigs = (): Record<string, MediaModelConfig> => {
 type UseMediaGeneratorOptions = {
   initialMediaType?: MediaType;
   lockedMediaType?: MediaType;
+  preferredModelId?: string;
 };
 
 export function useMediaGeneratorController({
   initialMediaType,
   lockedMediaType,
+  preferredModelId,
 }: UseMediaGeneratorOptions = {}) {
   const resolvedInitial = lockedMediaType ?? initialMediaType ?? 'video';
   const [mediaType, setMediaTypeState] = useState<MediaType>(resolvedInitial);
@@ -161,9 +163,15 @@ export function useMediaGeneratorController({
       if (prev && availableModels.some((model) => model.id === prev)) {
         return prev;
       }
+      if (
+        preferredModelId &&
+        availableModels.some((model) => model.id === preferredModelId)
+      ) {
+        return preferredModelId;
+      }
       return availableModels[0]?.id ?? '';
     });
-  }, [availableModels]);
+  }, [availableModels, preferredModelId]);
 
   const setMediaType = useCallback(
     (nextType: MediaType) => {
