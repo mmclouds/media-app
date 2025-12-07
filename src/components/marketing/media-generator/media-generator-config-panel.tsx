@@ -75,8 +75,6 @@ export function MediaGeneratorConfigPanel({
       </div>
 
       <div className="flex flex-1 flex-col gap-6 overflow-hidden px-5 py-6">
-        <PromptEditor value={prompt} onChange={onPromptChange} />
-
         {activeModel ? (
           <div className="space-y-4">
             <div>
@@ -87,6 +85,8 @@ export function MediaGeneratorConfigPanel({
             </div>
             <activeModel.configComponent
               config={activeConfig}
+              prompt={prompt}
+              onPromptChange={onPromptChange}
               onChange={(nextConfig) =>
                 onModelConfigChange(activeModel.id, nextConfig)
               }
@@ -171,29 +171,6 @@ function ModelDropdown({
         ))}
       </SelectContent>
     </Select>
-  );
-}
-
-function PromptEditor({
-  value,
-  onChange,
-}: {
-  value: string;
-  onChange: (value: string) => void;
-}) {
-  return (
-    <div className="space-y-3">
-      <div className="flex items-center justify-between">
-        <p className="text-sm font-semibold text-white">Prompt</p>
-        <span className="text-xs text-white/40">Required</span>
-      </div>
-      <textarea
-        className="h-40 w-full resize-none rounded-2xl border border-white/30 bg-black/60 p-4 text-sm text-white/80 outline-none transition focus:border-white/60"
-        placeholder="Describe the scene, lighting, motion, and references you want to generate."
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-      />
-    </div>
   );
 }
 

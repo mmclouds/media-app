@@ -75,3 +75,6 @@
 
 # Model 下拉显示优化
 - 去掉默认 `SelectValue`，触发器直接渲染选中模型名称并设置 `aria-label`；下拉项继续显示名称+描述，但描述标记为 `aria-hidden`，避免选中后重复显示。
+
+# PromptEditor 抽取
+- 将 Prompt 输入区域移至 `src/components/marketing/media-generator/shared/prompt-editor.tsx`，保留 `'use client'`，通过受控 textarea 让父级管理 value/onChange，方便在多媒体生成的不同页面复用一致的输入体验；同时由各模型的 `*-config-fields.tsx` 组件内部直接渲染该输入框，让配置区域自包含 prompt 编辑能力。

@@ -32,6 +32,8 @@ export type MediaModelConfig = Record<
 export type MediaModelConfigProps = {
   config: MediaModelConfig;
   onChange: (config: MediaModelConfig) => void;
+  prompt: string;
+  onPromptChange: (value: string) => void;
 };
 
 export type MediaModelDefinition = {
