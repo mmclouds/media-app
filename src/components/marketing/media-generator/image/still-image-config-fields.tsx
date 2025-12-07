@@ -16,8 +16,10 @@ export function StillImageConfigFields({
   prompt,
   onPromptChange,
 }: MediaModelConfigProps) {
-  const ratio = (config.aspectRatio as string) ?? '1:1';
-  const quality = Number(config.quality ?? 75);
+  const defaultRatio = '1:1';
+  const ratio = (config.aspectRatio as string) ?? defaultRatio;
+  const defaultQuality = 75;
+  const quality = Number(config.quality ?? defaultQuality);
   const qualityOptions = [50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100];
 
   return (
@@ -26,6 +28,7 @@ export function StillImageConfigFields({
       <AspectRatioField
         label="Aspect ratio"
         value={ratio}
+        defaultValue={defaultRatio}
         options={stillRatios}
         onChange={(value) =>
           onChange({
@@ -37,6 +40,7 @@ export function StillImageConfigFields({
       <SliderField
         label="Quality"
         value={quality}
+        defaultValue={defaultQuality}
         options={qualityOptions}
         suffix="%"
         onChange={(value) =>

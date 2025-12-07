@@ -23,13 +23,17 @@ export type ModelVersionOption = {
 
 export function ModelVersionSwitcher({
   value,
+  defaultValue,
   options,
   onChange,
 }: {
-  value: string;
+  value?: string;
+  defaultValue: string;
   options: ModelVersionOption[];
   onChange: (value: string) => void;
 }) {
+  const selectedValue = value ?? defaultValue ?? options[0]?.value ?? '';
+
   return (
     <TooltipProvider>
       <div className="flex items-center justify-between">
@@ -38,7 +42,7 @@ export function ModelVersionSwitcher({
       <div className="space-y-2">
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {options.map((option) => {
-            const isActive = option.value === value;
+            const isActive = option.value === selectedValue;
             return (
               <Tooltip key={option.value}>
                 <TooltipTrigger asChild>
@@ -76,16 +80,21 @@ export function ModelVersionSwitcher({
 export function SliderField({
   label,
   value,
+  defaultValue,
   suffix,
   options,
   onChange,
 }: {
   label: string;
-  value: number;
+  value?: number;
+  defaultValue: number;
   options: number[];
   suffix?: string;
   onChange: (value: number) => void;
 }) {
+  const selectedValue =
+    value ?? defaultValue ?? (options.length > 0 ? options[0] : undefined);
+
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
@@ -94,7 +103,7 @@ export function SliderField({
 
       <div className="flex flex-wrap gap-2">
         {options.map((option) => {
-          const isChecked = option === value;
+          const isChecked = option === selectedValue;
           return (
             <label
               key={option}
@@ -154,14 +163,18 @@ export function SelectField({
 export function AspectRatioField({
   label,
   value,
+  defaultValue,
   options,
   onChange,
 }: {
   label: string;
-  value: string;
+  value?: string;
+  defaultValue: string;
   options: string[];
   onChange: (value: string) => void;
 }) {
+  const selectedValue =
+    value ?? defaultValue ?? (options.length > 0 ? options[0] : undefined);
   const getDimensions = (ratio: string) => {
     const normalized = ratio.includes(':') ? ratio : ratio.replace('x', ':');
     const [w, h] = normalized.split(':').map((part) => Number(part) || 1);
@@ -175,10 +188,13 @@ export function AspectRatioField({
 
   return (
     <div className="space-y-2">
-      <Label className="text-xs text-white/70">{label}</Label>
+      <div className="flex items-center justify-between">
+        {label}{' '}
+      </div>
+
       <div className="flex flex-wrap gap-2">
         {options.map((option) => {
-          const isChecked = option === value;
+          const isChecked = option === selectedValue;
           const { width, height } = getDimensions(option);
           return (
             <label

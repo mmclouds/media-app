@@ -29,17 +29,29 @@ export function SoraConfigFields({
   prompt,
   onPromptChange,
 }: MediaModelConfigProps) {
-  const seconds = Number(config.seconds ?? 4);
-  const size = (config.size as string) ?? '1280x720';
+  const durationOptions = [10, 15];
+  const ratioOptions = ['16:9', '9:16'];
+  const defaultDuration = durationOptions[0];
+  const defaultRatio = ratioOptions[0];
+  const defaultModelVersion = soraVersions[0]?.value ?? '';
+  const seconds = durationOptions.includes(Number(config.seconds))
+    ? Number(config.seconds)
+    : undefined;
+  const sizeValue = typeof config.size === 'string'
+    ? config.size.replace('x', ':')
+    : undefined;
+  const size = ratioOptions.includes(sizeValue ?? '') ? sizeValue : undefined;
   const camera = (config.cameraStyle as string) ?? 'Cinematic';
-  const modelVersion = (config.modelVersion as string) ?? 'sora-1.1';
-  const durationOptions = [10,15];
-  const ratioOptions = ['16:9','9:16'];;
+  const configModelVersion = config.modelVersion as string | undefined;
+  const modelVersion = soraVersions.some((option) => option.value === configModelVersion)
+    ? configModelVersion
+    : undefined;
 
   return (
     <div className="space-y-4">
       <ModelVersionSwitcher
         value={modelVersion}
+        defaultValue={defaultModelVersion}
         options={soraVersions}
         onChange={(value) =>
           onChange({
@@ -53,6 +65,7 @@ export function SoraConfigFields({
       <SliderField
         label="Video Length"
         value={seconds}
+        defaultValue={defaultDuration}
         options={durationOptions}
         suffix="s"
         onChange={(value) =>
@@ -65,6 +78,7 @@ export function SoraConfigFields({
       <AspectRatioField
         label="Aspect Ratio"
         value={size}
+        defaultValue={defaultRatio}
         options={ratioOptions}
         onChange={(value) =>
           onChange({

@@ -17,7 +17,8 @@ export function Veo3ConfigFields({
   onPromptChange,
 }: MediaModelConfigProps) {
   const preset = (config.preset as string) ?? 'Hyperreal';
-  const fps = Number(config.fps ?? 24);
+  const defaultFps = 24;
+  const fps = Number(config.fps ?? defaultFps);
   const hasSound = Boolean(config.includeAudio ?? true);
   const fpsOptions = [12, 18, 24, 30, 36, 42, 48, 54, 60];
 
@@ -38,6 +39,7 @@ export function Veo3ConfigFields({
       <SliderField
         label="Frame rate"
         value={fps}
+        defaultValue={defaultFps}
         options={fpsOptions}
         suffix="fps"
         onChange={(value) =>
