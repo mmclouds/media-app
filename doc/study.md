@@ -43,3 +43,10 @@
 - 每个模型都有独立表单组件（如 `SoraConfigFields`、`Veo3ConfigFields`、`StillImageConfigFields`、`AudioCraftConfigFields`），收集的 `MediaModelConfig` 会回传至父级，方便后续扩展不同模型参数。
 - 新增 `useMediaGeneratorController` hook，把 prompt/state/轮询/生成请求全部封装，返回 `mediaType`、`availableModels`、`onGenerate` 等回调；`VideoGeneratorWorkspace` 与 `VideoOnlyGeneratorWorkspace` 共同复用该 hook，实现“主页面三栏 + 子页面双栏”两套布局。
 - 子页 `media-studio` 直接渲染 `VideoOnlyGeneratorWorkspace`，因此只包含配置与展示模块，没有菜单；若未来还需要类型切换，只要改用带菜单的 `VideoGeneratorWorkspace` 或者在页面里额外引入 `MediaGeneratorMenu` 即可。
+
+# 提交 fb76ce7（组件化）拆解要点
+- `useMediaGeneratorController` 统一处理 prompt、模型、生成请求、轮询、历史记录等状态，然后把 `mediaType/options/models/onGenerate/activeGeneration` 一次性送给 `VideoGeneratorWorkspace` 与 `VideoOnlyGeneratorWorkspace`。这样入口页面只关心布局，不再直接写复杂的 `useEffect` 逻辑。
+- `MediaGeneratorMenu`、`MediaGeneratorConfigPanel`、`MediaGeneratorResultPane` 之间通过 props 传递数据：菜单只上报媒体类型；配置面板根据 `models` 渲染模型切换、prompt 输入以及模型表单；结果面板纯展示当前生成状态 + feed。业务拆成“选择-配置-展示”三栏，方便将任意栏落在不同页面。
+- 模型表单组件通过 `configComponent` 注入（`model-configs.tsx`），每个模型都自包含默认值和字段，父级只保存 `{ [modelId]: config }`。新增模型时只要在 `MODEL_REGISTRY` 中注册定义+表单组件即可。
+- `GenerateButton` 把“禁用状态 + 提交参数 + 英文文案”统一封装，外部只要传入 `mediaType + modelId + prompt + config` 即可触发 `onGenerate`，从而保证各页面生成按钮行为一致。
+- `MediaGeneratorResultPane` 同时处理“实时生成状态卡片”“登录用户真实 feed”“游客 demo feed”，滚动懒加载以及 hover 自动播放都封装在组件内部，对上层暴露的 props 只有 `asset/loading/activeGeneration`。
