@@ -39,6 +39,8 @@ export function SoraConfigFields({
   prompt,
   onPromptChange,
 }: MediaModelConfigProps) {
+  const imageUploadBucket =
+    process.env.NEXT_PUBLIC_UPLOAD_BUCKET ?? '0-image';
   const durationOptions = [10, 15];
   const ratioOptions = ['16:9', '9:16'];
   const defaultDuration = durationOptions[0];
@@ -101,11 +103,19 @@ export function SoraConfigFields({
       {mode === 'image' ? (
         <SingleImageUploadField
           label="Image input"
+          bucket={imageUploadBucket}
           value={inputImage}
           onChange={(value) =>
             onChange({
               ...config,
               inputImage: value ?? undefined,
+            })
+          }
+          onUploaded={(file) =>
+            onChange({
+              ...config,
+              inputImage: file.downloadUrl,
+              inputImageUuid: file.uuid,
             })
           }
           helperText="Attach an image when using Image to Video."

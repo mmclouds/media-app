@@ -38,6 +38,15 @@
 - `opennextjs-cloudflare`、`wrangler` 等使用范围受限的 API Key。
 - `src/ai` 中的服务商密钥需定期轮换，合并前清理调试日志。
 
+## AI Gateway 对接准则  
+- 统一走本地 API 代理：客户端/服务端都调用 `/api/files/*`、`/api/media/*` 等内部路由，再由路由转发至网关，避免跨域与暴露密钥。
+- 环境变量：必须配置 `AI_GATEWAY_URL`、`AI_GATEWAY_API_KEY`，存储相关默认值使用 `NEXT_PUBLIC_TENANT_ID`（默认 `0`）、`NEXT_PUBLIC_UPLOAD_BUCKET`（默认 `0-image`）。
+- 鉴权：参考 `src/app/api/media/feed/route.ts`、`src/app/api/files/upload/route.ts`，进入路由先校验 `auth.api.getSession`，未登录返回 401。
+- 请求头：转发受保护接口时附带 `X-API-Key`，上传接口还透传 `authorization`、`cookie`；公网下载接口不带 `X-API-Key`。
+- URL 规范：转发前用 `AI_GATEWAY_URL` 去尾斜杠，再拼具体路径与查询参数（如 `mediaType`、`userId`、`tenantId`）；上传/下载均将当前 `userId` 追加在 query。
+- 表单与数据：上传用 `FormData`，后端代理补齐缺失的 bucket，其他 JSON 请求遵守 `Content-Type: application/json`。
+- 错误处理：解析网关返回的 JSON `message`/`success` 字段，失败时返回 5xx/502，并记录 `console.error`。
+
 # 个人偏好
 
 ## 重要（以下内容，不要改动）
