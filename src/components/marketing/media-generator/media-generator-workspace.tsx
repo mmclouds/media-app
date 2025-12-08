@@ -39,7 +39,7 @@ export function MediaGeneratorWorkspace({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'flex h-full w-full max-h-screen overflow-hidden rounded-[36px] border border-white/10 bg-black text-white shadow-[0_40px_120px_rgba(0,0,0,0.45)]',
+        'flex h-full w-full max-h-screen min-h-0 overflow-hidden rounded-[36px] border border-white/10 bg-black text-white shadow-[0_40px_120px_rgba(0,0,0,0.45)]',
         className
       )}
     >

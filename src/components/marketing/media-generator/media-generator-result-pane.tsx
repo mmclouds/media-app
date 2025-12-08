@@ -227,7 +227,7 @@ export function MediaGeneratorResultPane({
     : fallbackFeed.slice(0, visibleCount);
 
   return (
-    <section className="flex flex-1 flex-col bg-gradient-to-br from-[#050505] via-[#050505] to-[#0c0c0c] text-white">
+    <section className="flex flex-1 min-h-0 flex-col bg-gradient-to-br from-[#050505] via-[#050505] to-[#0c0c0c] text-white">
       <div className="flex h-14 items-center justify-between border-b border-white/5 px-6">
         <div className="flex gap-1 rounded-lg bg-white/5 p-1 text-xs font-semibold">
           <Tab label="All" active />
@@ -255,7 +255,7 @@ export function MediaGeneratorResultPane({
 
       <div
         ref={scrollRef}
-        className="flex-1 space-y-6 overflow-y-auto px-6 py-6"
+        className="flex-1 space-y-6 overflow-y-auto px-6 py-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {loading && (
           <div className="sticky top-0 z-10 mb-4 flex items-center gap-3 rounded-2xl border border-white/5 bg-black/70 px-4 py-3 text-xs text-white/70">

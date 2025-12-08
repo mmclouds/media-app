@@ -57,7 +57,7 @@ export function MediaGeneratorConfigPanel({
   );
 
   return (
-    <section className="flex h-full w-[420px] flex-col border-r border-white/5 bg-black/80 text-white">
+    <section className="flex h-full min-h-0 w-[420px] flex-col border-r border-white/5 bg-black/80 text-white">
       {/* 顶层栏 */}
       <div className="flex h-14 items-center justify-between border-b border-white/5 px-5">
         <div>
@@ -75,25 +75,27 @@ export function MediaGeneratorConfigPanel({
         />
       </div>
 
-      <div className="flex flex-1 flex-col gap-6 overflow-hidden px-5 py-6">
-        {activeModel ? (
-          <div className="space-y-4">
-            <activeModel.configComponent
-              config={activeConfig}
-              prompt={prompt}
-              onPromptChange={onPromptChange}
-              onChange={(nextConfig) =>
-                onModelConfigChange(activeModel.id, nextConfig)
-              }
-            />
-          </div>
-        ) : (
-          <div className="rounded-2xl border border-dashed border-white/10 p-4 text-sm text-white/60">
-            Models for {mediaType} are coming soon.
-          </div>
-        )}
+      <div className="flex flex-1 min-h-0 flex-col overflow-hidden px-5 py-6">
+        <div className="flex-1 space-y-4 overflow-y-auto pr-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          {activeModel ? (
+            <div className="space-y-4">
+              <activeModel.configComponent
+                config={activeConfig}
+                prompt={prompt}
+                onPromptChange={onPromptChange}
+                onChange={(nextConfig) =>
+                  onModelConfigChange(activeModel.id, nextConfig)
+                }
+              />
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-white/10 p-4 text-sm text-white/60">
+              Models for {mediaType} are coming soon.
+            </div>
+          )}
+        </div>
 
-        <div className="mt-auto space-y-4">
+        <div className="mt-6 space-y-4">
           <GenerateButton
             mediaType={mediaType}
             modelId={activeModel?.id ?? ''}

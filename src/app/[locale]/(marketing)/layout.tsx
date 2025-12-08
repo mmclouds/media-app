@@ -10,9 +10,9 @@ export default function MarketingLayout({ children }: { children: ReactNode }) {
   const hideFooter = pathname?.includes('/media-studio');
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex min-h-screen flex-col">
       {!hideFooter && <Navbar scroll={true} />}
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 min-h-0">{children}</main>
       {!hideFooter && <Footer />}
     </div>
   );

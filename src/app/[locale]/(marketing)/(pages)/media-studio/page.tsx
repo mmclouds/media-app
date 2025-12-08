@@ -23,7 +23,7 @@ export async function generateMetadata({
 
 export default async function MediaStudioPage() {
   return (
-    <main className="h-screen w-full overflow-hidden bg-[#020202] text-white">
+    <main className="fixed inset-0 min-h-0 w-full overflow-hidden bg-[#020202] text-white">
       <MediaGeneratorWorkspace className="h-full w-full" />
     </main>
   );
