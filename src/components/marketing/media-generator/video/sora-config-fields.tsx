@@ -6,6 +6,7 @@ import {
   ModelVersionSwitcher,
   SliderField,
 } from '../shared/config-field-controls';
+import { SingleImageUploadField } from '../shared/single-image-upload-field';
 import type { MediaModelConfigProps } from '../types';
 
 const generationModes = [
@@ -53,6 +54,8 @@ export function SoraConfigFields({
     ? config.size.replace('x', ':')
     : undefined;
   const size = ratioOptions.includes(sizeValue ?? '') ? sizeValue : undefined;
+  const inputImage =
+    typeof config.inputImage === 'string' ? (config.inputImage as string) : null;
   const configModelVersion = config.modelVersion as string | undefined;
   const modelVersion = soraVersions.some((option) => option.value === configModelVersion)
     ? configModelVersion
@@ -94,7 +97,24 @@ export function SoraConfigFields({
           })
         }
       />
+
+      {mode === 'image' ? (
+        <SingleImageUploadField
+          label="Image input"
+          value={inputImage}
+          onChange={(value) =>
+            onChange({
+              ...config,
+              inputImage: value ?? undefined,
+            })
+          }
+          helperText="Attach an image when using Image to Video."
+          maxSize={10 * 1024 * 1024}
+        />
+      ) : null}
+
       <PromptEditor value={prompt} onChange={onPromptChange} />
+
 
       <SliderField
         label="Video Length"
