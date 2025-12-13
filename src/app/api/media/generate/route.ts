@@ -10,6 +10,9 @@ const DEFAULT_SIZE = '1280x720';
 const gatewayBaseUrl = process.env.AI_GATEWAY_URL;
 const gatewayApiKey = process.env.AI_GATEWAY_API_KEY;
 
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+
 export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
@@ -64,10 +67,18 @@ export async function POST(request: NextRequest) {
     modelName: bodyModelName,
     ...providerPayload
   } = payload ?? {};
-  const prompt =
-    typeof providerPayload?.prompt === 'string'
-      ? providerPayload.prompt.trim()
+  const providerInput = isRecord(providerPayload?.input)
+    ? (providerPayload.input as Record<string, unknown>)
+    : null;
+  const inputPrompt =
+    providerInput && typeof providerInput.prompt === 'string'
+      ? providerInput.prompt.trim()
       : '';
+  const prompt =
+    inputPrompt ||
+    (typeof providerPayload?.prompt === 'string'
+      ? providerPayload.prompt.trim()
+      : '');
 
   if (!prompt) {
     return NextResponse.json(
@@ -103,13 +114,31 @@ export async function POST(request: NextRequest) {
     (queryModelName?.trim() ?? rawModelName ?? DEFAULT_MODEL_NAME) ||
     DEFAULT_MODEL_NAME;
 
-  const bodyPayload = {
-    model: DEFAULT_MODEL,
-    seconds: DEFAULT_SECONDS,
-    size: DEFAULT_SIZE,
-    ...providerPayload,
-    prompt,
-  } satisfies Record<string, unknown>;
+  const resolvedModel =
+    typeof providerPayload?.model === 'string' &&
+    providerPayload.model.trim().length > 0
+      ? providerPayload.model
+      : DEFAULT_MODEL;
+  const bodyPayload = providerInput
+    ? {
+        ...providerPayload,
+        input: {
+          ...providerInput,
+          prompt:
+            typeof providerInput.prompt === 'string' &&
+            providerInput.prompt.trim().length > 0
+              ? providerInput.prompt.trim()
+              : prompt,
+        },
+        model: resolvedModel,
+      }
+    : ({
+        model: resolvedModel,
+        seconds: DEFAULT_SECONDS,
+        size: DEFAULT_SIZE,
+        ...providerPayload,
+        prompt,
+      } satisfies Record<string, unknown>);
 
   const normalizedBaseUrl = gatewayBaseUrl.endsWith('/')
     ? gatewayBaseUrl.slice(0, -1)

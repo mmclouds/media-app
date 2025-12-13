@@ -56,10 +56,11 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
       modelName: 'sora-2',
       model: 'sora-2',
       defaultConfig: {
-        seconds: 4,
-        modelVersion: 'sora-1.1',
-        size: '1280x720',
-        cameraStyle: 'Cinematic',
+        seconds: 10,
+        modelVersion: 'sora2',
+        size: '16:9',
+        inputMode: 'text',
+        quality: 'high',
       },
       configComponent: SoraConfigFields,
     },
@@ -212,6 +213,65 @@ export function useMediaGeneratorController({
         ...payload.config,
       };
 
+      const buildSoraRequestBody = () => {
+        const inputMode =
+          resolvedConfig.inputMode === 'image' ? 'image' : 'text';
+        const modelVersion =
+          resolvedConfig.modelVersion === 'sora2-pro' ? 'sora2-pro' : 'sora2';
+        const sizeValue =
+          typeof resolvedConfig.size === 'string'
+            ? resolvedConfig.size.toLowerCase()
+            : '';
+        const aspectRatio =
+          sizeValue === '9:16' || sizeValue === '9x16'
+            ? 'portrait'
+            : sizeValue === 'portrait'
+              ? 'portrait'
+            : 'landscape';
+        const frames =
+          typeof resolvedConfig.seconds === 'number'
+            ? resolvedConfig.seconds
+            : Number(resolvedConfig.seconds);
+        const nFrames =
+          Number.isFinite(frames) && frames > 0
+            ? frames
+            : Number(resolvedConfig.seconds) || 15;
+        const quality =
+          typeof resolvedConfig.quality === 'string'
+            ? resolvedConfig.quality
+            : 'high';
+
+        const model =
+          modelVersion === 'sora2-pro'
+            ? inputMode === 'image'
+              ? 'sora-2-pro-image-to-video'
+              : 'sora-2-pro-text-to-video'
+            : inputMode === 'image'
+              ? 'sora-2-image-to-video'
+              : 'sora-2-text-to-video';
+
+        const inputPayload: Record<string, unknown> = {
+          prompt: trimmedPrompt,
+          aspect_ratio: aspectRatio,
+          n_frames: `${nFrames}`,
+          size: quality,
+          remove_watermark: true,
+        };
+
+        if (
+          inputMode === 'image' &&
+          typeof resolvedConfig.inputImage === 'string' &&
+          resolvedConfig.inputImage.trim().length > 0
+        ) {
+          inputPayload.image = resolvedConfig.inputImage;
+        }
+
+        return {
+          model,
+          input: inputPayload,
+        };
+      };
+
       setIsSubmitting(true);
       setHistory((prev) => {
         const next = [...prev, trimmedPrompt];
@@ -233,13 +293,17 @@ export function useMediaGeneratorController({
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            mediaType: payload.mediaType.toUpperCase(),
-            modelName: definition.modelName,
-            model: definition.model ?? definition.modelName,
-            prompt: trimmedPrompt,
-            ...resolvedConfig,
-          }),
+          body: JSON.stringify(
+            definition.id === 'sora'
+              ? buildSoraRequestBody()
+              : {
+                  mediaType: payload.mediaType.toUpperCase(),
+                  modelName: definition.modelName,
+                  model: definition.model ?? definition.modelName,
+                  prompt: trimmedPrompt,
+                  ...resolvedConfig,
+                }
+          ),
         });
 
         const result = (await response.json().catch(() => null)) as {
