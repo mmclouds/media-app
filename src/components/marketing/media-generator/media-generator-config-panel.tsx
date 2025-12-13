@@ -48,7 +48,7 @@ export function MediaGeneratorConfigPanel({
     : {};
 
   return (
-    <section className="flex h-full min-h-0 w-[420px] flex-col border-r border-white/5 bg-black/80 text-white">
+    <section className="flex h-full min-h-0 w-[420px] flex-col border-r border-white/5 bg-neutral-950 text-white">
       {/* 顶层栏 */}
       <div className="flex h-14 items-center justify-between border-b border-white/5 px-5">
         <div>
