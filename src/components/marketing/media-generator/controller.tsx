@@ -210,6 +210,7 @@ export function useMediaGeneratorController({
         ...definition.defaultConfig,
         ...payload.config,
       };
+      const fileUuids: string[] = [];
 
       const buildSoraRequestBody = () => {
         const inputMode =
@@ -256,12 +257,15 @@ export function useMediaGeneratorController({
           remove_watermark: true,
         };
 
-        if (
-          inputMode === 'image' &&
-          typeof resolvedConfig.inputImage === 'string' &&
-          resolvedConfig.inputImage.trim().length > 0
-        ) {
-          inputPayload.image = resolvedConfig.inputImage;
+        if (inputMode === 'image') {
+          const rawUuid =
+            typeof resolvedConfig.inputImageUuid === 'string'
+              ? resolvedConfig.inputImageUuid.trim()
+              : '';
+
+          if (rawUuid) {
+            fileUuids.push(rawUuid);
+          }
         }
 
         return {
@@ -273,9 +277,23 @@ export function useMediaGeneratorController({
       setIsSubmitting(true);
 
       try {
+        const isSora = definition.id === 'sora';
+        const requestBody = isSora
+          ? buildSoraRequestBody()
+          : {
+              mediaType: payload.mediaType.toUpperCase(),
+              modelName: definition.modelName,
+              model: definition.model ?? definition.modelName,
+              prompt: trimmedPrompt,
+              ...resolvedConfig,
+            };
+
         const queryParams = new URLSearchParams();
         queryParams.set('mediaType', payload.mediaType.toUpperCase());
         queryParams.set('modelName', definition.modelName);
+        Array.from(new Set(fileUuids)).forEach((uuid) => {
+          queryParams.append('fileUuids', uuid);
+        });
 
         const queryString = queryParams.toString();
         const endpoint = queryString
@@ -287,17 +305,7 @@ export function useMediaGeneratorController({
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(
-            definition.id === 'sora'
-              ? buildSoraRequestBody()
-              : {
-                  mediaType: payload.mediaType.toUpperCase(),
-                  modelName: definition.modelName,
-                  model: definition.model ?? definition.modelName,
-                  prompt: trimmedPrompt,
-                  ...resolvedConfig,
-                }
-          ),
+          body: JSON.stringify(requestBody),
         });
 
         const result = (await response.json().catch(() => null)) as {

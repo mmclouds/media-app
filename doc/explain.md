@@ -1,34 +1,39 @@
----
 
 ## 2. explain.md（讲解内容）必须包含以下部分
 
 ### 🟦 A. React 核心概念讲解
-- 组件与状态：`useMediaGeneratorController` 用多组 `useState` 管理媒体类型、模型选择、配置、提示词与当前生成任务，`MediaGeneratorConfigPanel` 自身保持无状态、直接消费上层数据。
-- 记忆与派生：`useMemo` 根据当前媒体类型筛选可用模型列表，避免重复计算；`useCallback` 包裹生成请求逻辑，使依赖稳定、减少子组件重复渲染。
-- 副作用：`useEffect` 在模型列表变化时重置选中模型，并在生成任务活跃时轮询结果接口，同时在返回函数中清理定时器，确保无内存泄漏。
-- 渲染与反馈：点击生成按钮后立即更新提交状态与 `activeGeneration`，React 先渲染最新状态再等待网络请求，实现即时 UI 反馈。
-- 最佳实践体现：配置表单通过 `configComponent` 注入，保持容器组件简洁；请求体组装抽离到纯函数，便于维护与测试；此次移除历史面板与背景色调整，保持单一职责并优化对比度。
+- 组件/props/state：`SingleImageUploadField` 作为可复用上传组件，通过 `props` 接收 bucket、回调与初始值，内部 `state` 管理上传状态、错误提示与预览链接，父级依然保持受控数据。
+- Hooks 使用：`useState` 处理上传中/错误/预览；`useRef` 操作隐藏的文件输入；`useEffect` 清理 blob URL 并同步外部值；`useMemo` 缓存默认租户 ID，避免重复读取 env。
+- 使用原因：状态 Hook 触发渲染以更新 UI，`useEffect` 负责副作用清理防止内存泄漏，`useRef` 让我们在上传完成后重置 `<input>`，`useMemo` 避免无关重算。
+- 渲染机制关联：文件选中后设置 state，React 根据最新 state 重绘预览或提示；依赖变更触发 `useEffect` 回收旧 URL，保证页面只展示最新资源。
+- 最佳实践：组件保持受控、边界清晰，上传前校验大小，上传后重置输入与预览，错误信息集中处理并反馈给用户。
 
 ### 🟦 B. Next.js 核心概念讲解（若本次代码使用 Next.js）
-- Server 与 Client 划分：配置面板与工作区声明 `'use client'`，以便使用 Hook 与事件；生成 API 路由放在 `app/api/media` 目录，由服务器执行鉴权与转发。
-- `"use client"` 的作用：允许在前端使用 `useState`、`useEffect` 等 Hook、绑定按钮事件并发起 `fetch`，与默认 Server Components 区分。
-- App Router 路由机制：页面与 API 均在 `app` 目录下，API 通过 `app/api/*` 提供同源接口，前端直接调用避免跨域。
-- 数据获取策略：生成与轮询均在客户端 `fetch`，结果请求设置 `cache: 'no-store'` 避免缓存；页面级渲染仍可保持 SSR 以满足 SEO。
-- 文件结构影响：营销生成器相关组件集中在 `src/components/marketing/media-generator`，API 代理独立于组件，前后端职责清晰。
+- Server vs Client：上传组件声明 `"use client"` 以使用浏览器 File API；`app/api/files/upload/route.ts` 是服务器路由处理器，负责鉴权与代理网关。
+- `"use client"` 作用：启用客户端状态与事件处理；若无该指令，将默认作为 Server Component 无法访问 `File`、`FormData`。
+- App Router：API 路由位于 `src/app/api/files/upload/route.ts`，前端通过相对路径调用，同源代理封装鉴权与密钥转发，避免直接暴露网关。
+- 数据策略：上传请求在客户端发起，API 路由使用 `cache: 'no-store'` 直连网关，未涉及 SSR/SSG/ISR；失败时返回 JSON 由前端解析。生成接口也通过 API 路由转发，并追加 query 参数。
+- 结构影响：`lib/file-transfer.ts` 封装上传/下载逻辑供多个组件复用，`components/...` 专注 UI，`app/api` 处理权限与转发，分层清晰利于排查。
 
 ### 🟦 C. 代码逻辑拆解与架构说明
-- 文件结构：`media-generator-config-panel.tsx` 负责模型选择与配置渲染；`controller.tsx` 管理状态、请求与轮询；工作区组件组合菜单/配置/结果三栏。
-- 背景与视觉：配置面板根节点背景改为 `bg-neutral-950`，在纯黑基础上增加微弱灰度，提升层次与可读性，与整体暗色调保持一致。
-- 核心流程：用户选择媒体类型与模型 → 配置组件渲染对应表单并收集 `prompt`/`config` → 生成按钮调用 `handleGenerate` 组装请求体并触发 `/api/media/generate` → 返回 `taskId` 后轮询结果接口更新状态。
-- 数据流与通信：控制器通过 props 将状态与回调下发，配置面板调用 `onModelChange`、`onModelConfigChange`、`onPromptChange` 更新上层，结果面板消费 `activeGeneration` 展示进度。
-- 可替代实现 vs 当前实现：历史记录功能被移除，配置面板聚焦当前表单与提交；如需恢复历史，可在控制器层添加独立存储或服务端记录，避免 UI 臃肿。
-- 隐含最佳实践：容器组件保持瘦身，复杂逻辑集中到控制器；色彩变更使用 Tailwind 预设色值，避免散落魔法值并符合设计约束。
+- 文件结构：`src/lib/file-transfer.ts` 提供上传/下载封装；`src/components/marketing/media-generator/shared/single-image-upload-field.tsx` 调用封装实现 UI；API 代理在 `src/app/api/files/upload/route.ts`。
+- 关键改动：`uploadFileToBucket` 在处理响应时增加 `error` 字段与 `statusText` 兜底，优先抛出网关或鉴权返回的真实错误信息，避免只得到笼统的“Failed to upload file.”。
+- 方法调用串联（上传到生成）：  
+  1) 用户在 `SingleImageUploadField` 选择文件 → 组件内部调用 `uploadFileToBucket`（`lib/file-transfer.ts`），用 `FormData` 触发 `/api/files/upload`。  
+  2) `/api/files/upload/route.ts` 先用 `auth.api.getSession` 校验登录，再把表单转发到网关 `/api/files/upload?userId=<session.user.id>`，附带 `X-API-Key`、`authorization`、`cookie`。  
+  3) 网关返回 JSON（含 `uuid`），`uploadFileToBucket` 解析后回到组件，`SingleImageUploadField` 把 `uuid` 和下载 URL 通过 `onUploaded` 传给上层。  
+  4) `SoraConfigFields` 的 `onUploaded` 把 `inputImageUuid`（uuid）和 `inputImage`（下载链接）写入模型配置。  
+  5) 点击生成按钮时，`GenerateButton` 调 `onGenerate` → `useMediaGeneratorController.handleGenerate`。  
+  6) `handleGenerate` 在 Sora 分支通过 `buildSoraRequestBody` 收集 `inputImageUuid` 到 `fileUuids`，组装请求体（不含图片 URL），随后将 `fileUuids` 追加到 `/api/media/generate` 的 query。  
+  7) `/api/media/generate/route.ts` 读取所有 `fileUuids`，连同 `mediaType`、`modelName`、`userId` 转发到网关 `/api/v1/media/generate`，实现从上传到生成的链路闭合。
+- 可替代实现：也可在组件内直接写 fetch 并解析错误，但封装在 `lib` 便于复用与集中调整 URL/header 规则；集中错误透传能直接暴露“未登录”或“API Key 未配置”等根因，方便定位“curl 成功但页面失败”的差异；`fileUuids` 由控制器集中拼接，来源明确避免兜底解析。
+- 隐含最佳实践：客户端不暴露密钥、统一走内部代理；错误优先透传后端信息；FormData 让浏览器自动设置 boundary；分层封装提升可维护性。
 
 ### 🟦 D. 初学者学习重点总结
-- 何时使用 `'use client'`：需要 Hook 与交互时声明，服务端逻辑放在 API 路由。
-- 使用 `useMemo`/`useCallback` 保持依赖稳定，减少无谓渲染。
-- 副作用清理：轮询或订阅类逻辑必须在 `useEffect` 返回函数中清理。
-- 组件职责单一：配置面板只负责表单与提交，其他状态与请求由控制器承担，便于增删功能（如本次移除历史）。
-- 设计与实现一致：背景颜色通过 Tailwind 变量调整，保证视觉需求与代码实现一致。
+- 如何在 React 组件中用 `useState`/`useEffect`/`useRef` 管理上传流程与资源释放。
+- 使用 `FormData` 上传文件时不手动设置 `Content-Type`，让浏览器附带 boundary。
+- Next.js App Router 下 API 路由的鉴权与网关转发模式，并在转发时拼接必要的 query（如 `fileUuids`、`userId`）。
+- 错误信息透传的写法：优先读取 `message`/`error`，再用 `statusText` 兜底。
+- 通过封装公共上传逻辑实现多处复用，并在生成阶段先构建请求体后组装 `fileUuids`，减少遗漏。
 
 ---

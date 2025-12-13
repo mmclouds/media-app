@@ -7,6 +7,7 @@ type UploadApiResponse = {
   etag?: string;
   success?: boolean;
   message?: string;
+  error?: string;
 };
 
 export type UploadedFileInfo = UploadApiResponse & {
@@ -82,7 +83,10 @@ export async function uploadFileToBucket({
   const result = (await response.json().catch(() => null)) as UploadApiResponse | null;
 
   if (!response.ok || !result?.uuid) {
-    const message = result?.message ?? 'Failed to upload file.';
+    const message =
+      result?.message ??
+      result?.error ??
+      (response.statusText || 'Failed to upload file.');
     throw new Error(message);
   }
 

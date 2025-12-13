@@ -148,6 +148,8 @@ export async function POST(request: NextRequest) {
   outgoingParams.set('mediaType', outgoingMediaType);
   outgoingParams.set('modelName', resolvedModelName);
   outgoingParams.set('userId', userId);
+  const fileUuids = searchParams.getAll('fileUuids').filter((uuid) => uuid.trim().length > 0);
+  fileUuids.forEach((uuid) => outgoingParams.append('fileUuids', uuid.trim()));
 
   const targetUrl = `${normalizedBaseUrl}/api/v1/media/generate?${outgoingParams.toString()}`;
 

@@ -10,6 +10,20 @@ const normalizeBaseUrl = (base?: string) =>
 
 export const dynamic = 'force-dynamic';
 
+/**
+ * 相应示例
+ * {
+    "uuid": "7a5835c3-ff6b-40ab-9f7a-6abf60ed62af",
+    "storageType": "S3",
+    "bucketName": "0-image",
+    "objectKey": "7a5835c3-ff6b-40ab-9f7a-6abf60ed62af",
+    "fileSize": 3389722,
+    "etag": "\"f95e6279f329f456aae8e13fd3c5e0d3\"",
+    "success": true
+}
+ * @param request 
+ * @returns 
+ */
 export async function POST(request: NextRequest) {
   const session = await auth.api.getSession({
     headers: request.headers,
