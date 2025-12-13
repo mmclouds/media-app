@@ -23,7 +23,6 @@ export function MediaOnlyGeneratorWorkspace({
     onModelConfigChange,
     prompt,
     setPrompt,
-    history,
     onGenerate,
     isGenerating,
     activeGeneration,
@@ -58,7 +57,6 @@ export function MediaOnlyGeneratorWorkspace({
         onModelConfigChange={onModelConfigChange}
         prompt={prompt}
         onPromptChange={setPrompt}
-        history={history}
         onGenerate={onGenerate}
         isGenerating={isGenerating}
       />

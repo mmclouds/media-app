@@ -7,14 +7,12 @@ import {
 } from '@/components/ui/select';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { CheckIcon } from 'lucide-react';
-import { useMemo } from 'react';
 import { GenerateButton } from './generate-button';
 import type {
   MediaGenerationPayload,
   MediaModelConfig,
   MediaModelDefinition,
   MediaType,
-  VideoGeneratorHistory,
 } from './types';
 
 type MediaGeneratorConfigPanelProps = {
@@ -26,7 +24,6 @@ type MediaGeneratorConfigPanelProps = {
   onModelConfigChange: (modelId: string, config: MediaModelConfig) => void;
   prompt: string;
   onPromptChange: (value: string) => void;
-  history: VideoGeneratorHistory;
   onGenerate: (payload: MediaGenerationPayload) => Promise<void> | void;
   isGenerating: boolean;
 };
@@ -40,7 +37,6 @@ export function MediaGeneratorConfigPanel({
   onModelConfigChange,
   prompt,
   onPromptChange,
-  history,
   onGenerate,
   isGenerating,
 }: MediaGeneratorConfigPanelProps) {
@@ -50,11 +46,6 @@ export function MediaGeneratorConfigPanel({
   const activeConfig = activeModel
     ? (modelConfigs[activeModel.id] ?? activeModel.defaultConfig)
     : {};
-
-  const recentPrompts = useMemo(
-    () => [...history].slice(-3).reverse(),
-    [history]
-  );
 
   return (
     <section className="flex h-full min-h-0 w-[420px] flex-col border-r border-white/5 bg-black/80 text-white">
@@ -104,8 +95,6 @@ export function MediaGeneratorConfigPanel({
             onGenerate={onGenerate}
             disabled={isGenerating}
           />
-
-          <PromptHistory prompts={recentPrompts} />
         </div>
       </div>
     </section>
@@ -168,33 +157,5 @@ function ModelDropdown({
         ))}
       </SelectContent>
     </Select>
-  );
-}
-
-function PromptHistory({ prompts }: { prompts: string[] }) {
-  if (!prompts.length) {
-    return (
-      <div className="rounded-2xl border border-dashed border-white/10 p-4 text-center text-xs text-white/50">
-        Prompts you run will appear here for quick reuse.
-      </div>
-    );
-  }
-
-  return (
-    <div className="space-y-2">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
-        Recent prompts
-      </p>
-      <div className="space-y-2">
-        {prompts.map((entry, index) => (
-          <div
-            key={`${entry}-${index}`}
-            className="rounded-xl border border-white/10 bg-black/40 p-3 text-xs text-white/70"
-          >
-            {entry}
-          </div>
-        ))}
-      </div>
-    </div>
   );
 }

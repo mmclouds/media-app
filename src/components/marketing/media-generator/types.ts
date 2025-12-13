@@ -14,8 +14,6 @@ export type VideoGeneratorAsset = {
   errorMessage?: string | null;
 };
 
-export type VideoGeneratorHistory = string[];
-
 export type MediaType = 'video' | 'audio' | 'image';
 
 export type MediaTypeOption = {

@@ -15,7 +15,6 @@ import type {
   MediaType,
   MediaTypeOption,
   VideoGenerationState,
-  VideoGeneratorHistory,
 } from './types';
 
 const POLLING_INTERVAL_MS = 5000;
@@ -138,7 +137,6 @@ export function useMediaGeneratorController({
 }: UseMediaGeneratorOptions = {}) {
   const resolvedInitial = lockedMediaType ?? initialMediaType ?? 'video';
   const [mediaType, setMediaTypeState] = useState<MediaType>(resolvedInitial);
-  const [history, setHistory] = useState<VideoGeneratorHistory>([]);
   const [activeGeneration, setActiveGeneration] =
     useState<VideoGenerationState | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -273,10 +271,6 @@ export function useMediaGeneratorController({
       };
 
       setIsSubmitting(true);
-      setHistory((prev) => {
-        const next = [...prev, trimmedPrompt];
-        return next.slice(-5);
-      });
 
       try {
         const queryParams = new URLSearchParams();
@@ -439,7 +433,6 @@ export function useMediaGeneratorController({
     onModelConfigChange: handleModelConfigChange,
     prompt,
     setPrompt,
-    history,
     onGenerate: handleGenerate,
     isGenerating:
       isSubmitting ||
