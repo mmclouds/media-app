@@ -7,7 +7,7 @@ import {
   SliderField,
 } from '../shared/config-field-controls';
 import { SingleImageUploadField } from '../shared/single-image-upload-field';
-import type { MediaModelConfigProps } from '../types';
+import type { MediaModelConfig, MediaModelConfigProps } from '../types';
 
 const generationModes = [
   {
@@ -32,6 +32,73 @@ const soraVersions = [
     description: 'Sharper visuals with steadier motion.',
   },
 ];
+
+export const buildSoraRequestBody = ({
+  prompt,
+  resolvedConfig,
+  fileUuids,
+}: {
+  prompt: string;
+  resolvedConfig: MediaModelConfig;
+  fileUuids: string[];
+}) => {
+  const inputMode = resolvedConfig.inputMode === 'image' ? 'image' : 'text';
+  const modelVersion =
+    resolvedConfig.modelVersion === 'sora2-pro' ? 'sora2-pro' : 'sora2';
+  const sizeValue =
+    typeof resolvedConfig.size === 'string'
+      ? resolvedConfig.size.toLowerCase()
+      : '';
+  const aspectRatio =
+    sizeValue === '9:16' || sizeValue === '9x16'
+      ? 'portrait'
+      : sizeValue === 'portrait'
+        ? 'portrait'
+        : 'landscape';
+  const frames =
+    typeof resolvedConfig.seconds === 'number'
+      ? resolvedConfig.seconds
+      : Number(resolvedConfig.seconds);
+  const nFrames =
+    Number.isFinite(frames) && frames > 0
+      ? frames
+      : Number(resolvedConfig.seconds) || 15;
+  const quality =
+    typeof resolvedConfig.quality === 'string' ? resolvedConfig.quality : 'high';
+
+  const model =
+    modelVersion === 'sora2-pro'
+      ? inputMode === 'image'
+        ? 'sora-2-pro-image-to-video'
+        : 'sora-2-pro-text-to-video'
+      : inputMode === 'image'
+        ? 'sora-2-image-to-video'
+        : 'sora-2-text-to-video';
+
+  const inputPayload: Record<string, unknown> = {
+    prompt,
+    aspect_ratio: aspectRatio,
+    n_frames: `${nFrames}`,
+    size: quality,
+    remove_watermark: true,
+  };
+
+  if (inputMode === 'image') {
+    const rawUuid =
+      typeof resolvedConfig.inputImageUuid === 'string'
+        ? resolvedConfig.inputImageUuid.trim()
+        : '';
+
+    if (rawUuid) {
+      fileUuids.push(rawUuid);
+    }
+  }
+
+  return {
+    model,
+    input: inputPayload,
+  };
+};
 
 export function SoraConfigFields({
   config,

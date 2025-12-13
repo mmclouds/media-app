@@ -4,7 +4,10 @@ import { Image as ImageIcon, Music, Video } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AudioCraftConfigFields } from './audio/audio-craft-config-fields';
 import { StillImageConfigFields } from './image/still-image-config-fields';
-import { SoraConfigFields } from './video/sora-config-fields';
+import {
+  SoraConfigFields,
+  buildSoraRequestBody,
+} from './video/sora-config-fields';
 import { Veo3ConfigFields } from './video/veo3-config-fields';
 import type {
   MediaGenerationPayload,
@@ -212,74 +215,16 @@ export function useMediaGeneratorController({
       };
       const fileUuids: string[] = [];
 
-      const buildSoraRequestBody = () => {
-        const inputMode =
-          resolvedConfig.inputMode === 'image' ? 'image' : 'text';
-        const modelVersion =
-          resolvedConfig.modelVersion === 'sora2-pro' ? 'sora2-pro' : 'sora2';
-        const sizeValue =
-          typeof resolvedConfig.size === 'string'
-            ? resolvedConfig.size.toLowerCase()
-            : '';
-        const aspectRatio =
-          sizeValue === '9:16' || sizeValue === '9x16'
-            ? 'portrait'
-            : sizeValue === 'portrait'
-              ? 'portrait'
-            : 'landscape';
-        const frames =
-          typeof resolvedConfig.seconds === 'number'
-            ? resolvedConfig.seconds
-            : Number(resolvedConfig.seconds);
-        const nFrames =
-          Number.isFinite(frames) && frames > 0
-            ? frames
-            : Number(resolvedConfig.seconds) || 15;
-        const quality =
-          typeof resolvedConfig.quality === 'string'
-            ? resolvedConfig.quality
-            : 'high';
-
-        const model =
-          modelVersion === 'sora2-pro'
-            ? inputMode === 'image'
-              ? 'sora-2-pro-image-to-video'
-              : 'sora-2-pro-text-to-video'
-            : inputMode === 'image'
-              ? 'sora-2-image-to-video'
-              : 'sora-2-text-to-video';
-
-        const inputPayload: Record<string, unknown> = {
-          prompt: trimmedPrompt,
-          aspect_ratio: aspectRatio,
-          n_frames: `${nFrames}`,
-          size: quality,
-          remove_watermark: true,
-        };
-
-        if (inputMode === 'image') {
-          const rawUuid =
-            typeof resolvedConfig.inputImageUuid === 'string'
-              ? resolvedConfig.inputImageUuid.trim()
-              : '';
-
-          if (rawUuid) {
-            fileUuids.push(rawUuid);
-          }
-        }
-
-        return {
-          model,
-          input: inputPayload,
-        };
-      };
-
       setIsSubmitting(true);
 
       try {
         const isSora = definition.id === 'sora';
         const requestBody = isSora
-          ? buildSoraRequestBody()
+          ? buildSoraRequestBody({
+              prompt: trimmedPrompt,
+              resolvedConfig,
+              fileUuids,
+            })
           : {
               mediaType: payload.mediaType.toUpperCase(),
               modelName: definition.modelName,
