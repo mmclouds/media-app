@@ -27,7 +27,7 @@ type PreviewPanelProps = {
 };
 
 const DEFAULT_VIDEO_SRC = demoVideoAssets[0]?.src ?? '';
-const DEFAULT_POSTER = demoVideoAssets[0]?.poster;
+const DEFAULT_POSTER = '/images/media/fengmian.jpg';
 const LOADING_VIDEO_SRC = demoVideoAssets[1]?.src ?? DEFAULT_VIDEO_SRC;
 const LOADING_POSTER = demoVideoAssets[1]?.poster ?? DEFAULT_POSTER;
 const FAILED_POSTER =
