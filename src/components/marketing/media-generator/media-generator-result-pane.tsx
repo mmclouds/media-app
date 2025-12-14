@@ -3,7 +3,15 @@
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { useVideoPoster } from '@/hooks/use-video-poster';
 import { FolderOpen } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { RefObject } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { demoVideoAssets } from './data';
 import type {
   MediaFeedItem,
@@ -26,6 +34,13 @@ const FAILED_POSTER =
   'https://images.unsplash.com/photo-1527443224154-d1af1e991e5d?auto=format&fit=crop&w=1200&q=80';
 const FEED_LIMIT = 6;
 const POLL_INTERVAL_MS = 5000;
+const ESTIMATED_CARD_HEIGHT = 520;
+const VIRTUAL_OVERSCAN_PX = 800;
+
+type VirtualRange = {
+  start: number;
+  end: number;
+};
 
 export function MediaGeneratorResultPane({
   asset,
@@ -76,6 +91,18 @@ export function MediaGeneratorResultPane({
   );
 
   const usingRemoteFeed = isLoggedIn && remoteFeed.length > 0;
+  const {
+    range: virtualRange,
+    topSpacer,
+    bottomSpacer,
+    registerHeight: registerVirtualHeight,
+  } = useVirtualFeed({
+    items: remoteFeed,
+    scrollRef,
+    estimatedItemHeight: ESTIMATED_CARD_HEIGHT,
+    overscan: VIRTUAL_OVERSCAN_PX,
+    enabled: usingRemoteFeed && remoteFeed.length > 12,
+  });
 
   useEffect(() => {
     if (!usingRemoteFeed) {
@@ -236,7 +263,10 @@ export function MediaGeneratorResultPane({
   }, [fallbackLength, loadFeed, usingRemoteFeed]);
 
   const visibleItems = usingRemoteFeed
-    ? remoteFeed
+    ? remoteFeed.slice(
+        virtualRange.start,
+        Math.min(virtualRange.end + 1, remoteFeed.length)
+      )
     : fallbackFeed.slice(0, visibleCount);
 
   const liveAsset = useMemo(
@@ -310,13 +340,37 @@ export function MediaGeneratorResultPane({
           </div>
         )}
 
-        {visibleItems.map((item, index) => (
-          <VideoPreviewCard
-            key={item.id}
-            asset={item}
-            isActive={usingRemoteFeed ? index === 0 : item.id === asset.id}
-          />
-        ))}
+        {usingRemoteFeed ? (
+          <>
+            {topSpacer > 0 ? (
+              <div style={{ height: topSpacer }} aria-hidden />
+            ) : null}
+            {visibleItems.map((item, index) => {
+              const absoluteIndex = virtualRange.start + index;
+              return (
+                <VideoPreviewCard
+                  key={item.id}
+                  asset={item}
+                  isActive={absoluteIndex === 0}
+                  onHeightChange={(height) =>
+                    registerVirtualHeight(item.id, height)
+                  }
+                />
+              );
+            })}
+            {bottomSpacer > 0 ? (
+              <div style={{ height: bottomSpacer }} aria-hidden />
+            ) : null}
+          </>
+        ) : (
+          visibleItems.map((item) => (
+            <VideoPreviewCard
+              key={item.id}
+              asset={item}
+              isActive={item.id === asset.id}
+            />
+          ))
+        )}
 
         {usingRemoteFeed ? (
           <>
@@ -360,15 +414,160 @@ function Tab({ label, active = false }: { label: string; active?: boolean }) {
   );
 }
 
+function useVirtualFeed({
+  items,
+  scrollRef,
+  estimatedItemHeight = ESTIMATED_CARD_HEIGHT,
+  overscan = VIRTUAL_OVERSCAN_PX,
+  enabled = true,
+}: {
+  items: VideoGeneratorAsset[];
+  scrollRef: RefObject<HTMLDivElement>;
+  estimatedItemHeight?: number;
+  overscan?: number;
+  enabled?: boolean;
+}) {
+  const heightsRef = useRef<Map<string, number>>(new Map());
+  const [offsets, setOffsets] = useState<number[]>([0]);
+  const [totalHeight, setTotalHeight] = useState(0);
+  const [range, setRange] = useState<VirtualRange>(() => ({
+    start: 0,
+    end: items.length ? items.length - 1 : -1,
+  }));
+
+  const recomputeOffsets = useCallback(() => {
+    const nextOffsets: number[] = [0];
+    let running = 0;
+    items.forEach((item) => {
+      const height = heightsRef.current.get(item.id) ?? estimatedItemHeight;
+      running += height;
+      nextOffsets.push(running);
+    });
+    setOffsets(nextOffsets);
+    setTotalHeight(running);
+    const lastIndex = items.length - 1;
+    setRange((prev) => {
+      if (lastIndex < 0) {
+        return { start: 0, end: -1 };
+      }
+      const start = Math.max(0, Math.min(prev.start, lastIndex));
+      const end = Math.max(start, Math.min(prev.end, lastIndex));
+      return { start, end };
+    });
+    return nextOffsets;
+  }, [estimatedItemHeight, items]);
+
+  useEffect(() => {
+    if (!enabled) {
+      setOffsets([0]);
+      setTotalHeight(0);
+      setRange({ start: 0, end: items.length ? items.length - 1 : -1 });
+      return;
+    }
+    recomputeOffsets();
+  }, [items, enabled, recomputeOffsets]);
+
+  const updateRange = useCallback(() => {
+    if (!enabled) {
+      return;
+    }
+    const container = scrollRef.current;
+    if (!container || !offsets.length) {
+      return;
+    }
+    const viewportHeight = container.clientHeight || 0;
+    const scrollTop = container.scrollTop || 0;
+    const lastIndex = items.length - 1;
+    if (lastIndex < 0) {
+      setRange({ start: 0, end: -1 });
+      return;
+    }
+    const startIndex = findOffsetIndex(
+      offsets,
+      Math.max(0, scrollTop - overscan)
+    );
+    const endIndex = findOffsetIndex(
+      offsets,
+      scrollTop + viewportHeight + overscan
+    );
+    setRange({
+      start: startIndex,
+      end: Math.min(endIndex, lastIndex),
+    });
+  }, [enabled, items.length, offsets, overscan, scrollRef]);
+
+  useEffect(() => {
+    updateRange();
+  }, [updateRange]);
+
+  useEffect(() => {
+    if (!enabled) {
+      return undefined;
+    }
+    const container = scrollRef.current;
+    if (!container) {
+      return undefined;
+    }
+    const handler = () => {
+      updateRange();
+    };
+    container.addEventListener('scroll', handler);
+    return () => {
+      container.removeEventListener('scroll', handler);
+    };
+  }, [enabled, scrollRef, updateRange]);
+
+  const registerHeight = useCallback(
+    (id: string, height: number) => {
+      if (!enabled || !height) {
+        return;
+      }
+      const prev = heightsRef.current.get(id);
+      if (prev === height) {
+        return;
+      }
+      heightsRef.current.set(id, height);
+      recomputeOffsets();
+    },
+    [enabled, recomputeOffsets]
+  );
+
+  if (!enabled) {
+    return {
+      range: {
+        start: 0,
+        end: items.length ? items.length - 1 : -1,
+      },
+      topSpacer: 0,
+      bottomSpacer: 0,
+      registerHeight: () => undefined,
+    };
+  }
+
+  const topSpacer = offsets[range.start] ?? 0;
+  const bottomSpacer =
+    totalHeight - (offsets[range.end + 1] ?? totalHeight ?? 0);
+
+  return {
+    range,
+    topSpacer,
+    bottomSpacer: Math.max(0, bottomSpacer),
+    registerHeight,
+  };
+}
+
 function VideoPreviewCard({
   asset,
   isActive = false,
+  onHeightChange,
 }: {
   asset: VideoGeneratorAsset;
   isActive?: boolean;
+  onHeightChange?: (height: number) => void;
 }) {
   const { videoRef, handleMouseEnter, handleMouseLeave, handleMediaReady } =
     useHoverPlayback();
+  const cardRef = useRef<HTMLDivElement | null>(null);
   const shouldCapturePoster = !asset.poster && Boolean(asset.src);
   const { poster: capturedPoster, error: posterError } = useVideoPoster(
     shouldCapturePoster ? asset.src : undefined,
@@ -380,6 +579,26 @@ function VideoPreviewCard({
       console.warn('生成视频封面失败:', posterError);
     }
   }, [asset.id, posterError]);
+
+  useLayoutEffect(() => {
+    if (!cardRef.current || !onHeightChange) {
+      return;
+    }
+    const measure = () => {
+      const rect = cardRef.current?.getBoundingClientRect();
+      if (rect) {
+        onHeightChange(rect.height);
+      }
+    };
+    measure();
+    const observer = new ResizeObserver(() => {
+      measure();
+    });
+    observer.observe(cardRef.current);
+    return () => {
+      observer.disconnect();
+    };
+  }, [onHeightChange]);
 
   const isError = isErrorStatus(asset.status);
   const isLoading = isInProgressStatus(asset.status);
@@ -402,7 +621,10 @@ function VideoPreviewCard({
   const statusLabel = formatLabel(asset.status);
 
   return (
-    <article className="overflow-hidden rounded-[32px] border border-white/5 bg-gradient-to-b from-white/[0.04] to-black/70 shadow-2xl shadow-black/40">
+    <article
+      ref={cardRef}
+      className="overflow-hidden rounded-[32px] border border-white/5 bg-gradient-to-b from-white/[0.04] to-black/70 shadow-2xl shadow-black/40"
+    >
       <div className="space-y-3 border-b border-white/5 px-6 py-5">
         <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-white/40">
           <span className="rounded-full border border-white/10 px-3 py-1 text-white">
@@ -473,6 +695,27 @@ function VideoPreviewCard({
       </div>
     </article>
   );
+}
+
+function findOffsetIndex(offsets: number[], value: number) {
+  if (offsets.length <= 1) {
+    return 0;
+  }
+  let low = 0;
+  let high = offsets.length - 2;
+  while (low <= high) {
+    const mid = Math.floor((low + high) / 2);
+    const start = offsets[mid];
+    const end = offsets[mid + 1];
+    if (value < start) {
+      high = mid - 1;
+    } else if (value >= end) {
+      low = mid + 1;
+    } else {
+      return mid;
+    }
+  }
+  return Math.max(0, Math.min(low, offsets.length - 2));
 }
 
 function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
