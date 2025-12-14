@@ -142,18 +142,15 @@ export function MediaGeneratorResultPane({
           if (reset) {
             return normalizedItems;
           }
-          const mergedIds = new Set<string>();
-          const merged: VideoGeneratorAsset[] = [];
+          const merged = [...prev];
+          const indexMap = new Map(prev.map((item, index) => [item.id, index]));
 
           normalizedItems.forEach((entry) => {
-            mergedIds.add(entry.id);
-            const existing = prev.find((item) => item.id === entry.id);
-            merged.push(existing ? { ...existing, ...entry } : entry);
-          });
-
-          prev.forEach((item) => {
-            if (!mergedIds.has(item.id)) {
-              merged.push(item);
+            const existingIndex = indexMap.get(entry.id);
+            if (typeof existingIndex === 'number') {
+              merged[existingIndex] = { ...merged[existingIndex], ...entry };
+            } else {
+              merged.push(entry);
             }
           });
 
