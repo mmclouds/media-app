@@ -3,32 +3,33 @@
 ## 2. explain.md（讲解内容）必须包含以下部分
 
 ### 🟦 A. React 核心概念讲解
-- 组件：`MediaGeneratorResultPane` 与 `VideoPreviewCard` 依赖 props 控制展示，利用状态与副作用协调远端数据与 UI。
-- 组件更新：用统一的 `VideoPreviewCard` 展示进行中/失败/完成状态，去掉顶部独立进度条，保持框架一致。
-- Hooks：使用 `useState` 维护远端 feed、加载提示、可见数量；`useEffect` 处理登录变化、滚动监听、轮询拉取；`useMemo` 生成 fallback feed、实时任务资产以及是否需要轮询的判定；`useCallback` 稳定化拉取函数与视频悬停播放回调；`useRef` 保存滚动容器、游标、定时器以及视频实例。
-- 需要这些 Hooks：`useEffect` 让登录/生成任务/滚动触发数据请求与事件清理；`useCallback` 防止函数重建导致多余副作用；`useMemo` 规避重复计算；`useRef` 保存跨渲染的 cursor/interval 和视频 DOM；`useState` 驱动 UI 更新。
-- 渲染机制：状态变化会重新渲染列表，从 API 返回的新状态合并到已有 feed，使视频卡片实时更新；依赖数组控制副作用触发频率。
-- 最佳实践：将轮询、滚动加载、状态合并封装为纯函数/Hook 组合；在数据映射时先归一化状态，避免大小写差异；使用 `void loadFeed` 明确异步调用不关心返回值。
+- 组件与 props：`MediaGeneratorResultPane` 负责媒体列表展示，`VideoPreviewCard` 渲染单个卡片，通过 props 传递 `asset`、`isActive` 等数据，保持展示与数据解耦。
+- 状态与副作用：`useState` 管理远端 Feed、加载态、提示信息等，`useEffect` 触发登录态变化后重置列表、滚动加载、轮询生成任务完成度并响应失败提示。
+- 引用与回调：`useRef` 保存滚动容器、下一页游标、播放元素引用，避免重复渲染；`useCallback` 封装滚动监听、播放控制、取数函数，减少子组件重复绑定。
+- 记忆化：`useMemo` 生成降级的演示数据与实时生成项，避免每次渲染重复计算。
+- 渲染机制关联：状态变更后 React 触发重新渲染，依赖数组保证副作用只在必要时运行；通过 `key={asset.id}` 强制视频在数据变化时重建，确保新源加载。
+- 最佳实践：明确的加载/错误分支、去抖滚动监听、使用可控状态与引用避免竞态，保持渲染纯净。
 
 ### 🟦 B. Next.js 核心概念讲解（若本次代码使用 Next.js）
-- Server/Client：文件顶端 `"use client"`，明确该组件在客户端渲染，依赖浏览器事件与 `fetch`。
-- `"use client"` 作用：允许使用浏览器 API、状态与副作用；与 Server Component 分层保持数据流清晰。
-- App Router：组件位于 `src/app` 体系下的营销模块，作为页面子组件由路由树渲染；路由分段与布局未更改。
-- 数据获取策略：客户端 `fetch` 配合 `cache: 'no-store'` 拉取 `/api/media/feed`，通过轮询更新，未使用 SSG/ISR。
-- next/link 与 next/image：当前未涉及，视频使用 `<video>` 与 `<img>` 直接渲染。
-- 文件结构影响：结果面板独立封装，方便在不同 workspace 中复用，同时内部自管滚动与轮询，不影响上层路由逻辑。
+- Server/Client 组件划分：文件首行 `"use client"` 标明这是 Client Component，可使用 Hooks 与浏览器 API；与后端交互放在 API Route 中分离。
+- App Router：组件位于 `src/components` 供 `app` 目录页面引用，数据通过 `app/api` 下的 Route Handler（如 `/api/files/download/[uuid]`）获取，遵循段式路由规则。
+- 数据获取策略：客户端 `fetch` 指定 `cache: 'no-store'` 拉取实时 Feed，避免缓存；下载文件改为走内部 API 以复用鉴权与网关代理。
+- 链接与资源：媒体地址改为内部 `/api/files/download/${fileUuid}`，利用 Next.js 路由参数与 query 追加租户/用户信息，避免直接暴露网关 downloadUrl。
+- 文件结构影响：路由逻辑集中在 `src/app/api/files/download/[uuid]/route.ts`，组件只依赖相对路径，方便复用并保持安全边界。
 
 ### 🟦 C. 代码逻辑拆解与架构说明
-- 文件结构：`media-generator-result-pane.tsx` 集中处理 feed 拉取、滚动加载、状态卡片与视频预览展示。
-- 每段代码作用：`loadFeed` 负责分页请求并合并状态（不再轮询，只在登录、生成任务开始、滚动时触发）；多处 `useEffect` 分别响应登录变化、滚动触底、生成任务开始；`VideoPreviewCard` 根据状态选择正常视频、loading 循环视频或失败占位图。
-- 数据流与通信：父组件传入 `activeGeneration`/`loading` 与当前 asset；组件内部根据登录与 feed 数据决定展示，滚动与轮询更新 `remoteFeed`，UI 由状态驱动。
-- 可替代实现：可用 SWR/React Query 统一管理轮询与缓存，但当前手写逻辑减少依赖、可细化轮询条件；可用 IntersectionObserver 替代滚动监听，但现有实现更直接。
-- 隐含最佳实践：状态归一化 (`normalizeStatus`) 避免大小写问题；轮询仅在可见未完成任务时开启，降低请求压力；合并远端数据时保留已有顺序并更新旧项。
+- 文件结构：`media-generator-result-pane.tsx` 负责渲染媒体结果列表与交互；底层网关代理逻辑在 `app/api/files/download/[uuid]/route.ts`，前端通过统一入口访问。
+- 数据流：登录后调用 `/api/media/feed` 获取任务列表，`mapTaskToAsset` 规范化数据并生成展示资源 URL；滚动触底调用 `loadFeed` 追加数据，卡片根据状态决定视频源与海报。
+- 关键改动：新增 `buildFileDownloadUrl`，当 Feed 返回 `fileUuid` 时拼接 `/api/files/download/${uuid}`，优先走自家 API 路由获取文件数据，避免直接使用第三方 `downloadUrl`；仍保留 `onlineUrl` 与兜底地址以兼容旧数据。
+- 组件通信：父组件把资产数据传给 `VideoPreviewCard`，子组件通过回调控制悬停播放，不共享全局状态，降低耦合。
+- 可替代实现与优势：可在 `loadFeed` 中直接转换 URL，但独立 helper 让来源清晰、可单测；内部 API 统一鉴权与网关转发，避免跨域与密钥暴露，是更安全的实现。
+- 隐含最佳实践：优先使用后端代理的受控入口、合并去重远端数据、为错误与空态提供清晰提示。
 
 ### 🟦 D. 初学者学习重点总结
-- 如何用 `useEffect` + `useRef` 管理滚动监听与轮询定时器的绑定/清理。
-- 远端分页数据合并策略：以最新结果为优先并保持去重，避免重复请求。
-- 根据状态切换媒体展示占位（正常/加载/失败）的一致 UI 结构，实时任务也复用同一组件并共用标签渲染逻辑。
-- 在客户端组件中使用 `fetch` 配合 `cache: 'no-store'` 获取最新数据。
+- 如何使用 `useState`/`useEffect`/`useMemo`/`useCallback` 管理列表数据、滚动加载与性能。
+- 为什么客户端组件需要 `"use client"`，以及何时把外部访问放进 Next.js API Route。
+- 构建安全的媒体访问路径：用 `fileUuid` 走内部 `/api/files/download/[uuid]`，避免直接暴露下载链接。
+- 处理远端数据规范化：`mapTaskToAsset` 将后端字段转换成前端可用的展示对象并合并状态。
+- 滚动监听与视频悬停播放的事件处理模式，如何用 `useRef` 管理 DOM。
 
 ---

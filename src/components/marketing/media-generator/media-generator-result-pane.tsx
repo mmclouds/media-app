@@ -483,6 +483,7 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
     return null;
   }
 
+  const fileDownloadUrl = buildFileDownloadUrl(task.fileUuid);
   const parsed = parseParameters(task.parameters);
   const normalizedStatus = normalizeStatus(task.status);
   const prompt = typeof parsed?.prompt === 'string' ? parsed.prompt : undefined;
@@ -502,8 +503,15 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
     title: prompt ?? `Task ${task.taskId ?? task.uuid}`,
     duration: seconds,
     resolution,
-    src: task.onlineUrl ?? task.downloadUrl ?? DEFAULT_VIDEO_SRC,
-    poster: task.onlineUrl ? undefined : DEFAULT_POSTER,
+    src:
+      fileDownloadUrl ??
+      task.onlineUrl ??
+      task.downloadUrl ??
+      DEFAULT_VIDEO_SRC,
+    poster:
+      task.onlineUrl || fileDownloadUrl || task.downloadUrl
+        ? undefined
+        : DEFAULT_POSTER,
     tags,
     status: normalizedStatus,
     createdAt: task.createdAt,
@@ -663,4 +671,11 @@ function normalizeStatus(status?: string | null) {
 function buildGenerationTags(status?: string | null) {
   const label = formatLabel(status ?? 'video');
   return ['Video', label ?? 'AI Video'].filter(Boolean) as string[];
+}
+
+function buildFileDownloadUrl(fileUuid?: string | null) {
+  if (!fileUuid) {
+    return undefined;
+  }
+  return `/api/files/download/${encodeURIComponent(fileUuid)}`;
 }
