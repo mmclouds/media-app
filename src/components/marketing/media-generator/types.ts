@@ -6,6 +6,7 @@ export type VideoGeneratorAsset = {
   title: string;
   duration: string;
   resolution: string;
+  modelName?: string;
   src: string;
   poster?: string;
   tags: string[];

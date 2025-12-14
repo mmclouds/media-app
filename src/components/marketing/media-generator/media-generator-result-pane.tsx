@@ -313,9 +313,7 @@ export function MediaGeneratorResultPane({
         ref={scrollRef}
         className="flex-1 space-y-6 overflow-y-auto px-6 py-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
-        {liveAsset ? (
-          <VideoPreviewCard asset={liveAsset} isActive />
-        ) : null}
+        {liveAsset ? <VideoPreviewCard asset={liveAsset} isActive /> : null}
 
         {!isLoggedIn && (
           <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/80">
@@ -601,6 +599,7 @@ function VideoPreviewCard({
 
   const isError = isErrorStatus(asset.status);
   const isLoading = isInProgressStatus(asset.status);
+  const modelLabel = asset.modelName ?? asset.tags[1] ?? '—';
 
   const resolvedPoster = (() => {
     if (isError) {
@@ -629,8 +628,7 @@ function VideoPreviewCard({
           <span className="rounded-full border border-white/10 px-3 py-1 text-white">
             Video
           </span>
-          <span className="text-white/60">{asset.resolution}</span>
-          <span className="text-white/60">{asset.duration}</span>
+          <span className="text-white/60">{modelLabel}</span>
           {isActive ? (
             <span className="ml-auto rounded-full bg-[#64ff6a]/20 px-3 py-1 text-[#64ff6a]">
               Latest
@@ -643,19 +641,9 @@ function VideoPreviewCard({
           ) : null}
         </div>
         <p className="text-2xl font-semibold tracking-tight text-white">
-          {asset.title}
+          {asset.title}123
         </p>
-        <p className="text-sm text-white/60">{asset.tags.join(' · ')}</p>
-        <div className="flex flex-wrap gap-2 text-xs">
-          {asset.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full border border-white/10 px-3 py-1 text-white/70"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+
       </div>
       <div
         className="bg-black"
@@ -736,12 +724,19 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
       : '—';
 
   const tags = buildTags(task, parsed);
+  const modelName =
+    typeof task.modelName === 'string' && task.modelName.length > 0
+      ? task.modelName
+      : typeof parsed?.model === 'string' && parsed.model.length > 0
+        ? parsed.model
+        : undefined;
 
   return {
     id: task.uuid ?? task.taskId ?? crypto.randomUUID(),
     title: prompt ?? `Task ${task.taskId ?? task.uuid}`,
     duration: seconds,
     resolution,
+    modelName,
     src:
       fileDownloadUrl ??
       task.onlineUrl ??
@@ -790,7 +785,6 @@ function buildTags(
   if (!tags.length) {
     return ['AI Video'];
   }
-
   return Array.from(new Set(tags));
 }
 
@@ -812,6 +806,7 @@ function mapGenerationToAsset(
 ): VideoGeneratorAsset {
   const normalizedStatus = normalizeStatus(generation.status);
   const tags = buildGenerationTags(normalizedStatus);
+
   return {
     id:
       generation.taskId ??
