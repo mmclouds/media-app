@@ -62,7 +62,7 @@
     - 同样去掉 `demoVideoAssets`，改为本地构造 `currentAsset` 占位对象，保证在仅视频模式下也不会再引用 demo 资源。
   - `MediaGeneratorResultPane`：
     - 移除对 `demoVideoAssets` 的引用，不再依赖外部 GCP 示例视频 URL。
-    - 将 `DEFAULT_VIDEO_SRC` 和 `LOADING_VIDEO_SRC` 置为空字符串，`DEFAULT_POSTER` 和 `LOADING_POSTER` 使用本地封面 `/images/media/fengmian.jpg` 作为默认图片来源。
+    - 将 `DEFAULT_VIDEO_SRC` 和 `LOADING_VIDEO_SRC` 置为空字符串，但在 `<video>` 上通过 `src={resolvedSrc || undefined}` 避免向 `src` 传入空字符串，从而消除 React 的警告；`DEFAULT_POSTER` 和 `LOADING_POSTER` 使用本地封面 `/images/media/fengmian.jpg` 作为默认图片来源。
     - `fallbackFeed` 逻辑改为基于传入的 `asset` 构造占位列表：以当前 `asset` 为基础，复制多份并修改 `id` 为 `...-placeholder-...`，用于未登录或无远端数据时的占位展示，不再引入额外 demo 视频内容。
     - 登录提示文案从 `Showing demo feed.` 改为单纯的 `Sign in to view your recent renders.`，语义回归到“请登录查看自己的渲染记录”，避免暗示 demo feed。
     - 其余逻辑（远端 Feed 拉取、滚动加载、虚拟列表、视频封面生成）保持不变，继续为真实用户数据服务。
@@ -95,4 +95,3 @@
 - 本次改动已遵守指引：主对话窗口只输出代码及必要的简要说明，详细教学内容集中在本文件中。
 - 组件继续采用现代 React（函数组件 + Hooks），并与 Next.js App Router 兼容，方便后续在页面中直接引用。
 - 若未来需要再次加入演示内容，建议通过受控的配置或后端接口注入，而不是在前端硬编码 demo 媒体数组。 
-

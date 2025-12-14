@@ -660,7 +660,7 @@ function VideoPreviewCard({
           <video
             ref={videoRef}
             key={asset.id}
-            src={resolvedSrc}
+            src={resolvedSrc || undefined}
             controls
             loop
             playsInline
