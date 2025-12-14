@@ -564,6 +564,7 @@ function mapGenerationToAsset(
   generation: VideoGenerationState
 ): VideoGeneratorAsset {
   const normalizedStatus = normalizeStatus(generation.status);
+  const tags = buildGenerationTags(normalizedStatus);
   return {
     id:
       generation.taskId ??
@@ -575,7 +576,7 @@ function mapGenerationToAsset(
     resolution: '—',
     src: generation.onlineUrl ?? generation.downloadUrl ?? DEFAULT_VIDEO_SRC,
     poster: generation.onlineUrl ? undefined : DEFAULT_POSTER,
-    tags: ['Live'],
+    tags,
     status: normalizedStatus,
     createdAt: generation.createdAt ?? undefined,
     errorMessage: generation.errorMessage,
@@ -657,4 +658,9 @@ function normalizeStatus(status?: string | null) {
     return 'completed';
   }
   return normalized;
+}
+
+function buildGenerationTags(status?: string | null) {
+  const label = formatLabel(status ?? 'video');
+  return ['Video', label ?? 'AI Video'].filter(Boolean) as string[];
 }
