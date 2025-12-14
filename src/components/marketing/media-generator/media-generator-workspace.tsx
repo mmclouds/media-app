@@ -3,7 +3,6 @@
 import { cn } from '@/lib/utils';
 import { MediaGeneratorConfigPanel } from './media-generator-config-panel';
 import { MEDIA_TYPE_OPTIONS, useMediaGeneratorController } from './controller';
-import { demoVideoAssets } from './data';
 import { MediaGeneratorResultPane } from './media-generator-result-pane';
 import { MediaGeneratorMenu } from './media-generator-menu';
 
@@ -24,9 +23,7 @@ export function MediaGeneratorWorkspace({ className }: { className?: string }) {
     activeGeneration,
   } = useMediaGeneratorController();
 
-  const asset = demoVideoAssets[0];
-
-  const currentAsset = asset ?? {
+  const currentAsset = {
     id: 'demo-video',
     title: 'AI Video',
     duration: '5s',

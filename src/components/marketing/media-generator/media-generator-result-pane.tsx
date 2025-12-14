@@ -12,7 +12,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { demoVideoAssets } from './data';
 import type {
   MediaFeedItem,
   MediaFeedResponse,
@@ -26,10 +25,10 @@ type PreviewPanelProps = {
   activeGeneration?: VideoGenerationState | null;
 };
 
-const DEFAULT_VIDEO_SRC = demoVideoAssets[0]?.src ?? '';
+const DEFAULT_VIDEO_SRC = '';
 const DEFAULT_POSTER = '/images/media/fengmian.jpg';
-const LOADING_VIDEO_SRC = demoVideoAssets[1]?.src ?? DEFAULT_VIDEO_SRC;
-const LOADING_POSTER = demoVideoAssets[1]?.poster ?? DEFAULT_POSTER;
+const LOADING_VIDEO_SRC = '';
+const LOADING_POSTER = DEFAULT_POSTER;
 const FAILED_POSTER =
   'https://images.unsplash.com/photo-1527443224154-d1af1e991e5d?auto=format&fit=crop&w=1200&q=80';
 const FEED_LIMIT = 6;
@@ -65,24 +64,21 @@ export function MediaGeneratorResultPane({
   const isLoggedIn = !!user?.id;
 
   const fallbackFeed = useMemo(() => {
-    const uniqueAssets = [
-      asset,
-      ...demoVideoAssets.filter((item) => item.id !== asset.id),
-    ];
-
-    return Array.from({ length: 3 })
-      .flatMap((_, loopIndex) =>
-        uniqueAssets.map((item, index) => {
-          if (loopIndex === 0) {
-            return item;
-          }
-          return {
-            ...item,
-            id: `${item.id}-loop-${loopIndex}-${index}`,
-          };
-        })
-      )
-      .slice(0, 9);
+    const baseAsset = asset;
+    if (!baseAsset) {
+      return [];
+    }
+    return Array.from({ length: 3 }).flatMap((_, loopIndex) =>
+      [baseAsset].map((item, index) => {
+        if (loopIndex === 0 && index === 0) {
+          return item;
+        }
+        return {
+          ...item,
+          id: `${item.id}-placeholder-${loopIndex}-${index}`,
+        };
+      })
+    );
   }, [asset]);
 
   const fallbackLength = fallbackFeed.length;
@@ -318,7 +314,7 @@ export function MediaGeneratorResultPane({
         {!isLoggedIn && (
           <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/80">
             <div className="h-2 w-2 rounded-full bg-[#64ff6a]" />
-            Sign in to view your recent renders. Showing demo feed.
+            Sign in to view your recent renders.
           </div>
         )}
 
