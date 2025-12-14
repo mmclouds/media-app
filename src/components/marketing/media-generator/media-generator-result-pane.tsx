@@ -710,7 +710,12 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
   const fileDownloadUrl = buildFileDownloadUrl(task.fileUuid);
   const parsed = parseParameters(task.parameters);
   const normalizedStatus = normalizeStatus(task.status);
-  const prompt = typeof parsed?.prompt === 'string' ? parsed.prompt : undefined;
+  const prompt =
+    typeof task.prompt === 'string' && task.prompt.length > 0
+      ? task.prompt
+      : typeof parsed?.prompt === 'string' && parsed.prompt.length > 0
+        ? parsed.prompt
+        : undefined;
   const seconds =
     typeof parsed?.seconds === 'number' && parsed.seconds > 0
       ? `${parsed.seconds}s`
@@ -750,11 +755,29 @@ function parseParameters(parameters?: string | null) {
   }
 
   try {
-    return JSON.parse(parameters) as {
+    const raw = JSON.parse(parameters) as {
       prompt?: string;
       size?: string;
       seconds?: number;
       model?: string;
+      input?: {
+        prompt?: string;
+        size?: string;
+        seconds?: number;
+        model?: string;
+      };
+    };
+
+    const merged = {
+      ...raw,
+      ...(raw.input ?? {}),
+    };
+
+    return {
+      prompt: merged.prompt,
+      size: merged.size,
+      seconds: merged.seconds,
+      model: merged.model,
     };
   } catch (error) {
     console.warn('解析视频参数失败:', error);

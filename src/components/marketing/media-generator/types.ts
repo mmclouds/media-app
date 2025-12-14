@@ -87,6 +87,7 @@ export type MediaFeedItem = {
   userId?: string;
   mediaType?: string;
   modelName?: string;
+  prompt?: string | null;
   parameters?: string | null;
   providerName?: string | null;
   status?: string;
