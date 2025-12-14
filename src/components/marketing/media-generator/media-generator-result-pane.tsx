@@ -264,9 +264,9 @@ export function MediaGeneratorResultPane({
 
   const visibleItems = usingRemoteFeed
     ? remoteFeed.slice(
-        virtualRange.start,
-        Math.min(virtualRange.end + 1, remoteFeed.length)
-      )
+      virtualRange.start,
+      Math.min(virtualRange.end + 1, remoteFeed.length)
+    )
     : fallbackFeed.slice(0, visibleCount);
 
   const liveAsset = useMemo(
@@ -405,9 +405,8 @@ function Tab({ label, active = false }: { label: string; active?: boolean }) {
   return (
     <button
       type="button"
-      className={`rounded-md px-3 py-1 ${
-        active ? 'bg-white/10 text-white' : 'text-white/60'
-      }`}
+      className={`rounded-md px-3 py-1 ${active ? 'bg-white/10 text-white' : 'text-white/60'
+        }`}
     >
       {label}
     </button>
@@ -422,7 +421,7 @@ function useVirtualFeed({
   enabled = true,
 }: {
   items: VideoGeneratorAsset[];
-  scrollRef: RefObject<HTMLDivElement>;
+  scrollRef: RefObject<HTMLDivElement | null>;
   estimatedItemHeight?: number;
   overscan?: number;
   enabled?: boolean;
