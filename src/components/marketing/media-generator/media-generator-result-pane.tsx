@@ -20,13 +20,19 @@ type PreviewPanelProps = {
 
 const DEFAULT_VIDEO_SRC = demoVideoAssets[0]?.src ?? '';
 const DEFAULT_POSTER = demoVideoAssets[0]?.poster;
+const LOADING_VIDEO_SRC = demoVideoAssets[1]?.src ?? DEFAULT_VIDEO_SRC;
+const LOADING_POSTER = demoVideoAssets[1]?.poster ?? DEFAULT_POSTER;
+const FAILED_POSTER =
+  'https://images.unsplash.com/photo-1527443224154-d1af1e991e5d?auto=format&fit=crop&w=1200&q=80';
 const FEED_LIMIT = 6;
+const POLL_INTERVAL_MS = 5000;
 
 export function MediaGeneratorResultPane({
   asset,
   loading,
   activeGeneration,
 }: PreviewPanelProps) {
+  void loading;
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const nextCursorRef = useRef<string | null>(null);
   const hasMoreRef = useRef(true);
@@ -98,7 +104,6 @@ export function MediaGeneratorResultPane({
       if (reset) {
         nextCursorRef.current = null;
         hasMoreRef.current = true;
-        setRemoteFeed([]);
       }
 
       const params = new URLSearchParams({
@@ -137,11 +142,22 @@ export function MediaGeneratorResultPane({
           if (reset) {
             return normalizedItems;
           }
-          const existingIds = new Set(prev.map((entry) => entry.id));
-          const appended = normalizedItems.filter(
-            (entry) => !existingIds.has(entry.id)
-          );
-          return [...prev, ...appended];
+          const mergedIds = new Set<string>();
+          const merged: VideoGeneratorAsset[] = [];
+
+          normalizedItems.forEach((entry) => {
+            mergedIds.add(entry.id);
+            const existing = prev.find((item) => item.id === entry.id);
+            merged.push(existing ? { ...existing, ...entry } : entry);
+          });
+
+          prev.forEach((item) => {
+            if (!mergedIds.has(item.id)) {
+              merged.push(item);
+            }
+          });
+
+          return merged;
         });
 
         const nextCursor = data.nextCursor ?? null;
@@ -226,6 +242,19 @@ export function MediaGeneratorResultPane({
     ? remoteFeed
     : fallbackFeed.slice(0, visibleCount);
 
+  const liveAsset = useMemo(
+    () => (activeGeneration ? mapGenerationToAsset(activeGeneration) : null),
+    [activeGeneration]
+  );
+
+  useEffect(() => {
+    const activeTaskId = activeGeneration?.taskId;
+    if (!isLoggedIn || !activeTaskId) {
+      return;
+    }
+    void loadFeed({ reset: true });
+  }, [activeGeneration?.taskId, isLoggedIn, loadFeed]);
+
   return (
     <section className="flex flex-1 min-h-0 flex-col bg-gradient-to-br from-[#050505] via-[#050505] to-[#0c0c0c] text-white">
       <div className="flex h-14 items-center justify-between border-b border-white/5 px-6">
@@ -257,15 +286,8 @@ export function MediaGeneratorResultPane({
         ref={scrollRef}
         className="flex-1 space-y-6 overflow-y-auto px-6 py-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
-        {loading && (
-          <div className="sticky top-0 z-10 mb-4 flex items-center gap-3 rounded-2xl border border-white/5 bg-black/70 px-4 py-3 text-xs text-white/70">
-            <div className="h-2 w-2 animate-ping rounded-full bg-[#64ff6a]" />
-            Rendering a new clip...
-          </div>
-        )}
-
-        {activeGeneration ? (
-          <GenerationStatusCard generation={activeGeneration} />
+        {liveAsset ? (
+          <VideoPreviewCard asset={liveAsset} isActive />
         ) : null}
 
         {!isLoggedIn && (
@@ -328,108 +350,6 @@ export function MediaGeneratorResultPane({
   );
 }
 
-function GenerationStatusCard({
-  generation,
-}: {
-  generation: VideoGenerationState;
-}) {
-  const { videoRef, handleMouseEnter, handleMouseLeave, handleMediaReady } =
-    useHoverPlayback();
-  const status = generation.status;
-  const formattedStatus = formatLabel(status);
-  const isRunning = status === 'pending' || status === 'processing';
-  const isSuccess = status === 'completed';
-  const isError = status === 'failed' || status === 'timeout';
-  const rawProgress =
-    typeof generation.progress === 'number' ? generation.progress : null;
-  const progressWidth = Math.min(100, Math.max(8, rawProgress ?? 24));
-  const videoSrc = generation.onlineUrl ?? generation.downloadUrl ?? '';
-  const showVideo = isSuccess && videoSrc.length > 0;
-  const statusDetail =
-    generation.statusDescription ??
-    (isRunning ? 'Waiting for the model to finish...' : '');
-  const errorMessage =
-    generation.errorMessage ??
-    (status === 'timeout'
-      ? 'The request timed out. Please try again.'
-      : 'Generation failed. Please try again.');
-
-  return (
-    <article className="rounded-[32px] border border-white/10 bg-white/5 p-5">
-      <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-white/50">
-        <span>Live generation</span>
-        <span
-          className={
-            isSuccess
-              ? 'text-[#64ff6a]'
-              : isError
-                ? 'text-rose-300'
-                : 'text-white'
-          }
-        >
-          {formattedStatus}
-        </span>
-      </div>
-      <p className="mt-4 text-lg font-semibold leading-tight text-white">
-        {generation.prompt}
-      </p>
-
-      {isRunning ? (
-        <div className="mt-5 space-y-3">
-          <div className="flex items-center justify-between text-xs text-white/60">
-            <span>{statusDetail}</span>
-            {rawProgress !== null ? (
-              <span className="text-white">{Math.round(rawProgress)}%</span>
-            ) : null}
-          </div>
-          <div className="h-2 rounded-full bg-white/10">
-            <div
-              className="h-2 rounded-full bg-[#64ff6a]"
-              style={{ width: `${progressWidth}%` }}
-            />
-          </div>
-        </div>
-      ) : isSuccess ? (
-        showVideo ? (
-          <div
-            className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-black"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <video
-              ref={videoRef}
-              key={generation.taskId}
-              src={videoSrc}
-              controls
-              loop
-              playsInline
-              poster={generation.onlineUrl ? undefined : DEFAULT_POSTER}
-              className="aspect-video w-full object-cover"
-              onLoadedData={handleMediaReady}
-            >
-              <track
-                kind="captions"
-                label="Captions"
-                src="/captions/placeholder.vtt"
-                default
-              />
-            </video>
-          </div>
-        ) : (
-          <div className="mt-5 rounded-2xl border border-white/10 bg-black/40 p-4 text-sm text-white/70">
-            Video is ready, but the URL is missing. Check the media feed for the
-            final clip.
-          </div>
-        )
-      ) : (
-        <div className="mt-5 rounded-2xl border border-rose-500/40 bg-rose-500/10 p-4 text-sm text-rose-100">
-          {errorMessage}
-        </div>
-      )}
-    </article>
-  );
-}
-
 function Tab({ label, active = false }: { label: string; active?: boolean }) {
   return (
     <button
@@ -464,7 +384,25 @@ function VideoPreviewCard({
     }
   }, [asset.id, posterError]);
 
-  const resolvedPoster = asset.poster ?? capturedPoster ?? DEFAULT_POSTER;
+  const isError = isErrorStatus(asset.status);
+  const isLoading = isInProgressStatus(asset.status);
+
+  const resolvedPoster = (() => {
+    if (isError) {
+      return FAILED_POSTER;
+    }
+    if (isLoading) {
+      return LOADING_POSTER;
+    }
+    return asset.poster ?? capturedPoster ?? DEFAULT_POSTER;
+  })();
+
+  const resolvedSrc = isError
+    ? undefined
+    : isLoading
+      ? LOADING_VIDEO_SRC
+      : asset.src || DEFAULT_VIDEO_SRC;
+  const statusLabel = formatLabel(asset.status);
 
   return (
     <article className="overflow-hidden rounded-[32px] border border-white/5 bg-gradient-to-b from-white/[0.04] to-black/70 shadow-2xl shadow-black/40">
@@ -478,6 +416,11 @@ function VideoPreviewCard({
           {isActive ? (
             <span className="ml-auto rounded-full bg-[#64ff6a]/20 px-3 py-1 text-[#64ff6a]">
               Latest
+            </span>
+          ) : null}
+          {statusLabel ? (
+            <span className="rounded-full border border-white/10 px-3 py-1 text-white/70">
+              {statusLabel}
             </span>
           ) : null}
         </div>
@@ -501,24 +444,35 @@ function VideoPreviewCard({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <video
-          ref={videoRef}
-          key={asset.id}
-          src={asset.src || DEFAULT_VIDEO_SRC}
-          controls
-          loop
-          playsInline
-          poster={resolvedPoster}
-          className="aspect-video w-full bg-black object-cover"
-          onLoadedData={handleMediaReady}
-        >
-          <track
-            kind="captions"
-            label="Captions"
-            src="/captions/placeholder.vtt"
-            default
-          />
-        </video>
+        {isError ? (
+          <div className="relative aspect-video w-full overflow-hidden rounded-none">
+            <img
+              src={resolvedPoster}
+              alt="Generation failed"
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/40" />
+          </div>
+        ) : (
+          <video
+            ref={videoRef}
+            key={asset.id}
+            src={resolvedSrc}
+            controls
+            loop
+            playsInline
+            poster={resolvedPoster}
+            className="aspect-video w-full bg-black object-cover"
+            onLoadedData={handleMediaReady}
+          >
+            <track
+              kind="captions"
+              label="Captions"
+              src="/captions/placeholder.vtt"
+              default
+            />
+          </video>
+        )}
       </div>
     </article>
   );
@@ -530,6 +484,7 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
   }
 
   const parsed = parseParameters(task.parameters);
+  const normalizedStatus = normalizeStatus(task.status);
   const prompt = typeof parsed?.prompt === 'string' ? parsed.prompt : undefined;
   const seconds =
     typeof parsed?.seconds === 'number' && parsed.seconds > 0
@@ -550,7 +505,7 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
     src: task.onlineUrl ?? task.downloadUrl ?? DEFAULT_VIDEO_SRC,
     poster: task.onlineUrl ? undefined : DEFAULT_POSTER,
     tags,
-    status: task.status,
+    status: normalizedStatus,
     createdAt: task.createdAt,
     errorMessage: task.errorMessage,
   };
@@ -605,6 +560,28 @@ function formatLabel(label?: string | null) {
     .join(' ');
 }
 
+function mapGenerationToAsset(
+  generation: VideoGenerationState
+): VideoGeneratorAsset {
+  const normalizedStatus = normalizeStatus(generation.status);
+  return {
+    id:
+      generation.taskId ??
+      generation.onlineUrl ??
+      generation.downloadUrl ??
+      generation.prompt,
+    title: generation.prompt || 'Live generation',
+    duration: '—',
+    resolution: '—',
+    src: generation.onlineUrl ?? generation.downloadUrl ?? DEFAULT_VIDEO_SRC,
+    poster: generation.onlineUrl ? undefined : DEFAULT_POSTER,
+    tags: ['Live'],
+    status: normalizedStatus,
+    createdAt: generation.createdAt ?? undefined,
+    errorMessage: generation.errorMessage,
+  };
+}
+
 function useHoverPlayback({
   resetOnLeave = false,
 }: { resetOnLeave?: boolean } = {}) {
@@ -653,4 +630,31 @@ function useHoverPlayback({
     handleMouseLeave,
     handleMediaReady,
   };
+}
+
+function isInProgressStatus(status?: string | null) {
+  const normalized = normalizeStatus(status);
+  if (!normalized) {
+    return false;
+  }
+  return normalized === 'pending' || normalized === 'processing';
+}
+
+function isErrorStatus(status?: string | null) {
+  const normalized = normalizeStatus(status);
+  if (!normalized) {
+    return false;
+  }
+  return normalized === 'failed' || normalized === 'timeout';
+}
+
+function normalizeStatus(status?: string | null) {
+  if (!status) {
+    return undefined;
+  }
+  const normalized = status.toLowerCase();
+  if (normalized === 'succeeded' || normalized === 'success') {
+    return 'completed';
+  }
+  return normalized;
 }
