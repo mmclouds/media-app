@@ -61,6 +61,7 @@ export type MediaTaskResult = {
   statusDescription?: string | null;
   onlineUrl?: string | null;
   downloadUrl?: string | null;
+  fileUuid?: string | null;
   providerName?: string | null;
   createdAt?: string | null;
   completedAt?: string | null;

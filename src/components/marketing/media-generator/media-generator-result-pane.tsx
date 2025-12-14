@@ -739,15 +739,8 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
     resolution,
     modelName,
     prompt,
-    src:
-      fileDownloadUrl ??
-      task.onlineUrl ??
-      task.downloadUrl ??
-      DEFAULT_VIDEO_SRC,
-    poster:
-      task.onlineUrl || fileDownloadUrl || task.downloadUrl
-        ? undefined
-        : DEFAULT_POSTER,
+    src: fileDownloadUrl ?? task.onlineUrl ?? DEFAULT_VIDEO_SRC,
+    poster: task.onlineUrl || fileDownloadUrl ? undefined : DEFAULT_POSTER,
     tags,
     status: normalizedStatus,
     createdAt: task.createdAt,
@@ -808,6 +801,7 @@ function mapGenerationToAsset(
 ): VideoGeneratorAsset {
   const normalizedStatus = normalizeStatus(generation.status);
   const tags = buildGenerationTags(normalizedStatus);
+  const fileDownloadUrl = buildFileDownloadUrl(generation.fileUuid);
 
   return {
     id:
@@ -819,8 +813,8 @@ function mapGenerationToAsset(
     duration: '—',
     resolution: '—',
     prompt: generation.prompt,
-    src: generation.onlineUrl ?? generation.downloadUrl ?? DEFAULT_VIDEO_SRC,
-    poster: generation.onlineUrl ? undefined : DEFAULT_POSTER,
+    src: fileDownloadUrl ?? generation.onlineUrl ?? DEFAULT_VIDEO_SRC,
+    poster: fileDownloadUrl || generation.onlineUrl ? undefined : DEFAULT_POSTER,
     tags,
     status: normalizedStatus,
     createdAt: generation.createdAt ?? undefined,
