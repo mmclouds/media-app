@@ -15,24 +15,24 @@
 - 目录组织：组件在 `src/components/marketing/...`，可被 App Router 下的页面/布局复用；数据映射与展示逻辑内聚在同一模块，便于迭代 UI。
 
 ### 🟦 C. 代码逻辑拆解与架构说明
-- 当前 tags 的计算来源：`mapTaskToAsset()` 内部调用 `buildTags(task, parsed)`。
-- `buildTags()` 的顺序与含义（并会 `filter(Boolean)` 去空）：  
-  1) `formatLabel(task.mediaType ?? 'Video')`（媒体类型）  
-  2) `task.modelName`（模型名称）  
-  3) `parsed?.size`（尺寸/分辨率配置）  
-  4) `formatLabel(task.status)`（状态）  
-  最后用 `Array.from(new Set(tags))` 去重并保持相对顺序。
-- 为什么 `asset.tags[2]` 不适合显示模型名：在上述顺序中，模型名理论上在索引 1；并且 `filter(Boolean)` 会导致索引在缺字段时整体左移，使用下标会让 UI 变得不稳定。
-- 本次改动（解决“在某个位置展示模型名称”）：  
-  - 在 `VideoGeneratorAsset` 增加可选字段 `modelName?: string`。  
-  - 在 `mapTaskToAsset()` 里优先从 `task.modelName` 获取；如果没有，再从解析参数的 `parsed.model` 兜底。  
-  - 在 `VideoPreviewCard()` 里不再渲染 `asset.tags[2]`，改为渲染 `modelLabel = asset.modelName ?? asset.tags[1] ?? '—'`，从而稳定显示模型名称。
-- 可替代实现 vs 当前实现：也可以直接把 `asset.tags[2]` 改为 `asset.tags[1]`；但新增 `modelName` 更稳健（不受 tags 顺序/缺字段影响），也更符合“展示字段显式建模”的实践。
+- 标签计算：`mapTaskToAsset()` 内部调用 `buildTags(task, parsed)`：
+  - 顺序：`mediaType` → `modelName` → `size` → `status`，中间通过 `filter(Boolean)` 去空，再用 `Array.from(new Set(tags))` 去重。
+  - 不再依赖某个固定下标表示模型名，而是通过显式字段 `modelName` 暴露给组件。
+- 提示词展示改动：
+  - 在 `VideoGeneratorAsset` 中新增 `prompt?: string` 字段，用于保存“任务提示词”。
+  - 在 `mapTaskToAsset()` 中，从解析参数得到 `prompt`，既作为 `title` 的优先来源，也单独挂到 `prompt` 字段上。
+  - 在 `mapGenerationToAsset()` 中，将实时生成的 `generation.prompt` 同时赋值给 `title` 与 `prompt`，保持一致性。
+  - 在 `VideoPreviewCard()` 中新增 `displayPrompt = asset.prompt ?? asset.title`，并用该值替代原来的 `asset.title`，实现“始终展示提示词”。
+  - 同时将该段文字样式从 `text-2xl font-semibold` 调整为 `text-sm font-medium leading-relaxed text-white/80`，减小字号、弱化视觉权重，更符合“提示词说明”的定位。
+- 可替代实现 vs 当前实现：
+  - 替代方案：直接用 `asset.title` 渲染并只改字体，但当 `title` 落回到 `Task xxx` 这种占位值时，就不是真正的提示词。
+  - 当前方案：显式建模 `prompt` 字段，页面上始终优先展示真实 prompt，同时保留 `title` 做兜底与其他组件复用，更可维护。
 
 ### 🟦 D. 初学者学习重点总结
-- 避免用“数组下标”表达业务含义，优先用显式字段（例如 `modelName`）。
-- 通过数据映射层（`mapTaskToAsset`）把后端字段规范化，前端组件只关心展示模型。
-- `filter(Boolean)`/去重等操作会影响数组索引，使用时要格外小心。
+- 避免用“数组下标”表达业务含义，优先用显式字段（例如 `modelName`、`prompt`）。
+- 通过数据映射层（`mapTaskToAsset`/`mapGenerationToAsset`）把后端字段规范化，再交给展示组件渲染。
+- 文本展示与业务字段解耦：`title` 可以是人类可读概览，而 `prompt` 保留为真实提示词。
+- 利用 Tailwind 调整字号与颜色，让视觉层级更清晰（如用 `text-sm` + `text-white/80` 表示次要信息）。
 
 ---
 

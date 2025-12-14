@@ -264,9 +264,9 @@ export function MediaGeneratorResultPane({
 
   const visibleItems = usingRemoteFeed
     ? remoteFeed.slice(
-      virtualRange.start,
-      Math.min(virtualRange.end + 1, remoteFeed.length)
-    )
+        virtualRange.start,
+        Math.min(virtualRange.end + 1, remoteFeed.length)
+      )
     : fallbackFeed.slice(0, visibleCount);
 
   const liveAsset = useMemo(
@@ -403,8 +403,9 @@ function Tab({ label, active = false }: { label: string; active?: boolean }) {
   return (
     <button
       type="button"
-      className={`rounded-md px-3 py-1 ${active ? 'bg-white/10 text-white' : 'text-white/60'
-        }`}
+      className={`rounded-md px-3 py-1 ${
+        active ? 'bg-white/10 text-white' : 'text-white/60'
+      }`}
     >
       {label}
     </button>
@@ -600,6 +601,7 @@ function VideoPreviewCard({
   const isError = isErrorStatus(asset.status);
   const isLoading = isInProgressStatus(asset.status);
   const modelLabel = asset.modelName ?? asset.tags[1] ?? '—';
+  const displayPrompt = asset.prompt ?? asset.title;
 
   const resolvedPoster = (() => {
     if (isError) {
@@ -640,10 +642,9 @@ function VideoPreviewCard({
             </span>
           ) : null}
         </div>
-        <p className="text-2xl font-semibold tracking-tight text-white">
-          {asset.title}123
+        <p className="text-sm font-medium leading-relaxed text-white/80">
+          {displayPrompt}
         </p>
-
       </div>
       <div
         className="bg-black"
@@ -737,6 +738,7 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
     duration: seconds,
     resolution,
     modelName,
+    prompt,
     src:
       fileDownloadUrl ??
       task.onlineUrl ??
@@ -816,6 +818,7 @@ function mapGenerationToAsset(
     title: generation.prompt || 'Live generation',
     duration: '—',
     resolution: '—',
+    prompt: generation.prompt,
     src: generation.onlineUrl ?? generation.downloadUrl ?? DEFAULT_VIDEO_SRC,
     poster: generation.onlineUrl ? undefined : DEFAULT_POSTER,
     tags,
