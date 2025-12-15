@@ -260,9 +260,9 @@ export function MediaGeneratorResultPane({
 
   const visibleItems = usingRemoteFeed
     ? remoteFeed.slice(
-        virtualRange.start,
-        Math.min(virtualRange.end + 1, remoteFeed.length)
-      )
+      virtualRange.start,
+      Math.min(virtualRange.end + 1, remoteFeed.length)
+    )
     : fallbackFeed.slice(0, visibleCount);
 
   const liveAsset = useMemo(
@@ -399,9 +399,8 @@ function Tab({ label, active = false }: { label: string; active?: boolean }) {
   return (
     <button
       type="button"
-      className={`rounded-md px-3 py-1 ${
-        active ? 'bg-white/10 text-white' : 'text-white/60'
-      }`}
+      className={`rounded-md px-3 py-1 ${active ? 'bg-white/10 text-white' : 'text-white/60'
+        }`}
     >
       {label}
     </button>
@@ -708,6 +707,11 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
   }
 
   const fileDownloadUrl = buildFileDownloadUrl(task.fileUuid);
+  const mediaUrl =
+    task.temporaryFileUrl ??
+    fileDownloadUrl ??
+    task.onlineUrl ??
+    DEFAULT_VIDEO_SRC;
   const parsed = parseParameters(task.parameters);
   const normalizedStatus = normalizeStatus(task.status);
   const prompt =
@@ -740,8 +744,8 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
     resolution,
     modelName,
     prompt,
-    src: fileDownloadUrl ?? task.onlineUrl ?? DEFAULT_VIDEO_SRC,
-    poster: task.onlineUrl || fileDownloadUrl ? undefined : DEFAULT_POSTER,
+    src: mediaUrl,
+    poster: mediaUrl ? undefined : DEFAULT_POSTER,
     tags,
     status: normalizedStatus,
     createdAt: task.createdAt,
@@ -821,6 +825,11 @@ function mapGenerationToAsset(
   const normalizedStatus = normalizeStatus(generation.status);
   const tags = buildGenerationTags(normalizedStatus);
   const fileDownloadUrl = buildFileDownloadUrl(generation.fileUuid);
+  const mediaUrl =
+    generation.temporaryFileUrl ??
+    fileDownloadUrl ??
+    generation.onlineUrl ??
+    DEFAULT_VIDEO_SRC;
 
   return {
     id:
@@ -832,8 +841,8 @@ function mapGenerationToAsset(
     duration: '—',
     resolution: '—',
     prompt: generation.prompt,
-    src: fileDownloadUrl ?? generation.onlineUrl ?? DEFAULT_VIDEO_SRC,
-    poster: fileDownloadUrl || generation.onlineUrl ? undefined : DEFAULT_POSTER,
+    src: mediaUrl,
+    poster: mediaUrl ? undefined : DEFAULT_POSTER,
     tags,
     status: normalizedStatus,
     createdAt: generation.createdAt ?? undefined,

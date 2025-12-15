@@ -61,6 +61,7 @@ export type MediaTaskResult = {
   statusDescription?: string | null;
   onlineUrl?: string | null;
   downloadUrl?: string | null;
+  temporaryFileUrl?: string | null;
   fileUuid?: string | null;
   providerName?: string | null;
   createdAt?: string | null;
@@ -94,6 +95,7 @@ export type MediaFeedItem = {
   onlineUrl?: string | null;
   downloadUrl?: string | null;
   fileUuid?: string | null;
+  temporaryFileUrl?: string | null;
   errorMessage?: string | null;
   errorCode?: string | null;
   retryCount?: number;

@@ -3,95 +3,137 @@
 ## 2. explain.md（讲解内容）必须包含以下部分
 
 ### 🟦 A. React 核心概念讲解
-- 本次改动涉及的组件包括：`MediaGeneratorWorkspace`、`MediaOnlyGeneratorWorkspace`、`MediaGeneratorResultPane` 等，它们都是函数组件，通过 props 接收外部数据（例如 `asset`、`loading`、`activeGeneration`），符合 React “自上而下数据流”的设计。
-- 组件中大量使用 props（如 `className`、`preferredModelId`、`asset`），用于父组件向子组件传递配置与数据，这种单向数据流让组件更易于复用和测试。
-- 使用的 state 主要集中在结果面板 `MediaGeneratorResultPane` 内部，例如 `remoteFeed`、`hasMore`、`isFetching`、`feedNotice` 等，用来管理“远端媒体 Feed、加载状态和提示信息”等 UI 状态。
-- React Hooks 使用情况：
-  - `useState`：管理远端列表、加载状态、提示文案、可见条目数量等，将 UI 状态与组件生命周期绑定。
-  - `useRef`：`scrollRef`、`nextCursorRef`、`hasMoreRef`、`isFetchingRef`、`cardRef` 用来持久化 DOM 引用和一些不会触发重渲染的状态（如滚动容器、分页游标、虚拟列表高度映射等）。
-  - `useEffect`：在依赖变化时执行副作用，例如首次加载用户 Feed、监听滚动容器滚动、在登录状态变化时重置 Feed 等。
-  - `useLayoutEffect`：在布局阶段测量卡片高度并回传给虚拟列表逻辑，保证高度计算与 DOM 更新同步，减少视觉抖动。
-  - `useCallback`：封装 `loadFeed`、虚拟列表中的 `recomputeOffsets`、`updateRange` 等函数，避免在依赖不变时生成新的函数引用，减少子组件和监听器重复绑定。
-  - `useMemo`：用在 `fallbackFeed` 和 `liveAsset` 等派生数据上，根据输入数据计算出要展示的列表或当前活动 Asset，避免不必要的重复计算。
-- Hooks 的必要性：
-  - 远端 Feed 拉取、分页滚动、虚拟列表高度测量等都属于副作用和可变状态，必须用 `useState` + `useEffect`/`useLayoutEffect` 来管理，否则很难跟踪数据变化并触发视图更新。
-  - `useRef` 用于保存不可序列化或不希望触发渲染的对象（例如 DOM 节点、游标、布尔标记），能显著降低渲染次数。
-  - `useCallback` / `useMemo` 结合虚拟列表、`VideoPreviewCard` 等组件，可以减少不必要的子组件重渲染，是性能优化的常见最佳实践。
-- 组件渲染机制与本代码的关系：
-  - 当 `remoteFeed`、`fallbackFeed` 或 `activeGeneration` 变化时，React 会触发对应组件重新渲染，从而更新媒体列表或顶部实时预览卡片。
-  - 通过 `usingRemoteFeed` 这个布尔值，渲染逻辑在“远端真实数据”和“本地占位数据”间进行分支，确保在不同登录/数据状态下 UI 渲染结果稳定。
-  - 虚拟滚动逻辑根据滚动位置动态计算 `visibleItems`，只渲染可见范围内的卡片，提升大列表渲染性能。
+- 本次改动主要围绕 `MediaGeneratorResultPane` 以及内部的 `VideoPreviewCard` 等函数组件展开，这些组件通过 props 接收 `asset`、`loading`、`activeGeneration` 等数据，符合 React 单向数据流的设计。
+- 组件内部的核心 state 包括：
+  - `remoteFeed`：保存从 `/api/media/feed` 获取到的远端媒体任务列表。
+  - `hasMore`、`isFetching`、`feedNotice`：分别控制分页状态、加载状态与错误/提示信息。
+  - `visibleCount`：在未登录或无远端数据时，控制占位视频卡片的展示数量。
+- 使用到的 Hooks 及其职责：
+  - `useState`：管理远端列表、分页状态、提示文案等 UI 状态，一旦状态变化会触发组件重新渲染。
+  - `useRef`：`scrollRef`、`nextCursorRef`、`hasMoreRef`、`isFetchingRef`、`cardRef`、`videoRef` 持久化保存 DOM 节点和不会触发重渲染的可变数据（例如分页游标、是否正在请求等）。
+  - `useEffect`：在登录状态变化、滚动事件、任务状态变化时执行副作用，例如拉取 Feed、监听滚动触底加载更多、轮询任务结果。
+  - `useLayoutEffect`：在布局阶段测量卡片高度，并回传给虚拟列表逻辑，保证高度计算与 DOM 更新同步，避免滚动抖动。
+  - `useCallback`：封装 `loadFeed`、`recomputeOffsets`、`updateRange`、`handleMouseEnter`、`handleMouseLeave` 等函数，使其在依赖不变时保持引用稳定，减少无谓的重新绑定。
+  - `useMemo`：用于计算 `fallbackFeed`、`liveAsset` 等派生数据，避免在每次渲染中重复做相同的计算。
+- 为什么需要这些 Hooks？
+  - 远端数据拉取、滚动监听、任务轮询都是标准的副作用场景，必须用 `useEffect`/`useLayoutEffect` 搭配 `useState` 才能在数据变化时正确更新 UI。
+  - 滚动容器、视频节点、分页游标等属于“可变但不会影响渲染”的信息，用 `useRef` 存储可以减少不必要的重渲染。
+  - 虚拟列表与鼠标悬停播放逻辑都依赖事件监听，如果不使用 `useCallback` 固定引用，每次渲染都重新绑定监听器会带来性能和行为上的问题。
+- 组件渲染机制与本次修改的关系：
+  - 通过 `mapTaskToAsset`，Feed 接口返回的 `MediaFeedItem` 会被转换为 `VideoGeneratorAsset`，其中 `asset.src` 现在优先使用 `temporaryFileUrl`。
+  - `VideoPreviewCard` 中 `<video>` 组件只关心 `asset.src`，因此只要适配层修改为使用 `temporaryFileUrl`，渲染层就会自动改为通过临时 URL 加载视频资源。
+  - `resolvedSrc` 根据任务状态选择实际播放地址：在非错误、非加载状态下就是 `asset.src`，从而完成“状态 → 数据 → UI”的整条渲染链路。
 - 体现的 React 最佳实践：
-  - 清晰的状态划分：用户登录状态、远端 Feed、占位 Feed、滚动虚拟化、错误提示分离在不同的 state 与派生变量中。
-  - 使用 Hooks 封装复杂行为：虚拟列表逻辑封装在 `useVirtualFeed` 内部，通过参数和回调解耦具体页面。
-  - 使用自定义 Hooks `useCurrentUser`、`useVideoPoster` 简化通用逻辑，让组件只关注“展示层”。
-  - props 设计简洁：`MediaGeneratorResultPane` 只依赖 `asset`、`loading` 与 `activeGeneration`，上层组件可以自由组合。
+  - 把“后端数据结构与字段差异”隔离在纯函数 `mapTaskToAsset` / `mapGenerationToAsset` 中，UI 组件只使用统一的 `VideoGeneratorAsset`，大幅降低耦合度。
+  - 虚拟滚动与悬停播放逻辑封装为 Hook/辅助函数，保持组件本身聚焦于展示，便于后续维护和测试。
+  - 通过明确的状态切分（加载中、错误、已完成）控制 `<video>` 的 src/poster，更容易处理各种边界情况。
 
 ### 🟦 B. Next.js 核心概念讲解（若本次代码使用 Next.js）
-- 本次改动主要集中在 `src/components/marketing/media-generator/` 下的 UI 组件，这些组件会被 App Router 下的页面引用，本身作为 Client Components 使用。
+- 本次改动没有触及页面级 `route.ts` 或 `page.tsx` 文件，但仍处于 Next.js App Router 体系之中。
 - Server Components 与 Client Components：
-  - 带有 `'use client';` 的文件（如 `media-generator-workspace.tsx`、`media-only-generator-workspace.tsx`、`media-generator-result-pane.tsx`）全部是 Client Components，允许使用浏览器相关 API、事件处理和 Hooks。
-  - 上层的页面文件（`page.tsx`）可以是 Server Component，将数据和配置通过 props 下发这些 Client Components，从而实现“服务端渲染 + 客户端交互”的组合。
+  - `src/components/marketing/media-generator/media-generator-result-pane.tsx` 顶部声明了 `'use client';`，说明它是 Client Component，可以在浏览器中执行、使用所有 React Hooks 并监听用户交互。
+  - 上层页面（例如 `src/app/[locale]/(marketing)/.../page.tsx`）通常为 Server Component，负责 SSR 和 SEO，再通过 props 把必要数据传递给此 Client Component。
 - `"use client"` 的作用与使用场景：
-  - 明确告诉 Next.js 该组件需要在浏览器端执行，因此可以使用 `useState`、`useEffect` 等 Hook。
-  - 像媒体生成器这类需要滚动监听、虚拟化渲染、用户交互（点击按钮、hover 播放视频）的模块，都必须作为 Client Component。
-- App Router 路由机制简要：
-  - 实际页面路由位于 `src/app/[locale]/(marketing)/...` 目录，这里修改的工作区组件会被这些页面引用。
-  - App Router 通过文件结构控制路由（`page.tsx`）、布局（`layout.tsx`）、加载状态（`loading.tsx`）、错误边界（`error.tsx`），本次改动未改变此结构，仅调整页面内部 UI 逻辑。
-- 数据获取策略与缓存：
-  - `MediaGeneratorResultPane` 使用浏览器端 `fetch('/api/media/feed?...')` 拉取用户生成的媒体数据，该调用在客户端执行，等价于 CSR（客户端数据获取）。
-  - 请求中显式设置 `cache: 'no-store'`，避免缓存，确保用户看到最新的生成结果，这与 App Router 的服务端缓存策略互补。
-  - 分页参数通过 `URLSearchParams` 构造，遵循统一的 API 约定，便于与后端 `/api/media/feed` 路由对接。
-- 资源与文件结构的影响：
-  - 将媒体生成 UI 拆分为 `Workspace`、`ConfigPanel`、`ResultPane` 等组件，使页面功能模块化，便于复用（如 `MediaOnlyGeneratorWorkspace` 固定媒体类型为视频）。
-  - 本次移除 `demoVideoAssets` 之后，静态 demo 视频资源不再与组件耦合，减少静态外链依赖，利于迁移到真实生产环境。
+  - 让组件在客户端渲染，支持 `useState`、`useEffect` 等 Hook，能够访问 DOM、处理滚动、控制 `<video>` 播放等浏览器能力。
+  - 像媒体生成器这样包含滚动虚拟化、轮询、悬停播放等复杂交互的模块，必须实现为 Client Component。
+- 数据获取策略与本次改动：
+  - `/api/media/feed`、`/api/media/result/[taskId]` 是运行在服务器（Edge/Node）上的 API Route，它们负责从 AI Gateway 拉取数据，并通过 JSON 形式返回。
+  - 结果面板组件在客户端通过 `fetch('/api/media/feed')`、`fetch('/api/media/result/[taskId]')` 获取数据，属于客户端数据拉取（CSR）模式，并显式设置了 `cache: 'no-store'` 来保证实时性。
+  - 我们本次只调整了前端映射逻辑（如何选择视频加载 URL），没有改变 SSR/SSG/ISR 策略，因此不会影响页面 SEO 或服务器渲染行为。
+- 文件结构对数据流与组件行为的影响：
+  - `src/app/api/media/feed/route.ts`：负责鉴权、拼接查询参数、调用 AI Gateway 的 `/api/v1/media/feed/cursor` 接口并把 `payload.data` 返回给前端。
+  - `src/app/api/media/result/[taskId]/route.ts`：负责查询单条任务结果，返回数据结构与 Feed 中单条记录基本一致。
+  - `src/components/marketing/media-generator/types.ts`：用 TypeScript 明确了 `MediaFeedItem`、`MediaTaskResult`、`VideoGeneratorAsset` 等类型，是前端数据流的“契约”。
+  - `src/components/marketing/media-generator/media-generator-result-pane.tsx`：在这里统一把后端数据映射为 `VideoGeneratorAsset`，并驱动 `<video>` 播放。
 
 ### 🟦 C. 代码逻辑拆解与架构说明
-- 文件结构说明：
-  - `src/components/marketing/media-generator/media-generator-workspace.tsx`：完整媒体生成器工作区（多媒体类型），负责组合菜单、配置面板和结果面板。
-  - `src/components/marketing/media-generator/media-only-generator-workspace.tsx`：仅视频模式的工作区，锁定 `mediaType` 为 `'video'`，供特定场景复用。
-  - `src/components/marketing/media-generator/media-generator-result-pane.tsx`：结果展示面板，负责展示实时生成结果、用户历史 Feed、滚动虚拟化等。
-  - `src/components/marketing/media-generator/data.ts`：原本存放 `demoVideoAssets` 静态 demo 视频，本次改动后不再导出内容，仅保留空模块导出以避免误用。
-- 每段代码的主要作用：
-  - `MediaGeneratorWorkspace`：
-    - 使用 `useMediaGeneratorController` 获取媒体类型、模型列表、文案 prompt、生成状态等核心业务数据。
-    - 取消对 `demoVideoAssets` 的依赖，直接构造一个简洁的 `currentAsset` 占位对象（`id: 'demo-video'` 等），用于在无真实生成结果时提供基础信息。
-    - 将 `currentAsset` 传递给 `MediaGeneratorResultPane`，保持布局结构不变。
-  - `MediaOnlyGeneratorWorkspace`：
-    - 通过 `useMediaGeneratorController({ lockedMediaType: 'video' })` 固定媒体类型为视频。
-    - 同样去掉 `demoVideoAssets`，改为本地构造 `currentAsset` 占位对象，保证在仅视频模式下也不会再引用 demo 资源。
-  - `MediaGeneratorResultPane`：
-    - 移除对 `demoVideoAssets` 的引用，不再依赖外部 GCP 示例视频 URL。
-    - 将 `DEFAULT_VIDEO_SRC` 和 `LOADING_VIDEO_SRC` 置为空字符串，但在 `<video>` 上通过 `src={resolvedSrc || undefined}` 避免向 `src` 传入空字符串，从而消除 React 的警告；`DEFAULT_POSTER` 和 `LOADING_POSTER` 使用本地封面 `/images/media/fengmian.jpg` 作为默认图片来源。
-    - `fallbackFeed` 逻辑改为基于传入的 `asset` 构造占位列表：以当前 `asset` 为基础，复制多份并修改 `id` 为 `...-placeholder-...`，用于未登录或无远端数据时的占位展示，不再引入额外 demo 视频内容。
-    - 登录提示文案从 `Showing demo feed.` 改为单纯的 `Sign in to view your recent renders.`，语义回归到“请登录查看自己的渲染记录”，避免暗示 demo feed。
-    - 其余逻辑（远端 Feed 拉取、滚动加载、虚拟列表、视频封面生成）保持不变，继续为真实用户数据服务。
-- 数据流与组件通信方式：
-  - 顶层页面将配置/上下文传递给工作区组件（如默认模型、className 等）。
-  - 工作区组件通过控制器 Hook `useMediaGeneratorController` 管理业务状态，再把 `mediaType`、`models`、`prompt` 等 props 传递给配置面板和结果面板。
-  - 结果面板内部再基于 props + 自身 state（远端 Feed、fallbackFeed）做组合，最终通过 `VideoPreviewCard` 等子组件完成具体渲染。
-  - 移除 `demoVideoAssets` 之后，所有展示数据要么来自外部 props，要么来自真实的 API 返回，减少“硬编码假数据”的耦合。
-- 可替代实现 vs 当前实现的优势：
-  - 替代实现 1：完全移除 fallback 占位列表，未登录或无数据时只显示空状态。优点是逻辑更简单，缺点是视觉上不够饱满，Demo/营销场景下体验偏“空白”。
-  - 替代实现 2：将 demo 数据迁移到配置或 CMS，由后端注入。优点是可配置，缺点是增加后端负担，而且与真实用户数据混在一起容易混淆。
-  - 当前实现：去掉具体 demo 视频内容及硬编码 URL，仅保留基于当前 `asset` 的占位克隆，既保证 UI 结构与虚拟列表逻辑完整，又不引入外部 demo 视频资源，更符合生产环境的安全与合规要求。
-- 隐含的最佳实践：
-  - 避免在组件内硬编码外部 demo 媒体资源（特别是视频 URL），减少对第三方存储和不受控内容的依赖。
-  - 将“真实数据逻辑（远端 Feed）”和“占位 UI（fallbackFeed）”清晰区分，便于后续替换或扩展。
-  - 通过简化 `data.ts`，用空导出明确表达“不要再从这里取 demo 数据”，降低未来误用风险。
+
+- 文件结构解释
+  - `src/components/marketing/media-generator/types.ts`：定义媒体生成任务与 Feed 列表相关的类型。
+  - `src/components/marketing/media-generator/media-generator-result-pane.tsx`：右侧结果面板，包含虚拟滚动、卡片展示、视频播放与数据映射逻辑。
+- 本次关键改动一：类型层增加临时文件 URL
+  - 在 `MediaTaskResult` 中新增字段（用于轮询结果接口 `/api/media/result/[taskId]`）：
+    ```ts
+    temporaryFileUrl?: string | null;
+    ```
+  - 在 `MediaFeedItem` 中同样新增字段（用于 Feed 接口 `/api/media/feed`）：
+    ```ts
+    temporaryFileUrl?: string | null;
+    ```
+  - 好处是：无论是历史任务（Feed）还是实时任务结果（Result API），只要后端返回了 `temporaryFileUrl`，前端就可以统一处理。
+- 本次关键改动二：Feed 映射逻辑优先使用 `temporaryFileUrl`
+  - 修改前（简化示意）：
+    ```ts
+    const fileDownloadUrl = buildFileDownloadUrl(task.fileUuid);
+    return {
+      ...
+      src: fileDownloadUrl ?? task.onlineUrl ?? DEFAULT_VIDEO_SRC,
+      poster: task.onlineUrl || fileDownloadUrl ? undefined : DEFAULT_POSTER,
+    };
+    ```
+  - 修改后：
+    ```ts
+    const fileDownloadUrl = buildFileDownloadUrl(task.fileUuid);
+    const mediaUrl =
+      task.temporaryFileUrl ??
+      fileDownloadUrl ??
+      task.onlineUrl ??
+      DEFAULT_VIDEO_SRC;
+
+    return {
+      ...
+      src: mediaUrl,
+      poster: mediaUrl ? undefined : DEFAULT_POSTER,
+    };
+    ```
+  - 含义与效果：
+    - 第一优先：使用 Feed 报文中的 `temporaryFileUrl`（满足“在加载视频时从 temporaryFileUrl 加载”的需求）。
+    - 第二优先：如果没有临时地址，则使用本地文件下载地址 `/api/files/download/{fileUuid}`。
+    - 第三优先：再次退回到 `onlineUrl`。
+    - 都没有时，使用空字符串 `DEFAULT_VIDEO_SRC`，并显示默认封面 `DEFAULT_POSTER`。
+    - `poster: mediaUrl ? undefined : DEFAULT_POSTER` 能让拥有真实视频 URL 的卡片通过 `useVideoPoster` 自动截帧生成封面，而没有 URL 的卡片则使用静态默认封面。
+- 本次关键改动三：实时生成结果映射同样使用统一优先级
+  - 在 `mapGenerationToAsset` 中也采用了相同的 URL 优先级逻辑：
+    ```ts
+    const fileDownloadUrl = buildFileDownloadUrl(generation.fileUuid);
+    const mediaUrl =
+      generation.temporaryFileUrl ??
+      fileDownloadUrl ??
+      generation.onlineUrl ??
+      DEFAULT_VIDEO_SRC;
+
+    return {
+      ...
+      src: mediaUrl,
+      poster: mediaUrl ? undefined : DEFAULT_POSTER,
+    };
+    ```
+  - 这样当 `/api/media/result/[taskId]` 也返回 `temporaryFileUrl` 时，右侧“实时生成卡片”与下方历史 Feed 的播放行为保持一致：都优先用临时 URL。
+- 数据流与组件通信方式（结合本次需求）
+  - AI Gateway 经由 `/api/media/feed` 返回数据，其中单条记录包含 `temporaryFileUrl`。
+  - 前端结果面板通过 `loadFeed` 调用该接口，得到 `MediaFeedResponse`，并将其中的 `MediaFeedItem` 通过 `mapTaskToAsset` 转换为 `VideoGeneratorAsset`。
+  - `VideoPreviewCard` 接收 `asset`，内部 `<video src={resolvedSrc} ...>` 实际使用的就是 `asset.src`，因此会优先使用 `temporaryFileUrl`。
+  - 若后端同时在结果接口中返回 `temporaryFileUrl`，`mapGenerationToAsset` 也会按照同样的优先级处理，保证实时预览与历史列表行为一致。
+- 可替代实现 vs 当前实现的优势
+  - 可选方案一：在 `VideoPreviewCard` 中直接判断 `asset.temporaryFileUrl`、`asset.onlineUrl` 等后端字段。缺点是 UI 组件耦合到后端模型，后续接口变更会影响所有使用该组件的地方。
+  - 可选方案二：在 `/api/media/feed` 的 `route.ts` 中就把 `temporaryFileUrl` 重命名为一个固定字段再返回前端。缺点是后端 API 的“数据透传”能力变弱。
+  - 当前方案：通过前端适配层集中处理 URL 优先级，用 `VideoGeneratorAsset` 做统一抽象，UI 只依赖这个抽象，是更清晰、可维护性更高的设计。
+- 隐含的最佳实践
+  - 类型先行：先在 `types.ts` 中为新字段补齐类型，再在映射逻辑中使用，避免“后端返回了但 TS 不知道”的情况。
+  - 使用“优先级链”来设计资源加载策略（temporary → download → online → default），能够减少未来排错成本。
+  - 保持 UI 组件尽量“后端无感”，所有与接口字段名相关的逻辑尽量集中在少数几个适配函数中。
 
 ### 🟦 D. 初学者学习重点总结
-- 理解 React 函数组件与 props 的关系：父组件通过 props 向子组件传递数据和回调，保持单向数据流。
-- 熟练掌握 Hooks：`useState` 管理组件内部状态，`useEffect` 处理副作用，`useRef` 保存 DOM 引用和不会触发重渲染的值，`useMemo`/`useCallback` 做性能优化。
-- 学会区分真实数据与 demo/占位数据：生产环境中应尽量减少硬编码 demo 资源，尤其是外部媒体文件。
-- 掌握 Next.js Client Components 的使用场景：涉及交互、滚动监听、虚拟列表、浏览器端请求等逻辑时，需要在 `'use client'` 组件中实现。
-- 理解 API 调用与前端组件的配合：通过调用 `/api/media/feed` 获取用户生成记录，再经过适配函数转为展示用的 `VideoGeneratorAsset`。
-- 关注文件结构与职责划分：工作区组件（Workspace）、配置面板（ConfigPanel）、结果面板（ResultPane）职责清晰，有利于维护和扩展。
-- 学会安全和合规思维：移除硬编码 demo 视频、避免依赖不受控外部内容，是正式产品上线前常见且必要的一步。
+- 理解如何根据后端接口变更（新增 `temporaryFileUrl`）去更新前端类型定义，并保持类型与实际数据一致。
+- 学会通过“适配层”（如 `mapTaskToAsset`、`mapGenerationToAsset`）把后端结构转换成前端统一的展示模型，让 UI 组件远离底层字段细节。
+- 掌握设计资源加载优先级的思路：当同时存在临时 URL、本地下载 URL、在线 URL 时，如何决定播放顺序以获得最佳体验。
+- 理解 React 渲染链路：接口返回 → 类型定义 → 适配函数计算 `asset.src` → 组件通过 props 接收 → `<video>` 播放，链路中任一环节出错都会导致视频无法加载。
+- 熟悉 `useRef`、`useEffect` 等 Hook 在处理滚动监听、任务轮询和视频播放中的典型用法，为后续实现更复杂交互打基础。
+- 养成“组件与接口解耦”的习惯：UI 优先使用抽象好的 `VideoGeneratorAsset`，而不是直接引用 `temporaryFileUrl`、`onlineUrl` 等后端字段名。
 
 ---
 
 ## 3. AI 工作方式要求补充说明
-- 本次改动已遵守指引：主对话窗口只输出代码及必要的简要说明，详细教学内容集中在本文件中。
-- 组件继续采用现代 React（函数组件 + Hooks），并与 Next.js App Router 兼容，方便后续在页面中直接引用。
-- 若未来需要再次加入演示内容，建议通过受控的配置或后端接口注入，而不是在前端硬编码 demo 媒体数组。 
+- 本次回答已按要求：主对话窗口仅给出简要结论，详细教学与架构拆解全部集中在本文件中。
+- 代码仍采用现代 React 函数组件与 Hooks，兼容 Next.js App Router 的使用方式。
+- 若后端未来继续调整媒体资源字段（例如新增其他临时地址或 CDN 地址），只需在 `types.ts` 与 `mapTaskToAsset` / `mapGenerationToAsset` 中更新 URL 优先级即可，其余组件无需改动。 
