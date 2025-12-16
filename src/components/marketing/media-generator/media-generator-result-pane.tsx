@@ -660,6 +660,7 @@ function VideoPreviewCard({
             ref={videoRef}
             key={asset.id}
             src={resolvedSrc || undefined}
+            crossOrigin="anonymous"
             controls
             loop
             playsInline
