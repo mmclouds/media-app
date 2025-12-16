@@ -1,7 +1,6 @@
 'use client';
 
 import { useCurrentUser } from '@/hooks/use-current-user';
-import { useVideoPoster } from '@/hooks/use-video-poster';
 import { FolderOpen } from 'lucide-react';
 import type { RefObject } from 'react';
 import {
@@ -265,11 +264,6 @@ export function MediaGeneratorResultPane({
     )
     : fallbackFeed.slice(0, visibleCount);
 
-  const liveAsset = useMemo(
-    () => (activeGeneration ? mapGenerationToAsset(activeGeneration) : null),
-    [activeGeneration]
-  );
-
   useEffect(() => {
     const activeTaskId = activeGeneration?.taskId;
     if (!isLoggedIn || !activeTaskId) {
@@ -309,8 +303,6 @@ export function MediaGeneratorResultPane({
         ref={scrollRef}
         className="flex-1 space-y-6 overflow-y-auto px-6 py-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
-        {liveAsset ? <VideoPreviewCard asset={liveAsset} isActive /> : null}
-
         {!isLoggedIn && (
           <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/80">
             <div className="h-2 w-2 rounded-full bg-[#64ff6a]" />
@@ -562,16 +554,37 @@ function VideoPreviewCard({
     useHoverPlayback();
   const cardRef = useRef<HTMLDivElement | null>(null);
   const shouldCapturePoster = !asset.poster && Boolean(asset.src);
-  const { poster: capturedPoster, error: posterError } = useVideoPoster(
-    shouldCapturePoster ? asset.src : undefined,
-    { auto: shouldCapturePoster, frameTime: 0.15 }
-  );
+  const [capturedPoster, setCapturedPoster] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (posterError) {
-      console.warn('生成视频封面失败:', posterError);
+  const handleVideoLoaded = useCallback(() => {
+    handleMediaReady();
+    if (!shouldCapturePoster || capturedPoster) {
+      return;
     }
-  }, [asset.id, posterError]);
+    const instance = videoRef.current;
+    if (!instance) {
+      return;
+    }
+    try {
+      const canvas = document.createElement('canvas');
+      const width = instance.videoWidth || 1;
+      const height = instance.videoHeight || 1;
+      canvas.width = width;
+      canvas.height = height;
+      const context = canvas.getContext('2d');
+      if (!context) {
+        throw new Error('当前环境不支持 Canvas 2D。');
+      }
+      context.drawImage(instance, 0, 0, width, height);
+      const dataUrl = canvas.toDataURL('image/png');
+      setCapturedPoster(dataUrl);
+    } catch (error) {
+      console.warn(
+        '生成视频封面失败:',
+        error instanceof Error ? error : new Error('Failed to capture video thumbnail.')
+      );
+    }
+  }, [capturedPoster, handleMediaReady, shouldCapturePoster, videoRef]);
 
   useLayoutEffect(() => {
     if (!cardRef.current || !onHeightChange) {
@@ -666,7 +679,7 @@ function VideoPreviewCard({
             playsInline
             poster={resolvedPoster}
             className="aspect-video w-full bg-black object-cover"
-            onLoadedData={handleMediaReady}
+            onLoadedData={handleVideoLoaded}
           >
             <track
               kind="captions"

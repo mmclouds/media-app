@@ -23,6 +23,7 @@
   - 通过 `mapTaskToAsset`，Feed 接口返回的 `MediaFeedItem` 会被转换为 `VideoGeneratorAsset`，其中 `asset.src` 现在优先使用 `temporaryFileUrl`。
   - `VideoPreviewCard` 中 `<video>` 组件只关心 `asset.src`，因此只要适配层修改为使用 `temporaryFileUrl`，渲染层就会自动改为通过临时 URL 加载视频资源。
   - `resolvedSrc` 根据任务状态选择实际播放地址：在非错误、非加载状态下就是 `asset.src`，从而完成“状态 → 数据 → UI”的整条渲染链路。
+  - 封面截取直接复用展示用 `<video>` 元素：在 `onLoadedData` 事件中使用 Canvas 从同一个 `<video>` 实例抓取首帧，不再额外创建隐藏 `<video>`，因此不会因为截帧多触发一轮网络请求。
   - 给展示用 `<video>` 标签增加 `crossOrigin="anonymous"`，可以让浏览器在跨域请求 R2 视频时按照 CORS 模式自动附带 `Origin` 头（前端无法直接设置该头，只能通过此属性触发），为后续 Canvas 截帧或其他跨域安全访问打好基础。
 - 体现的 React 最佳实践：
   - 把“后端数据结构与字段差异”隔离在纯函数 `mapTaskToAsset` / `mapGenerationToAsset` 中，UI 组件只使用统一的 `VideoGeneratorAsset`，大幅降低耦合度。
