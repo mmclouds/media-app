@@ -1,6 +1,7 @@
 'use client';
 
 import { useCurrentUser } from '@/hooks/use-current-user';
+import { useVideoPoster } from '@/hooks/use-video-poster';
 import { FolderOpen } from 'lucide-react';
 import type { RefObject } from 'react';
 import {
@@ -554,37 +555,13 @@ function VideoPreviewCard({
     useHoverPlayback();
   const cardRef = useRef<HTMLDivElement | null>(null);
   const shouldCapturePoster = !asset.poster && Boolean(asset.src);
-  const [capturedPoster, setCapturedPoster] = useState<string | null>(null);
+  const { poster: autoPoster } = useVideoPoster(
+    shouldCapturePoster ? asset.src : undefined
+  );
 
   const handleVideoLoaded = useCallback(() => {
     handleMediaReady();
-    if (!shouldCapturePoster || capturedPoster) {
-      return;
-    }
-    const instance = videoRef.current;
-    if (!instance) {
-      return;
-    }
-    try {
-      const canvas = document.createElement('canvas');
-      const width = instance.videoWidth || 1;
-      const height = instance.videoHeight || 1;
-      canvas.width = width;
-      canvas.height = height;
-      const context = canvas.getContext('2d');
-      if (!context) {
-        throw new Error('当前环境不支持 Canvas 2D。');
-      }
-      context.drawImage(instance, 0, 0, width, height);
-      const dataUrl = canvas.toDataURL('image/png');
-      setCapturedPoster(dataUrl);
-    } catch (error) {
-      console.warn(
-        '生成视频封面失败:',
-        error instanceof Error ? error : new Error('Failed to capture video thumbnail.')
-      );
-    }
-  }, [capturedPoster, handleMediaReady, shouldCapturePoster, videoRef]);
+  }, [handleMediaReady]);
 
   useLayoutEffect(() => {
     if (!cardRef.current || !onHeightChange) {
@@ -618,7 +595,7 @@ function VideoPreviewCard({
     if (isLoading) {
       return LOADING_POSTER;
     }
-    return asset.poster ?? capturedPoster ?? DEFAULT_POSTER;
+    return asset.poster ?? autoPoster ?? DEFAULT_POSTER;
   })();
 
   const resolvedSrc = isError
