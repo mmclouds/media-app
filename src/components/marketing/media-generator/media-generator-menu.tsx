@@ -1,5 +1,9 @@
 'use client';
 
+import { LoginWrapper } from '@/components/auth/login-wrapper';
+import { UserAvatar } from '@/components/layout/user-avatar';
+import { useCurrentUser } from '@/hooks/use-current-user';
+import { useLocalePathname } from '@/i18n/navigation';
 import { MoreHorizontal } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { MediaType, MediaTypeOption } from './types';
@@ -15,6 +19,9 @@ export function MediaGeneratorMenu({
   value,
   onChange,
 }: MediaGeneratorMenuProps) {
+  const currentPath = useLocalePathname();
+  const currentUser = useCurrentUser();
+
   return (
     <aside className="flex h-full w-[72px] flex-col items-center justify-between border-r border-white/5 bg-[#060606] py-5 text-white">
       <div className="flex flex-col items-center gap-8">
@@ -36,12 +43,22 @@ export function MediaGeneratorMenu({
       </div>
 
       <div className="flex flex-col items-center gap-5">
-        <button
-          type="button"
-          className="text-xs font-semibold uppercase tracking-wide text-white/70 transition hover:text-white"
-        >
-          Sign In
-        </button>
+        {currentUser ? (
+          <UserAvatar
+            name={currentUser.name}
+            image={currentUser.image}
+            className="border border-white/20"
+          />
+        ) : (
+          <LoginWrapper callbackUrl={currentPath}>
+            <button
+              type="button"
+              className="text-xs font-semibold uppercase tracking-wide text-white/70 transition hover:text-white"
+            >
+              Sign In
+            </button>
+          </LoginWrapper>
+        )}
 
         <div className="text-center text-[10px] font-semibold text-[#ccff00]">
           <span className="block rounded-sm border border-[#ccff00] px-1 py-0.5">
