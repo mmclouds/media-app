@@ -2,6 +2,7 @@
 
 import { LoginWrapper } from '@/components/auth/login-wrapper';
 import { UserAvatar } from '@/components/layout/user-avatar';
+import { UserButton } from '@/components/layout/user-button';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { useLocalePathname } from '@/i18n/navigation';
 import { MoreHorizontal } from 'lucide-react';
@@ -60,19 +61,21 @@ export function MediaGeneratorMenu({
           </LoginWrapper>
         )}
 
-        <div className="text-center text-[10px] font-semibold text-[#ccff00]">
-          <span className="block rounded-sm border border-[#ccff00] px-1 py-0.5">
-            50% OFF
-          </span>
-          <span className="mt-1 block text-white/70">Creator plan</span>
-        </div>
 
-        <button
-          type="button"
-          className="text-white/60 transition hover:text-white"
-        >
-          <MoreHorizontal className="h-6 w-6" />
-        </button>
+
+        {currentUser ? (
+          <UserButton
+            user={currentUser}
+            trigger={
+              <button
+                type="button"
+                className="text-white/60 transition hover:text-white"
+              >
+                <MoreHorizontal className="h-6 w-6" />
+              </button>
+            }
+          />
+        ) : null}
       </div>
     </aside>
   );
@@ -91,11 +94,10 @@ function SidebarButton({
 }) {
   return (
     <button
-      className={`flex h-10 w-10 items-center justify-center rounded-xl transition ${
-        active
+      className={`flex h-10 w-10 items-center justify-center rounded-xl transition ${active
           ? 'bg-white/10 text-white'
           : 'text-white/50 hover:bg-white/5 hover:text-white'
-      }`}
+        }`}
       aria-pressed={active}
       onClick={onClick}
       aria-label={label}

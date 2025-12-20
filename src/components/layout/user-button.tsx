@@ -15,15 +15,16 @@ import { authClient } from '@/lib/auth-client';
 import type { User } from 'better-auth';
 import { LogOutIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { toast } from 'sonner';
 import { CreditsBalanceMenu } from './credits-balance-menu';
 
 interface UserButtonProps {
   user: User;
+  trigger?: ReactNode;
 }
 
-export function UserButton({ user }: UserButtonProps) {
+export function UserButton({ user, trigger }: UserButtonProps) {
   const t = useTranslations();
   const avatarLinks = useAvatarLinks();
   const localeRouter = useLocaleRouter();
@@ -45,15 +46,21 @@ export function UserButton({ user }: UserButtonProps) {
   };
 
   // Desktop View, use DropdownMenu
+  const triggerNode = trigger ? (
+    <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
+  ) : (
+    <DropdownMenuTrigger>
+      <UserAvatar
+        name={user.name}
+        image={user.image}
+        className="size-8 border cursor-pointer"
+      />
+    </DropdownMenuTrigger>
+  );
+
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger>
-        <UserAvatar
-          name={user.name}
-          image={user.image}
-          className="size-8 border cursor-pointer"
-        />
-      </DropdownMenuTrigger>
+      {triggerNode}
       <DropdownMenuContent align="end">
         {/* show user name and email */}
         <div className="flex items-center justify-start gap-2 p-2">
