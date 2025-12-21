@@ -13,11 +13,11 @@
 - 文件以 `'use client'` 开头，明确标记为客户端组件，才能使用 `useState`、`useCurrentUser`、`useLocalePathname` 等 Hook，符合 App Router 的客户端交互约定。
 - Media Studio 页面通过 App Router 组合 `MediaGeneratorWorkspace`，而 `MediaGeneratorMenu` 作为一栏嵌入，侧栏的样式与交互均在组件内部控制，不影响路由层级。
 - `useLocalePathname` 来自 `next-intl` 支持的 i18n 路由，帮助登录按钮回跳至当前语言页，`useTranslations` 配合 `Common.logout` 让登出文案保持 locale 统一。
-- `DropdownMenu` 渲染在 portal 内，但 `MediaGeneratorUserMenu` 仍能借由 props（`side='right'`、`align='end'`、`sideOffset={8}`）控制位置，成功在 `/media-studio` 屏幕底部展示菜单。
+- `DropdownMenu` 渲染在 portal 内，但 `MediaGeneratorUserMenu` 仍能借由 props（`side='right'`、`align='end'`、`sideOffset={0}`）控制位置，成功在 `/media-studio` 屏幕底部展示菜单，并配合触发器铺满侧边栏宽度让定位更精准。
 - 文件结构上，`MediaGeneratorMenu` 只负责左侧 72px 导航，其他功能（配置面板/结果面板）被拆到同目录下的模块，App Router 下的页面可以随意重组这些三栏组件。
 
-- `MediaGeneratorMenu` 以 `aside` 包裹左侧按钮，保持 `pt-5`，同时把用户区域改成 `gap-4 pb-6 pt-1`，让头像与菜单按钮不再紧贴底部，以免下方内容遮挡。
-- `MediaGeneratorUserMenu` 内部复用 `DropdownMenu` 及 `CreditsBalanceMenu`、`LogOutIcon` 等构件。`DropdownMenuTrigger` 包裹 “More” 按钮，`DropdownMenuContent` 设置 `side="right"`/`align="end"`/`sideOffset={92}`/`avoidCollisions={false}` 并限制 `min-w-[220px]`，确保菜单总是在左侧栏之外的右方展开、不会翻转覆盖左侧栏，并且更容易贴近屏幕底部。
+- `MediaGeneratorMenu` 以 `aside` 包裹左侧按钮，保持 `pt-5`，并让用户区域使用 `w-full self-stretch gap-4 pb-6 pt-1`，让头像与菜单按钮不再紧贴底部且便于对齐侧栏宽度。
+- `MediaGeneratorUserMenu` 内部复用 `DropdownMenu` 及 `CreditsBalanceMenu`、`LogOutIcon` 等构件。`DropdownMenuTrigger` 包裹 “More” 按钮，`DropdownMenuContent` 设置 `side="right"`/`align="end"`/`sideOffset={0}`/`avoidCollisions={false}` 并限制 `min-w-[220px]`，确保菜单左侧与 `MediaGeneratorMenu` 右侧贴合、总是在左侧栏之外的右方展开，且更容易贴近屏幕底部。
 - 登录态数据流：`useCurrentUser` → `UserAvatar` & `MediaGeneratorUserMenu`，`avatarLinks` 作为导航钩子，`handleSignOut` 继续调用 `authClient` 触发退出后跳转 `/`。
 - 可替代实现可以是复用 `UserButton` 并扩展 props，但本次直接在该文件内做定制避免改动全局组件；优点是片段化改动、易读易维护，且在此场景下更容易保证位置策略。
 - 隐含最佳实践：对侧边栏区域采用固定宽度/上下填充，并在局部组件里调整 `DropdownMenuContent` 的 positioning，避免全局样式或重写影响其他页面。

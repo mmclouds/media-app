@@ -57,7 +57,7 @@ export function MediaGeneratorMenu({
         </nav>
       </div>
 
-      <div className="flex flex-col items-center gap-4 pb-6 pt-1">
+      <div className="flex w-full flex-col items-center gap-4 self-stretch pb-6 pt-1">
         {currentUser ? (
           <UserAvatar
             name={currentUser.name}
@@ -107,7 +107,7 @@ function MediaGeneratorUserMenu({ user }: { user: User }) {
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="text-white/60 transition hover:text-white"
+          className="flex h-10 w-full items-center justify-center text-white/60 transition hover:text-white"
           aria-label="Open user menu"
         >
           <MoreHorizontal className="h-6 w-6" />
@@ -116,7 +116,7 @@ function MediaGeneratorUserMenu({ user }: { user: User }) {
       <DropdownMenuContent
         side="right"
         align="end"
-        sideOffset={92}
+        sideOffset={0}
         avoidCollisions={false}
         className="max-h-[calc(100vh-16px)] min-w-[220px] origin-bottom-left shadow-2xl"
       >
