@@ -387,12 +387,7 @@ export function useMediaGeneratorController({
     prompt,
     setPrompt,
     onGenerate: handleGenerate,
-    isGenerating:
-      isSubmitting ||
-      Boolean(
-        activeGeneration?.status &&
-          !hasReachedTerminalState(activeGeneration.status)
-      ),
+    isGenerating: isSubmitting,
     activeGeneration,
   };
 }
