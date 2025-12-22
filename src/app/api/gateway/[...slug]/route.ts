@@ -17,23 +17,30 @@ export const dynamic = 'force-dynamic';
 const gatewayBaseUrl = normalizeGatewayBaseUrl(process.env.AI_GATEWAY_URL);
 const gatewayApiKey = process.env.AI_GATEWAY_API_KEY;
 
+type RouteParamsInput =
+  | { slug?: string[] }
+  | Promise<{ slug?: string[] }>
+  | undefined;
+
 export async function GET(
   request: NextRequest,
-  context: { params: { slug?: string[] } }
+  context: { params: RouteParamsInput }
 ) {
-  return handleGatewayRequest(request, context);
+  const slug = await resolveSlug(context.params);
+  return handleGatewayRequest(request, slug);
 }
 
 export async function POST(
   request: NextRequest,
-  context: { params: { slug?: string[] } }
+  context: { params: RouteParamsInput }
 ) {
-  return handleGatewayRequest(request, context);
+  const slug = await resolveSlug(context.params);
+  return handleGatewayRequest(request, slug);
 }
 
 export async function handleGatewayRequest(
   request: NextRequest,
-  context: { params: { slug?: string[] } }
+  slug: string[]
 ) {
   if (!gatewayBaseUrl) {
     return NextResponse.json(
@@ -59,7 +66,7 @@ export async function handleGatewayRequest(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const route = matchRoute(context.params.slug ?? []);
+  const route = matchRoute(slug);
 
   if (!route) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 });
@@ -113,6 +120,15 @@ function matchRoute(slug: string[]): GatewayRoute | null {
   }
 
   return null;
+}
+
+async function resolveSlug(input: RouteParamsInput): Promise<string[]> {
+  const params =
+    input && typeof (input as Promise<unknown>).then === 'function'
+      ? await (input as Promise<{ slug?: string[] }>)
+      : (input as { slug?: string[] } | undefined);
+
+  return params?.slug ?? [];
 }
 
 async function handleMediaGenerate(request: NextRequest, userId: string) {
