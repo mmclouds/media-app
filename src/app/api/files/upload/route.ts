@@ -1,7 +1,0 @@
-import type { NextRequest } from 'next/server';
-
-export { dynamic } from '@/app/api/gateway/[...slug]/route';
-import { handleGatewayRequest } from '@/app/api/gateway/[...slug]/route';
-
-export const POST = (request: NextRequest) =>
-  handleGatewayRequest(request, { params: { slug: ['files', 'upload'] } });
