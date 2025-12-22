@@ -139,10 +139,13 @@ export function MediaGeneratorResultPane({
       }
 
       try {
-        const response = await fetch(`/api/media/feed?${params.toString()}`, {
-          method: 'GET',
-          cache: 'no-store',
-        });
+        const response = await fetch(
+          `/api/gateway/media/feed?${params.toString()}`,
+          {
+            method: 'GET',
+            cache: 'no-store',
+          }
+        );
         const result = (await response.json().catch(() => null)) as
           | MediaFeedResponse
           | { error?: string; message?: string }
@@ -260,9 +263,9 @@ export function MediaGeneratorResultPane({
 
   const visibleItems = usingRemoteFeed
     ? remoteFeed.slice(
-      virtualRange.start,
-      Math.min(virtualRange.end + 1, remoteFeed.length)
-    )
+        virtualRange.start,
+        Math.min(virtualRange.end + 1, remoteFeed.length)
+      )
     : fallbackFeed.slice(0, visibleCount);
 
   useEffect(() => {
@@ -392,8 +395,9 @@ function Tab({ label, active = false }: { label: string; active?: boolean }) {
   return (
     <button
       type="button"
-      className={`rounded-md px-3 py-1 ${active ? 'bg-white/10 text-white' : 'text-white/60'
-        }`}
+      className={`rounded-md px-3 py-1 ${
+        active ? 'bg-white/10 text-white' : 'text-white/60'
+      }`}
     >
       {label}
     </button>
@@ -927,5 +931,5 @@ function buildFileDownloadUrl(fileUuid?: string | null) {
   if (!fileUuid) {
     return undefined;
   }
-  return `/api/files/download/${encodeURIComponent(fileUuid)}`;
+  return `/api/gateway/files/download/${encodeURIComponent(fileUuid)}`;
 }

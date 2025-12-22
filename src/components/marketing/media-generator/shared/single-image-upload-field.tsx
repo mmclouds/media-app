@@ -1,6 +1,9 @@
 'use client';
 
-import { buildPublicFileDownloadUrl, uploadFileToBucket } from '@/lib/file-transfer';
+import {
+  buildPublicFileDownloadUrl,
+  uploadFileToBucket,
+} from '@/lib/file-transfer';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 type SingleImageUploadFieldProps = {
@@ -58,7 +61,9 @@ export function SingleImageUploadField({
     }
 
     const isDirectUrl =
-      trimmed.startsWith('data:') || trimmed.startsWith('http') || trimmed.startsWith('/');
+      trimmed.startsWith('data:') ||
+      trimmed.startsWith('http') ||
+      trimmed.startsWith('/');
     if (isDirectUrl) {
       return trimmed;
     }
@@ -104,7 +109,6 @@ export function SingleImageUploadField({
       return;
     }
 
-
     setError(null);
     setIsUploading(true);
 
@@ -145,7 +149,9 @@ export function SingleImageUploadField({
     } catch (uploadError) {
       console.error('上传图片失败', uploadError);
       const message =
-        uploadError instanceof Error ? uploadError.message : 'Failed to upload image.';
+        uploadError instanceof Error
+          ? uploadError.message
+          : 'Failed to upload image.';
       setError(message);
       setPreviewUrl(resolvePreviewUrl(value));
     } finally {
@@ -203,7 +209,9 @@ export function SingleImageUploadField({
           )}
           <div className="flex items-center justify-between">
             <span className="text-xs text-white/60">
-              {isUploading ? 'Uploading image...' : 'Attach an image to guide the video.'}
+              {isUploading
+                ? 'Uploading image...'
+                : 'Attach an image to guide the video.'}
             </span>
             <span className="rounded-lg bg-white/10 px-3 py-1 text-xs font-semibold text-white transition group-hover:bg-white/20">
               {previewUrl ? 'Replace image' : 'Upload image'}
@@ -215,7 +223,8 @@ export function SingleImageUploadField({
         <p className="text-xs text-white/50">{helperText}</p>
       ) : null}
       <p className="text-[11px] text-white/40">
-        Limit: single image, max {normalizedMaxSize}MB. Bucket: {resolvedBucket}, Tenant: {fallbackTenantId}
+        Limit: single image, max {normalizedMaxSize}MB. Bucket: {resolvedBucket}
+        , Tenant: {fallbackTenantId}
       </p>
       {error ? <p className="text-xs text-rose-400">{error}</p> : null}
     </div>

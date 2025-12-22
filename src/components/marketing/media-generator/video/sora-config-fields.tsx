@@ -1,11 +1,11 @@
 'use client';
 
-import { PromptEditor } from '../shared/prompt-editor';
 import {
   AspectRatioField,
   ModelVersionSwitcher,
   SliderField,
 } from '../shared/config-field-controls';
+import { PromptEditor } from '../shared/prompt-editor';
 import { SingleImageUploadField } from '../shared/single-image-upload-field';
 import type { MediaModelConfig, MediaModelConfigProps } from '../types';
 
@@ -64,7 +64,9 @@ export const buildSoraRequestBody = ({
       ? frames
       : Number(resolvedConfig.seconds) || 15;
   const quality =
-    typeof resolvedConfig.quality === 'string' ? resolvedConfig.quality : 'high';
+    typeof resolvedConfig.quality === 'string'
+      ? resolvedConfig.quality
+      : 'high';
 
   const model =
     modelVersion === 'sora2-pro'
@@ -106,8 +108,7 @@ export function SoraConfigFields({
   prompt,
   onPromptChange,
 }: MediaModelConfigProps) {
-  const imageUploadBucket =
-    process.env.NEXT_PUBLIC_UPLOAD_BUCKET ?? '0-image';
+  const imageUploadBucket = process.env.NEXT_PUBLIC_UPLOAD_BUCKET ?? '0-image';
   const durationOptions = [10, 15];
   const ratioOptions = ['16:9', '9:16'];
   const defaultDuration = durationOptions[0];
@@ -116,17 +117,22 @@ export function SoraConfigFields({
   const seconds = durationOptions.includes(Number(config.seconds))
     ? Number(config.seconds)
     : undefined;
-  const mode = generationModes.some((option) => option.value === config.inputMode)
+  const mode = generationModes.some(
+    (option) => option.value === config.inputMode
+  )
     ? (config.inputMode as string)
     : generationModes[0]?.value;
-  const sizeValue = typeof config.size === 'string'
-    ? config.size.replace('x', ':')
-    : undefined;
+  const sizeValue =
+    typeof config.size === 'string' ? config.size.replace('x', ':') : undefined;
   const size = ratioOptions.includes(sizeValue ?? '') ? sizeValue : undefined;
   const inputImage =
-    typeof config.inputImage === 'string' ? (config.inputImage as string) : null;
+    typeof config.inputImage === 'string'
+      ? (config.inputImage as string)
+      : null;
   const configModelVersion = config.modelVersion as string | undefined;
-  const modelVersion = soraVersions.some((option) => option.value === configModelVersion)
+  const modelVersion = soraVersions.some(
+    (option) => option.value === configModelVersion
+  )
     ? configModelVersion
     : undefined;
 
@@ -139,10 +145,11 @@ export function SoraConfigFields({
             <button
               key={option.value}
               type="button"
-              className={`flex-1 rounded-xl px-3 py-2 text-sm font-semibold transition ${isActive
-                ? 'bg-white/10 text-white shadow-lg shadow-white/10'
-                : 'text-white/60 hover:bg-white/5 hover:text-white'
-                }`}
+              className={`flex-1 rounded-xl px-3 py-2 text-sm font-semibold transition ${
+                isActive
+                  ? 'bg-white/10 text-white shadow-lg shadow-white/10'
+                  : 'text-white/60 hover:bg-white/5 hover:text-white'
+              }`}
               onClick={() =>
                 onChange({
                   ...config,
@@ -191,7 +198,6 @@ export function SoraConfigFields({
       ) : null}
 
       <PromptEditor value={prompt} onChange={onPromptChange} />
-
 
       <SliderField
         label="Video Length"
