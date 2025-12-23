@@ -1,10 +1,10 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { MediaGeneratorConfigPanel } from './media-generator-config-panel';
 import { MEDIA_TYPE_OPTIONS, useMediaGeneratorController } from './controller';
-import { MediaGeneratorResultPane } from './media-generator-result-pane';
+import { MediaGeneratorConfigPanel } from './media-generator-config-panel';
 import { MediaGeneratorMenu } from './media-generator-menu';
+import { MediaGeneratorResultPane } from './media-generator-result-pane';
 
 export function MediaGeneratorWorkspace({ className }: { className?: string }) {
   const {

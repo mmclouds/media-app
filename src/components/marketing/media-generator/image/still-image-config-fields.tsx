@@ -1,11 +1,11 @@
 'use client';
 
-import { PromptEditor } from '../shared/prompt-editor';
 import {
   AspectRatioField,
   SelectField,
   SliderField,
 } from '../shared/config-field-controls';
+import { PromptEditor } from '../shared/prompt-editor';
 import type { MediaModelConfigProps } from '../types';
 
 const stillRatios = ['1:1', '3:4', '16:9'];
