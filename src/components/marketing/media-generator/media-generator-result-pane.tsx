@@ -1,7 +1,10 @@
 'use client';
 
 import { useCurrentUser } from '@/hooks/use-current-user';
+import { useHoverPlayback } from '@/hooks/use-hover-playback';
+import { useVirtualFeed } from '@/hooks/use-virtual-feed';
 import { useVideoPoster } from '@/hooks/use-video-poster';
+import { AssetsManagerDialog } from '@/components/assets-manager/assets-manager-dialog';
 import { FolderOpen } from 'lucide-react';
 import type { RefObject } from 'react';
 import {
@@ -35,11 +38,6 @@ const FEED_LIMIT = 6;
 const POLL_INTERVAL_MS = 5000;
 const ESTIMATED_CARD_HEIGHT = 520;
 const VIRTUAL_OVERSCAN_PX = 800;
-
-type VirtualRange = {
-  start: number;
-  end: number;
-};
 
 export function MediaGeneratorResultPane({
   asset,
@@ -290,13 +288,7 @@ export function MediaGeneratorResultPane({
             />
             Favorites
           </label>
-          <button
-            type="button"
-            className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-1.5 text-white/80 transition hover:text-white"
-          >
-            <FolderOpen className="h-4 w-4" />
-            Assets
-          </button>
+          <AssetsButton />
         </div>
       </div>
 
@@ -400,147 +392,24 @@ function Tab({ label, active = false }: { label: string; active?: boolean }) {
   );
 }
 
-function useVirtualFeed({
-  items,
-  scrollRef,
-  estimatedItemHeight = ESTIMATED_CARD_HEIGHT,
-  overscan = VIRTUAL_OVERSCAN_PX,
-  enabled = true,
-}: {
-  items: VideoGeneratorAsset[];
-  scrollRef: RefObject<HTMLDivElement | null>;
-  estimatedItemHeight?: number;
-  overscan?: number;
-  enabled?: boolean;
-}) {
-  const heightsRef = useRef<Map<string, number>>(new Map());
-  const [offsets, setOffsets] = useState<number[]>([0]);
-  const [totalHeight, setTotalHeight] = useState(0);
-  const [range, setRange] = useState<VirtualRange>(() => ({
-    start: 0,
-    end: items.length ? items.length - 1 : -1,
-  }));
+function AssetsButton() {
+  const [open, setOpen] = useState(false);
 
-  const recomputeOffsets = useCallback(() => {
-    const nextOffsets: number[] = [0];
-    let running = 0;
-    items.forEach((item) => {
-      const height = heightsRef.current.get(item.id) ?? estimatedItemHeight;
-      running += height;
-      nextOffsets.push(running);
-    });
-    setOffsets(nextOffsets);
-    setTotalHeight(running);
-    const lastIndex = items.length - 1;
-    setRange((prev) => {
-      if (lastIndex < 0) {
-        return { start: 0, end: -1 };
-      }
-      const start = Math.max(0, Math.min(prev.start, lastIndex));
-      const end = Math.max(start, Math.min(prev.end, lastIndex));
-      return { start, end };
-    });
-    return nextOffsets;
-  }, [estimatedItemHeight, items]);
-
-  useEffect(() => {
-    if (!enabled) {
-      setOffsets([0]);
-      setTotalHeight(0);
-      setRange({ start: 0, end: items.length ? items.length - 1 : -1 });
-      return;
-    }
-    recomputeOffsets();
-  }, [items, enabled, recomputeOffsets]);
-
-  const updateRange = useCallback(() => {
-    if (!enabled) {
-      return;
-    }
-    const container = scrollRef.current;
-    if (!container || !offsets.length) {
-      return;
-    }
-    const viewportHeight = container.clientHeight || 0;
-    const scrollTop = container.scrollTop || 0;
-    const lastIndex = items.length - 1;
-    if (lastIndex < 0) {
-      setRange({ start: 0, end: -1 });
-      return;
-    }
-    const startIndex = findOffsetIndex(
-      offsets,
-      Math.max(0, scrollTop - overscan)
-    );
-    const endIndex = findOffsetIndex(
-      offsets,
-      scrollTop + viewportHeight + overscan
-    );
-    setRange({
-      start: startIndex,
-      end: Math.min(endIndex, lastIndex),
-    });
-  }, [enabled, items.length, offsets, overscan, scrollRef]);
-
-  useEffect(() => {
-    updateRange();
-  }, [updateRange]);
-
-  useEffect(() => {
-    if (!enabled) {
-      return undefined;
-    }
-    const container = scrollRef.current;
-    if (!container) {
-      return undefined;
-    }
-    const handler = () => {
-      updateRange();
-    };
-    container.addEventListener('scroll', handler);
-    return () => {
-      container.removeEventListener('scroll', handler);
-    };
-  }, [enabled, scrollRef, updateRange]);
-
-  const registerHeight = useCallback(
-    (id: string, height: number) => {
-      if (!enabled || !height) {
-        return;
-      }
-      const prev = heightsRef.current.get(id);
-      if (prev === height) {
-        return;
-      }
-      heightsRef.current.set(id, height);
-      recomputeOffsets();
-    },
-    [enabled, recomputeOffsets]
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-1.5 text-white/80 transition hover:text-white"
+      >
+        <FolderOpen className="h-4 w-4" />
+        Assets
+      </button>
+      <AssetsManagerDialog open={open} onOpenChange={setOpen} />
+    </>
   );
-
-  if (!enabled) {
-    return {
-      range: {
-        start: 0,
-        end: items.length ? items.length - 1 : -1,
-      },
-      topSpacer: 0,
-      bottomSpacer: 0,
-      registerHeight: () => undefined,
-    };
-  }
-
-  const topSpacer = offsets[range.start] ?? 0;
-  const bottomSpacer =
-    totalHeight - (offsets[range.end + 1] ?? totalHeight ?? 0);
-
-  return {
-    range,
-    topSpacer,
-    bottomSpacer: Math.max(0, bottomSpacer),
-    registerHeight,
-  };
 }
+
 
 function VideoPreviewCard({
   asset,
@@ -841,55 +710,6 @@ function mapGenerationToAsset(
   };
 }
 
-function useHoverPlayback({
-  resetOnLeave = false,
-}: { resetOnLeave?: boolean } = {}) {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const isHoveringRef = useRef(false);
-
-  const attemptPlay = useCallback(() => {
-    const instance = videoRef.current;
-    if (!instance) {
-      return;
-    }
-    const playPromise = instance.play();
-    if (playPromise && typeof playPromise.catch === 'function') {
-      playPromise.catch((error) => {
-        console.warn('视频悬停播放失败:', error);
-      });
-    }
-  }, []);
-
-  const handleMouseEnter = useCallback(() => {
-    isHoveringRef.current = true;
-    attemptPlay();
-  }, [attemptPlay]);
-
-  const handleMouseLeave = useCallback(() => {
-    isHoveringRef.current = false;
-    const instance = videoRef.current;
-    if (!instance) {
-      return;
-    }
-    instance.pause();
-    if (resetOnLeave) {
-      instance.currentTime = 0;
-    }
-  }, [resetOnLeave]);
-
-  const handleMediaReady = useCallback(() => {
-    if (isHoveringRef.current) {
-      attemptPlay();
-    }
-  }, [attemptPlay]);
-
-  return {
-    videoRef,
-    handleMouseEnter,
-    handleMouseLeave,
-    handleMediaReady,
-  };
-}
 
 function isInProgressStatus(status?: string | null) {
   const normalized = normalizeStatus(status);
