@@ -3,6 +3,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { AssetsManager } from './assets-manager';
@@ -17,9 +18,10 @@ export function AssetsManagerDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent
-        className="max-w-4xl max-h-[85vh] h-[85vh] p-6 bg-[#0a0a0a] border border-white/10"
+        className="inset-0 translate-x-0 translate-y-0 w-[100dvw] h-[100dvh] max-w-none max-h-none p-6 bg-[#0a0a0a] border border-white/10 rounded-none flex flex-col min-h-0 sm:max-w-none"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
+        <DialogTitle className="sr-only">Assets Manager</DialogTitle>
         <AssetsManager mode="dialog" onClose={() => onOpenChange(false)} />
       </DialogContent>
     </Dialog>

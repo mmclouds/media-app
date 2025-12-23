@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useLayoutEffect, useMemo, useState } from 'react';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { useVirtualFeed } from '@/hooks/use-virtual-feed';
 import { AssetCard } from './asset-card';
@@ -14,7 +14,22 @@ interface AssetsGridProps {
   className?: string;
 }
 
-const ESTIMATED_CARD_HEIGHT = 320;
+const COLUMN_BREAKPOINTS = [
+  { minWidth: 1280, columns: 6 },
+  { minWidth: 1024, columns: 5 },
+  { minWidth: 896, columns: 4 },
+  { minWidth: 640, columns: 3 },
+  { minWidth: 0, columns: 2 },
+];
+const ROW_GAP_PX = 12;
+const ESTIMATED_META_HEIGHT = 88;
+const VIRTUAL_OVERSCAN_PX = 800;
+const VIRTUALIZE_AFTER_ROWS = 8;
+
+type AssetRow = {
+  id: string;
+  items: VideoGeneratorAsset[];
+};
 
 export function AssetsGrid({
   assets,
@@ -26,6 +41,55 @@ export function AssetsGrid({
   const user = useCurrentUser();
   const isLoggedIn = !!user?.id;
   const gridRef = useRef<HTMLDivElement | null>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+
+  useLayoutEffect(() => {
+    if (!gridRef.current) {
+      return;
+    }
+    const element = gridRef.current;
+    const updateWidth = () => {
+      setContainerWidth(element.clientWidth);
+    };
+    updateWidth();
+    const observer = new ResizeObserver(() => {
+      updateWidth();
+    });
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  const columns = useMemo(() => {
+    const match = COLUMN_BREAKPOINTS.find((item) => containerWidth >= item.minWidth);
+    return match ? match.columns : 2;
+  }, [containerWidth]);
+
+  const rows = useMemo<AssetRow[]>(() => {
+    if (!assets.length) {
+      return [];
+    }
+    const nextRows: AssetRow[] = [];
+    for (let index = 0; index < assets.length; index += columns) {
+      const slice = assets.slice(index, index + columns);
+      const idSeed = slice[0]?.id ?? `${index}`;
+      nextRows.push({
+        id: `row-${index}-${idSeed}`,
+        items: slice,
+      });
+    }
+    return nextRows;
+  }, [assets, columns]);
+
+  const estimatedRowHeight = useMemo(() => {
+    if (!containerWidth || columns <= 0) {
+      return 320;
+    }
+    const totalGap = ROW_GAP_PX * Math.max(0, columns - 1);
+    const cardWidth = (containerWidth - totalGap) / columns;
+    return Math.round(cardWidth + ESTIMATED_META_HEIGHT + ROW_GAP_PX);
+  }, [containerWidth, columns]);
 
   const {
     range,
@@ -33,15 +97,16 @@ export function AssetsGrid({
     bottomSpacer,
     registerHeight,
   } = useVirtualFeed({
-    items: assets,
+    items: rows,
     scrollRef: gridRef,
-    estimatedItemHeight: ESTIMATED_CARD_HEIGHT,
-    enabled: assets.length > 12,
+    estimatedItemHeight: estimatedRowHeight,
+    overscan: VIRTUAL_OVERSCAN_PX,
+    enabled: rows.length > VIRTUALIZE_AFTER_ROWS,
   });
 
-  const visibleAssets = assets.length > 12
-    ? assets.slice(range.start, Math.min(range.end + 1, assets.length))
-    : assets;
+  const visibleRows = rows.length > VIRTUALIZE_AFTER_ROWS
+    ? rows.slice(range.start, Math.min(range.end + 1, rows.length))
+    : rows;
 
   const handleScroll = useCallback(() => {
     if (isLoading || !hasMore || !gridRef.current) return;
@@ -58,27 +123,25 @@ export function AssetsGrid({
       onScroll={handleScroll}
       className={`flex-1 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden ${className || ''}`}
     >
-      <div className="grid grid-cols-2 gap-4 px-1">
-        {assets.length > 12 && topSpacer > 0 ? (
-          <div style={{ height: topSpacer }} aria-hidden className="col-span-full" />
+      <div className="px-0">
+        {rows.length > VIRTUALIZE_AFTER_ROWS && topSpacer > 0 ? (
+          <div style={{ height: topSpacer }} aria-hidden />
         ) : null}
 
-        {visibleAssets.map((asset, index) => {
-          const absoluteIndex = assets.length > 12 ? range.start + index : index;
-          return (
-            <AssetCard
-              key={asset.id}
-              asset={asset}
-              onHeightChange={assets.length > 12 ?
-                (height) => registerHeight(asset.id, height) :
-                undefined
-              }
-            />
-          );
-        })}
+        {visibleRows.map((row) => (
+          <AssetsRow
+            key={row.id}
+            row={row}
+            columns={columns}
+            onHeightChange={rows.length > VIRTUALIZE_AFTER_ROWS ?
+              (height) => registerHeight(row.id, height) :
+              undefined
+            }
+          />
+        ))}
 
-        {assets.length > 12 && bottomSpacer > 0 ? (
-          <div style={{ height: bottomSpacer }} aria-hidden className="col-span-full" />
+        {rows.length > VIRTUALIZE_AFTER_ROWS && bottomSpacer > 0 ? (
+          <div style={{ height: bottomSpacer }} aria-hidden />
         ) : null}
       </div>
 
@@ -101,6 +164,50 @@ export function AssetsGrid({
           Sign in to view your assets.
         </div>
       )}
+    </div>
+  );
+}
+
+function AssetsRow({
+  row,
+  columns,
+  onHeightChange,
+}: {
+  row: AssetRow;
+  columns: number;
+  onHeightChange?: (height: number) => void;
+}) {
+  const rowRef = useRef<HTMLDivElement | null>(null);
+
+  useLayoutEffect(() => {
+    if (!rowRef.current || !onHeightChange) {
+      return;
+    }
+    const measure = () => {
+      const rect = rowRef.current?.getBoundingClientRect();
+      if (rect) {
+        onHeightChange(rect.height);
+      }
+    };
+    measure();
+    const observer = new ResizeObserver(() => {
+      measure();
+    });
+    observer.observe(rowRef.current);
+    return () => {
+      observer.disconnect();
+    };
+  }, [onHeightChange]);
+
+  return (
+    <div
+      ref={rowRef}
+      className="grid gap-3 pb-3"
+      style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+    >
+      {row.items.map((asset) => (
+        <AssetCard key={asset.id} asset={asset} />
+      ))}
     </div>
   );
 }

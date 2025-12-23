@@ -33,7 +33,7 @@ export function AssetsManager({
   };
 
   return (
-    <div className={`flex flex-col h-full ${className || ''}`}>
+    <div className={`flex flex-col h-full min-h-0 ${className || ''}`}>
       <AssetsHeader mode={mode} onClose={onClose} className="mb-6" />
 
       <AssetsTabBar
