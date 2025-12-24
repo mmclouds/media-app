@@ -4,6 +4,7 @@ import { PromptEditor } from '../shared/prompt-editor';
 import {
   AspectRatioField,
   ModelVersionSwitcher,
+  Resolution,
   SliderField,
 } from '../shared/config-field-controls';
 import { SingleImageUploadField } from '../shared/single-image-upload-field';
@@ -64,10 +65,13 @@ export const buildSoraRequestBody = ({
       ? frames
       : Number(resolvedConfig.seconds) || 15;
   const quality =
-    typeof resolvedConfig.quality === 'string' ? resolvedConfig.quality : 'high';
+    resolvedConfig.quality === 'standard' || resolvedConfig.quality === 'high'
+      ? resolvedConfig.quality
+      : 'standard';
+  const isPro = modelVersion === 'sora2-pro';
 
   const model =
-    modelVersion === 'sora2-pro'
+    isPro
       ? inputMode === 'image'
         ? 'sora-2-pro-image-to-video'
         : 'sora-2-pro-text-to-video'
@@ -79,7 +83,7 @@ export const buildSoraRequestBody = ({
     prompt,
     aspect_ratio: aspectRatio,
     n_frames: `${nFrames}`,
-    size: quality,
+    size: isPro ? quality : null,
     remove_watermark: true,
   };
 
@@ -129,6 +133,12 @@ export function SoraConfigFields({
   const modelVersion = soraVersions.some((option) => option.value === configModelVersion)
     ? configModelVersion
     : undefined;
+  const resolvedModelVersion = modelVersion ?? defaultModelVersion;
+  const isPro = resolvedModelVersion === 'sora2-pro';
+  const resolutionValue =
+    config.quality === 'standard' || config.quality === 'high'
+      ? (config.quality as 'standard' | 'high')
+      : undefined;
 
   return (
     <div className="space-y-4">
@@ -193,6 +203,7 @@ export function SoraConfigFields({
       <PromptEditor value={prompt} onChange={onPromptChange} />
 
 
+
       <SliderField
         label="Video Length"
         value={seconds}
@@ -218,6 +229,19 @@ export function SoraConfigFields({
           })
         }
       />
+
+      {isPro ? (
+        <Resolution
+          value={resolutionValue}
+          defaultValue="standard"
+          onChange={(value) =>
+            onChange({
+              ...config,
+              quality: value,
+            })
+          }
+        />
+      ) : null}
     </div>
   );
 }

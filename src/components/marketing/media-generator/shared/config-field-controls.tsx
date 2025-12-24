@@ -21,6 +21,13 @@ export type ModelVersionOption = {
   description?: string;
 };
 
+export type ResolutionOption = 'standard' | 'high';
+
+const resolutionOptions: { value: ResolutionOption; label: string }[] = [
+  { value: 'standard', label: 'Standard' },
+  { value: 'high', label: 'High' },
+];
+
 export function ModelVersionSwitcher({
   value,
   defaultValue,
@@ -218,6 +225,51 @@ export function AspectRatioField({
                 <span className="h-full w-full border border-white/40" />
               </span>
               <span className="font-medium">{option}</span>
+            </label>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export function Resolution({
+  label = 'Resolution',
+  value,
+  defaultValue = 'standard',
+  onChange,
+}: {
+  label?: string;
+  value?: ResolutionOption;
+  defaultValue?: ResolutionOption;
+  onChange: (value: ResolutionOption) => void;
+}) {
+  const selectedValue =
+    value === 'standard' || value === 'high'
+      ? value
+      : defaultValue ?? 'standard';
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between">{label}</div>
+      <div className="flex flex-wrap gap-2">
+        {resolutionOptions.map((option) => {
+          const isChecked = option.value === selectedValue;
+          return (
+            <label
+              key={option.value}
+              className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition ${isChecked
+                ? 'border-white bg-white/10 text-white'
+                : 'border-white/20 bg-black/40 text-white/70 hover:border-white/40 hover:bg-white/5'
+                }`}
+            >
+              <input
+                type="checkbox"
+                className="sr-only"
+                checked={isChecked}
+                onChange={() => onChange(option.value)}
+              />
+              <span className="font-medium">{option.label}</span>
             </label>
           );
         })}

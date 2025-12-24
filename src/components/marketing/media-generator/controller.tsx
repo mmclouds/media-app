@@ -62,7 +62,7 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
         modelVersion: 'sora2',
         size: '16:9',
         inputMode: 'text',
-        quality: 'high',
+        quality: 'standard',
       },
       configComponent: SoraConfigFields,
     },
