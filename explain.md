@@ -6,10 +6,18 @@
 
 ### 接口信息
 - **路径**: `/api/custom/credits/consume`
-- **方法**: GET
+- **方法**: POST
 - **认证**: Basic Auth（使用环境变量 `CRON_JOBS_USERNAME` 和 `CRON_JOBS_PASSWORD`）
 
-### 请求参数
+### 请求体（JSON）
+```json
+{
+  "userId": "string",
+  "amount": 10,
+  "description": "string"
+}
+```
+
 | 参数 | 类型 | 必填 | 说明 |
 |------|------|------|------|
 | userId | string | 是 | 用户ID |
@@ -179,22 +187,28 @@ src/app/api/custom/credits/consume/route.ts
 
 ```bash
 # 使用 curl 调用
-curl -X GET \
-  "http://localhost:3000/api/custom/credits/consume?userId=user123&amount=10&description=test" \
-  -H "Authorization: Basic $(echo -n 'username:password' | base64)"
+curl -X POST \
+  "http://localhost:3000/api/custom/credits/consume" \
+  -H "Authorization: Basic $(echo -n 'username:password' | base64)" \
+  -H "Content-Type: application/json" \
+  -d '{"userId": "user123", "amount": 10, "description": "test"}'
 ```
 
 ```javascript
 // 使用 fetch 调用
 const credentials = btoa('username:password');
-const response = await fetch(
-  '/api/custom/credits/consume?userId=user123&amount=10&description=test',
-  {
-    headers: {
-      'Authorization': `Basic ${credentials}`
-    }
-  }
-);
+const response = await fetch('/api/custom/credits/consume', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Basic ${credentials}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    userId: 'user123',
+    amount: 10,
+    description: 'test'
+  })
+});
 const data = await response.json();
 console.log(data.successFlag); // true or false
 ```

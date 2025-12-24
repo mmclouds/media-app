@@ -32,9 +32,10 @@ function validateBasicAuth(request: Request): boolean {
 
 /**
  * 消费用户积分
- * GET /api/custom/credits/consume?userId=xxx&amount=10&description=xxx
+ * POST /api/custom/credits/consume
+ * Body: { userId: string, amount: number, description: string }
  */
-export async function GET(request: Request) {
+export async function POST(request: Request) {
   // Validate basic authentication
   if (!validateBasicAuth(request)) {
     console.error('consume credits unauthorized');
@@ -53,11 +54,21 @@ export async function GET(request: Request) {
     );
   }
 
-  // Parse query parameters
-  const { searchParams } = new URL(request.url);
-  const userId = searchParams.get('userId');
-  const amountStr = searchParams.get('amount');
-  const description = searchParams.get('description');
+  // Parse request body
+  let body: { userId?: string; amount?: number; description?: string };
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json(
+      {
+        successFlag: false,
+        message: 'Invalid JSON body',
+      },
+      { status: 400 }
+    );
+  }
+
+  const { userId, amount, description } = body;
 
   // Validate required parameters
   if (!userId) {
@@ -70,7 +81,7 @@ export async function GET(request: Request) {
     );
   }
 
-  if (!amountStr) {
+  if (amount === undefined || amount === null) {
     return NextResponse.json(
       {
         successFlag: false,
@@ -80,7 +91,6 @@ export async function GET(request: Request) {
     );
   }
 
-  const amount = Number(amountStr);
   if (!Number.isFinite(amount) || amount <= 0) {
     return NextResponse.json(
       {
