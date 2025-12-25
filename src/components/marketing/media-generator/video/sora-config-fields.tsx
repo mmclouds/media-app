@@ -9,9 +9,9 @@ import {
 } from '../shared/config-field-controls';
 import { PromptEditor } from '../shared/prompt-editor';
 import { SingleImageUploadField } from '../shared/single-image-upload-field';
-import { calculateCredits } from '@/custom/credits/pricing';
+import type { CalculateCreditsResult } from '@/custom/credits/pricing/types';
 import type { MediaModelConfig, MediaModelConfigProps } from '../types';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const generationModes = [
   {
@@ -121,30 +121,87 @@ export function SoraConfigFields({
 
   // 积分预估状态
   const [creditResult, setCreditResult] = useState<{
-    result: Awaited<ReturnType<typeof calculateCredits>> | null;
+    result: CalculateCreditsResult | null;
     error: string | null;
+    loading: boolean;
   }>({
     result: null,
     error: null,
+    loading: false,
   });
 
   // 计算积分预估
   useEffect(() => {
+    const controller = new AbortController();
+
     // 构建请求 payload 用于计算积分
     const payload = buildSoraRequestBody({
       prompt: prompt || '',
       resolvedConfig: config,
       fileUuids: [],
     });
-    try {
-      const result = calculateCredits(payload);
-      setCreditResult({ result, error: null });
-    } catch (error) {
-      setCreditResult({
-        result: null,
-        error: error instanceof Error ? error.message : '积分计算失败',
-      });
-    }
+
+    setCreditResult((prev) => ({
+      ...prev,
+      loading: true,
+      error: null,
+    }));
+
+    const fetchCredits = async () => {
+      try {
+        const response = await fetch('/api/custom/credits/calculate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+
+        let data: { success?: boolean; data?: CalculateCreditsResult; message?: string } = {};
+        try {
+          data = (await response.json()) as {
+            success?: boolean;
+            data?: CalculateCreditsResult;
+            message?: string;
+          };
+        } catch {
+          data = {};
+        }
+
+        if (!response.ok || data.success === false) {
+          const message =
+            typeof data.message === 'string' && data.message.trim().length > 0
+              ? data.message
+              : 'Failed to estimate credits';
+          setCreditResult({
+            result: null,
+            error: message,
+            loading: false,
+          });
+          return;
+        }
+
+        setCreditResult({
+          result: data.data ?? null,
+          error: null,
+          loading: false,
+        });
+      } catch (error) {
+        if (controller.signal.aborted) {
+          return;
+        }
+        setCreditResult({
+          result: null,
+          error: error instanceof Error ? error.message : 'Failed to estimate credits',
+          loading: false,
+        });
+      }
+    };
+
+    void fetchCredits();
+
+    return () => controller.abort();
   }, [config, prompt]);
 
   // 解析配置值
@@ -282,6 +339,7 @@ export function SoraConfigFields({
       <CreditEstimate
         result={creditResult.result}
         error={creditResult.error}
+        loading={creditResult.loading}
       />
     </div>
   );
