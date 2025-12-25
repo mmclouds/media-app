@@ -3,8 +3,10 @@
 import { Select, SelectContent, SelectTrigger } from '@/components/ui/select';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { CheckIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import { GenerateButton } from './generate-button';
 import type {
+  CreditEstimateState,
   MediaGenerationPayload,
   MediaModelConfig,
   MediaModelDefinition,
@@ -42,6 +44,12 @@ export function MediaGeneratorConfigPanel({
   const activeConfig = activeModel
     ? (modelConfigs[activeModel.id] ?? activeModel.defaultConfig)
     : {};
+  const [creditEstimate, setCreditEstimate] =
+    useState<CreditEstimateState | null>(null);
+
+  useEffect(() => {
+    setCreditEstimate(null);
+  }, [activeModel?.id]);
 
   return (
     <section className="flex h-full min-h-0 w-[420px] flex-col border-r border-white/5 bg-neutral-950 text-white">
@@ -73,6 +81,7 @@ export function MediaGeneratorConfigPanel({
                 onChange={(nextConfig) =>
                   onModelConfigChange(activeModel.id, nextConfig)
                 }
+                onCreditEstimateChange={setCreditEstimate}
               />
             </div>
           ) : (
@@ -90,6 +99,9 @@ export function MediaGeneratorConfigPanel({
             config={activeConfig}
             onGenerate={onGenerate}
             disabled={isGenerating}
+            creditEstimate={
+              activeModel?.id === 'sora' ? creditEstimate : undefined
+            }
           />
         </div>
       </div>

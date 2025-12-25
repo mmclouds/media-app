@@ -41,12 +41,5 @@ export interface CreditPricingConfig {
 export interface CalculateCreditsResult {
   /** 计算后的积分（整数） */
   credits: number;
-  /** 原始美元价格 */
-  priceUsd: number;
-  /** 使用的汇率 */
-  exchangeRate: number;
-  /** 匹配的模型 */
   model: string;
-  /** 配置版本 */
-  configVersion: string;
 }

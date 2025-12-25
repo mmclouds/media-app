@@ -1,5 +1,6 @@
 import type { LucideIcon } from 'lucide-react';
 import type { ComponentType } from 'react';
+import type { CalculateCreditsResult } from '@/custom/credits/pricing/types';
 
 export type VideoGeneratorAsset = {
   id: string;
@@ -24,6 +25,12 @@ export type MediaTypeOption = {
   icon: LucideIcon;
 };
 
+export type CreditEstimateState = {
+  result: CalculateCreditsResult | null;
+  error: string | null;
+  loading: boolean;
+};
+
 export type MediaModelConfig = Record<
   string,
   string | number | boolean | null | undefined
@@ -34,6 +41,7 @@ export type MediaModelConfigProps = {
   onChange: (config: MediaModelConfig) => void;
   prompt: string;
   onPromptChange: (value: string) => void;
+  onCreditEstimateChange?: (state: CreditEstimateState) => void;
 };
 
 export type MediaModelDefinition = {

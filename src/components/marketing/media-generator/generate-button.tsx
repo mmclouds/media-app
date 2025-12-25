@@ -1,7 +1,7 @@
 'use client';
 
-import { Loader2 } from 'lucide-react';
-import type { MediaGenerationPayload } from './types';
+import { Coins, Loader2 } from 'lucide-react';
+import type { CreditEstimateState, MediaGenerationPayload } from './types';
 
 type GenerateButtonProps = {
   mediaType: MediaGenerationPayload['mediaType'];
@@ -11,6 +11,7 @@ type GenerateButtonProps = {
   onGenerate: (payload: MediaGenerationPayload) => Promise<void> | void;
   disabled?: boolean;
   label?: string;
+  creditEstimate?: CreditEstimateState | null;
 };
 
 export function GenerateButton({
@@ -21,9 +22,42 @@ export function GenerateButton({
   onGenerate,
   disabled,
   label = 'Generate',
+  creditEstimate,
 }: GenerateButtonProps) {
   const promptReady = Boolean(prompt.trim());
   const isDisabled = disabled || !promptReady;
+  const showCredit = creditEstimate !== undefined;
+  const isCreditLoading =
+    showCredit && (creditEstimate === null || creditEstimate.loading);
+  const creditValue =
+    showCredit && !isCreditLoading && creditEstimate
+      ? creditEstimate.error
+        ? '--'
+        : creditEstimate.result
+          ? `${creditEstimate.result.credits}`
+          : '--'
+      : null;
+  const creditIndicator = showCredit ? (
+    <span className="inline-flex items-center gap-1">
+      <Coins className="h-4 w-4" />
+      {isCreditLoading ? (
+        <span className="h-3 w-8 animate-pulse rounded bg-black/20" />
+      ) : (
+        <span>{creditValue}</span>
+      )}
+    </span>
+  ) : null;
+  const displayLabel = showCredit ? (
+    <span className="inline-flex items-center gap-2">
+      <span>{label}</span>
+      <span className="h-4 w-px bg-black/20" aria-hidden="true" />
+      <span className="inline-flex min-w-[64px] items-center justify-center">
+        {creditIndicator}
+      </span>
+    </span>
+  ) : (
+    label
+  );
 
   const handleGenerate = async () => {
     if (isDisabled) {
@@ -50,7 +84,7 @@ export function GenerateButton({
           Generating
         </>
       ) : (
-        label
+        displayLabel
       )}
     </button>
   );

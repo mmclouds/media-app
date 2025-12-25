@@ -1,6 +1,5 @@
 'use client';
 
-import { CreditEstimate } from '../shared/credit-estimate';
 import {
   AspectRatioField,
   ModelVersionSwitcher,
@@ -11,7 +10,7 @@ import { PromptEditor } from '../shared/prompt-editor';
 import { SingleImageUploadField } from '../shared/single-image-upload-field';
 import type { CalculateCreditsResult } from '@/custom/credits/pricing/types';
 import type { MediaModelConfig, MediaModelConfigProps } from '../types';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const generationModes = [
   {
@@ -111,6 +110,7 @@ export function SoraConfigFields({
   onChange,
   prompt,
   onPromptChange,
+  onCreditEstimateChange,
 }: MediaModelConfigProps) {
   const imageUploadBucket = process.env.NEXT_PUBLIC_UPLOAD_BUCKET ?? '0-image';
   const durationOptions = [10, 15];
@@ -119,19 +119,11 @@ export function SoraConfigFields({
   const defaultRatio = ratioOptions[0];
   const defaultModelVersion = soraVersions[0]?.value ?? '';
 
-  // 积分预估状态
-  const [creditResult, setCreditResult] = useState<{
-    result: CalculateCreditsResult | null;
-    error: string | null;
-    loading: boolean;
-  }>({
-    result: null,
-    error: null,
-    loading: false,
-  });
-
   // 计算积分预估
   useEffect(() => {
+    if (!onCreditEstimateChange) {
+      return;
+    }
     const controller = new AbortController();
 
     // 构建请求 payload 用于计算积分
@@ -141,11 +133,11 @@ export function SoraConfigFields({
       fileUuids: [],
     });
 
-    setCreditResult((prev) => ({
-      ...prev,
-      loading: true,
+    onCreditEstimateChange({
+      result: null,
       error: null,
-    }));
+      loading: true,
+    });
 
     const fetchCredits = async () => {
       try {
@@ -174,7 +166,7 @@ export function SoraConfigFields({
             typeof data.message === 'string' && data.message.trim().length > 0
               ? data.message
               : 'Failed to estimate credits';
-          setCreditResult({
+          onCreditEstimateChange({
             result: null,
             error: message,
             loading: false,
@@ -182,7 +174,7 @@ export function SoraConfigFields({
           return;
         }
 
-        setCreditResult({
+        onCreditEstimateChange({
           result: data.data ?? null,
           error: null,
           loading: false,
@@ -191,9 +183,10 @@ export function SoraConfigFields({
         if (controller.signal.aborted) {
           return;
         }
-        setCreditResult({
+        onCreditEstimateChange({
           result: null,
-          error: error instanceof Error ? error.message : 'Failed to estimate credits',
+          error:
+            error instanceof Error ? error.message : 'Failed to estimate credits',
           loading: false,
         });
       }
@@ -202,7 +195,7 @@ export function SoraConfigFields({
     void fetchCredits();
 
     return () => controller.abort();
-  }, [config, prompt]);
+  }, [config, prompt, onCreditEstimateChange]);
 
   // 解析配置值
   const seconds = durationOptions.includes(Number(config.seconds))
@@ -335,12 +328,6 @@ export function SoraConfigFields({
         />
       ) : null}
 
-      {/* 积分预估展示 */}
-      <CreditEstimate
-        result={creditResult.result}
-        error={creditResult.error}
-        loading={creditResult.loading}
-      />
     </div>
   );
 }
