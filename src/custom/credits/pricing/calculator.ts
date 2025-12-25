@@ -111,7 +111,7 @@ export function calculateCredits(
     credits,
     priceUsd: matchedRule.priceUsd,
     exchangeRate,
-    model: matchedRule.model,
+    model, // 返回实际请求的模型
     configVersion: config.version,
   };
 }
