@@ -20,6 +20,7 @@ export function AssetsManagerDialog({
       <DialogContent
         className="inset-0 translate-x-0 translate-y-0 w-[100dvw] h-[100dvh] max-w-none max-h-none p-6 bg-[#0a0a0a] border border-white/10 rounded-none flex flex-col min-h-0 sm:max-w-none"
         onOpenAutoFocus={(e) => e.preventDefault()}
+        showCloseButton={false}
       >
         <DialogTitle className="sr-only">Assets Manager</DialogTitle>
         <AssetsManager mode="dialog" onClose={() => onOpenChange(false)} />
