@@ -7,8 +7,12 @@
  * params 为任意键值对，支持不同模型的不同参数组合
  */
 export interface CreditPricingRule {
-  /** 模型标识，如 'sora-2-text-to-video' */
-  model: string;
+  /**
+   * 模型标识
+   * 可以是单个模型（如 'sora-2-text-to-video'）
+   * 或多个模型的数组（如 ['sora-2-text-to-video', 'sora-2-image-to-video']）
+   */
+  model: string | string[];
   /** 参数匹配条件，任意键值对 */
   params: Record<string, unknown>;
   /** 美元价格 */

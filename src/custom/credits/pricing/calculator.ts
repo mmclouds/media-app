@@ -55,7 +55,8 @@ function matchRule(
   params: Record<string, unknown>
 ): boolean {
   // 模型必须匹配
-  if (rule.model !== model) {
+  const ruleModels = Array.isArray(rule.model) ? rule.model : [rule.model];
+  if (!ruleModels.includes(model)) {
     return false;
   }
 

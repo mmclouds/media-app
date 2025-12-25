@@ -5,7 +5,7 @@ import { Music } from 'lucide-react';
 
 interface AudioCardProps {
   asset: VideoGeneratorAsset;
-  cardRef: React.RefObject<HTMLDivElement>;
+  cardRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export function AudioCard({ asset, cardRef }: AudioCardProps) {

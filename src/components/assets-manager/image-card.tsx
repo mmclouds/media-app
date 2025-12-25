@@ -6,7 +6,7 @@ const DEFAULT_IMAGE = '/images/media/fengmian.jpg';
 
 interface ImageCardProps {
   asset: VideoGeneratorAsset;
-  cardRef: React.RefObject<HTMLDivElement>;
+  cardRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export function ImageCard({ asset, cardRef }: ImageCardProps) {

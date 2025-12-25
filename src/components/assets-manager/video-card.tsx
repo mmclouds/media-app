@@ -10,7 +10,7 @@ const FAILED_POSTER =
 
 interface VideoCardProps {
   asset: VideoGeneratorAsset;
-  cardRef: React.RefObject<HTMLDivElement>;
+  cardRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export function VideoCard({ asset, cardRef }: VideoCardProps) {
