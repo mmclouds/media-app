@@ -34,6 +34,7 @@ const LOADING_VIDEO_SRC = '';
 const LOADING_POSTER = DEFAULT_POSTER;
 const FAILED_POSTER =
   'https://images.unsplash.com/photo-1527443224154-d1af1e991e5d?auto=format&fit=crop&w=1200&q=80';
+const DEFAULT_ERROR_MESSAGE = 'Generation failed. Please try again.';
 const FEED_LIMIT = 6;
 const POLL_INTERVAL_MS = 5000;
 const ESTIMATED_CARD_HEIGHT = 520;
@@ -258,9 +259,9 @@ export function MediaGeneratorResultPane({
 
   const visibleItems = usingRemoteFeed
     ? remoteFeed.slice(
-        virtualRange.start,
-        Math.min(virtualRange.end + 1, remoteFeed.length)
-      )
+      virtualRange.start,
+      Math.min(virtualRange.end + 1, remoteFeed.length)
+    )
     : fallbackFeed.slice(0, visibleCount);
 
   useEffect(() => {
@@ -384,9 +385,8 @@ function Tab({ label, active = false }: { label: string; active?: boolean }) {
   return (
     <button
       type="button"
-      className={`rounded-md px-3 py-1 ${
-        active ? 'bg-white/10 text-white' : 'text-white/60'
-      }`}
+      className={`rounded-md px-3 py-1 ${active ? 'bg-white/10 text-white' : 'text-white/60'
+        }`}
     >
       {label}
     </button>
@@ -456,6 +456,10 @@ function VideoPreviewCard({
   const isLoading = isInProgressStatus(asset.status);
   const modelLabel = asset.modelName ?? asset.tags[1] ?? '—';
   const displayPrompt = asset.prompt ?? asset.title;
+  const resolvedErrorMessage =
+    typeof asset.errorMessage === 'string' && asset.errorMessage.trim().length > 0
+      ? asset.errorMessage
+      : DEFAULT_ERROR_MESSAGE;
 
   const resolvedPoster = (() => {
     if (isError) {
@@ -506,13 +510,21 @@ function VideoPreviewCard({
         onMouseLeave={handleMouseLeave}
       >
         {isError ? (
-          <div className="relative aspect-video w-full overflow-hidden rounded-none">
-            <img
+          <div className="relative aspect-video w-full overflow-hidden rounded-none bg-black">
+            {/* <img
               src={resolvedPoster}
               alt="Generation failed"
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/40" />
+              className="h-full w-full object-cover opacity-60"
+            /> */}
+            <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
+              <p
+                role="alert"
+                className="text-sm font-semibold leading-relaxed text-white"
+              >
+                {resolvedErrorMessage}
+              </p>
+            </div>
           </div>
         ) : (
           <video

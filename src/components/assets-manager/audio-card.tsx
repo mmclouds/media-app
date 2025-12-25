@@ -8,10 +8,16 @@ interface AudioCardProps {
   cardRef: React.RefObject<HTMLDivElement | null>;
 }
 
+const DEFAULT_ERROR_MESSAGE = 'Generation failed. Please try again.';
+
 export function AudioCard({ asset, cardRef }: AudioCardProps) {
   const isError = isErrorStatus(asset.status);
   const isLoading = isInProgressStatus(asset.status);
   const modelLabel = asset.modelName ?? asset.tags[1] ?? '—';
+  const resolvedErrorMessage =
+    typeof asset.errorMessage === 'string' && asset.errorMessage.trim().length > 0
+      ? asset.errorMessage
+      : DEFAULT_ERROR_MESSAGE;
 
   return (
     <article
@@ -25,6 +31,16 @@ export function AudioCard({ asset, cardRef }: AudioCardProps) {
           <div className="flex flex-col items-center justify-center text-white/40">
             <Music className="h-12 w-12 mb-3" />
             <span className="text-sm">Audio File</span>
+          </div>
+        )}
+        {isError && !isLoading && (
+          <div className="absolute inset-0 bg-black/70 flex items-center justify-center px-4 text-center">
+            <p
+              role="alert"
+              className="text-sm font-semibold leading-relaxed text-white"
+            >
+              {resolvedErrorMessage}
+            </p>
           </div>
         )}
       </div>

@@ -7,6 +7,7 @@ import { useVideoPoster } from '@/hooks/use-video-poster';
 const DEFAULT_POSTER = '/images/media/fengmian.jpg';
 const FAILED_POSTER =
   'https://images.unsplash.com/photo-1527443224154-d1af1e991e5d?auto=format&fit=crop&w=1200&q=80';
+const DEFAULT_ERROR_MESSAGE = 'Generation failed. Please try again.';
 
 interface VideoCardProps {
   asset: VideoGeneratorAsset;
@@ -25,6 +26,10 @@ export function VideoCard({ asset, cardRef }: VideoCardProps) {
   const isError = isErrorStatus(asset.status);
   const isLoading = isInProgressStatus(asset.status);
   const modelLabel = asset.modelName ?? asset.tags[1] ?? '—';
+  const resolvedErrorMessage =
+    typeof asset.errorMessage === 'string' && asset.errorMessage.trim().length > 0
+      ? asset.errorMessage
+      : DEFAULT_ERROR_MESSAGE;
 
   const resolvedPoster = (() => {
     if (isError) {
@@ -54,12 +59,16 @@ export function VideoCard({ asset, cardRef }: VideoCardProps) {
       >
         {isError ? (
           <div className="relative w-full h-full overflow-hidden">
-            <img
-              src={resolvedPoster}
-              alt="Generation failed"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-black/40" />
+            ß
+            <div className="absolute inset-0 bg-black/60" />
+            <div className="absolute inset-0 flex items-center justify-center px-4 text-center">
+              <p
+                role="alert"
+                className="text-sm font-semibold leading-relaxed text-white"
+              >
+                {resolvedErrorMessage}
+              </p>
+            </div>
           </div>
         ) : (
           <video

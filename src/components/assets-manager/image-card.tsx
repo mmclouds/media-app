@@ -3,6 +3,7 @@
 import type { VideoGeneratorAsset } from '@/components/marketing/media-generator/types';
 
 const DEFAULT_IMAGE = '/images/media/fengmian.jpg';
+const DEFAULT_ERROR_MESSAGE = 'Generation failed. Please try again.';
 
 interface ImageCardProps {
   asset: VideoGeneratorAsset;
@@ -13,6 +14,10 @@ export function ImageCard({ asset, cardRef }: ImageCardProps) {
   const isError = isErrorStatus(asset.status);
   const isLoading = isInProgressStatus(asset.status);
   const modelLabel = asset.modelName ?? asset.tags[1] ?? '—';
+  const resolvedErrorMessage =
+    typeof asset.errorMessage === 'string' && asset.errorMessage.trim().length > 0
+      ? asset.errorMessage
+      : DEFAULT_ERROR_MESSAGE;
 
   const resolvedSrc = (() => {
     if (isError) {
@@ -39,6 +44,16 @@ export function ImageCard({ asset, cardRef }: ImageCardProps) {
         {isLoading && (
           <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
             <div className="h-8 w-8 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+          </div>
+        )}
+        {isError && !isLoading && (
+          <div className="absolute inset-0 bg-black/60 flex items-center justify-center px-4 text-center">
+            <p
+              role="alert"
+              className="text-sm font-semibold leading-relaxed text-white"
+            >
+              {resolvedErrorMessage}
+            </p>
           </div>
         )}
       </div>
