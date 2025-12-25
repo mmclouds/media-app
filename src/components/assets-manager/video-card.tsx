@@ -1,8 +1,8 @@
 'use client';
 
+import type { VideoGeneratorAsset } from '@/components/marketing/media-generator/types';
 import { useHoverPlayback } from '@/hooks/use-hover-playback';
 import { useVideoPoster } from '@/hooks/use-video-poster';
-import type { VideoGeneratorAsset } from '@/components/marketing/media-generator/types';
 
 const DEFAULT_POSTER = '/images/media/fengmian.jpg';
 const FAILED_POSTER =
@@ -36,11 +36,7 @@ export function VideoCard({ asset, cardRef }: VideoCardProps) {
     return asset.poster ?? autoPoster ?? DEFAULT_POSTER;
   })();
 
-  const resolvedSrc = isError
-    ? undefined
-    : isLoading
-      ? ''
-      : asset.src || '';
+  const resolvedSrc = isError ? undefined : isLoading ? '' : asset.src || '';
 
   const handleVideoLoaded = () => {
     handleMediaReady();

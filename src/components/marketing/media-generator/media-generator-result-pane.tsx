@@ -1,10 +1,10 @@
 'use client';
 
+import { AssetsManagerDialog } from '@/components/assets-manager/assets-manager-dialog';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { useHoverPlayback } from '@/hooks/use-hover-playback';
-import { useVirtualFeed } from '@/hooks/use-virtual-feed';
 import { useVideoPoster } from '@/hooks/use-video-poster';
-import { AssetsManagerDialog } from '@/components/assets-manager/assets-manager-dialog';
+import { useVirtualFeed } from '@/hooks/use-virtual-feed';
 import { FolderOpen } from 'lucide-react';
 import type { RefObject } from 'react';
 import {
@@ -258,9 +258,9 @@ export function MediaGeneratorResultPane({
 
   const visibleItems = usingRemoteFeed
     ? remoteFeed.slice(
-      virtualRange.start,
-      Math.min(virtualRange.end + 1, remoteFeed.length)
-    )
+        virtualRange.start,
+        Math.min(virtualRange.end + 1, remoteFeed.length)
+      )
     : fallbackFeed.slice(0, visibleCount);
 
   useEffect(() => {
@@ -384,8 +384,9 @@ function Tab({ label, active = false }: { label: string; active?: boolean }) {
   return (
     <button
       type="button"
-      className={`rounded-md px-3 py-1 ${active ? 'bg-white/10 text-white' : 'text-white/60'
-        }`}
+      className={`rounded-md px-3 py-1 ${
+        active ? 'bg-white/10 text-white' : 'text-white/60'
+      }`}
     >
       {label}
     </button>
@@ -409,7 +410,6 @@ function AssetsButton() {
     </>
   );
 }
-
 
 function VideoPreviewCard({
   asset,
@@ -709,7 +709,6 @@ function mapGenerationToAsset(
     errorMessage: generation.errorMessage,
   };
 }
-
 
 function isInProgressStatus(status?: string | null) {
   const normalized = normalizeStatus(status);

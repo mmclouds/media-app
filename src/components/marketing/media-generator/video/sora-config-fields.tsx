@@ -1,14 +1,17 @@
 'use client';
 
-import { PromptEditor } from '../shared/prompt-editor';
+import { CreditEstimate } from '../shared/credit-estimate';
 import {
   AspectRatioField,
   ModelVersionSwitcher,
   Resolution,
   SliderField,
 } from '../shared/config-field-controls';
+import { PromptEditor } from '../shared/prompt-editor';
 import { SingleImageUploadField } from '../shared/single-image-upload-field';
+import { calculateCredits } from '@/custom/credits/pricing';
 import type { MediaModelConfig, MediaModelConfigProps } from '../types';
+import { useEffect, useMemo, useState } from 'react';
 
 const generationModes = [
   {
@@ -70,14 +73,13 @@ export const buildSoraRequestBody = ({
       : 'standard';
   const isPro = modelVersion === 'sora2-pro';
 
-  const model =
-    isPro
-      ? inputMode === 'image'
-        ? 'sora-2-pro-image-to-video'
-        : 'sora-2-pro-text-to-video'
-      : inputMode === 'image'
-        ? 'sora-2-image-to-video'
-        : 'sora-2-text-to-video';
+  const model = isPro
+    ? inputMode === 'image'
+      ? 'sora-2-pro-image-to-video'
+      : 'sora-2-pro-text-to-video'
+    : inputMode === 'image'
+      ? 'sora-2-image-to-video'
+      : 'sora-2-text-to-video';
 
   const inputPayload: Record<string, unknown> = {
     prompt,
@@ -110,27 +112,61 @@ export function SoraConfigFields({
   prompt,
   onPromptChange,
 }: MediaModelConfigProps) {
-  const imageUploadBucket =
-    process.env.NEXT_PUBLIC_UPLOAD_BUCKET ?? '0-image';
+  const imageUploadBucket = process.env.NEXT_PUBLIC_UPLOAD_BUCKET ?? '0-image';
   const durationOptions = [10, 15];
   const ratioOptions = ['16:9', '9:16'];
   const defaultDuration = durationOptions[0];
   const defaultRatio = ratioOptions[0];
   const defaultModelVersion = soraVersions[0]?.value ?? '';
+
+  // 积分预估状态
+  const [creditResult, setCreditResult] = useState<{
+    result: Awaited<ReturnType<typeof calculateCredits>> | null;
+    error: string | null;
+  }>({
+    result: null,
+    error: null,
+  });
+
+  // 计算积分预估
+  useEffect(() => {
+    // 构建请求 payload 用于计算积分
+    const payload = buildSoraRequestBody({
+      prompt: prompt || '',
+      resolvedConfig: config,
+      fileUuids: [],
+    });
+    try {
+      const result = calculateCredits(payload);
+      setCreditResult({ result, error: null });
+    } catch (error) {
+      setCreditResult({
+        result: null,
+        error: error instanceof Error ? error.message : '积分计算失败',
+      });
+    }
+  }, [config, prompt]);
+
+  // 解析配置值
   const seconds = durationOptions.includes(Number(config.seconds))
     ? Number(config.seconds)
     : undefined;
-  const mode = generationModes.some((option) => option.value === config.inputMode)
+  const mode = generationModes.some(
+    (option) => option.value === config.inputMode
+  )
     ? (config.inputMode as string)
     : generationModes[0]?.value;
-  const sizeValue = typeof config.size === 'string'
-    ? config.size.replace('x', ':')
-    : undefined;
+  const sizeValue =
+    typeof config.size === 'string' ? config.size.replace('x', ':') : undefined;
   const size = ratioOptions.includes(sizeValue ?? '') ? sizeValue : undefined;
   const inputImage =
-    typeof config.inputImage === 'string' ? (config.inputImage as string) : null;
+    typeof config.inputImage === 'string'
+      ? (config.inputImage as string)
+      : null;
   const configModelVersion = config.modelVersion as string | undefined;
-  const modelVersion = soraVersions.some((option) => option.value === configModelVersion)
+  const modelVersion = soraVersions.some(
+    (option) => option.value === configModelVersion
+  )
     ? configModelVersion
     : undefined;
   const resolvedModelVersion = modelVersion ?? defaultModelVersion;
@@ -149,10 +185,11 @@ export function SoraConfigFields({
             <button
               key={option.value}
               type="button"
-              className={`flex-1 rounded-xl px-3 py-2 text-sm font-semibold transition ${isActive
-                ? 'bg-white/10 text-white shadow-lg shadow-white/10'
-                : 'text-white/60 hover:bg-white/5 hover:text-white'
-                }`}
+              className={`flex-1 rounded-xl px-3 py-2 text-sm font-semibold transition ${
+                isActive
+                  ? 'bg-white/10 text-white shadow-lg shadow-white/10'
+                  : 'text-white/60 hover:bg-white/5 hover:text-white'
+              }`}
               onClick={() =>
                 onChange({
                   ...config,
@@ -202,8 +239,6 @@ export function SoraConfigFields({
 
       <PromptEditor value={prompt} onChange={onPromptChange} />
 
-
-
       <SliderField
         label="Video Length"
         value={seconds}
@@ -242,6 +277,12 @@ export function SoraConfigFields({
           }
         />
       ) : null}
+
+      {/* 积分预估展示 */}
+      <CreditEstimate
+        result={creditResult.result}
+        error={creditResult.error}
+      />
     </div>
   );
 }

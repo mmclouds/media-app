@@ -1,7 +1,7 @@
 'use client';
 
 import type { RefObject } from 'react';
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const DEFAULT_ESTIMATED_ITEM_HEIGHT = 520;
 const DEFAULT_OVERSCAN_PX = 800;

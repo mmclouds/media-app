@@ -1,10 +1,10 @@
 'use client';
 
-import { useRef, useCallback, useLayoutEffect, useMemo, useState } from 'react';
+import type { VideoGeneratorAsset } from '@/components/marketing/media-generator/types';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { useVirtualFeed } from '@/hooks/use-virtual-feed';
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { AssetCard } from './asset-card';
-import type { VideoGeneratorAsset } from '@/components/marketing/media-generator/types';
 
 interface AssetsGridProps {
   assets: VideoGeneratorAsset[];
@@ -62,7 +62,9 @@ export function AssetsGrid({
   }, []);
 
   const columns = useMemo(() => {
-    const match = COLUMN_BREAKPOINTS.find((item) => containerWidth >= item.minWidth);
+    const match = COLUMN_BREAKPOINTS.find(
+      (item) => containerWidth >= item.minWidth
+    );
     return match ? match.columns : 2;
   }, [containerWidth]);
 
@@ -91,12 +93,7 @@ export function AssetsGrid({
     return Math.round(cardWidth + ESTIMATED_META_HEIGHT + ROW_GAP_PX);
   }, [containerWidth, columns]);
 
-  const {
-    range,
-    topSpacer,
-    bottomSpacer,
-    registerHeight,
-  } = useVirtualFeed({
+  const { range, topSpacer, bottomSpacer, registerHeight } = useVirtualFeed({
     items: rows,
     scrollRef: gridRef,
     estimatedItemHeight: estimatedRowHeight,
@@ -104,9 +101,10 @@ export function AssetsGrid({
     enabled: rows.length > VIRTUALIZE_AFTER_ROWS,
   });
 
-  const visibleRows = rows.length > VIRTUALIZE_AFTER_ROWS
-    ? rows.slice(range.start, Math.min(range.end + 1, rows.length))
-    : rows;
+  const visibleRows =
+    rows.length > VIRTUALIZE_AFTER_ROWS
+      ? rows.slice(range.start, Math.min(range.end + 1, rows.length))
+      : rows;
 
   const handleScroll = useCallback(() => {
     if (isLoading || !hasMore || !gridRef.current) return;
@@ -133,9 +131,10 @@ export function AssetsGrid({
             key={row.id}
             row={row}
             columns={columns}
-            onHeightChange={rows.length > VIRTUALIZE_AFTER_ROWS ?
-              (height) => registerHeight(row.id, height) :
-              undefined
+            onHeightChange={
+              rows.length > VIRTUALIZE_AFTER_ROWS
+                ? (height) => registerHeight(row.id, height)
+                : undefined
             }
           />
         ))}

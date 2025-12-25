@@ -1,11 +1,11 @@
 'use client';
 
-import { PromptEditor } from '../shared/prompt-editor';
 import {
   SelectField,
   SliderField,
   ToggleField,
 } from '../shared/config-field-controls';
+import { PromptEditor } from '../shared/prompt-editor';
 import type { MediaModelConfigProps } from '../types';
 
 const VEo3Presets = ['Hyperreal', 'Stylized', 'Action', 'Dreamscape'];

@@ -6,7 +6,7 @@ const gatewayApiKey = process.env.AI_GATEWAY_API_KEY;
 const defaultBucket = process.env.NEXT_PUBLIC_UPLOAD_BUCKET || '0-image';
 
 const normalizeBaseUrl = (base?: string) =>
-  base?.endsWith('/') ? base.slice(0, -1) : base ?? '';
+  base?.endsWith('/') ? base.slice(0, -1) : (base ?? '');
 
 export const dynamic = 'force-dynamic';
 
@@ -58,7 +58,10 @@ export async function POST(request: NextRequest) {
     formData = await request.formData();
   } catch (error) {
     console.error('解析上传表单失败', error);
-    return NextResponse.json({ error: 'Invalid upload form data' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Invalid upload form data' },
+      { status: 400 }
+    );
   }
 
   const bucketValue = formData.get('bucket');

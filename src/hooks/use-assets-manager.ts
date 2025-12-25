@@ -1,12 +1,12 @@
 'use client';
 
-import { useCurrentUser } from '@/hooks/use-current-user';
-import { useCallback, useEffect, useRef, useState } from 'react';
 import type {
   MediaFeedItem,
   MediaFeedResponse,
   VideoGeneratorAsset,
 } from '@/components/marketing/media-generator/types';
+import { useCurrentUser } from '@/hooks/use-current-user';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const DEFAULT_LIMIT = 20;
 
@@ -51,10 +51,7 @@ export function useAssetsManager({
 
       const fileDownloadUrl = buildFileDownloadUrl(task.fileUuid);
       const mediaUrl =
-        task.temporaryFileUrl ??
-        fileDownloadUrl ??
-        task.onlineUrl ??
-        '';
+        task.temporaryFileUrl ?? fileDownloadUrl ?? task.onlineUrl ?? '';
       const parsed = parseParameters(task.parameters);
       const normalizedStatus = normalizeStatus(task.status);
       const prompt =
@@ -194,16 +191,13 @@ export function useAssetsManager({
     [isLoggedIn, limit, mediaType, mapTaskToAsset]
   );
 
-  const setMediaTypeAndLoad = useCallback(
-    (type: MediaType) => {
-      setMediaType(type);
-      nextCursorRef.current = null;
-      hasMoreRef.current = true;
-      setAssets([]);
-      setError(null);
-    },
-    []
-  );
+  const setMediaTypeAndLoad = useCallback((type: MediaType) => {
+    setMediaType(type);
+    nextCursorRef.current = null;
+    hasMoreRef.current = true;
+    setAssets([]);
+    setError(null);
+  }, []);
 
   const loadMore = useCallback(() => {
     loadAssets({ reset: false });

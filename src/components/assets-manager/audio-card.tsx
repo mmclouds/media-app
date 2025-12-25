@@ -1,7 +1,7 @@
 'use client';
 
-import { Music } from 'lucide-react';
 import type { VideoGeneratorAsset } from '@/components/marketing/media-generator/types';
+import { Music } from 'lucide-react';
 
 interface AudioCardProps {
   asset: VideoGeneratorAsset;

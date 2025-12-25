@@ -5,7 +5,7 @@ const gatewayBaseUrl = process.env.AI_GATEWAY_URL;
 const defaultTenantId = process.env.NEXT_PUBLIC_TENANT_ID || '0';
 
 const normalizeBaseUrl = (base?: string) =>
-  base?.endsWith('/') ? base.slice(0, -1) : base ?? '';
+  base?.endsWith('/') ? base.slice(0, -1) : (base ?? '');
 
 export const dynamic = 'force-dynamic';
 
@@ -16,7 +16,10 @@ export async function GET(
   const { uuid } = await params;
 
   if (!uuid) {
-    return NextResponse.json({ error: 'File uuid is required' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'File uuid is required' },
+      { status: 400 }
+    );
   }
 
   if (!gatewayBaseUrl) {

@@ -4,11 +4,6 @@ import { Image as ImageIcon, Music, Video } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AudioCraftConfigFields } from './audio/audio-craft-config-fields';
 import { StillImageConfigFields } from './image/still-image-config-fields';
-import {
-  SoraConfigFields,
-  buildSoraRequestBody,
-} from './video/sora-config-fields';
-import { Veo3ConfigFields } from './video/veo3-config-fields';
 import type {
   MediaGenerationPayload,
   MediaModelConfig,
@@ -19,6 +14,11 @@ import type {
   MediaTypeOption,
   VideoGenerationState,
 } from './types';
+import {
+  SoraConfigFields,
+  buildSoraRequestBody,
+} from './video/sora-config-fields';
+import { Veo3ConfigFields } from './video/veo3-config-fields';
 
 const POLLING_INTERVAL_MS = 5000;
 const FINAL_STATUSES: MediaTaskStatus[] = ['completed', 'failed', 'timeout'];
@@ -146,9 +146,7 @@ export function useMediaGeneratorController({
   const [activeModelId, setActiveModelId] = useState<string>('');
   const [modelConfigs, setModelConfigs] =
     useState<Record<string, MediaModelConfig>>(createInitialConfigs);
-  const [prompt, setPrompt] = useState(
-    ''
-  );
+  const [prompt, setPrompt] = useState('');
 
   const effectiveMediaType = lockedMediaType ?? mediaType;
 

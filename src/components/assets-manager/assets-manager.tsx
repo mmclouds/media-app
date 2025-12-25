@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { useAssetsManager } from '@/hooks/use-assets-manager';
+import { useState } from 'react';
+import { AssetsGrid } from './assets-grid';
 import { AssetsHeader } from './assets-header';
 import { AssetsTabBar } from './assets-tab-bar';
-import { AssetsGrid } from './assets-grid';
 import { EmptyState } from './empty-state';
 import type { AssetsManagerProps } from './types';
 
@@ -15,17 +15,10 @@ export function AssetsManager({
   defaultMediaType = 'VIDEO',
 }: AssetsManagerProps) {
   const [selectedMediaType, setSelectedMediaType] = useState(defaultMediaType);
-  const {
-    assets,
-    isLoading,
-    hasMore,
-    error,
-    setMediaType,
-    loadMore,
-    refresh,
-  } = useAssetsManager({
-    initialMediaType: defaultMediaType,
-  });
+  const { assets, isLoading, hasMore, error, setMediaType, loadMore, refresh } =
+    useAssetsManager({
+      initialMediaType: defaultMediaType,
+    });
 
   const handleMediaTypeChange = (type: 'VIDEO' | 'IMAGE' | 'AUDIO') => {
     setSelectedMediaType(type);

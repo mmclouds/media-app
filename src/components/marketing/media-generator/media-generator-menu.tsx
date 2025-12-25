@@ -1,6 +1,7 @@
 'use client';
 
 import { LoginWrapper } from '@/components/auth/login-wrapper';
+import { CreditsBalanceMenu } from '@/components/layout/credits-balance-menu';
 import { UserAvatar } from '@/components/layout/user-avatar';
 import {
   DropdownMenu,
@@ -9,19 +10,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { CreditsBalanceMenu } from '@/components/layout/credits-balance-menu';
 import { useAvatarLinks } from '@/config/avatar-config';
 import { websiteConfig } from '@/config/website';
-import { useLocalePathname, useLocaleRouter } from '@/i18n/navigation';
 import { useCurrentUser } from '@/hooks/use-current-user';
+import { useLocalePathname, useLocaleRouter } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
+import type { User } from 'better-auth';
 import { LogOutIcon, MoreHorizontal } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import type { MediaType, MediaTypeOption } from './types';
 import { useTranslations } from 'next-intl';
-import { type User } from 'better-auth';
-import { toast } from 'sonner';
 import { useState } from 'react';
+import { toast } from 'sonner';
+import type { MediaType, MediaTypeOption } from './types';
 
 type MediaGeneratorMenuProps = {
   options: MediaTypeOption[];
@@ -188,10 +188,11 @@ function SidebarButton({
 }) {
   return (
     <button
-      className={`flex h-10 w-10 items-center justify-center rounded-xl transition ${active
+      className={`flex h-10 w-10 items-center justify-center rounded-xl transition ${
+        active
           ? 'bg-white/10 text-white'
           : 'text-white/50 hover:bg-white/5 hover:text-white'
-        }`}
+      }`}
       aria-pressed={active}
       onClick={onClick}
       aria-label={label}

@@ -19,8 +19,10 @@ export function AssetsTabBar({
   ];
 
   return (
-    <div className={`flex gap-1 rounded-lg bg-white/5 p-1 text-xs font-semibold ${className || ''}`}>
-      {tabs.map(tab => (
+    <div
+      className={`flex gap-1 rounded-lg bg-white/5 p-1 text-xs font-semibold ${className || ''}`}
+    >
+      {tabs.map((tab) => (
         <button
           key={tab.value}
           type="button"

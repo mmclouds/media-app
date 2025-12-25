@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectTrigger } from '@/components/ui/select';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { CheckIcon } from 'lucide-react';
 import { GenerateButton } from './generate-button';
@@ -107,11 +103,7 @@ type ModelSelectProps = {
   onChange: (modelId: string) => void;
 };
 
-function ModelDropdown({
-  models,
-  activeModelId,
-  onChange,
-}: ModelSelectProps) {
+function ModelDropdown({ models, activeModelId, onChange }: ModelSelectProps) {
   if (!models.length) {
     return null;
   }

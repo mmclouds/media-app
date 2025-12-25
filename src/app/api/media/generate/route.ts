@@ -1,12 +1,6 @@
 import { auth } from '@/lib/auth';
 import { type NextRequest, NextResponse } from 'next/server';
 
-const DEFAULT_MODEL_NAME = 'sora-2';
-const DEFAULT_MODEL = 'sora-2';
-const DEFAULT_MEDIA_TYPE = 'VIDEO';
-const DEFAULT_SECONDS = 4;
-const DEFAULT_SIZE = '1280x720';
-
 const gatewayBaseUrl = process.env.AI_GATEWAY_URL;
 const gatewayApiKey = process.env.AI_GATEWAY_API_KEY;
 
@@ -27,7 +21,7 @@ export async function POST(request: NextRequest) {
       { error: 'Unauthorized' },
       {
         status: 401,
-      }
+      },
     );
   }
 
@@ -36,7 +30,7 @@ export async function POST(request: NextRequest) {
       { error: 'AI gateway URL is not configured' },
       {
         status: 500,
-      }
+      },
     );
   }
 
@@ -45,7 +39,7 @@ export async function POST(request: NextRequest) {
       { error: 'AI gateway API key is not configured' },
       {
         status: 500,
-      }
+      },
     );
   }
 
@@ -58,7 +52,16 @@ export async function POST(request: NextRequest) {
       { error: 'Invalid request body' },
       {
         status: 400,
-      }
+      },
+    );
+  }
+
+  if (!payload) {
+    return NextResponse.json(
+      { error: 'Request body is required' },
+      {
+        status: 400,
+      },
     );
   }
 
@@ -66,7 +69,7 @@ export async function POST(request: NextRequest) {
     mediaType: bodyMediaType,
     modelName: bodyModelName,
     ...providerPayload
-  } = payload ?? {};
+  } = payload;
   const providerInput = isRecord(providerPayload?.input)
     ? (providerPayload.input as Record<string, unknown>)
     : null;
@@ -80,45 +83,83 @@ export async function POST(request: NextRequest) {
       ? providerPayload.prompt.trim()
       : '');
 
+  // 必需参数检查
   if (!prompt) {
     return NextResponse.json(
       { error: 'Prompt is required' },
       {
         status: 400,
-      }
+      },
     );
   }
 
   const searchParams = request.nextUrl.searchParams;
-  const queryMediaType = searchParams.get('mediaType') ?? undefined;
-  const queryModelName = searchParams.get('modelName') ?? undefined;
 
-  const rawMediaType =
-    typeof bodyMediaType === 'string' && bodyMediaType.trim().length > 0
+  // 使用查询参数或 body 参数，无默认值
+  const queryMediaType = searchParams.get('mediaType');
+  const queryModelName = searchParams.get('modelName');
+
+  // 媒体类型：优先使用查询参数，其次使用 body 参数
+  const outgoingMediaType = queryMediaType?.trim() ||
+    (typeof bodyMediaType === 'string' && bodyMediaType.trim().length > 0
       ? bodyMediaType.trim()
-      : undefined;
-  const mediaTypeCandidate =
-    queryMediaType?.trim() ?? rawMediaType ?? DEFAULT_MEDIA_TYPE;
+      : undefined);
+
+  if (!outgoingMediaType) {
+    return NextResponse.json(
+      { error: 'mediaType is required' },
+      {
+        status: 400,
+      },
+    );
+  }
 
   const supportedMediaTypes = ['VIDEO', 'IMAGE', 'AUDIO'];
-  const normalizedMediaType = mediaTypeCandidate.toUpperCase();
-  const outgoingMediaType = supportedMediaTypes.includes(normalizedMediaType)
-    ? normalizedMediaType
-    : DEFAULT_MEDIA_TYPE;
+  const normalizedMediaType = outgoingMediaType.toUpperCase();
+  if (!supportedMediaTypes.includes(normalizedMediaType)) {
+    return NextResponse.json(
+      {
+        error: `Invalid mediaType: ${outgoingMediaType}. Supported: ${supportedMediaTypes.join(', ')}`,
+      },
+      {
+        status: 400,
+      },
+    );
+  }
 
-  const rawModelName =
-    typeof bodyModelName === 'string' && bodyModelName.trim().length > 0
+  // 模型名称：优先使用查询参数，其次使用 body 参数
+  const outgoingModelName =
+    queryModelName?.trim() ||
+    (typeof bodyModelName === 'string' && bodyModelName.trim().length > 0
       ? bodyModelName.trim()
-      : undefined;
-  const resolvedModelName =
-    (queryModelName?.trim() ?? rawModelName ?? DEFAULT_MODEL_NAME) ||
-    DEFAULT_MODEL_NAME;
+      : undefined);
 
+  if (!outgoingModelName) {
+    return NextResponse.json(
+      { error: 'modelName is required' },
+      {
+        status: 400,
+      },
+    );
+  }
+
+  // 具体模型：使用 payload.model
   const resolvedModel =
     typeof providerPayload?.model === 'string' &&
     providerPayload.model.trim().length > 0
       ? providerPayload.model
-      : DEFAULT_MODEL;
+      : undefined;
+
+  if (!resolvedModel) {
+    return NextResponse.json(
+      { error: 'model is required' },
+      {
+        status: 400,
+      },
+    );
+  }
+
+  // 构建 bodyPayload，不做任何默认值填充
   const bodyPayload = providerInput
     ? {
         ...providerPayload,
@@ -132,23 +173,23 @@ export async function POST(request: NextRequest) {
         },
         model: resolvedModel,
       }
-    : ({
+    : {
         model: resolvedModel,
-        seconds: DEFAULT_SECONDS,
-        size: DEFAULT_SIZE,
         ...providerPayload,
         prompt,
-      } satisfies Record<string, unknown>);
+      };
 
   const normalizedBaseUrl = gatewayBaseUrl.endsWith('/')
     ? gatewayBaseUrl.slice(0, -1)
     : gatewayBaseUrl;
 
   const outgoingParams = new URLSearchParams();
-  outgoingParams.set('mediaType', outgoingMediaType);
-  outgoingParams.set('modelName', resolvedModelName);
+  outgoingParams.set('mediaType', normalizedMediaType);
+  outgoingParams.set('modelName', outgoingModelName);
   outgoingParams.set('userId', userId);
-  const fileUuids = searchParams.getAll('fileUuids').filter((uuid) => uuid.trim().length > 0);
+  const fileUuids = searchParams
+    .getAll('fileUuids')
+    .filter((uuid) => uuid.trim().length > 0);
   fileUuids.forEach((uuid) => outgoingParams.append('fileUuids', uuid.trim()));
 
   const targetUrl = `${normalizedBaseUrl}/api/v1/media/generate?${outgoingParams.toString()}`;
@@ -176,7 +217,7 @@ export async function POST(request: NextRequest) {
         { error: errorMessage },
         {
           status: response.ok ? 502 : response.status,
-        }
+        },
       );
     }
 
@@ -187,7 +228,7 @@ export async function POST(request: NextRequest) {
       { error: 'Failed to trigger media task' },
       {
         status: 500,
-      }
+      },
     );
   }
 }

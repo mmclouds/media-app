@@ -18,9 +18,7 @@ const normalizeBaseUrl = (apiBaseUrl?: string) => {
   if (!apiBaseUrl) {
     return '';
   }
-  return apiBaseUrl.endsWith('/')
-    ? apiBaseUrl.slice(0, -1)
-    : apiBaseUrl;
+  return apiBaseUrl.endsWith('/') ? apiBaseUrl.slice(0, -1) : apiBaseUrl;
 };
 
 const parseFilenameFromHeader = (contentDisposition?: string | null) => {
@@ -80,7 +78,9 @@ export async function uploadFileToBucket({
     body: formData,
   });
 
-  const result = (await response.json().catch(() => null)) as UploadApiResponse | null;
+  const result = (await response
+    .json()
+    .catch(() => null)) as UploadApiResponse | null;
 
   if (!response.ok || !result?.uuid) {
     const message =
@@ -154,6 +154,8 @@ export async function downloadFileByUuid({
   }
 
   const blob = await response.blob();
-  const fileName = parseFilenameFromHeader(response.headers.get('content-disposition'));
+  const fileName = parseFilenameFromHeader(
+    response.headers.get('content-disposition')
+  );
   return { blob, fileName };
 }
