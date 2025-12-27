@@ -56,5 +56,12 @@ export const currentPricingConfig: CreditPricingConfig = {
       params: { n_frames: '15', size: 'high' },
       priceUsd: 3.15, // 630 积分
     },
+
+    // ==================== nano-banana ====================
+    {
+      model: ['google/nano-banana', 'google/nano-banana-edit'],
+      params: {},
+      priceUsd: 0.02, // 4 积分
+    },
   ],
 };

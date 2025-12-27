@@ -6,6 +6,7 @@ export type VideoGeneratorAsset = {
   id: string;
   taskId?: string;
   fileUuid?: string | null;
+  mediaType?: MediaType;
   title: string;
   duration: string;
   resolution: string;
@@ -35,7 +36,7 @@ export type CreditEstimateState = {
 
 export type MediaModelConfig = Record<
   string,
-  string | number | boolean | null | undefined
+  string | number | boolean | null | undefined | string[]
 >;
 
 export type MediaModelConfigProps = {
@@ -82,6 +83,7 @@ export type MediaTaskResult = {
 
 export type VideoGenerationState = MediaTaskResult & {
   prompt: string;
+  mediaType?: MediaType;
 };
 
 export type MediaGenerationPayload = {

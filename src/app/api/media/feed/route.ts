@@ -3,7 +3,6 @@ import { type NextRequest, NextResponse } from 'next/server';
 
 const DEFAULT_LIMIT = 10;
 const MAX_LIMIT = 100;
-const DEFAULT_MEDIA_TYPES = 'VIDEO';
 const DEFAULT_SORT = 'desc';
 
 const gatewayBaseUrl = process.env.AI_GATEWAY_URL;
@@ -57,7 +56,11 @@ export async function GET(request: NextRequest) {
   const sortParam = searchParams.get('sort')?.toLowerCase();
   const sort =
     sortParam === 'asc' || sortParam === 'desc' ? sortParam : DEFAULT_SORT;
-  const mediaTypes = searchParams.get('mediaTypes') ?? DEFAULT_MEDIA_TYPES;
+  const mediaTypesParam = searchParams.get('mediaTypes');
+  const mediaTypes =
+    mediaTypesParam && mediaTypesParam.trim().length > 0
+      ? mediaTypesParam
+      : undefined;
   const startTime = searchParams.get('startTime') ?? undefined;
   const endTime = searchParams.get('endTime') ?? undefined;
 
@@ -65,7 +68,9 @@ export async function GET(request: NextRequest) {
   outgoingParams.set('userId', userId);
   outgoingParams.set('limit', String(limit));
   outgoingParams.set('sort', sort);
-  outgoingParams.set('mediaTypes', mediaTypes);
+  if (mediaTypes) {
+    outgoingParams.set('mediaTypes', mediaTypes);
+  }
 
   if (cursor) {
     outgoingParams.set('cursor', cursor);

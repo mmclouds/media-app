@@ -18,6 +18,7 @@ import {
 import type {
   MediaFeedItem,
   MediaFeedResponse,
+  MediaType,
   VideoGenerationState,
   VideoGeneratorAsset,
 } from './types';
@@ -41,6 +42,15 @@ const POLL_INTERVAL_MS = 5000;
 const ESTIMATED_CARD_HEIGHT = 520;
 const VIRTUAL_OVERSCAN_PX = 800;
 
+type FeedFilter = 'all' | MediaType;
+
+const FEED_TABS: Array<{ id: FeedFilter; label: string }> = [
+  { id: 'all', label: 'All' },
+  { id: 'image', label: 'Images' },
+  { id: 'video', label: 'Videos' },
+  { id: 'audio', label: 'Audio' },
+];
+
 export function MediaGeneratorResultPane({
   asset,
   loading,
@@ -59,6 +69,7 @@ export function MediaGeneratorResultPane({
     message: string;
     allowRetry?: boolean;
   } | null>(null);
+  const [feedFilter, setFeedFilter] = useState<FeedFilter>('all');
 
   const user = useCurrentUser();
   const isLoggedIn = !!user?.id;
@@ -143,6 +154,10 @@ export function MediaGeneratorResultPane({
         limit: FEED_LIMIT.toString(),
         sort: 'desc',
       });
+
+      if (feedFilter !== 'all') {
+        params.set('mediaTypes', feedFilter.toUpperCase());
+      }
 
       if (!reset && nextCursorRef.current) {
         params.set('cursor', nextCursorRef.current);
@@ -231,7 +246,7 @@ export function MediaGeneratorResultPane({
         setIsFetching(false);
       }
     },
-    [isLoggedIn]
+    [feedFilter, isLoggedIn]
   );
 
   useEffect(() => {
@@ -318,10 +333,14 @@ export function MediaGeneratorResultPane({
     <section className="flex flex-1 min-h-0 flex-col bg-gradient-to-br from-[#050505] via-[#050505] to-[#0c0c0c] text-white">
       <div className="flex h-14 items-center justify-between border-b border-white/5 px-6">
         <div className="flex gap-1 rounded-lg bg-white/5 p-1 text-xs font-semibold">
-          <Tab label="All" active />
-          <Tab label="Images" />
-          <Tab label="Videos" />
-          <Tab label="Audio" />
+          {FEED_TABS.map((tab) => (
+            <Tab
+              key={tab.id}
+              label={tab.label}
+              active={feedFilter === tab.id}
+              onClick={() => setFeedFilter(tab.id)}
+            />
+          ))}
         </div>
         <div className="flex items-center gap-4 text-xs">
           <label className="flex items-center gap-2 text-white/70">
@@ -423,12 +442,23 @@ export function MediaGeneratorResultPane({
   );
 }
 
-function Tab({ label, active = false }: { label: string; active?: boolean }) {
+function Tab({
+  label,
+  active = false,
+  onClick,
+}: {
+  label: string;
+  active?: boolean;
+  onClick?: () => void;
+}) {
   return (
     <button
       type="button"
-      className={`rounded-md px-3 py-1 ${active ? 'bg-white/10 text-white' : 'text-white/60'
-        }`}
+      onClick={onClick}
+      aria-pressed={active}
+      className={`rounded-md px-3 py-1 ${
+        active ? 'bg-white/10 text-white' : 'text-white/60'
+      }`}
     >
       {label}
     </button>
@@ -465,10 +495,15 @@ function VideoPreviewCard({
   const { videoRef, handleMouseEnter, handleMouseLeave, handleMediaReady } =
     useHoverPlayback();
   const cardRef = useRef<HTMLDivElement | null>(null);
-  const shouldCapturePoster = !asset.poster && Boolean(asset.src);
+  const resolvedMediaType = asset.mediaType ?? 'video';
+  const isVideo = resolvedMediaType === 'video';
+  const isImage = resolvedMediaType === 'image';
+  const isAudio = resolvedMediaType === 'audio';
+  const shouldCapturePoster = isVideo && !asset.poster && Boolean(asset.src);
   const { poster: autoPoster } = useVideoPoster(
     shouldCapturePoster ? asset.src : undefined
   );
+  const mediaLabel = formatLabel(resolvedMediaType) ?? asset.tags[0] ?? 'Video';
 
   const handleVideoLoaded = useCallback(() => {
     handleMediaReady();
@@ -518,6 +553,10 @@ function VideoPreviewCard({
     : isLoading
       ? LOADING_VIDEO_SRC
       : asset.src || DEFAULT_VIDEO_SRC;
+  const resolvedImageSrc =
+    isError || isLoading ? DEFAULT_POSTER : asset.src || DEFAULT_POSTER;
+  const resolvedAudioSrc =
+    isError || isLoading ? undefined : asset.src || undefined;
   const statusLabel = formatLabel(asset.status);
 
   return (
@@ -528,7 +567,7 @@ function VideoPreviewCard({
       <div className="space-y-3 border-b border-white/5 px-6 py-5">
         <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-white/40">
           <span className="rounded-full border border-white/10 px-3 py-1 text-white">
-            Video
+            {mediaLabel}
           </span>
           <span className="text-white/60">{modelLabel}</span>
           {isActive ? (
@@ -548,8 +587,8 @@ function VideoPreviewCard({
       </div>
       <div
         className="bg-black"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={isVideo ? handleMouseEnter : undefined}
+        onMouseLeave={isVideo ? handleMouseLeave : undefined}
       >
         {isError ? (
           <div className="relative aspect-video w-full overflow-hidden rounded-none bg-black">
@@ -569,7 +608,32 @@ function VideoPreviewCard({
             </div>
           </div>
         ) : isLoading ? (
-          <GenerationProgressVisual />
+          isVideo ? (
+            <GenerationProgressVisual />
+          ) : (
+            <div className="flex aspect-video w-full items-center justify-center bg-black">
+              <div className="flex items-center gap-2 text-xs text-white/70">
+                <div className="h-2 w-2 animate-pulse rounded-full bg-[#64ff6a]" />
+                Generating...
+              </div>
+            </div>
+          )
+        ) : isImage ? (
+          <div className="relative aspect-video w-full overflow-hidden bg-black">
+            <img
+              src={resolvedImageSrc}
+              alt={displayPrompt || 'Generated image'}
+              className="h-full w-full object-cover"
+            />
+          </div>
+        ) : isAudio ? (
+          <div className="flex aspect-video w-full items-center justify-center bg-black">
+            <audio
+              controls
+              src={resolvedAudioSrc}
+              className="w-4/5 max-w-md"
+            />
+          </div>
         ) : (
           <video
             ref={videoRef}
@@ -628,6 +692,7 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
     fileDownloadUrl ??
     task.onlineUrl ??
     DEFAULT_VIDEO_SRC;
+  const mediaType = normalizeMediaType(task.mediaType);
   const parsed = parseParameters(task.parameters);
   const normalizedStatus = normalizeStatus(task.status);
   const prompt =
@@ -657,6 +722,7 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
     id: task.uuid ?? task.taskId ?? crypto.randomUUID(),
     taskId: task.taskId,
     fileUuid: task.fileUuid ?? null,
+    mediaType,
     title: prompt ?? `Task ${task.taskId ?? task.uuid}`,
     duration: seconds,
     resolution,
@@ -757,6 +823,7 @@ function mapGenerationToAsset(
       generation.prompt,
     taskId: generation.taskId,
     fileUuid: generation.fileUuid ?? null,
+    mediaType: generation.mediaType,
     title: generation.prompt || 'Live generation',
     duration: '—',
     resolution: '—',
@@ -791,6 +858,17 @@ function normalizeStatus(status?: string | null) {
     return undefined;
   }
   return status.toLowerCase();
+}
+
+function normalizeMediaType(mediaType?: string | null): MediaType | undefined {
+  if (!mediaType) {
+    return undefined;
+  }
+  const normalized = mediaType.toLowerCase();
+  if (normalized === 'video' || normalized === 'image' || normalized === 'audio') {
+    return normalized;
+  }
+  return undefined;
 }
 
 function buildGenerationTags(status?: string | null) {

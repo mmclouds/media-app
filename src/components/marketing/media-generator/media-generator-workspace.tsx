@@ -25,6 +25,7 @@ export function MediaGeneratorWorkspace({ className }: { className?: string }) {
 
   const currentAsset = {
     id: 'demo-video',
+    mediaType: 'video',
     title: 'AI Video',
     duration: '5s',
     resolution: '720p',

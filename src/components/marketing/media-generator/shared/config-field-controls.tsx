@@ -184,7 +184,9 @@ export function AspectRatioField({
     value ?? defaultValue ?? (options.length > 0 ? options[0] : undefined);
   const getDimensions = (ratio: string) => {
     const normalized = ratio.includes(':') ? ratio : ratio.replace('x', ':');
-    const [w, h] = normalized.split(':').map((part) => Number(part) || 1);
+    const parts = normalized.split(':').map((part) => Number(part));
+    const w = Number.isFinite(parts[0]) && parts[0] > 0 ? parts[0] : 1;
+    const h = Number.isFinite(parts[1]) && parts[1] > 0 ? parts[1] : w;
     const maxWidth = 34;
     const maxHeight = 34;
     const scale = Math.min(maxWidth / w, maxHeight / h);

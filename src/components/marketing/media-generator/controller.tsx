@@ -3,6 +3,7 @@
 import { Image as ImageIcon, Music, Video } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AudioCraftConfigFields } from './audio/audio-craft-config-fields';
+import { NanoBananaConfigFields } from './image/nano-banana-config-fields';
 import { StillImageConfigFields } from './image/still-image-config-fields';
 import type {
   MediaGenerationPayload,
@@ -98,6 +99,21 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
       },
       configComponent: StillImageConfigFields,
     },
+    {
+      id: 'nano-banana',
+      label: 'Nano Banana',
+      description: 'Fast image creation with edit support',
+      provider: 'Google',
+      mediaType: 'image',
+      modelName: 'nano-banana',
+      model: 'google/nano-banana',
+      defaultConfig: {
+        inputMode: 'text',
+        outputFormat: 'png',
+        imageSize: '1:1',
+      },
+      configComponent: NanoBananaConfigFields,
+    },
   ],
   audio: [
     {
@@ -125,6 +141,50 @@ const createInitialConfigs = (): Record<string, MediaModelConfig> => {
     });
   });
   return Object.fromEntries(entries);
+};
+
+const buildNanoBananaRequestBody = ({
+  prompt,
+  resolvedConfig,
+}: {
+  prompt: string;
+  resolvedConfig: MediaModelConfig;
+}) => {
+  const inputMode = resolvedConfig.inputMode === 'image' ? 'image' : 'text';
+  const outputFormat =
+    typeof resolvedConfig.outputFormat === 'string'
+      ? resolvedConfig.outputFormat.trim()
+      : '';
+  const imageSize =
+    typeof resolvedConfig.imageSize === 'string'
+      ? resolvedConfig.imageSize.trim()
+      : '';
+  const imageUrls = Array.isArray(resolvedConfig.imageUrls)
+    ? resolvedConfig.imageUrls
+        .filter((item) => typeof item === 'string')
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0)
+    : [];
+
+  const inputPayload: Record<string, unknown> = { prompt };
+
+  if (outputFormat) {
+    inputPayload.output_format = outputFormat;
+  }
+
+  if (imageSize) {
+    inputPayload.image_size = imageSize;
+  }
+
+  if (inputMode === 'image' && imageUrls.length > 0) {
+    inputPayload.image_urls = imageUrls;
+  }
+
+  return {
+    model:
+      inputMode === 'image' ? 'google/nano-banana-edit' : 'google/nano-banana',
+    input: inputPayload,
+  };
 };
 
 type UseMediaGeneratorOptions = {
@@ -222,19 +282,25 @@ export function useMediaGeneratorController({
 
       try {
         const isSora = definition.id === 'sora';
+        const isNanoBanana = definition.id === 'nano-banana';
         const requestBody = isSora
           ? buildSoraRequestBody({
               prompt: trimmedPrompt,
               resolvedConfig,
               fileUuids,
             })
-          : {
-              mediaType: payload.mediaType.toUpperCase(),
-              modelName: resolvedModelName,
-              model: definition.model ?? definition.modelName,
-              prompt: trimmedPrompt,
-              ...resolvedConfig,
-            };
+          : isNanoBanana
+            ? buildNanoBananaRequestBody({
+                prompt: trimmedPrompt,
+                resolvedConfig,
+              })
+            : {
+                mediaType: payload.mediaType.toUpperCase(),
+                modelName: resolvedModelName,
+                model: definition.model ?? definition.modelName,
+                prompt: trimmedPrompt,
+                ...resolvedConfig,
+              };
 
       const queryParams = new URLSearchParams();
       queryParams.set('mediaType', payload.mediaType.toUpperCase());
@@ -272,6 +338,7 @@ export function useMediaGeneratorController({
           taskId: result.taskId,
           status: 'pending',
           prompt: trimmedPrompt,
+          mediaType: payload.mediaType,
           progress: 0,
         });
       } catch (error) {
@@ -284,6 +351,7 @@ export function useMediaGeneratorController({
           taskId: `local-${Date.now()}`,
           status: 'failed',
           prompt: trimmedPrompt,
+          mediaType: payload.mediaType,
           progress: 0,
           errorMessage: message,
         });
