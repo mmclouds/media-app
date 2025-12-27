@@ -1,135 +1,163 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useMemo, useState } from 'react';
+import { cn } from '@/lib/utils';
+import { useEffect, useState } from 'react';
 
 type GenerationProgressVisualProps = {
   className?: string;
 };
 
-const LOADING_MESSAGES = [
-  'Generating video…',
-  'Synthesizing frames…',
-  'Rendering motion…',
-  'Applying visual consistency…',
-  'Optimizing temporal coherence…',
+const STATUS_MESSAGES = [
+  'Generating video...',
+  'Synthesizing frames...',
+  'Rendering motion...',
+  'Applying visual consistency...',
+  'Optimizing temporal coherence...',
+  'Calibrating neural weights...',
+  'Interpolating keyframes...',
+  'Polishing lighting maps...',
 ];
 
-const MIN_MESSAGE_INTERVAL = 6000;
-const MAX_MESSAGE_INTERVAL = 10000;
-const LOOP_DURATION = 3.2;
-const BREATH_DURATION = 4.2;
+const TEXT_ROTATION = 7000;
+const FADE_DURATION = 500;
 
 export function GenerationProgressVisual({
   className,
 }: GenerationProgressVisualProps) {
   const [messageIndex, setMessageIndex] = useState(0);
-
-  const messages = useMemo(() => LOADING_MESSAGES, []);
+  const [opacity, setOpacity] = useState(1);
 
   useEffect(() => {
-    let timeout: number | undefined;
-
-    const scheduleNext = () => {
-      const interval =
-        Math.random() * (MAX_MESSAGE_INTERVAL - MIN_MESSAGE_INTERVAL) +
-        MIN_MESSAGE_INTERVAL;
-
-      timeout = window.setTimeout(() => {
-        setMessageIndex((prev) => (prev + 1) % messages.length);
-        scheduleNext();
-      }, interval);
-    };
-
-    scheduleNext();
+    const timeouts = new Set<number>();
+    const interval = window.setInterval(() => {
+      setOpacity(0);
+      const timeout = window.setTimeout(() => {
+        setMessageIndex((prev) => (prev + 1) % STATUS_MESSAGES.length);
+        setOpacity(1);
+        timeouts.delete(timeout);
+      }, FADE_DURATION);
+      timeouts.add(timeout);
+    }, TEXT_ROTATION);
 
     return () => {
-      if (timeout) {
-        window.clearTimeout(timeout);
-      }
+      window.clearInterval(interval);
+      timeouts.forEach((timeout) => window.clearTimeout(timeout));
     };
-  }, [messages.length]);
+  }, []);
 
-  const activeMessage = messages[messageIndex] ?? messages[0];
+  const activeMessage = STATUS_MESSAGES[messageIndex] ?? STATUS_MESSAGES[0];
 
   return (
     <div
-      className={`relative aspect-video w-full overflow-hidden rounded-none bg-[#0B0F1A] ${className ?? ''}`}
+      className={cn(
+        'relative aspect-video w-full overflow-hidden rounded-none bg-[#0B0F1A]',
+        className,
+      )}
       role="status"
       aria-live="polite"
       aria-label="Generating video"
     >
       <div className="absolute inset-0 flex items-center justify-center">
-        <motion.div
-          className="relative flex items-center justify-center"
-          animate={{ rotate: [0, 1.5, 0] }}
-          transition={{ duration: BREATH_DURATION, ease: 'easeInOut', repeat: Infinity }}
-        >
-          <svg
-            viewBox="0 0 200 120"
-            className="h-36 w-[280px] drop-shadow-[0_0_22px_rgba(80,168,255,0.35)]"
-            fill="none"
-          >
-            <defs>
-              <linearGradient id="neonGradient" x1="0" x2="1" y1="0" y2="1">
-                <stop offset="0%" stopColor="#6EE7FF" />
-                <stop offset="50%" stopColor="#8B5CF6" />
-                <stop offset="100%" stopColor="#22D3EE" />
-              </linearGradient>
-            </defs>
-            <motion.path
-              d="M20 60c0-22.091 17.909-40 40-40s40 17.909 40 40-17.909 40-40 40S20 82.091 20 60Zm80 0c0-22.091 17.909-40 40-40s40 17.909 40 40-17.909 40-40 40-40-17.909-40-40Z"
-              stroke="url(#neonGradient)"
-              strokeWidth="8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              initial={{ strokeDashoffset: 0, opacity: 0.8 }}
-              animate={{
-                strokeDashoffset: [0, -180, -360],
-                opacity: [0.8, 1, 0.8],
-              }}
-              transition={{
-                duration: LOOP_DURATION,
-                ease: 'linear',
-                repeat: Infinity,
-              }}
-              style={{ strokeDasharray: '160 60' }}
-            />
-            <motion.path
-              d="M20 60c0-22.091 17.909-40 40-40s40 17.909 40 40-17.909 40-40 40S20 82.091 20 60Zm80 0c0-22.091 17.909-40 40-40s40 17.909 40 40-17.909 40-40 40-40-17.909-40-40Z"
-              stroke="url(#neonGradient)"
-              strokeWidth="8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              opacity={0.2}
-              animate={{
-                scale: [0.98, 1.02, 0.98],
-                filter: [
-                  'drop-shadow(0 0 18px rgba(110,231,255,0.35))',
-                  'drop-shadow(0 0 24px rgba(139,92,246,0.45))',
-                  'drop-shadow(0 0 18px rgba(110,231,255,0.35))',
-                ],
-              }}
-              transition={{ duration: BREATH_DURATION, ease: 'easeInOut', repeat: Infinity }}
-            />
-          </svg>
-        </motion.div>
+        <div className="relative flex items-center justify-center">
+          <div className="progress-float relative flex h-24 w-48 items-center justify-center sm:h-28 sm:w-56 md:h-32 md:w-64">
+            <svg
+              viewBox="0 0 200 100"
+              className="progress-breathe h-full w-full"
+              style={{ overflow: 'visible' }}
+            >
+              <defs>
+                <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#00E5FF" />
+                  <stop offset="50%" stopColor="#A855F7" />
+                  <stop offset="100%" stopColor="#00E5FF" />
+                </linearGradient>
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
+                  <feMerge>
+                    <feMergeNode in="coloredBlur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              <path
+                d="M 50,50 C 50,20 80,20 100,50 C 120,80 150,80 150,50 C 150,20 120,20 100,50 C 80,80 50,80 50,50"
+                fill="none"
+                stroke="rgba(255,255,255,0.05)"
+                strokeWidth="4"
+                strokeLinecap="round"
+              />
+              <path
+                d="M 50,50 C 50,20 80,20 100,50 C 120,80 150,80 150,50 C 150,20 120,20 100,50 C 80,80 50,80 50,50"
+                fill="none"
+                stroke="url(#neonGradient)"
+                strokeWidth="4"
+                strokeLinecap="round"
+                filter="url(#glow)"
+                className="progress-draw"
+              />
+            </svg>
+          </div>
+        </div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 flex justify-center pb-6 text-white/80">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeMessage}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: 'easeInOut' }}
-            className="rounded-full bg-white/5 px-4 py-2 text-sm backdrop-blur"
-          >
-            {activeMessage}
-          </motion.div>
-        </AnimatePresence>
+      <div className="absolute bottom-8 w-full px-4 sm:bottom-10">
+        <p
+          className="text-center font-mono text-[11px] uppercase tracking-[0.3em] text-slate-400 transition-opacity duration-1000 ease-in-out"
+          style={{ opacity }}
+        >
+          {activeMessage}
+        </p>
       </div>
+
+      <div className="pointer-events-none absolute inset-0 opacity-5 [background-image:linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] [background-size:100%_2px,3px_100%]" />
+
+      <style jsx>{`
+        @keyframes progress-draw {
+          0% {
+            stroke-dashoffset: 1000;
+          }
+          100% {
+            stroke-dashoffset: 0;
+          }
+        }
+        @keyframes progress-breathe {
+          0%,
+          100% {
+            filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.4)) brightness(1);
+          }
+          50% {
+            filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.7))
+              brightness(1.3);
+          }
+        }
+        @keyframes progress-float {
+          0%,
+          100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-5px) rotate(1deg);
+          }
+        }
+        .progress-draw {
+          stroke-dasharray: 500;
+          animation: progress-draw 6s linear infinite;
+        }
+        .progress-breathe {
+          animation: progress-breathe 4s ease-in-out infinite;
+        }
+        .progress-float {
+          animation: progress-float 5s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .progress-draw,
+          .progress-breathe,
+          .progress-float {
+            animation: none;
+          }
+        }
+      `}</style>
     </div>
   );
 }
