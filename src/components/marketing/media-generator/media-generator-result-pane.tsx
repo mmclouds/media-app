@@ -775,7 +775,7 @@ function isInProgressStatus(status?: string | null) {
   if (!normalized) {
     return false;
   }
-  return normalized === 'pending' || normalized === 'processing';
+  return normalized === 'pending' || normalized === 'in_progress';
 }
 
 function isErrorStatus(status?: string | null) {
@@ -783,7 +783,7 @@ function isErrorStatus(status?: string | null) {
   if (!normalized) {
     return false;
   }
-  return normalized === 'failed' || normalized === 'timeout';
+  return normalized === 'failed';
 }
 
 function normalizeStatus(status?: string | null) {
@@ -791,14 +791,26 @@ function normalizeStatus(status?: string | null) {
     return undefined;
   }
   const normalized = status.toLowerCase();
-  if (normalized === 'process') {
-    return 'processing';
+  if (normalized === 'processing' || normalized === 'process') {
+    return 'in_progress';
   }
   if (normalized === 'in_progress' || normalized === 'inprogress') {
-    return 'processing';
+    return 'in_progress';
+  }
+  if (normalized === 'pending') {
+    return 'pending';
   }
   if (normalized === 'succeeded' || normalized === 'success') {
     return 'completed';
+  }
+  if (normalized === 'completed') {
+    return 'completed';
+  }
+  if (normalized === 'timeout') {
+    return 'failed';
+  }
+  if (normalized === 'failed') {
+    return 'failed';
   }
   return normalized;
 }
