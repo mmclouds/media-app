@@ -4,6 +4,8 @@ import type { CalculateCreditsResult } from '@/custom/credits/pricing/types';
 
 export type VideoGeneratorAsset = {
   id: string;
+  taskId?: string;
+  fileUuid?: string | null;
   title: string;
   duration: string;
   resolution: string;

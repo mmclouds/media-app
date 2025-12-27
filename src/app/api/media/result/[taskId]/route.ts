@@ -87,7 +87,7 @@ export async function GET(
         }
       );
     }
-
+    console.log("原始响应报文是：",payload.data)
     return NextResponse.json(payload.data ?? null, { status: 200 });
   } catch (error) {
     console.error('媒体任务查询异常:', error);

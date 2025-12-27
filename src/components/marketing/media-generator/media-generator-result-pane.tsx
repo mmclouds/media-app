@@ -62,8 +62,18 @@ export function MediaGeneratorResultPane({
   const user = useCurrentUser();
   const isLoggedIn = !!user?.id;
 
+  const liveAsset = useMemo(
+    () => (activeGeneration ? mapGenerationToAsset(activeGeneration) : null),
+    [activeGeneration]
+  );
+  const liveAssetRef = useRef<VideoGeneratorAsset | null>(null);
+
+  useEffect(() => {
+    liveAssetRef.current = liveAsset;
+  }, [liveAsset]);
+
   const fallbackFeed = useMemo(() => {
-    const baseAsset = asset;
+    const baseAsset = liveAsset ?? asset;
     if (!baseAsset) {
       return [];
     }
@@ -78,7 +88,7 @@ export function MediaGeneratorResultPane({
         };
       })
     );
-  }, [asset]);
+  }, [asset, liveAsset]);
 
   const fallbackLength = fallbackFeed.length;
   const [visibleCount, setVisibleCount] = useState(() =>
@@ -162,13 +172,27 @@ export function MediaGeneratorResultPane({
 
         setRemoteFeed((prev) => {
           if (reset) {
-            return normalizedItems;
+            return mergeLiveAsset(normalizedItems, liveAssetRef.current);
           }
           const merged = [...prev];
           const indexMap = new Map(prev.map((item, index) => [item.id, index]));
+          const taskIdMap = new Map<string, number>();
+          const fileUuidMap = new Map<string, number>();
+
+          prev.forEach((item, index) => {
+            if (item.taskId) {
+              taskIdMap.set(item.taskId, index);
+            }
+            if (item.fileUuid) {
+              fileUuidMap.set(item.fileUuid, index);
+            }
+          });
 
           normalizedItems.forEach((entry) => {
-            const existingIndex = indexMap.get(entry.id);
+            const existingIndex =
+              indexMap.get(entry.id) ??
+              (entry.taskId ? taskIdMap.get(entry.taskId) : undefined) ??
+              (entry.fileUuid ? fileUuidMap.get(entry.fileUuid) : undefined);
             if (typeof existingIndex === 'number') {
               merged[existingIndex] = { ...merged[existingIndex], ...entry };
             } else {
@@ -263,6 +287,23 @@ export function MediaGeneratorResultPane({
       Math.min(virtualRange.end + 1, remoteFeed.length)
     )
     : fallbackFeed.slice(0, visibleCount);
+
+  useEffect(() => {
+    if (!isLoggedIn || !liveAsset) {
+      return;
+    }
+
+    setRemoteFeed((prev) => {
+      const existingIndex = findMatchingAssetIndex(prev, liveAsset);
+      if (existingIndex === -1) {
+        return [liveAsset, ...prev];
+      }
+
+      const merged = [...prev];
+      merged[existingIndex] = { ...merged[existingIndex], ...liveAsset };
+      return merged;
+    });
+  }, [isLoggedIn, liveAsset]);
 
   useEffect(() => {
     const activeTaskId = activeGeneration?.taskId;
@@ -611,6 +652,8 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
 
   return {
     id: task.uuid ?? task.taskId ?? crypto.randomUUID(),
+    taskId: task.taskId,
+    fileUuid: task.fileUuid ?? null,
     title: prompt ?? `Task ${task.taskId ?? task.uuid}`,
     duration: seconds,
     resolution,
@@ -709,6 +752,8 @@ function mapGenerationToAsset(
       generation.onlineUrl ??
       generation.downloadUrl ??
       generation.prompt,
+    taskId: generation.taskId,
+    fileUuid: generation.fileUuid ?? null,
     title: generation.prompt || 'Live generation',
     duration: '—',
     resolution: '—',
@@ -759,4 +804,47 @@ function buildFileDownloadUrl(fileUuid?: string | null) {
     return undefined;
   }
   return `/api/files/download/${encodeURIComponent(fileUuid)}`;
+}
+
+function findMatchingAssetIndex(
+  items: VideoGeneratorAsset[],
+  target: VideoGeneratorAsset
+) {
+  if (target.taskId) {
+    const taskIndex = items.findIndex(
+      (item) => item.taskId === target.taskId || item.id === target.taskId
+    );
+    if (taskIndex !== -1) {
+      return taskIndex;
+    }
+  }
+
+  if (target.fileUuid) {
+    const fileIndex = items.findIndex(
+      (item) => item.fileUuid === target.fileUuid
+    );
+    if (fileIndex !== -1) {
+      return fileIndex;
+    }
+  }
+
+  return items.findIndex((item) => item.id === target.id);
+}
+
+function mergeLiveAsset(
+  items: VideoGeneratorAsset[],
+  liveAsset: VideoGeneratorAsset | null
+) {
+  if (!liveAsset) {
+    return items;
+  }
+
+  const existingIndex = findMatchingAssetIndex(items, liveAsset);
+  if (existingIndex === -1) {
+    return [liveAsset, ...items];
+  }
+
+  const merged = [...items];
+  merged[existingIndex] = { ...merged[existingIndex], ...liveAsset };
+  return merged;
 }
