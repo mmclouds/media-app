@@ -790,29 +790,7 @@ function normalizeStatus(status?: string | null) {
   if (!status) {
     return undefined;
   }
-  const normalized = status.toLowerCase();
-  if (normalized === 'processing' || normalized === 'process') {
-    return 'in_progress';
-  }
-  if (normalized === 'in_progress' || normalized === 'inprogress') {
-    return 'in_progress';
-  }
-  if (normalized === 'pending') {
-    return 'pending';
-  }
-  if (normalized === 'succeeded' || normalized === 'success') {
-    return 'completed';
-  }
-  if (normalized === 'completed') {
-    return 'completed';
-  }
-  if (normalized === 'timeout') {
-    return 'failed';
-  }
-  if (normalized === 'failed') {
-    return 'failed';
-  }
-  return normalized;
+  return status.toLowerCase();
 }
 
 function buildGenerationTags(status?: string | null) {
