@@ -21,6 +21,7 @@ import type {
   VideoGenerationState,
   VideoGeneratorAsset,
 } from './types';
+import { GenerationProgressVisual } from './generation-progress-visual';
 
 type PreviewPanelProps = {
   asset: VideoGeneratorAsset;
@@ -567,6 +568,8 @@ function VideoPreviewCard({
               </p>
             </div>
           </div>
+        ) : isLoading ? (
+          <GenerationProgressVisual />
         ) : (
           <video
             ref={videoRef}
