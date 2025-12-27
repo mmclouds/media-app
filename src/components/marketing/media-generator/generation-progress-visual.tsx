@@ -50,7 +50,7 @@ export function GenerationProgressVisual({
   return (
     <div
       className={cn(
-        'relative aspect-video w-full overflow-hidden rounded-none bg-[#0B0F1A]',
+        'relative aspect-video w-full overflow-hidden rounded-none bg-[#050607]',
         className,
       )}
       role="status"
@@ -110,6 +110,7 @@ export function GenerationProgressVisual({
         </p>
       </div>
 
+      <div className="pointer-events-none absolute inset-0 [background-image:radial-gradient(120%_120%_at_50%_20%,rgba(255,255,255,0.08),rgba(0,0,0,0.7))]" />
       <div className="pointer-events-none absolute inset-0 opacity-5 [background-image:linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] [background-size:100%_2px,3px_100%]" />
 
       <style jsx>{`

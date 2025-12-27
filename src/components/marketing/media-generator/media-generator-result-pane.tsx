@@ -791,6 +791,12 @@ function normalizeStatus(status?: string | null) {
     return undefined;
   }
   const normalized = status.toLowerCase();
+  if (normalized === 'process') {
+    return 'processing';
+  }
+  if (normalized === 'in_progress' || normalized === 'inprogress') {
+    return 'processing';
+  }
   if (normalized === 'succeeded' || normalized === 'success') {
     return 'completed';
   }
