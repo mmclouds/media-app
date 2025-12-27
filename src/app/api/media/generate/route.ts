@@ -193,7 +193,7 @@ export async function POST(request: NextRequest) {
   fileUuids.forEach((uuid) => outgoingParams.append('fileUuids', uuid.trim()));
 
   const targetUrl = `${normalizedBaseUrl}/api/v1/media/generate?${outgoingParams.toString()}`;
-
+  console.log("请求的参数是：",JSON.stringify(bodyPayload));
   try {
     const response = await fetch(targetUrl, {
       method: 'POST',

@@ -211,6 +211,11 @@ export function useMediaGeneratorController({
         ...definition.defaultConfig,
         ...payload.config,
       };
+      const configModelVersion =
+        typeof resolvedConfig.modelVersion === 'string'
+          ? resolvedConfig.modelVersion.trim()
+          : '';
+      const resolvedModelName = configModelVersion || definition.modelName;
       const fileUuids: string[] = [];
 
       setIsSubmitting(true);
@@ -225,15 +230,15 @@ export function useMediaGeneratorController({
             })
           : {
               mediaType: payload.mediaType.toUpperCase(),
-              modelName: definition.modelName,
+              modelName: resolvedModelName,
               model: definition.model ?? definition.modelName,
               prompt: trimmedPrompt,
               ...resolvedConfig,
             };
 
-        const queryParams = new URLSearchParams();
-        queryParams.set('mediaType', payload.mediaType.toUpperCase());
-        queryParams.set('modelName', definition.modelName);
+      const queryParams = new URLSearchParams();
+      queryParams.set('mediaType', payload.mediaType.toUpperCase());
+      queryParams.set('modelName', resolvedModelName);
         Array.from(new Set(fileUuids)).forEach((uuid) => {
           queryParams.append('fileUuids', uuid);
         });

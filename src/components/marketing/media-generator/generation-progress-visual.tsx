@@ -8,14 +8,8 @@ type GenerationProgressVisualProps = {
 };
 
 const STATUS_MESSAGES = [
-  'Generating video...',
-  'Synthesizing frames...',
-  'Rendering motion...',
-  'Applying visual consistency...',
-  'Optimizing temporal coherence...',
-  'Calibrating neural weights...',
-  'Interpolating keyframes...',
-  'Polishing lighting maps...',
+  'Generating ...',
+
 ];
 
 const TEXT_ROTATION = 7000;
