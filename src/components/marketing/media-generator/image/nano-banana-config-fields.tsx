@@ -7,8 +7,7 @@ import {
 import { MultiImageUploadField } from '../shared/multi-image-upload-field';
 import { PromptEditor } from '../shared/prompt-editor';
 import type { CalculateCreditsResult } from '@/custom/credits/pricing/types';
-import type { MediaModelConfigProps } from '../types';
-import { buildNanoBananaRequestBody } from './nano-banana-utils';
+import type { MediaModelConfig, MediaModelConfigProps } from '../types';
 import { useEffect } from 'react';
 
 const generationModes = [
@@ -30,6 +29,52 @@ const imageSizeOptions = [
   '21:9',
   'auto',
 ];
+
+export const buildNanoBananaRequestBody = ({
+  prompt,
+  resolvedConfig,
+  fileUuids,
+}: {
+  prompt: string;
+  resolvedConfig: MediaModelConfig;
+  fileUuids?: string[];
+}) => {
+  const inputMode = resolvedConfig.inputMode === 'image' ? 'image' : 'text';
+  const outputFormat =
+    typeof resolvedConfig.outputFormat === 'string'
+      ? resolvedConfig.outputFormat.trim()
+      : '';
+  const imageSize =
+    typeof resolvedConfig.imageSize === 'string'
+      ? resolvedConfig.imageSize.trim()
+      : '';
+  const imageUuids = Array.isArray(resolvedConfig.imageUuids)
+    ? resolvedConfig.imageUuids
+        .filter((item) => typeof item === 'string')
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0)
+    : [];
+
+  const inputPayload: Record<string, unknown> = { prompt };
+
+  if (outputFormat) {
+    inputPayload.output_format = outputFormat;
+  }
+
+  if (imageSize) {
+    inputPayload.image_size = imageSize;
+  }
+
+  if (inputMode === 'image' && fileUuids && imageUuids.length > 0) {
+    imageUuids.forEach((uuid) => fileUuids.push(uuid));
+  }
+
+  return {
+    model:
+      inputMode === 'image' ? 'google/nano-banana-edit' : 'google/nano-banana',
+    input: inputPayload,
+  };
+};
 
 export function NanoBananaConfigFields({
   config,
@@ -55,7 +100,16 @@ export function NanoBananaConfigFields({
     ? (sizeValue as string)
     : defaultImageSize;
   const imageUrls = Array.isArray(config.imageUrls)
-    ? (config.imageUrls.filter((item) => typeof item === 'string') as string[])
+    ? config.imageUrls
+      .filter((item): item is string => typeof item === 'string')
+      .map((item) => item.trim())
+      .filter((item) => item.length > 0)
+    : [];
+  const imageUuids = Array.isArray(config.imageUuids)
+    ? config.imageUuids
+      .filter((item): item is string => typeof item === 'string')
+      .map((item) => item.trim())
+      .filter((item) => item.length > 0)
     : [];
 
   useEffect(() => {
@@ -145,11 +199,10 @@ export function NanoBananaConfigFields({
             <button
               key={option.value}
               type="button"
-              className={`flex-1 rounded-xl px-3 py-2 text-sm font-semibold transition ${
-                isActive
-                  ? 'bg-white/10 text-white shadow-lg shadow-white/10'
-                  : 'text-white/60 hover:bg-white/5 hover:text-white'
-              }`}
+              className={`flex-1 rounded-xl px-3 py-2 text-sm font-semibold transition ${isActive
+                ? 'bg-white/10 text-white shadow-lg shadow-white/10'
+                : 'text-white/60 hover:bg-white/5 hover:text-white'
+                }`}
               onClick={() =>
                 onChange({
                   ...config,
@@ -162,7 +215,60 @@ export function NanoBananaConfigFields({
           );
         })}
       </div>
-
+      {mode === 'image' ? (
+        <MultiImageUploadField
+          label="Image input"
+          value={imageUrls}
+          onChange={(value) => {
+            const nextImageUrls = value
+              .filter((item): item is string => typeof item === 'string')
+              .map((item) => item.trim())
+              .filter((item) => item.length > 0);
+            const urlToUuid = new Map<string, string>();
+            imageUrls.forEach((url, index) => {
+              const uuid = imageUuids[index];
+              if (uuid && uuid.trim().length > 0) {
+                urlToUuid.set(url, uuid.trim());
+              }
+            });
+            const nextImageUuids = nextImageUrls
+              .map((url) => urlToUuid.get(url))
+              .filter(
+                (uuid): uuid is string =>
+                  typeof uuid === 'string' && uuid.trim().length > 0
+              );
+            onChange({
+              ...config,
+              imageUrls: nextImageUrls.length > 0 ? nextImageUrls : undefined,
+              imageUuids: nextImageUuids.length > 0 ? nextImageUuids : undefined,
+            });
+          }}
+          onUploaded={(files) => {
+            const uploadedUrls = files
+              .map((file) => file.downloadUrl)
+              .filter(
+                (url): url is string =>
+                  typeof url === 'string' && url.trim().length > 0
+              );
+            const uploadedUuids = files
+              .map((file) => file.uuid)
+              .filter(
+                (uuid): uuid is string =>
+                  typeof uuid === 'string' && uuid.trim().length > 0
+              );
+            const nextImageUrls = [...imageUrls, ...uploadedUrls];
+            const nextImageUuids = [...imageUuids, ...uploadedUuids];
+            onChange({
+              ...config,
+              imageUrls: nextImageUrls.length > 0 ? nextImageUrls : undefined,
+              imageUuids: nextImageUuids.length > 0 ? nextImageUuids : undefined,
+            });
+          }}
+          helperText="Attach images when using Image to Image."
+          maxSize={10 * 1024 * 1024}
+          maxFiles={10}
+        />
+      ) : null}
       <PromptEditor value={prompt} onChange={onPromptChange} />
       <p className="text-xs text-white/50">Max 5000 characters.</p>
 
@@ -191,21 +297,7 @@ export function NanoBananaConfigFields({
         }
       />
 
-      {mode === 'image' ? (
-        <MultiImageUploadField
-          label="Image input"
-          value={imageUrls}
-          onChange={(value) =>
-            onChange({
-              ...config,
-              imageUrls: value.length > 0 ? value : undefined,
-            })
-          }
-          helperText="Attach images when using Image to Image."
-          maxSize={10 * 1024 * 1024}
-          maxFiles={10}
-        />
-      ) : null}
+
     </div>
   );
 }

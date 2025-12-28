@@ -82,6 +82,7 @@ export function MultiImageUploadField({
   };
 
   const resolvedValue = Array.isArray(value) ? value : [];
+  const canAddMore = resolvedValue.length < normalizedMaxFiles;
   const previewItems = useMemo(
     () =>
       resolvedValue
@@ -194,65 +195,61 @@ export function MultiImageUploadField({
         ) : null}
       </div>
 
-      <label className="group relative block cursor-pointer overflow-hidden rounded-2xl border border-dashed border-white/20 bg-black/60 transition hover:border-white/40 hover:bg-white/5">
-        <input
-          ref={inputRef}
-          type="file"
-          accept="image/*"
-          multiple
-          className="hidden"
-          disabled={isUploading}
-          onChange={(event) => handleFiles(event.target.files)}
-        />
-        <div className="flex flex-col gap-3 p-4 text-sm text-white/70">
-          <div className="flex h-32 flex-col items-center justify-center rounded-xl border border-dashed border-white/10 bg-white/[0.02] text-white/60">
-            <p className="text-sm font-semibold">Upload reference images</p>
-            <p className="text-xs text-white/50">PNG, JPG or WEBP</p>
-            <p className="text-[11px] text-white/40">
-              Max {normalizedMaxFiles} images, {normalizedMaxSize}MB each.
-            </p>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-white/60">
-              {isUploading
-                ? 'Uploading images...'
-                : `Attach up to ${normalizedMaxFiles} images.`}
-            </span>
-            <span className="rounded-lg bg-white/10 px-3 py-1 text-xs font-semibold text-white transition group-hover:bg-white/20">
-              Upload images
-            </span>
-          </div>
-        </div>
-      </label>
-
-      {previewItems.length > 0 ? (
-        <div className="grid grid-cols-2 gap-3">
-          {previewItems.map((item) => (
-            <div
-              key={`${item.previewUrl}-${item.index}`}
-              className="group relative overflow-hidden rounded-xl border border-white/10 bg-black/40"
+      <div className="flex flex-wrap gap-3">
+        {previewItems.map((item) => (
+          <div
+            key={`${item.previewUrl}-${item.index}`}
+            className="group relative h-24 w-24 overflow-hidden rounded-xl border border-white/10 bg-black/40"
+          >
+            <img
+              src={item.previewUrl}
+              alt="Reference"
+              className="h-full w-full object-cover"
+            />
+            <button
+              type="button"
+              className="absolute right-1.5 top-1.5 rounded-full bg-black/70 px-2 py-1 text-[10px] font-semibold text-white/80 opacity-0 transition group-hover:opacity-100"
+              onClick={() => {
+                const next = resolvedValue.filter(
+                  (_, index) => index !== item.index
+                );
+                onChange(next);
+              }}
             >
-              <img
-                src={item.previewUrl}
-                alt="Reference"
-                className="h-32 w-full object-cover"
-              />
-              <button
-                type="button"
-                className="absolute right-2 top-2 rounded-full bg-black/70 px-2 py-1 text-[10px] font-semibold text-white/80 opacity-0 transition group-hover:opacity-100"
-                onClick={() => {
-                  const next = resolvedValue.filter(
-                    (_, index) => index !== item.index
-                  );
-                  onChange(next);
-                }}
-              >
-                Remove
-              </button>
-            </div>
-          ))}
-        </div>
-      ) : null}
+              Remove
+            </button>
+          </div>
+        ))}
+
+        {canAddMore ? (
+          <label
+            className={`group relative flex h-24 w-24 cursor-pointer items-center justify-center rounded-xl border border-dashed border-white/20 bg-black/60 text-3xl font-semibold text-white/60 transition hover:border-white/40 hover:text-white ${isUploading ? 'pointer-events-none opacity-60' : ''}`}
+            aria-label="Add image"
+          >
+            <input
+              ref={inputRef}
+              type="file"
+              accept="image/*"
+              multiple
+              className="hidden"
+              disabled={isUploading}
+              onChange={(event) => handleFiles(event.target.files)}
+            />
+            <span aria-hidden="true">+</span>
+          </label>
+        ) : null}
+      </div>
+
+      <div className="flex items-center justify-between text-xs text-white/60">
+        <span>
+          {isUploading
+            ? 'Uploading images...'
+            : `Up to ${normalizedMaxFiles} images.`}
+        </span>
+        <span>
+          {resolvedValue.length}/{normalizedMaxFiles}
+        </span>
+      </div>
 
       {helperText ? (
         <p className="text-xs text-white/50">{helperText}</p>

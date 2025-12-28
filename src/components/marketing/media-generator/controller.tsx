@@ -3,8 +3,10 @@
 import { Image as ImageIcon, Music, Video } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AudioCraftConfigFields } from './audio/audio-craft-config-fields';
-import { NanoBananaConfigFields } from './image/nano-banana-config-fields';
-import { buildNanoBananaRequestBody } from './image/nano-banana-utils';
+import {
+  NanoBananaConfigFields,
+  buildNanoBananaRequestBody,
+} from './image/nano-banana-config-fields';
 import { StillImageConfigFields } from './image/still-image-config-fields';
 import type {
   MediaGenerationPayload,
@@ -252,6 +254,7 @@ export function useMediaGeneratorController({
             ? buildNanoBananaRequestBody({
                 prompt: trimmedPrompt,
                 resolvedConfig,
+                fileUuids,
               })
             : {
                 mediaType: payload.mediaType.toUpperCase(),
