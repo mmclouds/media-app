@@ -101,7 +101,7 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
       defaultConfig: {
         inputMode: 'text',
         outputFormat: 'png',
-        imageSize: '1:1',
+        imageSize: 'auto',
       },
       configComponent: NanoBananaConfigFields,
       supportsCreditEstimate: true,

@@ -126,7 +126,7 @@ export function SoraConfigFields({
         resolvedConfig: config,
         fileUuids: [],
       }),
-    [config, prompt]
+    [config]
   );
 
   useCreditEstimate({

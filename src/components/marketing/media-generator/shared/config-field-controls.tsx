@@ -234,6 +234,52 @@ export function AspectRatioField({
   );
 }
 
+export function CheckboxGroupField({
+  title,
+  value,
+  defaultValue,
+  options,
+  onChange,
+}: {
+  title: string;
+  value?: string;
+  defaultValue: string;
+  options: string[];
+  onChange: (value: string) => void;
+}) {
+  const selectedValue =
+    value ?? defaultValue ?? (options.length > 0 ? options[0] : undefined);
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between">{title}</div>
+      <div className="flex flex-wrap gap-2">
+        {options.map((option) => {
+          const isChecked = option === selectedValue;
+          return (
+            <label
+              key={option}
+              className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition ${
+                isChecked
+                  ? 'border-white bg-white/10 text-white'
+                  : 'border-white/20 bg-black/40 text-white/70 hover:border-white/40 hover:bg-white/5'
+              }`}
+            >
+              <input
+                type="checkbox"
+                className="sr-only"
+                checked={isChecked}
+                onChange={() => onChange(option)}
+              />
+              <span className="font-medium">{option}</span>
+            </label>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export function Resolution({
   label = 'Resolution',
   value,

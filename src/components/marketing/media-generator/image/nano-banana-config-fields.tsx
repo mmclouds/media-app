@@ -2,7 +2,7 @@
 
 import {
   AspectRatioField,
-  SelectField,
+  CheckboxGroupField,
 } from '../shared/config-field-controls';
 import { MultiImageUploadField } from '../shared/multi-image-upload-field';
 import { PromptEditor } from '../shared/prompt-editor';
@@ -17,6 +17,7 @@ const generationModes = [
 
 const outputFormatOptions = ['png', 'jpeg'];
 const imageSizeOptions = [
+  'auto',
   '1:1',
   '9:16',
   '16:9',
@@ -27,7 +28,6 @@ const imageSizeOptions = [
   '5:4',
   '4:5',
   '21:9',
-  'auto',
 ];
 
 export const buildNanoBananaRequestBody = ({
@@ -50,9 +50,9 @@ export const buildNanoBananaRequestBody = ({
       : '';
   const imageUuids = Array.isArray(resolvedConfig.imageUuids)
     ? resolvedConfig.imageUuids
-        .filter((item) => typeof item === 'string')
-        .map((item) => item.trim())
-        .filter((item) => item.length > 0)
+      .filter((item) => typeof item === 'string')
+      .map((item) => item.trim())
+      .filter((item) => item.length > 0)
     : [];
 
   const inputPayload: Record<string, unknown> = { prompt };
@@ -95,7 +95,7 @@ export function NanoBananaConfigFields({
     typeof config.imageSize === 'string'
       ? config.imageSize.replace('x', ':')
       : undefined;
-  const defaultImageSize = imageSizeOptions[0] ?? '1:1';
+  const defaultImageSize = imageSizeOptions[0] ?? 'auto';
   const imageSize = imageSizeOptions.includes(sizeValue ?? '')
     ? (sizeValue as string)
     : defaultImageSize;
@@ -118,7 +118,7 @@ export function NanoBananaConfigFields({
         prompt: prompt || '',
         resolvedConfig: config,
       }),
-    [config, prompt]
+    [config]
   );
 
   useCreditEstimate({
@@ -208,9 +208,10 @@ export function NanoBananaConfigFields({
       <PromptEditor value={prompt} onChange={onPromptChange} />
       <p className="text-xs text-white/50">Max 5000 characters.</p>
 
-      <SelectField
-        label="Output format"
+      <CheckboxGroupField
+        title="Output format"
         value={outputFormat}
+        defaultValue={defaultOutputFormat}
         options={outputFormatOptions}
         onChange={(value) =>
           onChange({
