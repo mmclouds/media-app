@@ -608,22 +608,13 @@ function VideoPreviewCard({
             </div>
           </div>
         ) : isLoading ? (
-          isVideo ? (
-            <GenerationProgressVisual />
-          ) : (
-            <div className="flex aspect-video w-full items-center justify-center bg-black">
-              <div className="flex items-center gap-2 text-xs text-white/70">
-                <div className="h-2 w-2 animate-pulse rounded-full bg-[#64ff6a]" />
-                Generating...
-              </div>
-            </div>
-          )
+          <GenerationProgressVisual />
         ) : isImage ? (
-          <div className="relative aspect-video w-full overflow-hidden bg-black">
+          <div className="flex aspect-video w-full items-center justify-center bg-black">
             <img
               src={resolvedImageSrc}
               alt={displayPrompt || 'Generated image'}
-              className="h-full w-full object-cover"
+              className="max-h-full max-w-full object-contain"
             />
           </div>
         ) : isAudio ? (

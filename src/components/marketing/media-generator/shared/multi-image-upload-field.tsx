@@ -46,6 +46,7 @@ export function MultiImageUploadField({
     bucket || process.env.NEXT_PUBLIC_UPLOAD_BUCKET || '0-image';
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fallbackTenantId = useMemo(
     () => process.env.NEXT_PUBLIC_TENANT_ID || '0',
@@ -195,49 +196,80 @@ export function MultiImageUploadField({
         ) : null}
       </div>
 
-      <div className="flex flex-wrap gap-3">
-        {previewItems.map((item) => (
-          <div
-            key={`${item.previewUrl}-${item.index}`}
-            className="group relative h-24 w-24 overflow-hidden rounded-xl border border-white/10 bg-black/40"
-          >
-            <img
-              src={item.previewUrl}
-              alt="Reference"
-              className="h-full w-full object-cover"
-            />
-            <button
-              type="button"
-              className="absolute right-1.5 top-1.5 rounded-full bg-black/70 px-2 py-1 text-[10px] font-semibold text-white/80 opacity-0 transition group-hover:opacity-100"
-              onClick={() => {
-                const next = resolvedValue.filter(
-                  (_, index) => index !== item.index
-                );
-                onChange(next);
-              }}
+      <div
+        className={`rounded-2xl border border-dashed border-white/20 bg-black/60 p-3 transition hover:border-white/40 hover:bg-white/5 ${isDragging ? 'border-white/50 bg-white/10' : ''}`}
+        onDragEnter={(event) => {
+          event.preventDefault();
+          if (!isUploading) {
+            setIsDragging(true);
+          }
+        }}
+        onDragOver={(event) => {
+          event.preventDefault();
+          if (!isUploading) {
+            event.dataTransfer.dropEffect = 'copy';
+            setIsDragging(true);
+          }
+        }}
+        onDragLeave={(event) => {
+          event.preventDefault();
+          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+            setIsDragging(false);
+          }
+        }}
+        onDrop={(event) => {
+          event.preventDefault();
+          setIsDragging(false);
+          if (isUploading) {
+            return;
+          }
+          handleFiles(event.dataTransfer.files);
+        }}
+      >
+        <div className="flex flex-wrap gap-3">
+          {previewItems.map((item) => (
+            <div
+              key={`${item.previewUrl}-${item.index}`}
+              className="group relative h-24 w-24 overflow-hidden rounded-xl border border-white/10 bg-black/40"
             >
-              Remove
-            </button>
-          </div>
-        ))}
+              <img
+                src={item.previewUrl}
+                alt="Reference"
+                className="h-full w-full object-cover"
+              />
+              <button
+                type="button"
+                className="absolute right-1.5 top-1.5 rounded-full bg-black/70 px-2 py-1 text-[10px] font-semibold text-white/80 opacity-0 transition group-hover:opacity-100"
+                onClick={() => {
+                  const next = resolvedValue.filter(
+                    (_, index) => index !== item.index
+                  );
+                  onChange(next);
+                }}
+              >
+                Remove
+              </button>
+            </div>
+          ))}
 
-        {canAddMore ? (
-          <label
-            className={`group relative flex h-24 w-24 cursor-pointer items-center justify-center rounded-xl border border-dashed border-white/20 bg-black/60 text-3xl font-semibold text-white/60 transition hover:border-white/40 hover:text-white ${isUploading ? 'pointer-events-none opacity-60' : ''}`}
-            aria-label="Add image"
-          >
-            <input
-              ref={inputRef}
-              type="file"
-              accept="image/*"
-              multiple
-              className="hidden"
-              disabled={isUploading}
-              onChange={(event) => handleFiles(event.target.files)}
-            />
-            <span aria-hidden="true">+</span>
-          </label>
-        ) : null}
+          {canAddMore ? (
+            <label
+              className={`group relative flex h-24 w-24 cursor-pointer items-center justify-center rounded-xl border border-dashed border-white/20 bg-black/60 text-3xl font-semibold text-white/60 transition hover:border-white/40 hover:text-white ${isUploading ? 'pointer-events-none opacity-60' : ''}`}
+              aria-label="Add image"
+            >
+              <input
+                ref={inputRef}
+                type="file"
+                accept="image/*"
+                multiple
+                className="hidden"
+                disabled={isUploading}
+                onChange={(event) => handleFiles(event.target.files)}
+              />
+              <span aria-hidden="true">+</span>
+            </label>
+          ) : null}
+        </div>
       </div>
 
       <div className="flex items-center justify-between text-xs text-white/60">
@@ -256,7 +288,6 @@ export function MultiImageUploadField({
       ) : null}
       <p className="text-[11px] text-white/40">
         Limit: up to {normalizedMaxFiles} images, max {normalizedMaxSize}MB each.
-        Bucket: {resolvedBucket}, Tenant: {fallbackTenantId}
       </p>
       {error ? <p className="text-xs text-rose-400">{error}</p> : null}
     </div>

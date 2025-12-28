@@ -43,6 +43,7 @@ export function SingleImageUploadField({
     bucket || process.env.NEXT_PUBLIC_UPLOAD_BUCKET || '0-image';
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fallbackTenantId = useMemo(
@@ -178,7 +179,36 @@ export function SingleImageUploadField({
         ) : null}
       </div>
 
-      <label className="group relative block cursor-pointer overflow-hidden rounded-2xl border border-dashed border-white/20 bg-black/60 transition hover:border-white/40 hover:bg-white/5">
+      <label
+        className={`group relative block cursor-pointer overflow-hidden rounded-2xl border border-dashed border-white/20 bg-black/60 transition hover:border-white/40 hover:bg-white/5 ${isDragging ? 'border-white/50 bg-white/10' : ''}`}
+        onDragEnter={(event) => {
+          event.preventDefault();
+          if (!isUploading) {
+            setIsDragging(true);
+          }
+        }}
+        onDragOver={(event) => {
+          event.preventDefault();
+          if (!isUploading) {
+            event.dataTransfer.dropEffect = 'copy';
+            setIsDragging(true);
+          }
+        }}
+        onDragLeave={(event) => {
+          event.preventDefault();
+          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+            setIsDragging(false);
+          }
+        }}
+        onDrop={(event) => {
+          event.preventDefault();
+          setIsDragging(false);
+          if (isUploading) {
+            return;
+          }
+          handleFiles(event.dataTransfer.files);
+        }}
+      >
         <input
           ref={inputRef}
           type="file"
@@ -223,8 +253,7 @@ export function SingleImageUploadField({
         <p className="text-xs text-white/50">{helperText}</p>
       ) : null}
       <p className="text-[11px] text-white/40">
-        Limit: single image, max {normalizedMaxSize}MB. Bucket: {resolvedBucket}
-        , Tenant: {fallbackTenantId}
+        Limit: single image, max {normalizedMaxSize}MB.
       </p>
       {error ? <p className="text-xs text-rose-400">{error}</p> : null}
     </div>
