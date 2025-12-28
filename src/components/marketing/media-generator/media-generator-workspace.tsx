@@ -5,9 +5,19 @@ import { MEDIA_TYPE_OPTIONS, useMediaGeneratorController } from './controller';
 import { MediaGeneratorConfigPanel } from './media-generator-config-panel';
 import { MediaGeneratorMenu } from './media-generator-menu';
 import { MediaGeneratorResultPane } from './media-generator-result-pane';
-import type { VideoGeneratorAsset } from './types';
+import type { MediaType, VideoGeneratorAsset } from './types';
 
-export function MediaGeneratorWorkspace({ className }: { className?: string }) {
+export function MediaGeneratorWorkspace({
+  className,
+  initialMediaType,
+  preferredModelId,
+  persistKey,
+}: {
+  className?: string;
+  initialMediaType?: MediaType;
+  preferredModelId?: string;
+  persistKey?: string;
+}) {
   const {
     mediaType,
     setMediaType,
@@ -22,7 +32,11 @@ export function MediaGeneratorWorkspace({ className }: { className?: string }) {
     onGenerate,
     isGenerating,
     activeGeneration,
-  } = useMediaGeneratorController();
+  } = useMediaGeneratorController({
+    initialMediaType,
+    preferredModelId,
+    persistKey,
+  });
 
   const currentAsset: VideoGeneratorAsset = {
     id: 'demo-video',

@@ -1,7 +1,14 @@
 'use client';
 
 import { Image as ImageIcon, Music, Video } from 'lucide-react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { AudioCraftConfigFields } from './audio/audio-craft-config-fields';
 import {
   NanoBananaConfigFields,
@@ -26,6 +33,44 @@ import { Veo3ConfigFields } from './video/veo3-config-fields';
 
 const POLLING_INTERVAL_MS = 5000;
 const FINAL_STATUSES: MediaTaskStatus[] = ['completed', 'failed', 'timeout'];
+
+const readPersistedSelection = (key: string) => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+  try {
+    const raw = window.localStorage.getItem(key);
+    if (!raw) {
+      return null;
+    }
+    const parsed = JSON.parse(raw) as {
+      mediaType?: MediaType;
+      modelId?: string;
+    };
+    return parsed;
+  } catch (error) {
+    console.error('读取媒体工作区缓存失败:', error);
+    return null;
+  }
+};
+
+const writePersistedSelection = (
+  key: string,
+  selection: { mediaType: MediaType; modelId: string }
+) => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+  try {
+    const serialized = JSON.stringify(selection);
+    window.localStorage.setItem(key, serialized);
+    document.cookie = `${key}=${encodeURIComponent(
+      serialized
+    )}; Path=/; Max-Age=2592000; SameSite=Lax`;
+  } catch (error) {
+    console.error('写入媒体工作区缓存失败:', error);
+  }
+};
 
 const clampProgress = (value: unknown): number | null => {
   const numeric =
@@ -139,22 +184,32 @@ type UseMediaGeneratorOptions = {
   initialMediaType?: MediaType;
   lockedMediaType?: MediaType;
   preferredModelId?: string;
+  persistKey?: string;
 };
 
 export function useMediaGeneratorController({
   initialMediaType,
   lockedMediaType,
   preferredModelId,
+  persistKey,
 }: UseMediaGeneratorOptions = {}) {
   const resolvedInitial = lockedMediaType ?? initialMediaType ?? 'video';
+  const initialModels = MODEL_REGISTRY[resolvedInitial] ?? [];
+  const initialModelId =
+    preferredModelId &&
+    initialModels.some((model) => model.id === preferredModelId)
+      ? preferredModelId
+      : initialModels[0]?.id ?? '';
   const [mediaType, setMediaTypeState] = useState<MediaType>(resolvedInitial);
   const [activeGeneration, setActiveGeneration] =
     useState<VideoGenerationState | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [activeModelId, setActiveModelId] = useState<string>('');
+  const [activeModelId, setActiveModelId] = useState<string>(initialModelId);
   const [modelConfigs, setModelConfigs] =
     useState<Record<string, MediaModelConfig>>(createInitialConfigs);
   const [prompt, setPrompt] = useState('');
+  const [restoredModelId, setRestoredModelId] = useState<string | null>(null);
+  const hasRestoredRef = useRef(false);
 
   const effectiveMediaType = lockedMediaType ?? mediaType;
 
@@ -163,12 +218,39 @@ export function useMediaGeneratorController({
     [effectiveMediaType]
   );
 
+  useLayoutEffect(() => {
+    if (!persistKey || hasRestoredRef.current) {
+      return;
+    }
+
+    const restored = readPersistedSelection(persistKey);
+    hasRestoredRef.current = true;
+
+    if (!restored) {
+      return;
+    }
+
+    if (!lockedMediaType && !initialMediaType && restored.mediaType) {
+      setMediaTypeState(restored.mediaType);
+    }
+
+    if (!preferredModelId && restored.modelId) {
+      setRestoredModelId(restored.modelId);
+    }
+  }, [persistKey, lockedMediaType, initialMediaType, preferredModelId]);
+
   useEffect(() => {
     if (!availableModels.length) {
       setActiveModelId('');
       return;
     }
     setActiveModelId((prev) => {
+      if (
+        restoredModelId &&
+        availableModels.some((model) => model.id === restoredModelId)
+      ) {
+        return restoredModelId;
+      }
       if (prev && availableModels.some((model) => model.id === prev)) {
         return prev;
       }
@@ -180,7 +262,29 @@ export function useMediaGeneratorController({
       }
       return availableModels[0]?.id ?? '';
     });
-  }, [availableModels, preferredModelId]);
+  }, [availableModels, preferredModelId, restoredModelId]);
+
+  useEffect(() => {
+    if (!restoredModelId || !activeModelId) {
+      return;
+    }
+    setRestoredModelId(null);
+  }, [restoredModelId, activeModelId]);
+
+  useEffect(() => {
+    if (!persistKey || !activeModelId) {
+      return;
+    }
+
+    if (!availableModels.some((model) => model.id === activeModelId)) {
+      return;
+    }
+
+    writePersistedSelection(persistKey, {
+      mediaType: effectiveMediaType,
+      modelId: activeModelId,
+    });
+  }, [persistKey, activeModelId, effectiveMediaType, availableModels]);
 
   const setMediaType = useCallback(
     (nextType: MediaType) => {
