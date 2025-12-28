@@ -100,7 +100,7 @@ export function MediaGeneratorConfigPanel({
             onGenerate={onGenerate}
             disabled={isGenerating}
             creditEstimate={
-              activeModel?.id === 'sora' ? creditEstimate : undefined
+              activeModel?.supportsCreditEstimate ? creditEstimate : undefined
             }
           />
         </div>

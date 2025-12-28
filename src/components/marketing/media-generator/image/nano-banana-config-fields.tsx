@@ -6,7 +6,10 @@ import {
 } from '../shared/config-field-controls';
 import { MultiImageUploadField } from '../shared/multi-image-upload-field';
 import { PromptEditor } from '../shared/prompt-editor';
+import type { CalculateCreditsResult } from '@/custom/credits/pricing/types';
 import type { MediaModelConfigProps } from '../types';
+import { buildNanoBananaRequestBody } from './nano-banana-utils';
+import { useEffect } from 'react';
 
 const generationModes = [
   { value: 'text', label: 'Text to Image' },
@@ -33,6 +36,7 @@ export function NanoBananaConfigFields({
   onChange,
   prompt,
   onPromptChange,
+  onCreditEstimateChange,
 }: MediaModelConfigProps) {
   const defaultMode = generationModes[0]?.value ?? 'text';
   const mode = generationModes.some((option) => option.value === config.inputMode)
@@ -53,6 +57,84 @@ export function NanoBananaConfigFields({
   const imageUrls = Array.isArray(config.imageUrls)
     ? (config.imageUrls.filter((item) => typeof item === 'string') as string[])
     : [];
+
+  useEffect(() => {
+    if (!onCreditEstimateChange) {
+      return;
+    }
+    const controller = new AbortController();
+    const payload = buildNanoBananaRequestBody({
+      prompt: prompt || '',
+      resolvedConfig: config,
+    });
+
+    onCreditEstimateChange({
+      result: null,
+      error: null,
+      loading: true,
+    });
+
+    const fetchCredits = async () => {
+      try {
+        const response = await fetch('/api/custom/credits/calculate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+
+        let data: {
+          success?: boolean;
+          data?: CalculateCreditsResult;
+          message?: string;
+        } = {};
+        try {
+          data = (await response.json()) as {
+            success?: boolean;
+            data?: CalculateCreditsResult;
+            message?: string;
+          };
+        } catch {
+          data = {};
+        }
+
+        if (!response.ok || data.success === false) {
+          const message =
+            typeof data.message === 'string' && data.message.trim().length > 0
+              ? data.message
+              : 'Failed to estimate credits';
+          onCreditEstimateChange({
+            result: null,
+            error: message,
+            loading: false,
+          });
+          return;
+        }
+
+        onCreditEstimateChange({
+          result: data.data ?? null,
+          error: null,
+          loading: false,
+        });
+      } catch (error) {
+        if (controller.signal.aborted) {
+          return;
+        }
+        onCreditEstimateChange({
+          result: null,
+          error:
+            error instanceof Error ? error.message : 'Failed to estimate credits',
+          loading: false,
+        });
+      }
+    };
+
+    void fetchCredits();
+
+    return () => controller.abort();
+  }, [config, prompt, onCreditEstimateChange]);
 
   return (
     <div className="space-y-4">

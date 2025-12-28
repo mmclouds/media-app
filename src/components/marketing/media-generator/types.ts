@@ -57,6 +57,7 @@ export type MediaModelDefinition = {
   model?: string;
   defaultConfig: MediaModelConfig;
   configComponent: ComponentType<MediaModelConfigProps>;
+  supportsCreditEstimate?: boolean;
 };
 
 export type MediaTaskStatus =
