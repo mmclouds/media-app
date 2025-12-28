@@ -1,7 +1,7 @@
 'use client';
 
 export { AudioCraftConfigFields } from './audio/audio-craft-config-fields';
-export { StillImageConfigFields } from './image/still-image-config-fields';
+export { NanoBananaConfigFields } from './image/nano-banana-config-fields';
 export {
   SelectField,
   SliderField,

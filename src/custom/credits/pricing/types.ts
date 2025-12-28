@@ -41,5 +41,7 @@ export interface CreditPricingConfig {
 export interface CalculateCreditsResult {
   /** 计算后的积分（整数） */
   credits: number;
+  /** 美元价格 */
+  priceUsd: number;
   model: string;
 }

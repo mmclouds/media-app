@@ -109,7 +109,8 @@ export function calculateCredits(
 
   return {
     credits,
-    model
+    priceUsd: matchedRule.priceUsd,
+    model,
   };
 }
 

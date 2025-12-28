@@ -5,6 +5,7 @@ import { MEDIA_TYPE_OPTIONS, useMediaGeneratorController } from './controller';
 import { MediaGeneratorConfigPanel } from './media-generator-config-panel';
 import { MediaGeneratorMenu } from './media-generator-menu';
 import { MediaGeneratorResultPane } from './media-generator-result-pane';
+import type { VideoGeneratorAsset } from './types';
 
 export function MediaGeneratorWorkspace({ className }: { className?: string }) {
   const {
@@ -23,7 +24,7 @@ export function MediaGeneratorWorkspace({ className }: { className?: string }) {
     activeGeneration,
   } = useMediaGeneratorController();
 
-  const currentAsset = {
+  const currentAsset: VideoGeneratorAsset = {
     id: 'demo-video',
     mediaType: 'video',
     title: 'AI Video',

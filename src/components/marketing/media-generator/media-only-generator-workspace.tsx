@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { useMediaGeneratorController } from './controller';
 import { MediaGeneratorConfigPanel } from './media-generator-config-panel';
 import { MediaGeneratorResultPane } from './media-generator-result-pane';
+import type { VideoGeneratorAsset } from './types';
 
 // 双栏布局：固定媒体类型为视频，复用通用配置/结果面板
 export function MediaOnlyGeneratorWorkspace({
@@ -30,7 +31,7 @@ export function MediaOnlyGeneratorWorkspace({
     preferredModelId,
   });
 
-  const currentAsset = {
+  const currentAsset: VideoGeneratorAsset = {
     id: 'demo-video',
     mediaType: 'video',
     title: 'AI Video',
