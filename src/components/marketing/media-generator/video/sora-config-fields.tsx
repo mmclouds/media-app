@@ -8,9 +8,9 @@ import {
 } from '../shared/config-field-controls';
 import { PromptEditor } from '../shared/prompt-editor';
 import { SingleImageUploadField } from '../shared/single-image-upload-field';
-import type { CalculateCreditsResult } from '@/custom/credits/pricing/types';
+import { useCreditEstimate } from '../shared/use-credit-estimate';
 import type { MediaModelConfig, MediaModelConfigProps } from '../types';
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 
 const generationModes = [
   {
@@ -119,83 +119,20 @@ export function SoraConfigFields({
   const defaultRatio = ratioOptions[0];
   const defaultModelVersion = soraVersions[0]?.value ?? '';
 
-  // 计算积分预估
-  useEffect(() => {
-    if (!onCreditEstimateChange) {
-      return;
-    }
-    const controller = new AbortController();
+  const creditEstimatePayload = useMemo(
+    () =>
+      buildSoraRequestBody({
+        prompt: prompt || '',
+        resolvedConfig: config,
+        fileUuids: [],
+      }),
+    [config, prompt]
+  );
 
-    // 构建请求 payload 用于计算积分
-    const payload = buildSoraRequestBody({
-      prompt: prompt || '',
-      resolvedConfig: config,
-      fileUuids: [],
-    });
-
-    onCreditEstimateChange({
-      result: null,
-      error: null,
-      loading: true,
-    });
-
-    const fetchCredits = async () => {
-      try {
-        const response = await fetch('/api/custom/credits/calculate', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(payload),
-          signal: controller.signal,
-        });
-
-        let data: { success?: boolean; data?: CalculateCreditsResult; message?: string } = {};
-        try {
-          data = (await response.json()) as {
-            success?: boolean;
-            data?: CalculateCreditsResult;
-            message?: string;
-          };
-        } catch {
-          data = {};
-        }
-
-        if (!response.ok || data.success === false) {
-          const message =
-            typeof data.message === 'string' && data.message.trim().length > 0
-              ? data.message
-              : 'Failed to estimate credits';
-          onCreditEstimateChange({
-            result: null,
-            error: message,
-            loading: false,
-          });
-          return;
-        }
-
-        onCreditEstimateChange({
-          result: data.data ?? null,
-          error: null,
-          loading: false,
-        });
-      } catch (error) {
-        if (controller.signal.aborted) {
-          return;
-        }
-        onCreditEstimateChange({
-          result: null,
-          error:
-            error instanceof Error ? error.message : 'Failed to estimate credits',
-          loading: false,
-        });
-      }
-    };
-
-    void fetchCredits();
-
-    return () => controller.abort();
-  }, [config, prompt, onCreditEstimateChange]);
+  useCreditEstimate({
+    payload: creditEstimatePayload,
+    onCreditEstimateChange,
+  });
 
   // 解析配置值
   const seconds = durationOptions.includes(Number(config.seconds))
