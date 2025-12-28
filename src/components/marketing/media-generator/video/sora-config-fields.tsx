@@ -115,9 +115,6 @@ export function SoraConfigFields({
   const imageUploadBucket = process.env.NEXT_PUBLIC_UPLOAD_BUCKET ?? '0-image';
   const durationOptions = [10, 15];
   const ratioOptions = ['16:9', '9:16'];
-  const defaultDuration = durationOptions[0];
-  const defaultRatio = ratioOptions[0];
-  const defaultModelVersion = soraVersions[0]?.value ?? '';
 
   const creditEstimatePayload = useMemo(
     () =>
@@ -135,28 +132,28 @@ export function SoraConfigFields({
   });
 
   // 解析配置值
-  const seconds = durationOptions.includes(Number(config.seconds))
-    ? Number(config.seconds)
-    : undefined;
+  const rawSeconds =
+    typeof config.seconds === 'number'
+      ? config.seconds
+      : typeof config.seconds === 'string'
+        ? Number(config.seconds)
+        : Number.NaN;
+  const seconds = Number.isFinite(rawSeconds) ? rawSeconds : undefined;
   const mode = generationModes.some(
     (option) => option.value === config.inputMode
   )
     ? (config.inputMode as string)
-    : generationModes[0]?.value;
+    : '';
   const sizeValue =
-    typeof config.size === 'string' ? config.size.replace('x', ':') : undefined;
-  const size = ratioOptions.includes(sizeValue ?? '') ? sizeValue : undefined;
+    typeof config.size === 'string' ? config.size.replace('x', ':') : '';
+  const size = sizeValue;
   const inputImage =
     typeof config.inputImage === 'string'
       ? (config.inputImage as string)
       : null;
-  const configModelVersion = config.modelVersion as string | undefined;
-  const modelVersion = soraVersions.some(
-    (option) => option.value === configModelVersion
-  )
-    ? configModelVersion
-    : undefined;
-  const resolvedModelVersion = modelVersion ?? defaultModelVersion;
+  const modelVersion =
+    typeof config.modelVersion === 'string' ? config.modelVersion : '';
+  const resolvedModelVersion = modelVersion;
   const isPro = resolvedModelVersion === 'sora2-pro';
   const resolutionValue =
     config.quality === 'standard' || config.quality === 'high'
@@ -191,7 +188,6 @@ export function SoraConfigFields({
       </div>
       <ModelVersionSwitcher
         value={modelVersion}
-        defaultValue={defaultModelVersion}
         options={soraVersions}
         onChange={(value) =>
           onChange({
@@ -229,7 +225,6 @@ export function SoraConfigFields({
       <SliderField
         label="Video Length"
         value={seconds}
-        defaultValue={defaultDuration}
         options={durationOptions}
         suffix="s"
         onChange={(value) =>
@@ -242,7 +237,6 @@ export function SoraConfigFields({
       <AspectRatioField
         label="Aspect Ratio"
         value={size}
-        defaultValue={defaultRatio}
         options={ratioOptions}
         onChange={(value) =>
           onChange({

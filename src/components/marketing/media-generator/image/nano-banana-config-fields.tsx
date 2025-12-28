@@ -83,22 +83,15 @@ export function NanoBananaConfigFields({
   onPromptChange,
   onCreditEstimateChange,
 }: MediaModelConfigProps) {
-  const defaultMode = generationModes[0]?.value ?? 'text';
-  const mode = generationModes.some((option) => option.value === config.inputMode)
-    ? (config.inputMode as string)
-    : defaultMode;
-  const defaultOutputFormat = outputFormatOptions[0] ?? 'png';
-  const outputFormat = outputFormatOptions.includes(config.outputFormat as string)
-    ? (config.outputFormat as string)
-    : defaultOutputFormat;
+  const mode =
+    typeof config.inputMode === 'string' ? config.inputMode : '';
+  const outputFormat =
+    typeof config.outputFormat === 'string' ? config.outputFormat : '';
   const sizeValue =
     typeof config.imageSize === 'string'
       ? config.imageSize.replace('x', ':')
-      : undefined;
-  const defaultImageSize = imageSizeOptions[0] ?? 'auto';
-  const imageSize = imageSizeOptions.includes(sizeValue ?? '')
-    ? (sizeValue as string)
-    : defaultImageSize;
+      : '';
+  const imageSize = sizeValue;
   const imageUrls = Array.isArray(config.imageUrls)
     ? config.imageUrls
       .filter((item): item is string => typeof item === 'string')
@@ -211,7 +204,6 @@ export function NanoBananaConfigFields({
       <CheckboxGroupField
         title="Output format"
         value={outputFormat}
-        defaultValue={defaultOutputFormat}
         options={outputFormatOptions}
         onChange={(value) =>
           onChange({
@@ -224,7 +216,6 @@ export function NanoBananaConfigFields({
       <AspectRatioField
         label="Image size"
         value={imageSize}
-        defaultValue={defaultImageSize}
         options={imageSizeOptions}
         onChange={(value) =>
           onChange({

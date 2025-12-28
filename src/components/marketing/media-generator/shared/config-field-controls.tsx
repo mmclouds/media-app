@@ -35,7 +35,7 @@ export function ModelVersionSwitcher({
   onChange,
 }: {
   value?: string;
-  defaultValue: string;
+  defaultValue?: string;
   options: ModelVersionOption[];
   onChange: (value: string) => void;
 }) {
@@ -95,7 +95,7 @@ export function SliderField({
 }: {
   label: string;
   value?: number;
-  defaultValue: number;
+  defaultValue?: number;
   options: number[];
   suffix?: string;
   onChange: (value: number) => void;
@@ -176,7 +176,7 @@ export function AspectRatioField({
 }: {
   label: string;
   value?: string;
-  defaultValue: string;
+  defaultValue?: string;
   options: string[];
   onChange: (value: string) => void;
 }) {
@@ -243,7 +243,7 @@ export function CheckboxGroupField({
 }: {
   title: string;
   value?: string;
-  defaultValue: string;
+  defaultValue?: string;
   options: string[];
   onChange: (value: string) => void;
 }) {
