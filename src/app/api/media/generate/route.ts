@@ -1,3 +1,5 @@
+import { hasEnoughCredits } from '@/credits/credits';
+import { calculateCredits } from '@/custom/credits/pricing';
 import { auth } from '@/lib/auth';
 import { type NextRequest, NextResponse } from 'next/server';
 
@@ -152,9 +154,33 @@ export async function POST(request: NextRequest) {
 
   if (!resolvedModel) {
     return NextResponse.json(
-      { error: 'model is required' },
+      { error: 'Missing required parameter: model' },
       {
         status: 400,
+      },
+    );
+  }
+
+  const creditResult = calculateCredits(payload);
+  if (!creditResult) {
+    return NextResponse.json(
+      { error: 'No matching pricing rule found' },
+      {
+        status: 400,
+      },
+    );
+  }
+
+  const hasCredits = await hasEnoughCredits({
+    userId,
+    requiredCredits: creditResult.credits,
+  });
+
+  if (!hasCredits) {
+    return NextResponse.json(
+      { error: 'Insufficient credits. Please recharge your credits.' },
+      {
+        status: 402,
       },
     );
   }
@@ -187,6 +213,8 @@ export async function POST(request: NextRequest) {
   outgoingParams.set('mediaType', normalizedMediaType);
   outgoingParams.set('modelName', outgoingModelName);
   outgoingParams.set('userId', userId);
+  outgoingParams.set('creditsAmount', String(creditResult.credits));
+  outgoingParams.set('creditsDescription', 'media generate');
   const fileUuids = searchParams
     .getAll('fileUuids')
     .filter((uuid) => uuid.trim().length > 0);

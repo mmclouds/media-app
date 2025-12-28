@@ -7,7 +7,7 @@ import {
   NanoBananaConfigFields,
   buildNanoBananaRequestBody,
 } from './image/nano-banana-config-fields';
-import { StillImageConfigFields } from './image/still-image-config-fields';
+
 import type {
   MediaGenerationPayload,
   MediaModelConfig,
@@ -89,20 +89,7 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
     },
   ],
   image: [
-    {
-      id: 'still',
-      label: 'Still Studio',
-      description: 'High fidelity diffusion for hero frames',
-      provider: 'VisionArc',
-      mediaType: 'image',
-      modelName: 'still-pro',
-      model: 'still-pro',
-      defaultConfig: {
-        aspectRatio: '1:1',
-        quality: 80,
-      },
-      configComponent: StillImageConfigFields,
-    },
+
     {
       id: 'nano-banana',
       label: 'Nano Banana',
@@ -246,27 +233,27 @@ export function useMediaGeneratorController({
         const isNanoBanana = definition.id === 'nano-banana';
         const requestBody = isSora
           ? buildSoraRequestBody({
+            prompt: trimmedPrompt,
+            resolvedConfig,
+            fileUuids,
+          })
+          : isNanoBanana
+            ? buildNanoBananaRequestBody({
               prompt: trimmedPrompt,
               resolvedConfig,
               fileUuids,
             })
-          : isNanoBanana
-            ? buildNanoBananaRequestBody({
-                prompt: trimmedPrompt,
-                resolvedConfig,
-                fileUuids,
-              })
             : {
-                mediaType: payload.mediaType.toUpperCase(),
-                modelName: resolvedModelName,
-                model: definition.model ?? definition.modelName,
-                prompt: trimmedPrompt,
-                ...resolvedConfig,
-              };
+              mediaType: payload.mediaType.toUpperCase(),
+              modelName: resolvedModelName,
+              model: definition.model ?? definition.modelName,
+              prompt: trimmedPrompt,
+              ...resolvedConfig,
+            };
 
-      const queryParams = new URLSearchParams();
-      queryParams.set('mediaType', payload.mediaType.toUpperCase());
-      queryParams.set('modelName', resolvedModelName);
+        const queryParams = new URLSearchParams();
+        queryParams.set('mediaType', payload.mediaType.toUpperCase());
+        queryParams.set('modelName', resolvedModelName);
         Array.from(new Set(fileUuids)).forEach((uuid) => {
           queryParams.append('fileUuids', uuid);
         });
@@ -391,9 +378,9 @@ export function useMediaGeneratorController({
         setActiveGeneration((prev) =>
           prev && prev.taskId === taskId
             ? {
-                ...prev,
-                errorMessage: message,
-              }
+              ...prev,
+              errorMessage: message,
+            }
             : prev
         );
       }
