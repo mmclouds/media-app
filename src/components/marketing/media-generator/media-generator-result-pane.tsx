@@ -306,7 +306,7 @@ export function MediaGeneratorResultPane({
 
   return (
     <section className="flex flex-1 min-h-0 flex-col bg-gradient-to-br from-[#050505] via-[#050505] to-[#0c0c0c] text-white">
-      <div className="flex h-14 items-center justify-between border-b border-white/5 px-6">
+      <div className="flex h-14 items-center justify-between border-b border-white/5 px-0">
         <div className="flex gap-1 rounded-lg bg-white/5 p-1 text-xs font-semibold">
           {FEED_TABS.map((tab) => (
             <Tab
@@ -331,7 +331,7 @@ export function MediaGeneratorResultPane({
 
       <div
         ref={scrollRef}
-        className="flex-1 space-y-6 overflow-y-auto px-6 py-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="flex-1 space-y-6 overflow-y-auto px-0 py-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {!isLoggedIn && (
           <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/80">
@@ -528,7 +528,7 @@ function VideoPreviewCard({
   return (
     <article
       ref={cardRef}
-      className="overflow-hidden rounded-[32px] border border-white/5 bg-gradient-to-b from-white/[0.04] to-black/70 shadow-2xl shadow-black/40"
+      className="overflow-hidden border border-white/5 bg-gradient-to-b from-white/[0.04] to-black/70 shadow-2xl shadow-black/40"
     >
       <div className="space-y-3 border-b border-white/5 px-6 py-5">
         <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-white/40">
