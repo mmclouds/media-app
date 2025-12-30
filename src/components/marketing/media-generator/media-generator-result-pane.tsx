@@ -89,22 +89,12 @@ export function MediaGeneratorResultPane({
     if (!baseAsset) {
       return [];
     }
-    return Array.from({ length: 3 }).flatMap((_, loopIndex) =>
-      [baseAsset].map((item, index) => {
-        if (loopIndex === 0 && index === 0) {
-          return item;
-        }
-        return {
-          ...item,
-          id: `${item.id}-placeholder-${loopIndex}-${index}`,
-        };
-      })
-    );
+    return [baseAsset];
   }, [asset, liveAsset]);
 
   const fallbackLength = fallbackFeed.length;
   const [visibleCount, setVisibleCount] = useState(() =>
-    Math.min(2, fallbackLength || 1)
+    fallbackLength > 0 ? 1 : 0
   );
 
   const usingRemoteFeed = isLoggedIn && remoteFeed.length > 0;
@@ -123,7 +113,7 @@ export function MediaGeneratorResultPane({
 
   useEffect(() => {
     if (!usingRemoteFeed) {
-      setVisibleCount(Math.min(2, fallbackLength || 1));
+      setVisibleCount(fallbackLength > 0 ? 1 : 0);
     }
   }, [fallbackLength, usingRemoteFeed]);
 
@@ -281,10 +271,6 @@ export function MediaGeneratorResultPane({
         if (scrollTop + clientHeight >= scrollHeight - 240) {
           if (usingRemoteFeed) {
             void loadFeed();
-          } else {
-            setVisibleCount((prev) =>
-              prev >= fallbackLength ? prev : prev + 1
-            );
           }
         }
         ticking = false;
@@ -295,7 +281,7 @@ export function MediaGeneratorResultPane({
     return () => {
       container.removeEventListener('scroll', handleScroll);
     };
-  }, [fallbackLength, loadFeed, usingRemoteFeed]);
+  }, [loadFeed, usingRemoteFeed]);
 
   const visibleItems = usingRemoteFeed
     ? remoteFeed.slice(
@@ -427,16 +413,16 @@ export function MediaGeneratorResultPane({
               </div>
             )}
           </>
-        ) : visibleCount < fallbackLength ? (
+        ) : fallbackLength > 0 && visibleCount < fallbackLength ? (
           <div className="flex items-center justify-center gap-2 py-8 text-xs uppercase tracking-[0.2em] text-white/40">
             <div className="h-2 w-2 animate-pulse rounded-full bg-[#64ff6a]" />
             Keep scrolling to load more videos
           </div>
-        ) : (
+        ) : fallbackLength > 0 ? (
           <div className="py-8 text-center text-xs text-white/40">
             You reached the end of this feed.
           </div>
-        )}
+        ) : null}
       </div>
     </section>
   );
