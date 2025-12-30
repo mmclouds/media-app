@@ -212,3 +212,43 @@ function matchRule(
 - 配置维护成本降低 50%
 - 保持完整类型安全
 - 完全向后兼容
+
+---
+
+## 修复 Next.js 编译错误讲解
+
+### 🟤 错误概述
+
+解决了 `Property 'get' does not exist on type 'Promise<ReadonlyRequestCookies>'` 编译错误。
+
+- 错误原因：`cookies()` 函数返回的是 Promise，需要使用 `await` 获取实际值
+- 修复方法：将函数改为 `async` 并使用 `await cookies()`
+
+### 🟦 A. React 核心概念讲解
+- 使用了 React Server Components 的异步数据获取模式
+- 使用了 async/await 语法处理 Promise
+- 展示了 React Server Components 中如何正确处理异步函数调用
+
+### 🟦 B. Next.js 核心概念讲解（若本次代码使用 Next.js）
+- **Server Components 与 Client Components 的划分与原因**：此代码使用 Server Components，因为我们需要在服务器端读取 cookies，这是敏感操作，不能在客户端执行
+- **App Router 的路由机制**：此文件是页面组件 (page.tsx)，位于 App Router 的路由结构中
+- **数据获取策略**：使用了 Server Side Rendering (SSR) 模式，通过 async Server Component 直接获取数据
+- **next/headers 的使用**：`cookies()` 函数是 Next.js 提供的 Server-only 函数，用于安全地访问请求 cookies
+
+### 🟦 C. 代码逻辑拆解与架构说明
+- **文件结构解释**：这是一个媒体工作室页面组件，位于 `/media-studio` 路径
+- **每段代码的作用**：
+  1. `readMediaStudioSelection` 函数：从 cookies 中读取用户之前的选择设置
+  2. `generateMetadata` 函数：为页面生成元数据
+  3. `MediaStudioPage` 组件：主页面组件，渲染媒体生成工作区
+- **数据流与组件通信方式**：通过 cookies 在服务端获取用户偏好设置，并传递给客户端组件
+- **可替代实现 vs 当前实现的优势**：
+  - 替代实现：可以在客户端使用 `useCookies` Hook 读取
+  - 当前实现优势：服务端获取数据可以减少客户端请求，提高首屏加载性能
+
+### 🟦 D. 初学者学习重点总结
+- Next.js Server Components 中处理异步操作的正确方式
+- `cookies()` 函数返回 Promise，需要使用 `await` 获取实际值
+- Server Components 中的 async/await 使用模式
+- 如何在服务端安全地读取 cookies 数据
+- TypeScript 中类型断言和类型保护的使用

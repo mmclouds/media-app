@@ -9,8 +9,8 @@ import { getTranslations } from 'next-intl/server';
 const MEDIA_STUDIO_SELECTION_COOKIE = 'media-studio-selection';
 const MEDIA_TYPES: MediaType[] = ['video', 'image', 'audio'];
 
-const readMediaStudioSelection = () => {
-  const cookieStore = cookies();
+const readMediaStudioSelection = async () => {
+  const cookieStore = await cookies();
   const rawValue = cookieStore.get(MEDIA_STUDIO_SELECTION_COOKIE)?.value;
   if (!rawValue) {
     return null;
@@ -51,7 +51,7 @@ export async function generateMetadata({
 }
 
 export default async function MediaStudioPage() {
-  const selection = readMediaStudioSelection();
+  const selection = await readMediaStudioSelection();
 
   return (
     <main className="fixed inset-0 min-h-0 w-full overflow-hidden bg-[#020202] text-white">
