@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils';
 import { useMediaGeneratorController } from './controller';
 import { MediaGeneratorConfigPanel } from './media-generator-config-panel';
 import { MediaGeneratorResultPane } from './media-generator-result-pane';
-import type { VideoGeneratorAsset } from './types';
 
 // 双栏布局：固定媒体类型为视频，复用通用配置/结果面板
 export function MediaOnlyGeneratorWorkspace({
@@ -31,16 +30,6 @@ export function MediaOnlyGeneratorWorkspace({
     preferredModelId,
   });
 
-  const currentAsset: VideoGeneratorAsset = {
-    id: 'demo-video',
-    mediaType: 'video',
-    title: 'AI Video',
-    duration: '5s',
-    resolution: '720p',
-    src: '',
-    tags: ['AI Video'],
-  };
-
   return (
     <div
       className={cn(
@@ -61,7 +50,6 @@ export function MediaOnlyGeneratorWorkspace({
         isGenerating={isGenerating}
       />
       <MediaGeneratorResultPane
-        asset={currentAsset}
         loading={isGenerating}
         activeGeneration={activeGeneration}
       />

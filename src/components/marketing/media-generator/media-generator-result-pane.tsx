@@ -25,7 +25,7 @@ import type {
 import { GenerationProgressVisual } from './generation-progress-visual';
 
 type PreviewPanelProps = {
-  asset: VideoGeneratorAsset;
+  asset?: VideoGeneratorAsset | null;
   loading: boolean;
   activeGeneration?: VideoGenerationState | null;
 };
@@ -84,28 +84,15 @@ export function MediaGeneratorResultPane({
     liveAssetRef.current = liveAsset;
   }, [liveAsset]);
 
-  const fallbackFeed = useMemo(() => {
-    const baseAsset = liveAsset ?? asset;
-    if (!baseAsset) {
-      return [];
+  const localItems = useMemo(() => {
+    if (liveAsset) {
+      return [liveAsset];
     }
-    return Array.from({ length: 3 }).flatMap((_, loopIndex) =>
-      [baseAsset].map((item, index) => {
-        if (loopIndex === 0 && index === 0) {
-          return item;
-        }
-        return {
-          ...item,
-          id: `${item.id}-placeholder-${loopIndex}-${index}`,
-        };
-      })
-    );
+    if (asset) {
+      return [asset];
+    }
+    return [];
   }, [asset, liveAsset]);
-
-  const fallbackLength = fallbackFeed.length;
-  const [visibleCount, setVisibleCount] = useState(() =>
-    Math.min(2, fallbackLength || 1)
-  );
 
   const usingRemoteFeed = isLoggedIn && remoteFeed.length > 0;
   const {
@@ -120,12 +107,6 @@ export function MediaGeneratorResultPane({
     overscan: VIRTUAL_OVERSCAN_PX,
     enabled: usingRemoteFeed && remoteFeed.length > 12,
   });
-
-  useEffect(() => {
-    if (!usingRemoteFeed) {
-      setVisibleCount(Math.min(2, fallbackLength || 1));
-    }
-  }, [fallbackLength, usingRemoteFeed]);
 
   const loadFeed = useCallback(
     async ({ reset = false }: { reset?: boolean } = {}) => {
@@ -268,7 +249,7 @@ export function MediaGeneratorResultPane({
 
   useEffect(() => {
     const container = scrollRef.current;
-    if (!container) {
+    if (!container || !usingRemoteFeed) {
       return undefined;
     }
 
@@ -279,13 +260,7 @@ export function MediaGeneratorResultPane({
       window.requestAnimationFrame(() => {
         const { scrollTop, clientHeight, scrollHeight } = container;
         if (scrollTop + clientHeight >= scrollHeight - 240) {
-          if (usingRemoteFeed) {
-            void loadFeed();
-          } else {
-            setVisibleCount((prev) =>
-              prev >= fallbackLength ? prev : prev + 1
-            );
-          }
+          void loadFeed();
         }
         ticking = false;
       });
@@ -295,14 +270,14 @@ export function MediaGeneratorResultPane({
     return () => {
       container.removeEventListener('scroll', handleScroll);
     };
-  }, [fallbackLength, loadFeed, usingRemoteFeed]);
+  }, [loadFeed, usingRemoteFeed]);
 
   const visibleItems = usingRemoteFeed
     ? remoteFeed.slice(
       virtualRange.start,
       Math.min(virtualRange.end + 1, remoteFeed.length)
     )
-    : fallbackFeed.slice(0, visibleCount);
+    : localItems;
 
   useEffect(() => {
     if (!isLoggedIn || !liveAsset) {
@@ -404,16 +379,16 @@ export function MediaGeneratorResultPane({
             ) : null}
           </>
         ) : (
-          visibleItems.map((item) => (
+          visibleItems.map((item, index) => (
             <VideoPreviewCard
               key={item.id}
               asset={item}
-              isActive={item.id === asset.id}
+              isActive={index === 0}
             />
           ))
         )}
 
-        {usingRemoteFeed ? (
+        {usingRemoteFeed && (
           <>
             {isFetching && (
               <div className="flex items-center justify-center gap-2 py-8 text-xs text-white/60">
@@ -427,15 +402,6 @@ export function MediaGeneratorResultPane({
               </div>
             )}
           </>
-        ) : visibleCount < fallbackLength ? (
-          <div className="flex items-center justify-center gap-2 py-8 text-xs uppercase tracking-[0.2em] text-white/40">
-            <div className="h-2 w-2 animate-pulse rounded-full bg-[#64ff6a]" />
-            Keep scrolling to load more videos
-          </div>
-        ) : (
-          <div className="py-8 text-center text-xs text-white/40">
-            You reached the end of this feed.
-          </div>
         )}
       </div>
     </section>

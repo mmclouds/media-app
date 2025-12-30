@@ -5,7 +5,7 @@ import { MEDIA_TYPE_OPTIONS, useMediaGeneratorController } from './controller';
 import { MediaGeneratorConfigPanel } from './media-generator-config-panel';
 import { MediaGeneratorMenu } from './media-generator-menu';
 import { MediaGeneratorResultPane } from './media-generator-result-pane';
-import type { MediaType, VideoGeneratorAsset } from './types';
+import type { MediaType } from './types';
 
 export function MediaGeneratorWorkspace({
   className,
@@ -38,16 +38,6 @@ export function MediaGeneratorWorkspace({
     persistKey,
   });
 
-  const currentAsset: VideoGeneratorAsset = {
-    id: 'demo-video',
-    mediaType: 'video',
-    title: 'AI Video',
-    duration: '5s',
-    resolution: '720p',
-    src: '',
-    tags: ['AI Video'],
-  };
-
   return (
     <div
       className={cn(
@@ -73,7 +63,6 @@ export function MediaGeneratorWorkspace({
         isGenerating={isGenerating}
       />
       <MediaGeneratorResultPane
-        asset={currentAsset}
         loading={isGenerating}
         activeGeneration={activeGeneration}
       />
