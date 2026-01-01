@@ -84,6 +84,20 @@
         "limit-3": "不支持终身更新"
       }
     },
+    "lite": {
+      "name": "Lite",
+      "description": "Essential features for light usage",
+      "features": {
+        "feature-1": "Up to 10 projects",
+        "feature-2": "5 GB storage",
+        "feature-3": "Standard analytics",
+        "feature-4": "Email support"
+      },
+      "limits": {
+        "limit-1": "Custom domains",
+        "limit-2": "Advanced analytics"
+      }
+    },
     "pro": {
       "name": "专业版",
       "description": "专业人士的高级功能",
