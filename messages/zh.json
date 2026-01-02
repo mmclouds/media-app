@@ -853,6 +853,38 @@
       "primaryButton": "开始免费试用",
       "secondaryButton": "查看价格"
     },
+    "integration3": {
+      "title": "一站式内容生成",
+      "subtitle": "图片、视频、音频一次打通",
+      "description": "统一模型中心、亲民价格与丝滑体验，让创作更高效。",
+      "learnMore": "了解更多",
+      "items": {
+        "item-1": {
+          "title": "图片内容生成",
+          "description": "高分辨率图片一键生成，细节更清晰。"
+        },
+        "item-2": {
+          "title": "视频内容生成",
+          "description": "镜头连贯、运动自然的文生视频。"
+        },
+        "item-3": {
+          "title": "音频内容生成",
+          "description": "音乐、音效与配音一次生成。"
+        },
+        "item-4": {
+          "title": "统一模型中心",
+          "description": "在同一工作区管理与对比多模型。"
+        },
+        "item-5": {
+          "title": "优惠价格",
+          "description": "低于官方API价格，成本更可控。"
+        },
+        "item-6": {
+          "title": "丝滑流畅体验",
+          "description": "预览、生成、下载全流程更顺滑。"
+        }
+      }
+    },
     "features": {
       "title": "为什么选择 vlook.ai",
       "subtitle": "为现代 AI 创作者打造",

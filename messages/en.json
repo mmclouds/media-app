@@ -853,6 +853,38 @@
       "primaryButton": "Start Free Trial",
       "secondaryButton": "View Pricing"
     },
+    "integration3": {
+      "title": "All-in-one creation stack",
+      "subtitle": "Images, video, and audio in one studio",
+      "description": "Unified model hub, affordable pricing, and a smooth UI for fast production.",
+      "learnMore": "Learn more",
+      "items": {
+        "item-1": {
+          "title": "Image generation",
+          "description": "Create high-resolution visuals with crisp detail."
+        },
+        "item-2": {
+          "title": "Video generation",
+          "description": "Cinematic text-to-video with coherent motion."
+        },
+        "item-3": {
+          "title": "Audio generation",
+          "description": "Generate music, SFX, and voice in one flow."
+        },
+        "item-4": {
+          "title": "Unified model hub",
+          "description": "Manage and compare multiple models in one workspace."
+        },
+        "item-5": {
+          "title": "Affordable pricing",
+          "description": "Transparent costs that scale with your usage."
+        },
+        "item-6": {
+          "title": "Smooth, responsive UI",
+          "description": "Faster previews, generation, and downloads."
+        }
+      }
+    },
     "features": {
       "title": "Why vlook.ai",
       "subtitle": "Built for modern AI creators",
