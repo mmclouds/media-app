@@ -1,8 +1,8 @@
 {
   "Metadata": {
-    "name": "MkSaaS Demo",
-    "title": "MkSaaS - The Best AI SaaS Boilerplate",
-    "description": "MkSaaS is the best AI SaaS boilerplate. Make AI SaaS in days, simply and effortlessly"
+    "name": "vlook.ai",
+    "title": "vlook.ai | AI Image, Video, and Music Generator",
+    "description": "vlook.ai is a fast, affordable AI media studio powered by Gemini Nano Banana Pro, OpenAI Sora2, Google Veo 3.1, and Suno. Start free today."
   },
   "Common": {
     "premium": "Premium",
@@ -46,8 +46,8 @@
   },
   "PricingPage": {
     "title": "Pricing",
-    "description": "Choose the plan that works best for you",
-    "subtitle": "Choose the plan that works best for you",
+    "description": "Simple, affordable plans with a free trial.",
+    "subtitle": "Start free and scale affordably.",
     "monthly": "Monthly",
     "yearly": "Yearly",
     "PricingCard": {
@@ -157,12 +157,12 @@
   },
   "AboutPage": {
     "title": "About",
-    "description": "This is MkSaaS, an AI SaaS template built with modern technologies, helping you build your SaaS faster and better.",
-    "authorName": "MkSaaS",
-    "authorBio": "AI SaaS Boilerplate",
-    "introduction": "👋 Hi there! This is MkSaaS, an AI SaaS template built with modern technologies, helping you build your SaaS faster and better. If you have any questions, welcome to contact me.",
-    "talkWithMe": "Talk with me",
-    "followMe": "Follow me on X"
+    "description": "vlook.ai is a multimodal AI creation studio that brings the latest models together for images, video, and music at a low cost.",
+    "authorName": "vlook.ai",
+    "authorBio": "AI Media Studio",
+    "introduction": "Hi there! vlook.ai is a multimodal AI creation studio powered by Gemini Nano Banana Pro, OpenAI Sora2, Google Veo 3.1, and Suno. Create images, videos, and music with a smooth workflow and affordable plans.",
+    "talkWithMe": "Contact us",
+    "followMe": "Follow vlook.ai"
   },
   "ChangelogPage": {
     "title": "Changelog",
@@ -310,7 +310,7 @@
     "previousPage": "Previous",
     "nextPage": "Next",
     "chooseLanguage": "Select language",
-    "title": "MkSaaS Docs",
+    "title": "vlook.ai Docs",
     "homepage": "Homepage"
   },
   "PremiumContent": {
@@ -345,23 +345,23 @@
         "items": {
           "text": {
             "title": "AI Text",
-            "description": "Show how to use AI to write stunning text"
+            "description": "Summarize, rewrite, and brainstorm prompts with AI."
           },
           "image": {
             "title": "AI Image",
-            "description": "Show how to use AI to generate beautiful images"
+            "description": "Generate high-quality images from text prompts."
           },
           "chat": {
             "title": "AI Chat",
-            "description": "Show how to use AI to chat with your customers"
+            "description": "Chat with AI to refine ideas and scripts."
           },
           "video": {
             "title": "AI Video",
-            "description": "Show how to use AI to generate amazing videos"
+            "description": "Create cinematic videos with top models."
           },
           "audio": {
             "title": "AI Audio",
-            "description": "Show how to use AI to generate wonderful audio"
+            "description": "Generate original music and audio tracks."
           }
         }
       },
@@ -463,7 +463,7 @@
       }
     },
     "footer": {
-      "tagline": "Make AI SaaS in days, simply and effortlessly",
+      "tagline": "vlook.ai - fast, affordable AI image, video, and music creation.",
       "product": {
         "title": "Product",
         "items": {
@@ -803,249 +803,249 @@
     }
   },
   "HomePage": {
-    "title": "MkSaaS",
-    "description": "Make AI SaaS in days, simply and effortlessly",
+    "title": "vlook.ai",
+    "description": "Create images, videos, and music with the latest AI models in one smooth studio.",
     "hero": {
-      "title": "Make AI SaaS in days, simply and effortlessly",
-      "description": "The is a demo website built with MkSaaS, a Next.js SaaS boilerplate to help you build your AI SaaS faster and better.",
-      "introduction": "Introducing MkSaaS Boilerplate",
-      "primary": "Get Started",
-      "secondary": "See Demo"
+      "title": "Create images, videos, and music with the latest AI models.",
+      "description": "vlook.ai unifies Gemini Nano Banana Pro, OpenAI Sora2, Google Veo 3.1, and Suno in one fast, affordable workflow.",
+      "introduction": "Meet vlook.ai",
+      "primary": "Start Free Trial",
+      "secondary": "View Pricing"
     },
     "logocloud": {
-      "title": "Your favorite companies are our partners"
+      "title": "Trusted by creators and teams worldwide"
     },
     "integration": {
-      "title": "Integrations",
-      "subtitle": "Integrate with your favorite tools",
-      "description": "Connect seamlessly with popular platforms and services to enhance your workflow.",
-      "learnMore": "Learn More",
+      "title": "Top AI Models",
+      "subtitle": "Choose the best model for every idea",
+      "description": "Switch between image, video, and music models without leaving vlook.ai.",
+      "learnMore": "See all models",
       "items": {
         "item-1": {
-          "title": "Google Gemini",
-          "description": "Amet praesentium deserunt ex commodi tempore fuga voluptatem."
+          "title": "Gemini Nano Banana Pro",
+          "description": "High-fidelity image generation with rich detail."
         },
         "item-2": {
-          "title": "Replit",
-          "description": "Amet praesentium deserunt ex commodi tempore fuga voluptatem."
+          "title": "OpenAI Sora2",
+          "description": "Cinematic text-to-video with smooth motion."
         },
         "item-3": {
-          "title": "MagicUI",
-          "description": "Amet praesentium deserunt ex commodi tempore fuga voluptatem."
+          "title": "Google Veo 3.1",
+          "description": "High-resolution video with strong scene coherence."
         },
         "item-4": {
-          "title": "VSCodium",
-          "description": "Amet praesentium deserunt ex commodi tempore fuga voluptatem."
+          "title": "Suno",
+          "description": "Original music and audio tracks from prompts."
         },
         "item-5": {
-          "title": "MediaWiki",
-          "description": "Amet praesentium deserunt ex commodi tempore fuga voluptatem."
+          "title": "Unified Model Hub",
+          "description": "Compare outputs across models in one workspace."
         },
         "item-6": {
-          "title": "Google PaLM",
-          "description": "Amet praesentium deserunt ex commodi tempore fuga voluptatem."
+          "title": "Smooth Web Studio",
+          "description": "A fast, responsive UI for rapid iteration."
         }
       }
     },
     "integration2": {
-      "title": "Integrate with your favorite tools",
-      "description": "Connect seamlessly with popular platforms and services to enhance your workflow.",
-      "primaryButton": "Get Started",
-      "secondaryButton": "See Demo"
+      "title": "All-in-one AI media studio",
+      "description": "Generate, compare, and refine images, videos, and music in one place.",
+      "primaryButton": "Start Free Trial",
+      "secondaryButton": "View Pricing"
     },
     "features": {
-      "title": "Features",
-      "subtitle": "The features of your product",
-      "description": "Write the description of your product here",
+      "title": "Why vlook.ai",
+      "subtitle": "Built for modern AI creators",
+      "description": "Best-in-class models, multimodal outputs, and affordable plans.",
       "items": {
         "item-1": {
-          "title": "Product Feature One",
-          "description": "Please write the detailed description of feature one here, make it as detailed as possible, make it more attractive to users"
+          "title": "Flagship model access",
+          "description": "Gemini Nano Banana Pro, OpenAI Sora2, Google Veo 3.1, and Suno in one workflow."
         },
         "item-2": {
-          "title": "Product Feature Two",
-          "description": "Please write the detailed description of feature two here, make it as detailed as possible, make it more attractive to users"
+          "title": "Multimodal generation",
+          "description": "Create images, videos, and music from a single prompt."
         },
         "item-3": {
-          "title": "Product Feature Three",
-          "description": "Please write the detailed description of feature three here, make it as detailed as possible, make it more attractive to users"
+          "title": "Free trial + low cost",
+          "description": "Start free and scale with transparent, affordable pricing."
         },
         "item-4": {
-          "title": "Product Feature Four",
-          "description": "Please write the detailed description of feature four here, make it as detailed as possible, make it more attractive to users"
+          "title": "Fast, smooth experience",
+          "description": "Quick previews, responsive UI, and easy downloads."
         }
       }
     },
     "features2": {
-      "title": "Features2",
-      "subtitle": "The features of your product",
-      "description": "Write the description of your product here",
-      "feature-1": "Product Feature One",
-      "feature-2": "Product Feature Two",
-      "feature-3": "Product Feature Three",
-      "feature-4": "Product Feature Four"
+      "title": "Highlights",
+      "subtitle": "Everything you need to ship AI content",
+      "description": "Create faster with a unified, creator-first studio.",
+      "feature-1": "Image, video, and music in one workspace",
+      "feature-2": "Gemini Nano Banana Pro, Sora2, Veo 3.1, Suno",
+      "feature-3": "Free trial and affordable pricing",
+      "feature-4": "Fast, smooth workflow"
     },
     "features3": {
-      "title": "Features3",
-      "subtitle": "The features of your product",
-      "description": "Write the description of your product here",
+      "title": "More reasons to choose vlook.ai",
+      "subtitle": "Quality, speed, and flexibility",
+      "description": "Pick the right model, keep costs low, and move fast.",
       "items": {
         "item-1": {
-          "title": "Product Feature One",
-          "description": "Please write the detailed description of feature one here"
+          "title": "Choose the best model",
+          "description": "Switch between image, video, and music models per task."
         },
         "item-2": {
-          "title": "Product Feature Two",
-          "description": "Please write the detailed description of feature two here"
+          "title": "High-quality visuals",
+          "description": "Produce crisp images and cinematic clips with top models."
         },
         "item-3": {
-          "title": "Product Feature Three",
-          "description": "Please write the detailed description of feature three here"
+          "title": "Music made simple",
+          "description": "Generate original tracks and sound beds with Suno."
         },
         "item-4": {
-          "title": "Product Feature Four",
-          "description": "Please write the detailed description of feature four here"
+          "title": "Affordable at scale",
+          "description": "Clear plans that stay budget-friendly as you grow."
         },
         "item-5": {
-          "title": "Product Feature Five",
-          "description": "Please write the detailed description of feature five here"
+          "title": "Smooth creation flow",
+          "description": "Iterate quickly with clean previews and history."
         },
         "item-6": {
-          "title": "Product Feature Six",
-          "description": "Please write the detailed description of feature six here"
+          "title": "Creator-ready outputs",
+          "description": "Export assets for social, ads, and product demos."
         }
       }
     },
     "pricing": {
       "title": "Pricing",
-      "subtitle": "Pricing",
-      "description": "Choose the plan that works best for you"
+      "subtitle": "Simple pricing",
+      "description": "Start free and upgrade only when you need more."
     },
     "faqs": {
       "title": "FAQ",
-      "subtitle": "Frequently Asked Questions",
+      "subtitle": "Quick answers for vlook.ai",
       "items": {
         "item-1": {
           "question": "Do you offer a free trial?",
-          "answer": "Yes, we offer a 7-day free trial."
+          "answer": "Yes. Start with free trial credits and explore core models."
         },
         "item-2": {
-          "question": "How do I cancel my subscription?",
-          "answer": "You can cancel your subscription by visiting the billing page."
+          "question": "How do I cancel my plan?",
+          "answer": "You can cancel anytime from your billing settings."
         },
         "item-3": {
           "question": "Can I change my plan?",
-          "answer": "Yes, you can change your plan at any time by visiting the billing page."
+          "answer": "Yes, upgrade or downgrade anytime from billing."
         },
         "item-4": {
           "question": "What is the refund policy?",
-          "answer": "We offer a 30-day money-back guarantee if you are not happy with our product."
+          "answer": "Refunds are available for eligible purchases. Contact support@vlook.ai."
         },
         "item-5": {
-          "question": "Can't find what you're looking for?",
-          "answer": "Please contact our customer support team at support@mksaas.com"
+          "question": "Need help or a custom request?",
+          "answer": "Email support@vlook.ai and we will get back quickly."
         }
       }
     },
     "testimonials": {
       "title": "Testimonials",
-      "subtitle": "What our customers are saying",
+      "subtitle": "What creators are saying",
       "items": {
         "item-1": {
           "name": "Jonathan Yombo",
           "role": "Software Engineer",
           "image": "https://randomuser.me/api/portraits/men/1.jpg",
-          "quote": "MkSaaS is really extraordinary and very practical, no need to break your head. A real gold mine."
+          "quote": "vlook.ai lets me ship polished visuals in minutes. The multi-model choice is a game changer."
         },
         "item-2": {
           "name": "Yves Kalume",
           "role": "GDE - Android",
           "image": "https://randomuser.me/api/portraits/men/6.jpg",
-          "quote": "With no experience in webdesign I just redesigned my entire website in a few minutes with tailwindcss thanks to MkSaaS."
+          "quote": "I can move from image to video to music without leaving the studio. It is fast and affordable."
         },
         "item-3": {
           "name": "Yucel Faruksahan",
           "role": "Tailkits Creator",
           "image": "https://randomuser.me/api/portraits/men/7.jpg",
-          "quote": "Great work on MkSaaS template. This is one of the best personal website that I have seen so far :)"
+          "quote": "The Sora2 and Veo 3.1 results are clean and cinematic. vlook.ai saves me hours."
         },
         "item-4": {
           "name": "Anonymous author",
           "role": "Product Manager",
           "image": "https://randomuser.me/api/portraits/men/8.jpg",
-          "quote": "I downloaded the one of MkSaaS template which is very clear to understand at the start and you could modify the codes/blocks to fit perfectly on your purpose of the page."
+          "quote": "The smooth UI and quick previews make ideation effortless."
         },
         "item-5": {
           "name": "Shekinah Tshiokufila",
           "role": "Senior Software Engineer",
           "image": "https://randomuser.me/api/portraits/men/4.jpg",
-          "quote": "MkSaaS is redefining the standard of web design, with these blocks it provides an easy and efficient way for those who love beauty but may lack the time to implement it."
+          "quote": "I love the balance of quality and price. vlook.ai keeps our content pipeline moving."
         },
         "item-6": {
           "name": "Oketa Fred",
           "role": "Fullstack Developer",
           "image": "https://randomuser.me/api/portraits/men/2.jpg",
-          "quote": "I absolutely love MkSaaS! The component blocks are beautifully designed and easy to use, which makes creating a great-looking website a breeze."
+          "quote": "The workflow feels modern and responsive. It is the easiest way to test multiple models."
         },
         "item-7": {
           "name": "Zeki",
           "role": "Founder of ChatExtend",
           "image": "https://randomuser.me/api/portraits/men/5.jpg",
-          "quote": "MkSaaS is the perfect fusion of simplicity and versatility, enabling us to create UIs that are as stunning as they are user-friendly."
+          "quote": "Having Gemini Nano Banana Pro and Suno in one place is incredibly convenient."
         },
         "item-8": {
           "name": "Joseph Kitheka",
           "role": "Fullstack Developer",
           "image": "https://randomuser.me/api/portraits/men/9.jpg",
-          "quote": "MkSaaS has transformed the way I develop web applications. Their extensive collection of UI components, blocks, and templates has significantly accelerated my workflow."
+          "quote": "Our team creates ad creatives and sound beds in one tool now."
         },
         "item-9": {
           "name": "Khatab Wedaa",
           "role": "MerakiUI Creator",
           "image": "https://randomuser.me/api/portraits/men/10.jpg",
-          "quote": "MkSaaS is an elegant, clean, and responsive tailwind css components it's very helpful to start fast with your project."
+          "quote": "vlook.ai delivers consistent results without the complexity."
         },
         "item-10": {
           "name": "Rodrigo Aguilar",
           "role": "TailwindAwesome Creator",
           "image": "https://randomuser.me/api/portraits/men/11.jpg",
-          "quote": "I love MkSaaS ❤️. The component blocks are well-structured, simple to use, and beautifully designed. It makes it really easy to have a good-looking website in no time."
+          "quote": "I can iterate quickly and export assets ready for social and ads."
         },
         "item-11": {
           "name": "Eric Ampire",
           "role": "@GoogleDevExpert for Android",
           "image": "https://randomuser.me/api/portraits/men/12.jpg",
-          "quote": "MkSaaS templates are the perfect solution for anyone who wants to create a beautiful and functional website without any web design experience."
+          "quote": "Great quality, fair pricing, and a clean interface - exactly what creators need."
         },
         "item-12": {
           "name": "Roland Tubonge",
           "role": "Software Engineer",
           "image": "https://randomuser.me/api/portraits/men/13.jpg",
-          "quote": "MkSaaS is so well designed that even with a very poor knowledge of web design you can do miracles. Let yourself be seduced!"
+          "quote": "If you want top models with a smooth workflow, vlook.ai is hard to beat."
         }
       }
     },
     "stats": {
       "title": "Stats",
-      "subtitle": "MkSaaS in numbers",
-      "description": "MkSaaS lets you make AI SaaS in days, simply and effortlessly",
+      "subtitle": "vlook.ai in numbers",
+      "description": "Fast, affordable AI media creation for modern teams.",
       "items": {
         "item-1": {
-          "title": "Stars on GitHub"
+          "title": "Creators onboarded"
         },
         "item-2": {
-          "title": "Active Users"
+          "title": "Media generations"
         },
         "item-3": {
-          "title": "Powered Apps"
+          "title": "Projects launched"
         }
       }
     },
     "calltoaction": {
-      "title": "Start Building",
-      "description": "MkSaaS lets you make AI SaaS in days, simply and effortlessly",
-      "primaryButton": "Get Started",
-      "secondaryButton": "See Demo"
+      "title": "Start creating with vlook.ai",
+      "description": "Create images, videos, and music with the best AI models. Start free today.",
+      "primaryButton": "Start Free Trial",
+      "secondaryButton": "View Pricing"
     }
   },
   "AITextPage": {
@@ -1099,18 +1099,18 @@
   },
   "AIImagePage": {
     "title": "AI Image",
-    "description": "MkSaaS lets you make AI SaaS in days, simply and effortlessly"
+    "description": "Generate high-quality images with Gemini Nano Banana Pro and more."
   },
   "AIChatPage": {
     "title": "AI Chat",
-    "description": "MkSaaS lets you make AI SaaS in days, simply and effortlessly"
+    "description": "Chat with AI to refine prompts and creative direction."
   },
   "AIVideoPage": {
     "title": "AI Video",
-    "description": "MkSaaS lets you make AI SaaS in days, simply and effortlessly"
+    "description": "Create cinematic videos with OpenAI Sora2 and Google Veo 3.1."
   },
   "AIAudioPage": {
     "title": "AI Audio",
-    "description": "MkSaaS lets you make AI SaaS in days, simply and effortlessly"
+    "description": "Generate original music with Suno in seconds."
   }
 }

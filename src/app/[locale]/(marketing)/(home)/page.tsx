@@ -11,7 +11,7 @@ import PricingSection from '@/components/blocks/pricing/pricing';
 import StatsSection from '@/components/blocks/stats/stats';
 import TestimonialsSection from '@/components/blocks/testimonials/testimonials';
 import CrispChat from '@/components/layout/crisp-chat';
-import { MediaOnlyGeneratorWorkspace } from '@/components/marketing/media-generator/media-only-generator-workspace';
+import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { NewsletterCard } from '@/components/newsletter/newsletter-card';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
@@ -51,13 +51,13 @@ export default async function HomePage(props: HomePageProps) {
       <div className="flex flex-col">
         <HeroSection />
 
-        <div className="mx-auto w-full max-w-7xl px-6">
-          <MediaOnlyGeneratorWorkspace className="h-full w-full" />
+        <div className="mx-auto w-full max-w-7xl px-6 mt-16">
+          <MediaGeneratorWorkspace className="h-full w-full" />
         </div>
 
-        <LogoCloud />
+        {/* <LogoCloud /> */}
 
-        <StatsSection />
+        {/* <StatsSection /> */}
 
         <IntegrationSection />
 
@@ -67,7 +67,7 @@ export default async function HomePage(props: HomePageProps) {
 
         <Features3Section />
 
-        <Integration2Section />
+        {/* <Integration2Section /> */}
 
         <PricingSection />
 
@@ -75,7 +75,7 @@ export default async function HomePage(props: HomePageProps) {
 
         <CallToActionSection />
 
-        <TestimonialsSection />
+        {/* <TestimonialsSection /> */}
 
         <NewsletterCard />
 
