@@ -39,39 +39,39 @@ export function useFooterLinks(): NestedMenuItem[] {
         },
       ],
     },
-    {
-      title: t('resources.title'),
-      items: [
-        ...(websiteConfig.blog.enable
-          ? [
-              {
-                title: t('resources.items.blog'),
-                href: Routes.Blog,
-                external: false,
-              },
-            ]
-          : []),
-        ...(websiteConfig.docs.enable
-          ? [
-              {
-                title: t('resources.items.docs'),
-                href: Routes.Docs,
-                external: false,
-              },
-            ]
-          : []),
-        {
-          title: t('resources.items.changelog'),
-          href: Routes.Changelog,
-          external: false,
-        },
-        {
-          title: t('resources.items.roadmap'),
-          href: Routes.Roadmap,
-          external: false,
-        },
-      ],
-    },
+    // {
+    //   title: t('resources.title'),
+    //   items: [
+    //     ...(websiteConfig.blog.enable
+    //       ? [
+    //           {
+    //             title: t('resources.items.blog'),
+    //             href: Routes.Blog,
+    //             external: false,
+    //           },
+    //         ]
+    //       : []),
+    //     ...(websiteConfig.docs.enable
+    //       ? [
+    //           {
+    //             title: t('resources.items.docs'),
+    //             href: Routes.Docs,
+    //             external: false,
+    //           },
+    //         ]
+    //       : []),
+    //     {
+    //       title: t('resources.items.changelog'),
+    //       href: Routes.Changelog,
+    //       external: false,
+    //     },
+    //     {
+    //       title: t('resources.items.roadmap'),
+    //       href: Routes.Roadmap,
+    //       external: false,
+    //     },
+    //   ],
+    // },
     {
       title: t('company.title'),
       items: [
