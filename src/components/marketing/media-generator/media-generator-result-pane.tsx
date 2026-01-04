@@ -5,7 +5,7 @@ import { useCurrentUser } from '@/hooks/use-current-user';
 import { useHoverPlayback } from '@/hooks/use-hover-playback';
 import { useVideoPoster } from '@/hooks/use-video-poster';
 import { useVirtualFeed } from '@/hooks/use-virtual-feed';
-import { FolderOpen } from 'lucide-react';
+import { Download, FolderOpen } from 'lucide-react';
 import type { RefObject } from 'react';
 import {
   useCallback,
@@ -557,15 +557,23 @@ function VideoPreviewCard({
           ) : isLoading ? (
             <GenerationProgressVisual />
           ) : isImage ? (
-            <div className="flex aspect-video w-full items-center justify-center bg-neutral-900">
+            <div className="relative flex aspect-video w-full items-center justify-center rounded-lg bg-neutral-900">
               <img
                 src={resolvedImageSrc}
                 alt={displayPrompt || 'Generated image'}
                 className="max-h-full max-w-full object-contain"
               />
+              <a
+                href={resolvedImageSrc}
+                download
+                className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg bg-black/60 text-white backdrop-blur-sm transition-all hover:bg-black/80 hover:scale-110"
+                title="Download image"
+              >
+                <Download className="h-4 w-4" />
+              </a>
             </div>
           ) : isAudio ? (
-            <div className="flex aspect-video w-full items-center justify-center bg-neutral-900">
+            <div className="flex aspect-video w-full items-center justify-center rounded-lg bg-neutral-900">
               <audio
                 controls
                 src={resolvedAudioSrc}
