@@ -30,8 +30,8 @@ const transitionVariants = {
 export default function HeroSection() {
   const t = useTranslations('HomePage.hero');
   const linkIntroduction = 'https://x.com/mksaascom';
-  const linkPrimary = '/#pricing';
-  const linkSecondary = 'https://demo.mksaas.com';
+  const linkPrimary = '/media-studio';
+  const linkSecondary = '#pricing';
 
   return (
     <>
@@ -49,7 +49,7 @@ export default function HeroSection() {
         <section>
           <div className="relative pt-12">
             <div className="mx-auto max-w-7xl px-6">
-              <Ripple />
+              {/* <Ripple /> */}
 
               <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
                 {/* introduction */}

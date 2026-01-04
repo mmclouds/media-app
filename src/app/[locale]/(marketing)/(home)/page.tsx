@@ -49,11 +49,12 @@ export default async function HomePage(props: HomePageProps) {
   return (
     <>
       <div className="flex flex-col">
+        {/* <div className="relative z-50 w-full">
+          <MediaGeneratorWorkspace className="h-full w-full" />
+        </div> */}
         <HeroSection />
 
-        <div className="mx-auto w-full max-w-7xl px-6 mt-16">
-          <MediaGeneratorWorkspace className="h-full w-full" />
-        </div>
+
 
         {/* <LogoCloud /> */}
 

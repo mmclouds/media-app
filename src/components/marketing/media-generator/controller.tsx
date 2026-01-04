@@ -101,7 +101,7 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
     {
       id: 'sora',
       label: 'Sora 2',
-      description: 'Cinematic 4s shots up to 1080p',
+      description: 'Realistic world & audio simulation',
       provider: 'OpenAI',
       mediaType: 'video',
       modelName: 'sora-2',
@@ -119,7 +119,7 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
     {
       id: 'veo3',
       label: 'Veo 3',
-      description: 'Long-form video with stylized presets',
+      description: 'Frame to frame control & multi-image reference',
       provider: 'Google DeepMind',
       mediaType: 'video',
       modelName: 'veo-3',
@@ -138,7 +138,7 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
     {
       id: 'nano-banana',
       label: 'Nano Banana',
-      description: 'Fast image creation with edit support',
+      description: 'Ultra-high character consistency',
       provider: 'Google',
       mediaType: 'image',
       modelName: 'nano-banana',
@@ -156,7 +156,7 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
     {
       id: 'audiocraft',
       label: 'AudioCraft Studio',
-      description: 'Generate ambient loops and sonic cues',
+      description: 'Realistic vocals and scalable V5 performance',
       provider: 'Meta',
       mediaType: 'audio',
       modelName: 'audiocraft-v1',
@@ -197,7 +197,7 @@ export function useMediaGeneratorController({
   const initialModels = MODEL_REGISTRY[resolvedInitial] ?? [];
   const initialModelId =
     preferredModelId &&
-    initialModels.some((model) => model.id === preferredModelId)
+      initialModels.some((model) => model.id === preferredModelId)
       ? preferredModelId
       : initialModels[0]?.id ?? '';
   const [mediaType, setMediaTypeState] = useState<MediaType>(resolvedInitial);

@@ -30,24 +30,24 @@ export default function FeaturesSection() {
 
   const images = {
     'item-1': {
-      image: '/blocks/charts-light.png',
-      darkImage: '/blocks/charts.png',
-      alt: 'Product Feature One',
+      image: '/blocks/ai-models-integration.png',
+      darkImage: '/blocks/ai-models-integration.png',
+      alt: 'AI Models Integration - Gemini, Sora, Veo, Suno',
     },
     'item-2': {
-      image: '/blocks/music-light.png',
-      darkImage: '/blocks/music.png',
-      alt: 'Product Feature Two',
+      image: '/blocks/multimodal-generation.png',
+      darkImage: '/blocks/multimodal-generation.png',
+      alt: 'Multimodal Generation - Images, Videos, Music',
     },
     'item-3': {
-      image: '/blocks/mail2-light.png',
-      darkImage: '/blocks/mail2.png',
-      alt: 'Product Feature Three',
+      image: '/blocks/pricing-free-trial.png',
+      darkImage: '/blocks/pricing-free-trial.png',
+      alt: 'Free Trial and Affordable Pricing',
     },
     'item-4': {
-      image: '/blocks/payments-light.png',
-      darkImage: '/blocks/payments.png',
-      alt: 'Product Feature Four',
+      image: '/blocks/fast-smooth-experience.png',
+      darkImage: '/blocks/fast-smooth-experience.png',
+      alt: 'Fast and Smooth User Experience',
     },
   };
 
