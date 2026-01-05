@@ -408,8 +408,6 @@ export function useMediaGeneratorController({
           progress: 0,
           errorMessage: message,
         });
-      } finally {
-        setIsSubmitting(false);
       }
     },
     [availableModels]
@@ -513,5 +511,6 @@ export function useMediaGeneratorController({
     onGenerate: handleGenerate,
     isGenerating: isSubmitting,
     activeGeneration,
+    finishGeneration: () => setIsSubmitting(false),
   };
 }

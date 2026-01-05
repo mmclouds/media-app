@@ -28,6 +28,7 @@ type PreviewPanelProps = {
   asset?: VideoGeneratorAsset | null;
   loading: boolean;
   activeGeneration?: VideoGenerationState | null;
+  onFeedRefreshed?: () => void;
 };
 
 const DEFAULT_VIDEO_SRC = '';
@@ -52,6 +53,7 @@ export function MediaGeneratorResultPane({
   asset,
   loading,
   activeGeneration,
+  onFeedRefreshed,
 }: PreviewPanelProps) {
   void loading;
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -298,8 +300,10 @@ export function MediaGeneratorResultPane({
     if (!isLoggedIn || !activeTaskId) {
       return;
     }
-    void loadFeed({ reset: true });
-  }, [activeGeneration?.taskId, isLoggedIn, loadFeed]);
+    void loadFeed({ reset: true }).then(() => {
+      onFeedRefreshed?.();
+    });
+  }, [activeGeneration?.taskId, isLoggedIn, loadFeed, onFeedRefreshed]);
 
   return (
     <section className="flex flex-1 min-h-0 flex-col bg-gradient-to-br from-[#050505] via-[#050505] to-[#0c0c0c] text-white">

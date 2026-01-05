@@ -32,6 +32,7 @@ export function MediaGeneratorWorkspace({
     onGenerate,
     isGenerating,
     activeGeneration,
+    finishGeneration,
   } = useMediaGeneratorController({
     initialMediaType,
     preferredModelId,
@@ -65,6 +66,7 @@ export function MediaGeneratorWorkspace({
       <MediaGeneratorResultPane
         loading={isGenerating}
         activeGeneration={activeGeneration}
+        onFeedRefreshed={finishGeneration}
       />
     </div>
   );

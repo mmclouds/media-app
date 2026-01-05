@@ -25,6 +25,7 @@ export function MediaOnlyGeneratorWorkspace({
     onGenerate,
     isGenerating,
     activeGeneration,
+    finishGeneration,
   } = useMediaGeneratorController({
     lockedMediaType: 'video',
     preferredModelId,
@@ -52,6 +53,7 @@ export function MediaOnlyGeneratorWorkspace({
       <MediaGeneratorResultPane
         loading={isGenerating}
         activeGeneration={activeGeneration}
+        onFeedRefreshed={finishGeneration}
       />
     </div>
   );
