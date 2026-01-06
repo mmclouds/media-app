@@ -56,7 +56,7 @@ export function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
               </div>
 
               {/* built with button */}
-              <BuiltWithButton />
+              {/* <BuiltWithButton /> */}
             </div>
           </div>
 

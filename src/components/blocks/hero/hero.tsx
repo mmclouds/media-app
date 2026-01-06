@@ -30,8 +30,8 @@ const transitionVariants = {
 export default function HeroSection() {
   const t = useTranslations('HomePage.hero');
   const linkIntroduction = 'https://x.com/mksaascom';
-  const linkPrimary = '/#pricing';
-  const linkSecondary = 'https://demo.mksaas.com';
+  const linkPrimary = '/media-studio';
+  const linkSecondary = '#pricing';
 
   return (
     <>
@@ -49,11 +49,11 @@ export default function HeroSection() {
         <section>
           <div className="relative pt-12">
             <div className="mx-auto max-w-7xl px-6">
-              <Ripple />
+              {/* <Ripple /> */}
 
               <div className="text-center sm:mx-auto lg:mr-auto lg:mt-0">
                 {/* introduction */}
-                <AnimatedGroup variants={transitionVariants}>
+                {/* <AnimatedGroup variants={transitionVariants}>
                   <LocaleLink
                     href={linkIntroduction}
                     className="hover:bg-accent group mx-auto flex w-fit items-center gap-2 rounded-full border p-1 pl-4"
@@ -73,7 +73,7 @@ export default function HeroSection() {
                       </div>
                     </div>
                   </LocaleLink>
-                </AnimatedGroup>
+                </AnimatedGroup> */}
 
                 {/* title */}
                 <TextEffect
@@ -143,7 +143,7 @@ export default function HeroSection() {
             </div>
 
             {/* images */}
-            <AnimatedGroup
+            {/* <AnimatedGroup
               variants={{
                 container: {
                   visible: {
@@ -178,7 +178,7 @@ export default function HeroSection() {
                   />
                 </div>
               </div>
-            </AnimatedGroup>
+            </AnimatedGroup> */}
           </div>
         </section>
       </main>

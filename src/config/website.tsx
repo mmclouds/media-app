@@ -11,7 +11,7 @@ export const websiteConfig: WebsiteConfig = {
   ui: {
     mode: {
       defaultMode: 'dark',
-      enableSwitch: true,
+      enableSwitch: false,
     },
   },
   metadata: {
@@ -21,13 +21,13 @@ export const websiteConfig: WebsiteConfig = {
       logoDark: '/logo-dark.png',
     },
     social: {
-      github: 'https://github.com/MkSaaSHQ',
-      twitter: 'https://mksaas.link/twitter',
-      blueSky: 'https://mksaas.link/bsky',
-      discord: 'https://mksaas.link/discord',
-      mastodon: 'https://mksaas.link/mastodon',
-      linkedin: 'https://mksaas.link/linkedin',
-      youtube: 'https://mksaas.link/youtube',
+      // github: 'https://github.com/MkSaaSHQ',
+      // twitter: 'https://mksaas.link/twitter',
+      // blueSky: 'https://mksaas.link/bsky',
+      // discord: 'https://mksaas.link/discord',
+      // mastodon: 'https://mksaas.link/mastodon',
+      // linkedin: 'https://mksaas.link/linkedin',
+      // youtube: 'https://mksaas.link/youtube',
     },
   },
   features: {
@@ -67,17 +67,17 @@ export const websiteConfig: WebsiteConfig = {
     },
   },
   blog: {
-    enable: true,
+    enable: false,
     paginationSize: 6,
     relatedPostsSize: 3,
   },
   docs: {
-    enable: true,
+    enable: false,
   },
   mail: {
     provider: 'resend',
-    fromEmail: 'MkSaaS <support@mksaas.com>',
-    supportEmail: 'MkSaaS <support@mksaas.com>',
+    fromEmail: 'VLook.Ai <support@vlook.ai>',
+    supportEmail: 'VLook.Ai <support@vlook.ai>',
   },
   newsletter: {
     enable: true,
@@ -100,7 +100,26 @@ export const websiteConfig: WebsiteConfig = {
         isLifetime: false,
         credits: {
           enable: true,
-          amount: 50,
+          amount: 10,
+          expireDays: 30,
+        },
+      },
+      lite: {
+        id: 'lite',
+        prices: [
+          {
+            type: PaymentTypes.SUBSCRIPTION,
+            priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_LITE_MONTHLY!,
+            amount: 490,
+            currency: 'USD',
+            interval: PlanIntervals.MONTH,
+          },
+        ],
+        isFree: false,
+        isLifetime: false,
+        credits: {
+          enable: true,
+          amount: 800,
           expireDays: 30,
         },
       },
@@ -110,46 +129,20 @@ export const websiteConfig: WebsiteConfig = {
           {
             type: PaymentTypes.SUBSCRIPTION,
             priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_MONTHLY!,
-            amount: 990,
+            amount: 1490,
             currency: 'USD',
             interval: PlanIntervals.MONTH,
-          },
-          {
-            type: PaymentTypes.SUBSCRIPTION,
-            priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_YEARLY!,
-            amount: 9900,
-            currency: 'USD',
-            interval: PlanIntervals.YEAR,
-          },
+          }
         ],
         isFree: false,
         isLifetime: false,
         popular: true,
         credits: {
           enable: true,
-          amount: 1000,
+          amount: 2500,
           expireDays: 30,
         },
-      },
-      lifetime: {
-        id: 'lifetime',
-        prices: [
-          {
-            type: PaymentTypes.ONE_TIME,
-            priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_LIFETIME!,
-            amount: 19900,
-            currency: 'USD',
-            allowPromotionCode: true,
-          },
-        ],
-        isFree: false,
-        isLifetime: true,
-        credits: {
-          enable: true,
-          amount: 1000,
-          expireDays: 30,
-        },
-      },
+      }
     },
   },
   credits: {

@@ -134,6 +134,7 @@
     "sonner": "^2.0.0",
     "streamdown": "^1.0.12",
     "stripe": "^17.6.0",
+    "stripe-cli": "github:stripe/stripe-cli",
     "swiper": "^11.2.5",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
