@@ -41,6 +41,8 @@ export function usePricePlans(): Record<string, PricePlan> {
     };
   }
 
+
+
   if (priceConfig.plans.pro) {
     plans.pro = {
       ...priceConfig.plans.pro,
@@ -54,6 +56,21 @@ export function usePricePlans(): Record<string, PricePlan> {
         t('pro.features.feature-5'),
       ],
       limits: [t('pro.limits.limit-1'), t('pro.limits.limit-2')],
+    };
+  }
+
+  if (priceConfig.plans.lite) {
+    plans.lite = {
+      ...priceConfig.plans.lite,
+      name: t('lite.name'),
+      description: t('lite.description'),
+      features: [
+        t('lite.features.feature-1'),
+        t('lite.features.feature-2'),
+        t('lite.features.feature-3'),
+        t('lite.features.feature-4'),
+      ],
+      limits: [t('lite.limits.limit-1'), t('lite.limits.limit-2')],
     };
   }
 

@@ -1,8 +1,8 @@
 {
   "Metadata": {
-    "name": "MkSaaS Demo",
-    "title": "MkSaaS - 最好的 AI SaaS 模板",
-    "description": "MkSaaS 是构建 AI SaaS 的最佳模板，使用 MkSaaS 可以在几天内轻松构建您的 AI SaaS，简单且毫不费力。"
+    "name": "vlook.ai",
+    "title": "vlook.ai | AI 图片、视频、音乐生成平台",
+    "description": "vlook.ai 汇聚 Gemini Nano Banana Pro、OpenAI Sora2、Google Veo 3.1、Suno 等顶级模型，快速生成图片、视频与音乐。提供免费试用，价格更友好。"
   },
   "Common": {
     "premium": "付费文章",
@@ -46,8 +46,8 @@
   },
   "PricingPage": {
     "title": "价格",
-    "description": "选择最适合您的付费计划",
-    "subtitle": "选择最适合您的付费计划",
+    "description": "简单透明的定价，含免费试用。",
+    "subtitle": "先免费试用，按需升级。",
     "monthly": "月付",
     "yearly": "年付",
     "PricingCard": {
@@ -82,6 +82,20 @@
         "limit-1": "不支持自定义域名",
         "limit-2": "不支持自定义品牌",
         "limit-3": "不支持终身更新"
+      }
+    },
+    "lite": {
+      "name": "Lite",
+      "description": "Essential features for light usage",
+      "features": {
+        "feature-1": "Up to 10 projects",
+        "feature-2": "5 GB storage",
+        "feature-3": "Standard analytics",
+        "feature-4": "Email support"
+      },
+      "limits": {
+        "limit-1": "Custom domains",
+        "limit-2": "Advanced analytics"
       }
     },
     "pro": {
@@ -143,12 +157,12 @@
   },
   "AboutPage": {
     "title": "关于我们",
-    "description": "MkSaaS 是一个使用最先进的技术栈构建的 AI SaaS 模板，它可以帮助你更快更好地构建你的 SaaS。如果你有任何问题，欢迎联系我。",
-    "authorName": "MkSaaS",
-    "authorBio": "最好的 AI SaaS 模板",
-    "introduction": "👋 你好，这里是 MkSaaS，一个使用最先进的技术栈构建的 AI SaaS 模板，它可以帮助你更快更好地构建你的 SaaS。如果你有任何问题，欢迎联系我。",
-    "talkWithMe": "联系我",
-    "followMe": "关注我"
+    "description": "vlook.ai 是多模态 AI 创作工作室，整合最新模型，实现图片、视频、音乐一站式生成，价格亲民。",
+    "authorName": "vlook.ai",
+    "authorBio": "AI 多媒体创作工作室",
+    "introduction": "你好！vlook.ai 是一站式多模态 AI 创作平台，集成 Gemini Nano Banana Pro、OpenAI Sora2、Google Veo 3.1、Suno 等模型，支持图片、视频、音乐生成，体验顺滑、价格实惠。",
+    "talkWithMe": "联系我们",
+    "followMe": "关注 vlook.ai"
   },
   "ChangelogPage": {
     "title": "更新日志",
@@ -296,7 +310,7 @@
     "previousPage": "上一页",
     "nextPage": "下一页",
     "chooseLanguage": "选择语言",
-    "title": "MkSaaS文档",
+    "title": "vlook.ai 文档",
     "homepage": "首页"
   },
   "PremiumContent": {
@@ -331,23 +345,23 @@
         "items": {
           "text": {
             "title": "AI 文本",
-            "description": "展示如何使用 AI 生成精彩文本"
+            "description": "AI 摘要、改写与灵感扩写。"
           },
           "image": {
-            "title": "AI 图像",
-            "description": "展示如何使用 AI 生成精美图像"
+            "title": "AI 图片",
+            "description": "文本生成高质量图片。"
           },
           "chat": {
             "title": "AI 聊天",
-            "description": "展示如何使用 AI 与客户聊天"
+            "description": "与 AI 对话完善创意与脚本。"
           },
           "video": {
             "title": "AI 视频",
-            "description": "展示如何使用 AI 生成惊人视频"
+            "description": "使用顶级模型生成电影级视频。"
           },
           "audio": {
             "title": "AI 音频",
-            "description": "展示如何使用 AI 生成动听音频"
+            "description": "生成原创音乐与音频素材。"
           }
         }
       },
@@ -449,7 +463,7 @@
       }
     },
     "footer": {
-      "tagline": "使用 MkSaaS 在几天内轻松构建您的 AI SaaS",
+      "tagline": "vlook.ai - 快速、实惠的 AI 图片、视频与音乐创作。",
       "product": {
         "title": "产品",
         "items": {
@@ -789,249 +803,281 @@
     }
   },
   "HomePage": {
-    "title": "MkSaaS",
-    "description": "使用 MkSaaS 在几天内轻松构建您的 AI SaaS 产品",
+    "title": "vlook.ai",
+    "description": "在一个流畅的工作室里，使用最新 AI 模型生成图片、视频与音乐。",
     "hero": {
-      "title": "使用 MkSaaS 轻松构建您的 AI SaaS 产品",
-      "description": "MkSaaS 是构建 AI SaaS 的最佳模板，内置 AI、身份验证、全球支付、博客、文档、邮件订阅、SEO、多彩主题、丰富组件等。",
-      "introduction": "介绍 MkSaaS 模板",
-      "primary": "开始使用",
-      "secondary": "查看演示"
+      "title": "用最新 AI 模型生成图片、视频与音乐",
+      "description": "vlook.ai 集成 Gemini Nano Banana Pro、OpenAI Sora2、Google Veo 3.1、Sunod等最先进模型，提供快速、低价的一体化创作体验。",
+      "introduction": "认识 vlook.ai",
+      "primary": "开始免费试用",
+      "secondary": "查看价格"
     },
     "logocloud": {
-      "title": "您最爱公司都是我们的合作伙伴"
+      "title": "全球创作者与团队的信赖之选"
     },
     "integration": {
-      "title": "集成",
-      "subtitle": "与您最喜欢的工具集成",
-      "description": "无缝连接流行的平台和服务，以增强您的工作流程。",
-      "learnMore": "了解更多",
+      "title": "顶级 AI 模型",
+      "subtitle": "每个创意都选对模型",
+      "description": "无需离开 vlook.ai，即可切换图片、视频、音乐模型。",
+      "learnMore": "查看全部模型",
       "items": {
         "item-1": {
-          "title": "Google Gemini",
-          "description": "这里是Google Gemini的描述，详细介绍Google Gemini的功能和优势。"
+          "title": "Gemini Nano Banana Pro",
+          "description": "高保真图片生成，细节丰富。"
         },
         "item-2": {
-          "title": "Replit",
-          "description": "这里是Replit的描述，详细介绍Replit的功能和优势。"
+          "title": "OpenAI Sora2",
+          "description": "电影级文生视频，运动更自然。"
         },
         "item-3": {
-          "title": "MagicUI",
-          "description": "这里是MagicUI的描述，详细介绍MagicUI的功能和优势。"
+          "title": "Google Veo 3.1",
+          "description": "高分辨率视频，场景连贯。"
         },
         "item-4": {
-          "title": "VSCodium",
-          "description": "这里是VSCodium的描述，详细介绍VSCodium的功能和优势。"
+          "title": "Suno",
+          "description": "提示词生成原创音乐与音轨。"
         },
         "item-5": {
-          "title": "MediaWiki",
-          "description": "这里是MediaWiki的描述，详细介绍MediaWiki的功能和优势。"
+          "title": "统一模型中心",
+          "description": "在同一工作区对比多模型输出。"
         },
         "item-6": {
-          "title": "Google PaLM",
-          "description": "这里是Google PaLM的描述，详细介绍Google PaLM的功能和优势。"
+          "title": "顺滑 Web 工作室",
+          "description": "响应迅速，迭代更高效。"
         }
       }
     },
     "integration2": {
-      "title": "与您最喜欢的工具集成",
-      "description": "无缝连接流行的平台和服务，以增强您的工作流程。",
-      "primaryButton": "开始使用",
-      "secondaryButton": "查看演示"
+      "title": "一站式 AI 多媒体工作室",
+      "description": "在一个地方生成、对比并精修图片、视频与音乐。",
+      "primaryButton": "开始免费试用",
+      "secondaryButton": "查看价格"
     },
-    "features": {
-      "title": "功能",
-      "subtitle": "您的 SaaS 产品功能",
-      "description": "请在这里介绍您的 SaaS 产品的特色功能的信息",
+    "integration3": {
+      "title": "一站式内容生成",
+      "subtitle": "图片、视频、音频一次打通",
+      "description": "统一模型中心、亲民价格与丝滑体验，让创作更高效。",
+      "learnMore": "了解更多",
       "items": {
         "item-1": {
-          "title": "产品特色功能一",
-          "description": "请在这里详细描述您的产品特色功能一，尽可能详细，使其更吸引用户，提高落地页的转化率"
+          "title": "图片内容生成",
+          "description": "高分辨率图片一键生成，细节更清晰。"
         },
         "item-2": {
-          "title": "产品特色功能二",
-          "description": "请在这里详细描述您的产品特色功能二，尽可能详细，使其更吸引用户，提高落地页的转化率"
+          "title": "视频内容生成",
+          "description": "镜头连贯、运动自然的文生视频。"
         },
         "item-3": {
-          "title": "产品特色功能三",
-          "description": "请在这里详细描述您的产品特色功能三，尽可能详细，使其更吸引用户，提高落地页的转化率"
+          "title": "音频内容生成",
+          "description": "音乐、音效与配音一次生成。"
         },
         "item-4": {
-          "title": "产品特色功能四",
-          "description": "请在这里详细描述您的产品特色功能四，尽可能详细，使其更吸引用户，提高落地页的转化率"
+          "title": "统一模型中心",
+          "description": "在同一工作区管理与对比多模型。"
+        },
+        "item-5": {
+          "title": "优惠价格",
+          "description": "低于官方API价格，成本更可控。"
+        },
+        "item-6": {
+          "title": "丝滑流畅体验",
+          "description": "预览、生成、下载全流程更顺滑。"
+        }
+      }
+    },
+    "features": {
+      "title": "为什么选择 vlook.ai",
+      "subtitle": "为现代 AI 创作者打造",
+      "description": "顶级模型、多模态输出与亲民价格。",
+      "items": {
+        "item-1": {
+          "title": "旗舰模型一站接入",
+          "description": "Gemini Nano Banana Pro、OpenAI Sora2、Google Veo 3.1、Suno 一站式使用。"
+        },
+        "item-2": {
+          "title": "多模态生成",
+          "description": "一个提示词即可生成图片、视频与音乐。"
+        },
+        "item-3": {
+          "title": "免费试用 + 低价",
+          "description": "先免费体验，按需升级，价格透明。"
+        },
+        "item-4": {
+          "title": "快速顺滑体验",
+          "description": "预览迅速、界面流畅、下载便捷。"
         }
       }
     },
     "features2": {
-      "title": "功能2",
-      "subtitle": "您的 SaaS 产品功能",
-      "description": "请在这里介绍您的 SaaS 产品的特色功能的信息",
-      "feature-1": "特色功能特点一",
-      "feature-2": "特色功能特点二",
-      "feature-3": "特色功能特点三",
-      "feature-4": "特色功能特点四"
+      "title": "核心亮点",
+      "subtitle": "AI 内容生产所需一应俱全",
+      "description": "以创作者为中心的一体化工作室。",
+      "feature-1": "图片、视频、音乐同一工作区",
+      "feature-2": "Gemini Nano Banana Pro、Sora2、Veo 3.1、Suno",
+      "feature-3": "免费试用与亲民价格",
+      "feature-4": "流程顺滑，高效出片"
     },
     "features3": {
-      "title": "功能3",
-      "subtitle": "您的 SaaS 产品功能",
-      "description": "请在这里介绍您的 SaaS 产品的特色功能的信息",
+      "title": "更多选择 vlook.ai 的理由",
+      "subtitle": "质量、速度与灵活度",
+      "description": "选对模型、控制成本、快速产出。",
       "items": {
         "item-1": {
-          "title": "产品特色功能一",
-          "description": "请在这里详细描述您的产品特色功能一，尽可能详细，使其更吸引用户"
+          "title": "自由选择最适合模型",
+          "description": "按任务切换图片、视频、音乐模型。"
         },
         "item-2": {
-          "title": "产品特色功能二",
-          "description": "请在这里详细描述您的产品特色功能二，尽可能详细，使其更吸引用户"
+          "title": "高质量视觉",
+          "description": "生成清晰图片与电影级视频。"
         },
         "item-3": {
-          "title": "产品特色功能三",
-          "description": "请在这里详细描述您的产品特色功能三，尽可能详细，使其更吸引用户"
+          "title": "音乐更简单",
+          "description": "用 Suno 生成原创配乐与音床。"
         },
         "item-4": {
-          "title": "产品特色功能四",
-          "description": "请在这里详细描述您的产品特色功能四，尽可能详细，使其更吸引用户"
+          "title": "规模化也实惠",
+          "description": "清晰计划，成本可控。"
         },
         "item-5": {
-          "title": "产品特色功能五",
-          "description": "请在这里详细描述您的产品特色功能五，尽可能详细，使其更吸引用户"
+          "title": "顺滑创作流程",
+          "description": "预览清晰、历史可追溯，迭代更快。"
         },
         "item-6": {
-          "title": "产品特色功能六",
-          "description": "请在这里详细描述您的产品特色功能六，尽可能详细，使其更吸引用户"
+          "title": "创作者友好导出",
+          "description": "一键导出适合社媒、广告与产品演示的素材。"
         }
       }
     },
     "pricing": {
       "title": "价格",
-      "subtitle": "价格",
-      "description": "选择最适合您的付费计划"
+      "subtitle": "简单透明的价格",
+      "description": "先免费试用，需求增加再升级。"
     },
     "faqs": {
       "title": "常见问题",
-      "subtitle": "如果您有任何问题，请随时联系我们",
+      "subtitle": "关于 vlook.ai 的快速解答",
       "items": {
         "item-1": {
           "question": "你们提供免费试用吗？",
-          "answer": "是的，我们提供7天的免费试用。"
+          "answer": "提供免费试用积分，可体验核心模型。"
         },
         "item-2": {
-          "question": "如何取消我的订阅？",
-          "answer": "您可以通过访问账单页面取消您的订阅。"
+          "question": "如何取消我的计划？",
+          "answer": "可在账单设置中随时取消。"
         },
         "item-3": {
-          "question": "我可以更改我的计划吗？",
-          "answer": "是的，您可以随时通过访问账单页面更改您的计划。"
+          "question": "可以更改我的计划吗？",
+          "answer": "可以，随时升级或降级。"
         },
         "item-4": {
-          "question": "你们的退款政策是什么？",
-          "answer": "是的，我们提供30天的退款保证。"
+          "question": "退款政策是什么？",
+          "answer": "符合条件的订单可退款，联系 support@vlook.ai。"
         },
         "item-5": {
-          "question": "找不到您想问的问题？",
-          "answer": "请联系我们的客户支持团队，邮箱地址：support@mksaas.com"
+          "question": "需要帮助或定制需求？",
+          "answer": "发送邮件至 support@vlook.ai，我们会尽快回复。"
         }
       }
     },
     "testimonials": {
-      "title": "客户评价",
-      "subtitle": "我们的客户对我们的评价",
+      "title": "用户评价",
+      "subtitle": "创作者怎么说",
       "items": {
         "item-1": {
           "name": "Jonathan Yombo",
           "role": "软件工程师",
           "image": "https://randomuser.me/api/portraits/men/1.jpg",
-          "quote": "MkSaaS 非常出色且实用，无需费心，一个真正的金矿。"
+          "quote": "vlook.ai 让我几分钟内产出高质量视觉，多模型选择是改变游戏的功能。"
         },
         "item-2": {
           "name": "Yves Kalume",
           "role": "Android GDE",
           "image": "https://randomuser.me/api/portraits/men/6.jpg",
-          "quote": "没有网页设计经验，我只需几分钟就可以用 Tailwindcss 重新设计我的整个网站，感谢 MkSaaS。"
+          "quote": "我能在一个工作室里完成图片、视频、音乐，速度快且价格友好。"
         },
         "item-3": {
           "name": "Yucel Faruksahan",
           "role": "Tailkits 创建者",
           "image": "https://randomuser.me/api/portraits/men/7.jpg",
-          "quote": "MkSaaS 模板做得很好，这是我见过最好的 SaaS 模板，没有之一 :)"
+          "quote": "Sora2 和 Veo 3.1 的效果很干净且电影感强，vlook.ai 省下我很多时间。"
         },
         "item-4": {
           "name": "Anonymous author",
           "role": "产品经理",
           "image": "https://randomuser.me/api/portraits/men/8.jpg",
-          "quote": "我不熟悉 Tailwind，我想自己做一些页面，我在网上搜索了很多英雄页面和区块。然而，大多数都没有给我一个清晰的想法，或者需要一些 HTML/CSS 编码背景来从原始文件中做一些更改，或者太贵了。我下载了其中一个 MkSaaS 模板，它非常容易理解，你可以在开始时修改代码/区块以完美地适应你的页面目的。"
+          "quote": "界面顺滑，预览迅速，让创意落地更轻松。"
         },
         "item-5": {
           "name": "Shekinah Tshiokufila",
           "role": "高级软件工程师",
           "image": "https://randomuser.me/api/portraits/men/4.jpg",
-          "quote": "MkSaaS 正在重新定义网页设计标准，这些区块为那些喜欢美丽但可能缺乏时间实现它的人提供了简单且高效的方式。我只能推荐这个不可思议的奇迹。"
+          "quote": "质量与价格的平衡做得很好，内容生产更稳定。"
         },
         "item-6": {
           "name": "Oketa Fred",
           "role": "全栈开发工程师",
           "image": "https://randomuser.me/api/portraits/men/2.jpg",
-          "quote": "我绝对喜欢 MkSaaS！这些组件区块设计精美且易于使用，使创建一个出色的网站变得轻而易举。"
+          "quote": "流程现代且响应快，是测试多模型最省心的方式。"
         },
         "item-7": {
           "name": "Zeki",
           "role": "ChatExtend 创始人",
           "image": "https://randomuser.me/api/portraits/men/5.jpg",
-          "quote": "使用 MkSaaS 就像解锁了一个秘密的设计超能力。它是简单性和多功能性的完美融合，使我们能够创建既令人惊叹又用户友好的界面。"
+          "quote": "把 Gemini Nano Banana Pro 与 Suno 放在一起，太方便了。"
         },
         "item-8": {
           "name": "Joseph Kitheka",
           "role": "全栈开发工程师",
           "image": "https://randomuser.me/api/portraits/men/9.jpg",
-          "quote": "MkSaaS 改变了我的网页开发方式。他们的 UI 组件、区块和模板极大地加速了我的工作流程。定制每个方面的灵活性使我能够创建独特的用户体验。MkSaaS 是现代网页开发的游戏规则改变者！"
+          "quote": "团队现在可以在一个工具里完成广告素材和配乐。"
         },
         "item-9": {
           "name": "Khatab Wedaa",
           "role": "MerakiUI 创建者",
           "image": "https://randomuser.me/api/portraits/men/10.jpg",
-          "quote": "MkSaaS 是一个优雅、干净且响应式的 SaaS 模板，它非常有助于快速开始您的项目。"
+          "quote": "vlook.ai 输出稳定、操作简单。"
         },
         "item-10": {
           "name": "Rodrigo Aguilar",
           "role": "TailwindAwesome 创建者",
           "image": "https://randomuser.me/api/portraits/men/11.jpg",
-          "quote": "我爱 MkSaaS ❤️。这些组件区块结构良好，易于使用，设计精美。它使创建一个出色的网站变得非常容易。"
+          "quote": "可以快速迭代并导出适合社媒与广告的素材。"
         },
         "item-11": {
           "name": "Eric Ampire",
-          "role": "Google 开发者专家",
+          "role": "Google Android 开发者专家",
           "image": "https://randomuser.me/api/portraits/men/12.jpg",
-          "quote": "MkSaaS 模板是任何想要创建一个美丽且功能齐全的网站但没有网页设计经验的人的完美解决方案。这些模板易于使用，可定制，并且响应迅速。我强烈推荐 MkSaaS 模板给任何想要创建网站的人。"
+          "quote": "高质量、价格公道、界面干净，正是创作者需要的。"
         },
         "item-12": {
           "name": "Roland Tubonge",
           "role": "软件工程师",
           "image": "https://randomuser.me/api/portraits/men/13.jpg",
-          "quote": "MkSaaS 设计得如此出色，即使没有网页设计经验，您也可以创造奇迹。让自己被吸引！"
+          "quote": "想要顶级模型与顺滑流程，vlook.ai 很难被超越。"
         }
       }
     },
     "stats": {
       "title": "统计",
-      "subtitle": "MkSaaS 相关的数字",
-      "description": "MkSaaS 可让您在几天内轻松构建您的 AI SaaS",
+      "subtitle": "vlook.ai 数据一览",
+      "description": "为现代团队提供快速、低价的 AI 多媒体创作。",
       "items": {
         "item-1": {
-          "title": "GitHub 上的星星"
+          "title": "创作者数量"
         },
         "item-2": {
-          "title": "使用 MkSaaS 的活跃用户"
+          "title": "媒体生成次数"
         },
         "item-3": {
-          "title": "使用 MkSaaS 启动的应用"
+          "title": "上线项目数"
         }
       }
     },
     "calltoaction": {
-      "title": "开始构建",
-      "description": "MkSaaS 可让您在几天内轻松构建您的 AI SaaS",
-      "primaryButton": "开始使用",
-      "secondaryButton": "查看演示"
+      "title": "开始使用 vlook.ai 创作",
+      "description": "用顶级 AI 模型生成图片、视频与音乐。现在免费试用。",
+      "primaryButton": "开始免费试用",
+      "secondaryButton": "查看价格"
     }
   },
   "AITextPage": {
@@ -1085,18 +1131,18 @@
   },
   "AIImagePage": {
     "title": "AI 图片",
-    "description": "MkSaaS 让您在几天内轻松构建您的 AI SaaS，简单且毫不费力"
+    "description": "使用 Gemini Nano Banana Pro 等模型生成高质量图片。"
   },
   "AIChatPage": {
     "title": "AI 聊天",
-    "description": "MkSaaS 让您在几天内轻松构建您的 AI SaaS，简单且毫不费力"
+    "description": "与 AI 对话完善提示词与创意方向。"
   },
   "AIVideoPage": {
     "title": "AI 视频",
-    "description": "MkSaaS 让您在几天内轻松构建您的 AI SaaS，简单且毫不费力"
+    "description": "使用 OpenAI Sora2 和 Google Veo 3.1 生成电影级视频。"
   },
   "AIAudioPage": {
     "title": "AI 音频",
-    "description": "MkSaaS 让您在几天内轻松构建您的 AI SaaS，简单且毫不费力"
+    "description": "用 Suno 秒级生成原创音乐。"
   }
 }

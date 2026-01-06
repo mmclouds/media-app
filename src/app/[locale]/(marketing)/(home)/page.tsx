@@ -4,14 +4,14 @@ import FeaturesSection from '@/components/blocks/features/features';
 import Features2Section from '@/components/blocks/features/features2';
 import Features3Section from '@/components/blocks/features/features3';
 import HeroSection from '@/components/blocks/hero/hero';
-import IntegrationSection from '@/components/blocks/integration/integration';
+import Integration3Section from '@/components/blocks/integration/integration3';
 import Integration2Section from '@/components/blocks/integration/integration2';
 import LogoCloud from '@/components/blocks/logo-cloud/logo-cloud';
 import PricingSection from '@/components/blocks/pricing/pricing';
 import StatsSection from '@/components/blocks/stats/stats';
 import TestimonialsSection from '@/components/blocks/testimonials/testimonials';
 import CrispChat from '@/components/layout/crisp-chat';
-import { MediaOnlyGeneratorWorkspace } from '@/components/marketing/media-generator/media-only-generator-workspace';
+import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { NewsletterCard } from '@/components/newsletter/newsletter-card';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
@@ -49,17 +49,19 @@ export default async function HomePage(props: HomePageProps) {
   return (
     <>
       <div className="flex flex-col">
+        {/* <div className="relative z-50 w-full">
+          <MediaGeneratorWorkspace className="h-full w-full" />
+        </div> */}
         <HeroSection />
 
-        <div className="mx-auto w-full max-w-7xl px-6">
-          <MediaOnlyGeneratorWorkspace className="h-full w-full" />
-        </div>
 
-        <LogoCloud />
 
-        <StatsSection />
+        {/* <LogoCloud /> */}
 
-        <IntegrationSection />
+        {/* <StatsSection /> */}
+
+        {/* <IntegrationSection /> */}
+        <Integration3Section />
 
         <FeaturesSection />
 
@@ -67,7 +69,7 @@ export default async function HomePage(props: HomePageProps) {
 
         <Features3Section />
 
-        <Integration2Section />
+        {/* <Integration2Section /> */}
 
         <PricingSection />
 
@@ -75,7 +77,7 @@ export default async function HomePage(props: HomePageProps) {
 
         <CallToActionSection />
 
-        <TestimonialsSection />
+        {/* <TestimonialsSection /> */}
 
         <NewsletterCard />
 

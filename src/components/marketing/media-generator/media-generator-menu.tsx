@@ -40,9 +40,9 @@ export function MediaGeneratorMenu({
   return (
     <aside className="flex h-full w-[72px] flex-col items-center justify-between border-r border-white/5 bg-[#060606] pt-5 pb-0 text-white">
       <div className="flex flex-col items-center gap-8">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/20 text-lg font-semibold tracking-tight">
-          VA
-        </div>
+        {/* <div className="flex h-17 w-17 items-center justify-center rounded-2xl border border-white/20 text-lg font-semibold tracking-tight"> */}
+        VLook
+        {/* </div> */}
 
         <nav className="flex flex-col items-center gap-5">
           {options.map((item) => (
@@ -188,11 +188,10 @@ function SidebarButton({
 }) {
   return (
     <button
-      className={`flex h-10 w-10 items-center justify-center rounded-xl transition ${
-        active
-          ? 'bg-white/10 text-white'
-          : 'text-white/50 hover:bg-white/5 hover:text-white'
-      }`}
+      className={`flex h-10 w-10 items-center justify-center rounded-xl transition ${active
+        ? 'bg-white/10 text-white'
+        : 'text-white/50 hover:bg-white/5 hover:text-white'
+        }`}
       aria-pressed={active}
       onClick={onClick}
       aria-label={label}

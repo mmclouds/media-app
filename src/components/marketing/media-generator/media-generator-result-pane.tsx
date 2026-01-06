@@ -5,7 +5,7 @@ import { useCurrentUser } from '@/hooks/use-current-user';
 import { useHoverPlayback } from '@/hooks/use-hover-playback';
 import { useVideoPoster } from '@/hooks/use-video-poster';
 import { useVirtualFeed } from '@/hooks/use-virtual-feed';
-import { FolderOpen } from 'lucide-react';
+import { Download, FolderOpen } from 'lucide-react';
 import type { RefObject } from 'react';
 import {
   useCallback,
@@ -28,17 +28,15 @@ type PreviewPanelProps = {
   asset?: VideoGeneratorAsset | null;
   loading: boolean;
   activeGeneration?: VideoGenerationState | null;
+  onFeedRefreshed?: () => void;
 };
 
 const DEFAULT_VIDEO_SRC = '';
 const DEFAULT_POSTER = '/images/media/fengmian.jpg';
 const LOADING_VIDEO_SRC = '';
 const LOADING_POSTER = DEFAULT_POSTER;
-const FAILED_POSTER =
-  'https://images.unsplash.com/photo-1527443224154-d1af1e991e5d?auto=format&fit=crop&w=1200&q=80';
 const DEFAULT_ERROR_MESSAGE = 'Generation failed. Please try again.';
 const FEED_LIMIT = 6;
-const POLL_INTERVAL_MS = 5000;
 const ESTIMATED_CARD_HEIGHT = 520;
 const VIRTUAL_OVERSCAN_PX = 800;
 
@@ -55,6 +53,7 @@ export function MediaGeneratorResultPane({
   asset,
   loading,
   activeGeneration,
+  onFeedRefreshed,
 }: PreviewPanelProps) {
   void loading;
   const scrollRef = useRef<HTMLDivElement | null>(null);
@@ -301,8 +300,10 @@ export function MediaGeneratorResultPane({
     if (!isLoggedIn || !activeTaskId) {
       return;
     }
-    void loadFeed({ reset: true });
-  }, [activeGeneration?.taskId, isLoggedIn, loadFeed]);
+    void loadFeed({ reset: true }).then(() => {
+      onFeedRefreshed?.();
+    });
+  }, [activeGeneration?.taskId, isLoggedIn, loadFeed, onFeedRefreshed]);
 
   return (
     <section className="flex flex-1 min-h-0 flex-col bg-gradient-to-br from-[#050505] via-[#050505] to-[#0c0c0c] text-white">
@@ -318,20 +319,13 @@ export function MediaGeneratorResultPane({
           ))}
         </div>
         <div className="flex items-center gap-4 text-xs">
-          <label className="flex items-center gap-2 text-white/70">
-            <input
-              type="checkbox"
-              className="h-4 w-4 rounded border-white/20 bg-transparent text-[#64ff6a]"
-            />
-            Favorites
-          </label>
           <AssetsButton />
         </div>
       </div>
 
       <div
         ref={scrollRef}
-        className="flex-1 space-y-6 overflow-y-auto px-0 py-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="flex-1 space-y-0 overflow-y-auto px-0 pb-6 pt-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {!isLoggedIn && (
           <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/80">
@@ -422,9 +416,8 @@ function Tab({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-md px-3 py-1 ${
-        active ? 'bg-white/10 text-white' : 'text-white/60'
-      }`}
+      className={`rounded-md px-3 py-1 ${active ? 'bg-white/10 text-white' : 'text-white/60'
+        }`}
     >
       {label}
     </button>
@@ -505,9 +498,6 @@ function VideoPreviewCard({
       : DEFAULT_ERROR_MESSAGE;
 
   const resolvedPoster = (() => {
-    if (isError) {
-      return FAILED_POSTER;
-    }
     if (isLoading) {
       return LOADING_POSTER;
     }
@@ -528,16 +518,16 @@ function VideoPreviewCard({
   return (
     <article
       ref={cardRef}
-      className="overflow-hidden border border-white/5 bg-gradient-to-b from-white/[0.04] to-black/70 shadow-2xl shadow-black/40"
+      className="overflow-hidden shadow-2xl shadow-black/40"
     >
-      <div className="space-y-3 border-b border-white/5 px-6 py-5">
+      <div className="space-y-3 px-6 py-5">
         <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-white/40">
           <span className="rounded-full border border-white/10 px-3 py-1 text-white">
             {mediaLabel}
           </span>
           <span className="text-white/60">{modelLabel}</span>
           {isActive ? (
-            <span className="ml-auto rounded-full bg-[#64ff6a]/20 px-3 py-1 text-[#64ff6a]">
+            <span className="ml-auto rounded-full px-3 py-1 text-[#64ff6a]">
               Latest
             </span>
           ) : null}
@@ -556,62 +546,66 @@ function VideoPreviewCard({
         onMouseEnter={isVideo ? handleMouseEnter : undefined}
         onMouseLeave={isVideo ? handleMouseLeave : undefined}
       >
-        {isError ? (
-          <div className="relative aspect-video w-full overflow-hidden rounded-none bg-black">
-            {/* <img
-              src={resolvedPoster}
-              alt="Generation failed"
-              className="h-full w-full object-cover opacity-60"
-            /> */}
-            <div className="absolute inset-0 bg-black/60" />
-            <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
-              <p
-                role="alert"
-                className="text-sm font-semibold leading-relaxed text-white"
-              >
-                {resolvedErrorMessage}
-              </p>
+        <div className="px-6">
+          {isError ? (
+            <div className="relative aspect-video w-full overflow-hidden rounded-none bg-neutral-900">
+              <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
+                <p
+                  role="alert"
+                  className="text-sm font-semibold leading-relaxed text-white"
+                >
+                  {resolvedErrorMessage}
+                </p>
+              </div>
             </div>
-          </div>
-        ) : isLoading ? (
-          <GenerationProgressVisual />
-        ) : isImage ? (
-          <div className="flex aspect-video w-full items-center justify-center bg-black">
-            <img
-              src={resolvedImageSrc}
-              alt={displayPrompt || 'Generated image'}
-              className="max-h-full max-w-full object-contain"
-            />
-          </div>
-        ) : isAudio ? (
-          <div className="flex aspect-video w-full items-center justify-center bg-black">
-            <audio
+          ) : isLoading ? (
+            <GenerationProgressVisual />
+          ) : isImage ? (
+            <div className="relative flex aspect-video w-full items-center justify-center rounded-lg bg-neutral-900">
+              <img
+                src={resolvedImageSrc}
+                alt={displayPrompt || 'Generated image'}
+                className="max-h-full max-w-full object-contain"
+              />
+              <a
+                href={resolvedImageSrc}
+                download
+                className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg bg-black/60 text-white backdrop-blur-sm transition-all hover:bg-black/80 hover:scale-110"
+                title="Download image"
+              >
+                <Download className="h-4 w-4" />
+              </a>
+            </div>
+          ) : isAudio ? (
+            <div className="flex aspect-video w-full items-center justify-center rounded-lg bg-neutral-900">
+              <audio
+                controls
+                src={resolvedAudioSrc}
+                className="w-4/5 max-w-md"
+              />
+            </div>
+          ) : (
+            <video
+              ref={videoRef}
+              key={asset.id}
+              src={resolvedSrc || undefined}
+              crossOrigin="anonymous"
               controls
-              src={resolvedAudioSrc}
-              className="w-4/5 max-w-md"
-            />
-          </div>
-        ) : (
-          <video
-            ref={videoRef}
-            key={asset.id}
-            src={resolvedSrc || undefined}
-            crossOrigin="anonymous"
-            controls
-            loop
-            playsInline
-            poster={resolvedPoster}
-            className="aspect-video w-full bg-black object-cover"
-            onLoadedData={handleVideoLoaded}
-          >
-            <track
-              kind="captions"
-              label="Captions"
-              src="/captions/placeholder.vtt"
-              default
-            />
-          </video>
-        )}
+              loop
+              playsInline
+              poster={resolvedPoster}
+              className="aspect-video w-full bg-transparent object-cover"
+              onLoadedData={handleVideoLoaded}
+            >
+              <track
+                kind="captions"
+                label="Captions"
+                src="/captions/placeholder.vtt"
+                default
+              />
+            </video>
+          )}
+        </div>
       </div>
     </article>
   );
