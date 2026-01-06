@@ -47,6 +47,9 @@ certificates
 # kiro
 .kiro
 
+# idea
+.idea
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
