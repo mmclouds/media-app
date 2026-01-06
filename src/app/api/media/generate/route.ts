@@ -1,4 +1,4 @@
-import { hasEnoughCredits } from '@/credits/credits';
+import { consumeCredits, hasEnoughCredits } from '@/credits/credits';
 import { calculateCredits } from '@/custom/credits/pricing';
 import { auth } from '@/lib/auth';
 import { type NextRequest, NextResponse } from 'next/server';
@@ -246,6 +246,24 @@ export async function POST(request: NextRequest) {
         {
           status: response.ok ? 502 : response.status,
         },
+      );
+    }
+
+    try {
+      await consumeCredits({
+        userId,
+        amount: creditResult.credits,
+        description: `media generate`,
+      });
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error';
+      console.error(
+        `扣减积分失败, userId: ${userId}, taskId: ${result.data}, error: ${errorMessage}`
+      );
+      return NextResponse.json(
+        { error: 'Failed to consume credits', taskId: result.data },
+        { status: 500 }
       );
     }
 

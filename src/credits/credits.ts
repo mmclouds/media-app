@@ -98,6 +98,50 @@ export async function saveCreditTransaction({
   });
 }
 
+async function getShortestRemainingExpirationDate(userId: string) {
+  const db = await getDb();
+  const now = new Date();
+  const earliestExpiring = await db
+    .select({ expirationDate: creditTransaction.expirationDate })
+    .from(creditTransaction)
+    .where(
+      and(
+        eq(creditTransaction.userId, userId),
+        gt(creditTransaction.remainingAmount, 0),
+        not(isNull(creditTransaction.expirationDate)),
+        gt(creditTransaction.expirationDate, now),
+        not(eq(creditTransaction.type, CREDIT_TRANSACTION_TYPE.USAGE)),
+        not(eq(creditTransaction.type, CREDIT_TRANSACTION_TYPE.EXPIRE))
+      )
+    )
+    .orderBy(asc(creditTransaction.expirationDate))
+    .limit(1);
+
+  if (earliestExpiring.length > 0) {
+    return earliestExpiring[0]?.expirationDate || undefined;
+  }
+
+  const nonExpiring = await db
+    .select({ id: creditTransaction.id })
+    .from(creditTransaction)
+    .where(
+      and(
+        eq(creditTransaction.userId, userId),
+        gt(creditTransaction.remainingAmount, 0),
+        isNull(creditTransaction.expirationDate),
+        not(eq(creditTransaction.type, CREDIT_TRANSACTION_TYPE.USAGE)),
+        not(eq(creditTransaction.type, CREDIT_TRANSACTION_TYPE.EXPIRE))
+      )
+    )
+    .limit(1);
+
+  if (nonExpiring.length > 0) {
+    return undefined;
+  }
+
+  return addDays(now, 30);
+}
+
 /**
  * Add credits (registration, monthly, purchase, etc.)
  * @param params - Credit creation parameters
@@ -109,6 +153,7 @@ export async function addCredits({
   description,
   paymentId,
   expireDays,
+  expirationDate,
 }: {
   userId: string;
   amount: number;
@@ -116,6 +161,7 @@ export async function addCredits({
   description: string;
   paymentId?: string;
   expireDays?: number;
+  expirationDate?: Date;
 }) {
   if (!userId || !type || !description) {
     console.error('addCredits, invalid params', userId, type, description);
@@ -131,6 +177,10 @@ export async function addCredits({
   ) {
     console.error('addCredits, invalid expire days', userId, expireDays);
     throw new Error('Invalid expire days');
+  }
+  if (expirationDate && Number.isNaN(expirationDate.getTime())) {
+    console.error('addCredits, invalid expiration date', userId, expirationDate);
+    throw new Error('Invalid expiration date');
   }
   // Update user credit balance
   const db = await getDb();
@@ -168,7 +218,8 @@ export async function addCredits({
     amount,
     description,
     paymentId,
-    expirationDate: expireDays ? addDays(new Date(), expireDays) : undefined,
+    expirationDate:
+      expirationDate || (expireDays ? addDays(new Date(), expireDays) : undefined),
   });
 }
 
@@ -275,6 +326,38 @@ export async function consumeCredits({
     type: CREDIT_TRANSACTION_TYPE.USAGE,
     amount: -amount,
     description,
+  });
+}
+
+/**
+ * 返还积分（使用剩余积分的最短有效期；若没有积分则按30天计算）
+ * @param params - 返还参数
+ */
+export async function refundCredits({
+  userId,
+  amount,
+  description,
+}: {
+  userId: string;
+  amount: number;
+  description: string;
+}) {
+  if (!userId || !description) {
+    console.error('refundCredits, invalid params', userId, description);
+    throw new Error('Invalid params');
+  }
+  if (!Number.isFinite(amount) || amount <= 0) {
+    console.error('refundCredits, invalid amount', userId, amount);
+    throw new Error('Invalid amount');
+  }
+
+  const expirationDate = await getShortestRemainingExpirationDate(userId);
+  await addCredits({
+    userId,
+    amount,
+    type: CREDIT_TRANSACTION_TYPE.REFUND,
+    description,
+    expirationDate,
   });
 }
 

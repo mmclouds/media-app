@@ -9,6 +9,7 @@ export enum CREDIT_TRANSACTION_TYPE {
   LIFETIME_MONTHLY = 'LIFETIME_MONTHLY',      // Credits earned by lifetime plan monthly distribution
   USAGE = 'USAGE',                            // Credits spent by usage
   EXPIRE = 'EXPIRE',                          // Credits expired
+  REFUND = 'REFUND',                          // 生成失败返还积分
 }
 
 /**
