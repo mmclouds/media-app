@@ -14,6 +14,8 @@ export type VideoGeneratorAsset = {
   prompt?: string;
   src: string;
   poster?: string;
+  audioSources?: string[];
+  audioCovers?: string[];
   tags: string[];
   status?: string;
   createdAt?: string;
@@ -75,6 +77,8 @@ export type MediaTaskResult = {
   downloadUrl?: string | null;
   temporaryFileUrl?: string | null;
   fileUuid?: string | null;
+  coverFileUuid?: string | null;
+  temporaryCoverFileUrl?: string | null;
   providerName?: string | null;
   createdAt?: string | null;
   completedAt?: string | null;
@@ -108,7 +112,9 @@ export type MediaFeedItem = {
   onlineUrl?: string | null;
   downloadUrl?: string | null;
   fileUuid?: string | null;
+  coverFileUuid?: string | null;
   temporaryFileUrl?: string | null;
+  temporaryCoverFileUrl?: string | null;
   errorMessage?: string | null;
   errorCode?: string | null;
   retryCount?: number;

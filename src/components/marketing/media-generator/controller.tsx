@@ -169,12 +169,12 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
       configComponent: AudioCraftConfigFields,
     },
     {
-      id: 'suno-v5',
-      label: 'Suno V5',
+      id: 'suno',
+      label: 'suno',
       description: 'Lush vocals and detailed musical texture',
-      provider: 'Suno',
+      provider: 'suno',
       mediaType: 'audio',
-      modelName: 'suno-v5',
+      modelName: 'suno',
       model: 'V5',
       defaultConfig: {
         customMode: true,

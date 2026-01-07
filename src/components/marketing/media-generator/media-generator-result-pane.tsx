@@ -514,6 +514,20 @@ function VideoPreviewCard({
   const resolvedAudioSrc =
     isError || isLoading ? undefined : asset.src || undefined;
   const statusLabel = formatLabel(asset.status);
+  const audioSources =
+    isAudio && Array.isArray(asset.audioSources) && asset.audioSources.length > 0
+      ? asset.audioSources
+      : resolvedAudioSrc
+        ? [resolvedAudioSrc]
+        : [];
+  const audioCovers =
+    isAudio && Array.isArray(asset.audioCovers) ? asset.audioCovers : [];
+  const audioTracks = isAudio
+    ? audioSources.map((source, index) => ({
+      src: source,
+      cover: audioCovers[index] ?? audioCovers[0],
+    }))
+    : [];
 
   return (
     <article
@@ -577,12 +591,36 @@ function VideoPreviewCard({
               </a>
             </div>
           ) : isAudio ? (
-            <div className="flex aspect-video w-full items-center justify-center rounded-lg bg-neutral-900">
-              <audio
-                controls
-                src={resolvedAudioSrc}
-                className="w-4/5 max-w-md"
-              />
+            <div className="rounded-lg bg-neutral-900 px-4 py-4">
+              <div className="space-y-3">
+                {audioTracks.length > 0 ? (
+                  audioTracks.map((track, index) => (
+                    <div
+                      key={`${asset.id}-audio-${index}`}
+                      className="flex items-center gap-4 rounded-xl bg-white/5 p-3"
+                    >
+                      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-white/10">
+                        {track.cover ? (
+                          <img
+                            src={track.cover}
+                            alt={`Audio cover ${index + 1}`}
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center text-[10px] text-white/60">
+                            Cover
+                          </div>
+                        )}
+                      </div>
+                      <audio controls src={track.src} className="w-full" />
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex h-16 items-center justify-center rounded-xl bg-white/5 text-xs text-white/60">
+                    Audio unavailable
+                  </div>
+                )}
+              </div>
             </div>
           ) : (
             <video
@@ -632,18 +670,17 @@ function findOffsetIndex(offsets: number[], value: number) {
   return Math.max(0, Math.min(low, offsets.length - 2));
 }
 
-function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
-  if (!task.uuid && !task.taskId) {
-    return null;
+function splitCommaValues(value?: string | null) {
+  if (!value) {
+    return [];
   }
+  return value
+    .split(',')
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+}
 
-  const fileDownloadUrl = buildFileDownloadUrl(task.fileUuid);
-  const mediaUrl =
-    task.temporaryFileUrl ??
-    fileDownloadUrl ??
-    task.onlineUrl ??
-    DEFAULT_VIDEO_SRC;
-  const mediaType = normalizeMediaType(task.mediaType);
+function buildTaskMetadata(task: MediaFeedItem) {
   const parsed = parseParameters(task.parameters);
   const normalizedStatus = normalizeStatus(task.status);
   const prompt =
@@ -660,7 +697,6 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
     typeof parsed?.size === 'string' && parsed.size.length > 0
       ? parsed.size
       : '—';
-
   const tags = buildTags(task, parsed);
   const modelName =
     typeof task.modelName === 'string' && task.modelName.length > 0
@@ -668,6 +704,128 @@ function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
       : typeof parsed?.model === 'string' && parsed.model.length > 0
         ? parsed.model
         : undefined;
+
+  return {
+    normalizedStatus,
+    prompt,
+    seconds,
+    resolution,
+    tags,
+    modelName,
+  };
+}
+
+function resolveAudioSources(task: MediaFeedItem) {
+  const temporaryUrls = splitCommaValues(task.temporaryFileUrl);
+  if (temporaryUrls.length > 0) {
+    return temporaryUrls;
+  }
+
+  const downloadUrls = splitCommaValues(task.downloadUrl);
+  if (downloadUrls.length > 0) {
+    return downloadUrls;
+  }
+
+  const onlineUrls = splitCommaValues(task.onlineUrl);
+  if (onlineUrls.length > 0) {
+    return onlineUrls;
+  }
+
+  const fileUuids = splitCommaValues(task.fileUuid);
+  if (fileUuids.length > 0) {
+    return fileUuids
+      .map((uuid) => buildFileDownloadUrl(uuid))
+      .filter((url): url is string => Boolean(url));
+  }
+
+  return [];
+}
+
+function resolveAudioCovers(task: MediaFeedItem) {
+  const coverUrls = splitCommaValues(task.temporaryCoverFileUrl);
+  if (coverUrls.length > 0) {
+    return coverUrls;
+  }
+
+  const coverUuids = splitCommaValues(task.coverFileUuid);
+  if (coverUuids.length > 0) {
+    return coverUuids
+      .map((uuid) => buildFileDownloadUrl(uuid))
+      .filter((url): url is string => Boolean(url));
+  }
+
+  return [];
+}
+
+function resolveGenerationAudioSources(generation: VideoGenerationState) {
+  const temporaryUrls = splitCommaValues(generation.temporaryFileUrl);
+  if (temporaryUrls.length > 0) {
+    return temporaryUrls;
+  }
+
+  const downloadUrls = splitCommaValues(generation.downloadUrl);
+  if (downloadUrls.length > 0) {
+    return downloadUrls;
+  }
+
+  const onlineUrls = splitCommaValues(generation.onlineUrl);
+  if (onlineUrls.length > 0) {
+    return onlineUrls;
+  }
+
+  const fileUuids = splitCommaValues(generation.fileUuid);
+  if (fileUuids.length > 0) {
+    return fileUuids
+      .map((uuid) => buildFileDownloadUrl(uuid))
+      .filter((url): url is string => Boolean(url));
+  }
+
+  return [];
+}
+
+function mapTaskToAsset(task: MediaFeedItem): VideoGeneratorAsset | null {
+  if (!task.uuid && !task.taskId) {
+    return null;
+  }
+
+  const fileDownloadUrl = buildFileDownloadUrl(task.fileUuid);
+  const mediaType = normalizeMediaType(task.mediaType);
+
+  if (mediaType === 'audio') {
+    const { normalizedStatus, prompt, seconds, resolution, tags, modelName } =
+      buildTaskMetadata(task);
+    const sources = resolveAudioSources(task);
+    const covers = resolveAudioCovers(task);
+    const resolvedSources = sources.length > 0 ? sources : [DEFAULT_VIDEO_SRC];
+
+    return {
+      id: task.uuid ?? task.taskId ?? crypto.randomUUID(),
+      taskId: task.taskId,
+      fileUuid: task.fileUuid ?? null,
+      mediaType,
+      title: prompt ?? `Task ${task.taskId ?? task.uuid}`,
+      duration: seconds,
+      resolution,
+      modelName,
+      prompt,
+      src: resolvedSources[0] || DEFAULT_VIDEO_SRC,
+      poster: covers[0] ?? undefined,
+      audioSources: resolvedSources,
+      audioCovers: covers,
+      tags,
+      status: normalizedStatus,
+      createdAt: task.createdAt,
+      errorMessage: task.errorMessage,
+    };
+  }
+
+  const { normalizedStatus, prompt, seconds, resolution, tags, modelName } =
+    buildTaskMetadata(task);
+  const mediaUrl =
+    task.temporaryFileUrl ??
+    fileDownloadUrl ??
+    task.onlineUrl ??
+    DEFAULT_VIDEO_SRC;
 
   return {
     id: task.uuid ?? task.taskId ?? crypto.randomUUID(),
@@ -765,6 +923,10 @@ function mapGenerationToAsset(
     fileDownloadUrl ??
     generation.onlineUrl ??
     DEFAULT_VIDEO_SRC;
+  const isAudio = generation.mediaType === 'audio';
+  const audioSources = isAudio ? resolveGenerationAudioSources(generation) : [];
+  const resolvedAudioSources =
+    audioSources.length > 0 ? audioSources : [mediaUrl];
 
   return {
     id:
@@ -779,8 +941,9 @@ function mapGenerationToAsset(
     duration: '—',
     resolution: '—',
     prompt: generation.prompt,
-    src: mediaUrl,
+    src: isAudio ? resolvedAudioSources[0] || mediaUrl : mediaUrl,
     poster: mediaUrl ? undefined : DEFAULT_POSTER,
+    audioSources: isAudio ? resolvedAudioSources : undefined,
     tags,
     status: normalizedStatus,
     createdAt: generation.createdAt ?? undefined,
