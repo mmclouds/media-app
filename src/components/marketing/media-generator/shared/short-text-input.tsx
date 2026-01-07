@@ -1,29 +1,31 @@
 'use client';
 
-type PromptEditorProps = {
+import { Input } from '@/components/ui/input';
+
+type ShortTextInputProps = {
   value: string;
   onChange: (value: string) => void;
-  label?: string;
+  label: string;
   placeholder?: string;
   helperText?: string;
   maxLength?: number;
 };
 
-export function PromptEditor({
+export function ShortTextInput({
   value,
   onChange,
-  label = 'Prompt',
-  placeholder = 'Please describe your ideas.',
+  label,
+  placeholder,
   helperText,
   maxLength,
-}: PromptEditorProps) {
+}: ShortTextInputProps) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <p className="text-sm font-semibold text-white">{label}</p>
       </div>
-      <textarea
-        className="h-40 w-full resize-none rounded-2xl border border-white/30 bg-black/60 p-4 text-sm text-white/80 outline-none transition focus:border-white/60"
+      <Input
+        className="h-11 rounded-2xl border-white/30 bg-black/60 px-4 text-sm text-white/80 placeholder:text-white/40 focus-visible:border-white/60 focus-visible:ring-0"
         placeholder={placeholder}
         value={value}
         maxLength={maxLength}

@@ -63,5 +63,12 @@ export const currentPricingConfig: CreditPricingConfig = {
       params: {},
       priceUsd: 0.02, // 4 积分
     },
+
+    // ==================== suno v5 ====================
+    {
+      model: 'V5',
+      params: {},
+      priceUsd: 0.06, // 12 积分
+    },
   ],
 };

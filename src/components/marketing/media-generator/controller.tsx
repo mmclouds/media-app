@@ -10,6 +10,7 @@ import {
   useState,
 } from 'react';
 import { AudioCraftConfigFields } from './audio/audio-craft-config-fields';
+import { SunoConfigFields } from './audio/suno-config-fields';
 import {
   NanoBananaConfigFields,
   buildNanoBananaRequestBody,
@@ -166,6 +167,23 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
         mood: 'Ambient',
       },
       configComponent: AudioCraftConfigFields,
+    },
+    {
+      id: 'suno-v5',
+      label: 'Suno V5',
+      description: 'Lush vocals and detailed musical texture',
+      provider: 'Suno',
+      mediaType: 'audio',
+      modelName: 'suno-v5',
+      model: 'V5',
+      defaultConfig: {
+        customMode: true,
+        instrumental: false,
+        style: '',
+        title: '',
+        negativeTags: '',
+      },
+      configComponent: SunoConfigFields,
     },
   ],
 };
