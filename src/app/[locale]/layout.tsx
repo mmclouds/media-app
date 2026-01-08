@@ -57,6 +57,7 @@ export default async function LocaleLayout({
           fontNotoSansMono.variable,
           fontBricolageGrotesque.variable
         )}
+        style={{ backgroundColor: '#1a1a1a' }}
       >
         <NuqsAdapter>
           <NextIntlClientProvider>

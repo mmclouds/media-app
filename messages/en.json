@@ -71,51 +71,49 @@
   "PricePlans": {
     "free": {
       "name": "Free",
-      "description": "Basic features for personal use",
+      "description": "Essential features for personal use",
       "features": {
-        "feature-1": "Up to 3 projects",
-        "feature-2": "1 GB storage",
-        "feature-3": "Basic analytics",
-        "feature-4": "Community support"
+        "feature-1": "10 free credits",
+        "feature-2": "Image, video, and audio generation",
+        "feature-3": "Standard AI model access"
       },
       "limits": {
-        "limit-1": "Custom domains",
-        "limit-2": "Custom branding",
-        "limit-3": "Lifetime updates"
+        "limit-1": "No advanced models"
       }
     },
     "lite": {
-      "name": "Lite",
-      "description": "Essential features for light usage",
+      "name": "Advanced",
+      "description": "About 200 images / 26 videos",
       "features": {
-        "feature-1": "Up to 10 projects",
-        "feature-2": "5 GB storage",
-        "feature-3": "Standard analytics",
-        "feature-4": "Email support"
+        "feature-1": "Includes all Free features",
+        "feature-2": "800 credits",
+        "feature-3": "HD, watermark-free, lossless media downloads",
+        "feature-4": "Dedicated fast-generation queue",
+        "feature-5": "Run multiple tasks in parallel",
+        "feature-6": "Advanced model access"
       },
       "limits": {
-        "limit-1": "Custom domains",
-        "limit-2": "Advanced analytics"
+
       }
     },
     "pro": {
       "name": "Pro",
-      "description": "Advanced features for professionals",
+      "description": "About 625 images / 83 videos",
       "features": {
-        "feature-1": "Unlimited projects",
-        "feature-2": "10 GB storage",
-        "feature-3": "Advanced analytics",
-        "feature-4": "Priority support",
-        "feature-5": "Custom domains"
+        "feature-1": "Includes all Free features",
+        "feature-2": "2500 credits",
+        "feature-3": "HD, watermark-free, lossless media downloads",
+        "feature-4": "Dedicated fast-generation queue",
+        "feature-5": "Run multiple tasks in parallel",
+        "feature-6": "Advanced model access"
       },
       "limits": {
-        "limit-1": "Custom branding",
-        "limit-2": "Lifetime updates"
+
       }
     },
     "lifetime": {
       "name": "Lifetime",
-      "description": "Premium features with one-time payment",
+      "description": "One-time payment for all premium features",
       "features": {
         "feature-1": "All Pro features",
         "feature-2": "100 GB storage",

@@ -73,44 +73,42 @@
       "name": "免费版",
       "description": "适用于个人使用的基本功能",
       "features": {
-        "feature-1": "最多3个项目",
-        "feature-2": "1GB存储空间",
-        "feature-3": "基础分析功能",
-        "feature-4": "社区支持"
+        "feature-1": "10免费积分",
+        "feature-2": "图片、视频、音频生成",
+        "feature-3": "普通AI模型支持"
       },
       "limits": {
-        "limit-1": "不支持自定义域名",
-        "limit-2": "不支持自定义品牌",
-        "limit-3": "不支持终身更新"
+        "limit-1": "不支持高级模型"
       }
     },
     "lite": {
-      "name": "Lite",
-      "description": "Essential features for light usage",
+      "name": "高级版",
+      "description": "约200张图片/26视频",
       "features": {
-        "feature-1": "Up to 10 projects",
-        "feature-2": "5 GB storage",
-        "feature-3": "Standard analytics",
-        "feature-4": "Email support"
+        "feature-1": "包含免费版所有功能",
+        "feature-2": "800积分",
+        "feature-3": "超清无水印无损多媒体下载",
+        "feature-4": "专有任务高速生成通道",
+        "feature-5": "支持多任务同时运行",
+        "feature-6": "高级模型支持"
       },
       "limits": {
-        "limit-1": "Custom domains",
-        "limit-2": "Advanced analytics"
+  
       }
     },
     "pro": {
       "name": "专业版",
-      "description": "专业人士的高级功能",
+      "description": "约625张图片/83视频",
       "features": {
-        "feature-1": "无限项目",
-        "feature-2": "10GB存储空间",
-        "feature-3": "高级分析功能",
-        "feature-4": "优先支持",
-        "feature-5": "自定义域名"
+        "feature-1": "包含免费版所有功能",
+        "feature-2": "2500积分",
+        "feature-3": "超清无水印无损多媒体下载",
+        "feature-4": "专有任务高速生成通道",
+        "feature-5": "支持多任务同时运行",
+        "feature-6": "高级模型支持"
       },
       "limits": {
-        "limit-1": "不支持自定义品牌",
-        "limit-2": "不支持终身更新"
+
       }
     },
     "lifetime": {

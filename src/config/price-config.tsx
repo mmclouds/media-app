@@ -31,12 +31,12 @@ export function usePricePlans(): Record<string, PricePlan> {
         t('free.features.feature-1'),
         t('free.features.feature-2'),
         t('free.features.feature-3'),
-        t('free.features.feature-4'),
+        // t('free.features.feature-4'),
       ],
       limits: [
-        t('free.limits.limit-1'),
-        t('free.limits.limit-2'),
-        t('free.limits.limit-3'),
+        // t('free.limits.limit-1'),
+        // t('free.limits.limit-2'),
+        // t('free.limits.limit-3'),
       ],
     };
   }
@@ -54,8 +54,9 @@ export function usePricePlans(): Record<string, PricePlan> {
         t('pro.features.feature-3'),
         t('pro.features.feature-4'),
         t('pro.features.feature-5'),
+        t('pro.features.feature-6'),
       ],
-      limits: [t('pro.limits.limit-1'), t('pro.limits.limit-2')],
+      // limits: [t('pro.limits.limit-1'), t('pro.limits.limit-2')],
     };
   }
 
@@ -69,8 +70,10 @@ export function usePricePlans(): Record<string, PricePlan> {
         t('lite.features.feature-2'),
         t('lite.features.feature-3'),
         t('lite.features.feature-4'),
+        t('lite.features.feature-5'),
+        t('lite.features.feature-6'),
       ],
-      limits: [t('lite.limits.limit-1'), t('lite.limits.limit-2')],
+      // limits: [t('lite.limits.limit-1'), t('lite.limits.limit-2')],
     };
   }
 

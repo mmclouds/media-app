@@ -65,7 +65,7 @@ export default async function HomePage(props: HomePageProps) {
 
         <FeaturesSection />
 
-        <Features2Section />
+        {/* <Features2Section /> */}
 
         <Features3Section />
 
