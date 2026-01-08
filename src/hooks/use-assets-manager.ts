@@ -77,8 +77,19 @@ export function useAssetsManager({
             ? parsed.model
             : undefined;
 
+      const normalizedMediaType = (() => {
+        const rawType = task.mediaType?.toLowerCase();
+        if (rawType === 'video' || rawType === 'image' || rawType === 'audio') {
+          return rawType;
+        }
+        return undefined;
+      })();
+
       return {
         id: task.uuid ?? task.taskId ?? crypto.randomUUID(),
+        taskId: task.taskId ?? task.uuid,
+        fileUuid: task.fileUuid,
+        mediaType: normalizedMediaType,
         title: prompt ?? `Task ${task.taskId ?? task.uuid}`,
         duration: seconds,
         resolution,
