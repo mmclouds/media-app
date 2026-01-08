@@ -34,12 +34,12 @@ export function useSidebarLinks(): NestedMenuItem[] {
   const isDemo = isDemoWebsite();
 
   return [
-    {
-      title: t('dashboard.title'),
-      icon: <LayoutDashboardIcon className="size-4 shrink-0" />,
-      href: Routes.Dashboard,
-      external: false,
-    },
+    // {
+    //   title: t('dashboard.title'),
+    //   icon: <LayoutDashboardIcon className="size-4 shrink-0" />,
+    //   href: Routes.Dashboard,
+    //   external: false,
+    // },
     {
       title: t('admin.title'),
       icon: <SettingsIcon className="size-4 shrink-0" />,
@@ -71,13 +71,13 @@ export function useSidebarLinks(): NestedMenuItem[] {
         },
         ...(websiteConfig.credits.enableCredits
           ? [
-              {
-                title: t('settings.credits.title'),
-                icon: <CoinsIcon className="size-4 shrink-0" />,
-                href: Routes.SettingsCredits,
-                external: false,
-              },
-            ]
+            {
+              title: t('settings.credits.title'),
+              icon: <CoinsIcon className="size-4 shrink-0" />,
+              href: Routes.SettingsCredits,
+              external: false,
+            },
+          ]
           : []),
         {
           title: t('settings.security.title'),
