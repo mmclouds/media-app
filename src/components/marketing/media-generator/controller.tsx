@@ -9,7 +9,6 @@ import {
   useRef,
   useState,
 } from 'react';
-import { AudioCraftConfigFields } from './audio/audio-craft-config-fields';
 import { SunoConfigFields } from './audio/suno-config-fields';
 import {
   NanoBananaConfigFields,
@@ -30,7 +29,6 @@ import {
   SoraConfigFields,
   buildSoraRequestBody,
 } from './video/sora-config-fields';
-import { Veo3ConfigFields } from './video/veo3-config-fields';
 
 const POLLING_INTERVAL_MS = 5000;
 const FINAL_STATUSES: MediaTaskStatus[] = ['completed', 'failed', 'timeout'];
@@ -117,25 +115,8 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
       configComponent: SoraConfigFields,
       supportsCreditEstimate: true,
     },
-    {
-      id: 'veo3',
-      label: 'Veo 3',
-      description: 'Frame to frame control & multi-image reference',
-      provider: 'Google DeepMind',
-      mediaType: 'video',
-      modelName: 'veo-3',
-      model: 'veo-3',
-      defaultConfig: {
-        seconds: 6,
-        fps: 24,
-        preset: 'Hyperreal',
-        includeAudio: true,
-      },
-      configComponent: Veo3ConfigFields,
-    },
   ],
   image: [
-
     {
       id: 'nano-banana',
       label: 'Nano Banana',
@@ -154,20 +135,6 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
     },
   ],
   audio: [
-    {
-      id: 'audiocraft',
-      label: 'AudioCraft Studio',
-      description: 'Realistic vocals and scalable V5 performance',
-      provider: 'Meta',
-      mediaType: 'audio',
-      modelName: 'audiocraft-v1',
-      model: 'audiocraft-v1',
-      defaultConfig: {
-        duration: 8,
-        mood: 'Ambient',
-      },
-      configComponent: AudioCraftConfigFields,
-    },
     {
       id: 'suno',
       label: 'suno',
