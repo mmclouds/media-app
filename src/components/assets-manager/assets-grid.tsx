@@ -11,6 +11,7 @@ interface AssetsGridProps {
   isLoading: boolean;
   hasMore: boolean;
   onLoadMore: () => void;
+  onOpenDetail?: (asset: VideoGeneratorAsset) => void;
   className?: string;
 }
 
@@ -36,6 +37,7 @@ export function AssetsGrid({
   isLoading,
   hasMore,
   onLoadMore,
+  onOpenDetail,
   className,
 }: AssetsGridProps) {
   const user = useCurrentUser();
@@ -131,6 +133,7 @@ export function AssetsGrid({
             key={row.id}
             row={row}
             columns={columns}
+            onOpenDetail={onOpenDetail}
             onHeightChange={
               rows.length > VIRTUALIZE_AFTER_ROWS
                 ? (height) => registerHeight(row.id, height)
@@ -171,10 +174,12 @@ function AssetsRow({
   row,
   columns,
   onHeightChange,
+  onOpenDetail,
 }: {
   row: AssetRow;
   columns: number;
   onHeightChange?: (height: number) => void;
+  onOpenDetail?: (asset: VideoGeneratorAsset) => void;
 }) {
   const rowRef = useRef<HTMLDivElement | null>(null);
 
@@ -205,7 +210,11 @@ function AssetsRow({
       style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
     >
       {row.items.map((asset) => (
-        <AssetCard key={asset.id} asset={asset} />
+        <AssetCard
+          key={asset.id}
+          asset={asset}
+          onOpenDetail={onOpenDetail}
+        />
       ))}
     </div>
   );

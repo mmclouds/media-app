@@ -18,4 +18,5 @@ export interface AssetsManagerDialogProps {
 export interface AssetCardProps {
   asset: VideoGeneratorAsset;
   onHeightChange?: (height: number) => void;
+  onOpenDetail?: (asset: VideoGeneratorAsset) => void;
 }

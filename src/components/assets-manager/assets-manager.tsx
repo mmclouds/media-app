@@ -1,7 +1,9 @@
 'use client';
 
+import type { VideoGeneratorAsset } from '@/components/marketing/media-generator/types';
 import { useAssetsManager } from '@/hooks/use-assets-manager';
 import { useState } from 'react';
+import { AssetDetailDialog } from './asset-detail-dialog';
 import { AssetsGrid } from './assets-grid';
 import { AssetsHeader } from './assets-header';
 import { AssetsTabBar } from './assets-tab-bar';
@@ -15,6 +17,10 @@ export function AssetsManager({
   defaultMediaType = 'VIDEO',
 }: AssetsManagerProps) {
   const [selectedMediaType, setSelectedMediaType] = useState(defaultMediaType);
+  const [selectedAsset, setSelectedAsset] = useState<VideoGeneratorAsset | null>(
+    null
+  );
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
   const { assets, isLoading, hasMore, error, setMediaType, loadMore, refresh } =
     useAssetsManager({
       initialMediaType: defaultMediaType,
@@ -23,6 +29,21 @@ export function AssetsManager({
   const handleMediaTypeChange = (type: 'VIDEO' | 'IMAGE' | 'AUDIO') => {
     setSelectedMediaType(type);
     setMediaType(type);
+  };
+
+  const handleOpenDetail = (asset: VideoGeneratorAsset) => {
+    if (!asset.taskId) {
+      return;
+    }
+    setSelectedAsset(asset);
+    setIsDetailOpen(true);
+  };
+
+  const handleDetailChange = (open: boolean) => {
+    setIsDetailOpen(open);
+    if (!open) {
+      setSelectedAsset(null);
+    }
   };
 
   return (
@@ -55,8 +76,15 @@ export function AssetsManager({
           isLoading={isLoading}
           hasMore={hasMore}
           onLoadMore={loadMore}
+          onOpenDetail={handleOpenDetail}
         />
       )}
+
+      <AssetDetailDialog
+        open={isDetailOpen}
+        onOpenChange={handleDetailChange}
+        asset={selectedAsset}
+      />
     </div>
   );
 }
