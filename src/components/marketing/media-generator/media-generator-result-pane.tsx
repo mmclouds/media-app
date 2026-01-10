@@ -1,6 +1,7 @@
 'use client';
 
 import { AssetsManagerDialog } from '@/components/assets-manager/assets-manager-dialog';
+import { AudioPlayer } from '@/components/shared/audio-player';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { useHoverPlayback } from '@/hooks/use-hover-playback';
 import { useVideoPoster } from '@/hooks/use-video-poster';
@@ -592,35 +593,23 @@ function VideoPreviewCard({
             </div>
           ) : isAudio ? (
             <div className="rounded-lg bg-neutral-900 px-4 py-4">
-              <div className="space-y-3">
-                {audioTracks.length > 0 ? (
-                  audioTracks.map((track, index) => (
-                    <div
+              {audioTracks.length > 0 ? (
+                <div className="grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2">
+                  {audioTracks.map((track, index) => (
+                    <AudioPlayer
                       key={`${asset.id}-audio-${index}`}
-                      className="flex items-center gap-4 rounded-xl bg-white/5 p-3"
-                    >
-                      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-white/10">
-                        {track.cover ? (
-                          <img
-                            src={track.cover}
-                            alt={`Audio cover ${index + 1}`}
-                            className="h-full w-full object-cover"
-                          />
-                        ) : (
-                          <div className="flex h-full w-full items-center justify-center text-[10px] text-white/60">
-                            Cover
-                          </div>
-                        )}
-                      </div>
-                      <audio controls src={track.src} className="w-full" />
-                    </div>
-                  ))
-                ) : (
-                  <div className="flex h-16 items-center justify-center rounded-xl bg-white/5 text-xs text-white/60">
-                    Audio unavailable
-                  </div>
-                )}
-              </div>
+                      audioUrl={track.src}
+                      coverUrl={track.cover}
+                      size="compact"
+                      className="w-full max-w-[320px]"
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex h-16 items-center justify-center rounded-xl bg-white/5 text-xs text-white/60">
+                  Audio unavailable
+                </div>
+              )}
             </div>
           ) : (
             <video

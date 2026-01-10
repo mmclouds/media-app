@@ -7,11 +7,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useCurrentUser } from '@/hooks/use-current-user';
+import { AudioPlayer } from '@/components/shared/audio-player';
 import { useEffect, useMemo, useState } from 'react';
-import {
-  AssetDetailTabs,
-  type AssetDetailSection,
-} from './asset-detail-tabs';
 
 type AssetDetailResponse = {
   taskId?: string | null;
@@ -137,119 +134,55 @@ export function AssetDetailDialog({
         ? detail.prompt.trim()
         : undefined;
     const parsedParameters = parseParameters(detail.parameters);
-    const resolvedPrompt = prompt ?? parsedParameters?.prompt;
+    const resolvedPrompt =
+      prompt ?? parsedParameters?.prompt ?? asset?.prompt ?? asset?.title;
     const resolution = parsedParameters?.size;
-    const duration =
-      typeof parsedParameters?.seconds === 'number' && parsedParameters.seconds > 0
-        ? `${parsedParameters.seconds}s`
-        : undefined;
     const modelName =
       typeof detail.modelName === 'string' && detail.modelName.length > 0
         ? detail.modelName
-        : parsedParameters?.model;
+        : typeof parsedParameters?.model === 'string' && parsedParameters.model.length > 0
+          ? parsedParameters.model
+          : typeof asset?.modelName === 'string' && asset.modelName.length > 0
+            ? asset.modelName
+            : typeof asset?.tags?.[1] === 'string' && asset.tags[1].length > 0
+              ? asset.tags[1]
+              : undefined;
 
     const mediaUrl = resolveMediaUrl(detail);
     const coverUrl = resolveCoverUrl(detail);
     const mediaType = inferMediaType(detail, mediaUrl);
-
-    const overviewItems = compactItems([
-      { label: 'Status', value: formatValue(detail.status) },
-      { label: 'Description', value: formatValue(detail.statusDescription) },
-      { label: 'Media Type', value: mediaType },
-      { label: 'Model', value: formatValue(modelName) },
-      { label: 'Provider', value: formatValue(detail.providerName) },
-      { label: 'Resolution', value: formatValue(resolution) },
-      { label: 'Duration', value: formatValue(duration) },
-      { label: 'Progress', value: formatValue(formatProgress(detail.progress)) },
-      { label: 'Created At', value: formatDateTime(detail.createdAt) },
-      { label: 'Completed At', value: formatDateTime(detail.completedAt) },
-      { label: 'Execution Time', value: formatDuration(detail.executionTimeMs) },
-      { label: 'Retry Count', value: formatValue(detail.retryCount) },
-      { label: 'Error', value: formatValue(detail.errorMessage) },
-    ]);
-
-    const fileDownloadUrl = buildFileDownloadUrl(detail.fileUuid);
-    const coverDownloadUrl = buildFileDownloadUrl(detail.coverFileUuid);
-    const fileItems = compactItems([
-      { label: 'Media URL', value: mediaUrl, href: mediaUrl },
-      {
-        label: 'Download URL',
-        value: formatValue(detail.downloadUrl),
-        href: detail.downloadUrl ?? undefined,
-      },
-      {
-        label: 'Online URL',
-        value: formatValue(detail.onlineUrl),
-        href: detail.onlineUrl ?? undefined,
-      },
-      {
-        label: 'Temporary URL',
-        value: formatValue(detail.temporaryFileUrl),
-        href: detail.temporaryFileUrl ?? undefined,
-      },
-      { label: 'File UUID', value: formatValue(detail.fileUuid), href: fileDownloadUrl },
-      { label: 'Cover URL', value: formatValue(coverUrl), href: coverUrl },
-      {
-        label: 'Cover File UUID',
-        value: formatValue(detail.coverFileUuid),
-        href: coverDownloadUrl,
-      },
-    ]);
-
-    const metaItems = compactItems([
-      { label: 'Task ID', value: formatValue(detail.taskId ?? taskId) },
-      { label: 'Tenant ID', value: formatValue(detail.tenantId) },
-      { label: 'User ID', value: formatValue(detail.userId) },
-      { label: 'Error Code', value: formatValue(detail.errorCode) },
-    ]);
-
-    const parametersText = formatParameters(detail.parameters);
-
-    const sections: AssetDetailSection[] = [
-      {
-        id: 'overview',
-        label: 'Overview',
-        items: overviewItems,
-      },
-      {
-        id: 'prompt',
-        label: 'Prompt',
-        text: resolvedPrompt,
-      },
-      {
-        id: 'parameters',
-        label: 'Parameters',
-        code: parametersText ?? undefined,
-      },
-      {
-        id: 'files',
-        label: 'Files',
-        items: fileItems,
-      },
-      {
-        id: 'meta',
-        label: 'Meta',
-        items: metaItems,
-      },
-    ];
-
-    const titleText =
-      resolvedPrompt ??
-      modelName ??
-      asset?.prompt ??
-      asset?.title ??
-      (taskId ? `Asset ${taskId}` : 'Asset Details');
+    const audioUrls = mediaType === 'audio' ? resolveAudioUrls(detail) : [];
+    const audioCoverUrls = mediaType === 'audio' ? resolveAudioCoverUrls(detail) : [];
+    const resolvedMediaUrl =
+      mediaType === 'audio' ? audioUrls[0] ?? mediaUrl : mediaUrl;
+    const resolvedCoverUrl =
+      mediaType === 'audio' ? audioCoverUrls[0] ?? coverUrl : coverUrl;
+    const tags = buildDetailTags({
+      assetTags: asset?.tags,
+      mediaType,
+      modelName,
+      resolution,
+      status: detail.status,
+    });
+    const originalPreview = resolveOriginalPreview(
+      mediaType,
+      resolvedMediaUrl,
+      resolvedCoverUrl
+    );
 
     return {
-      sections,
       mediaType,
-      mediaUrl,
-      coverUrl,
+      mediaUrl: resolvedMediaUrl,
+      coverUrl: resolvedCoverUrl,
+      audioUrls,
+      audioCoverUrls,
+      modelName,
+      tags,
+      originalLabel: formatOriginalLabel(mediaType),
+      originalPreview,
       resolvedPrompt,
-      titleText,
-      resolvedTaskId: detail.taskId ?? taskId,
     };
-  }, [detail, asset?.prompt, asset?.title, taskId]);
+  }, [detail, asset?.modelName, asset?.prompt, asset?.tags, asset?.title]);
 
   const showSignIn = open && !isLoggedIn;
   const showNotFound = open && !showSignIn && !taskId;
@@ -257,7 +190,7 @@ export function AssetDetailDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="w-[min(96vw,1200px)] max-w-6xl max-h-[90vh] overflow-hidden bg-[#0a0a0a] border border-white/10 text-white"
+        className="h-[min(86vh,calc(92vw*9/16))] w-[min(92vw,calc(86vh*16/9))] !max-w-none overflow-hidden bg-[#0a0a0a] border border-white/10 text-white"
       >
         <DialogTitle className="sr-only">Asset Details</DialogTitle>
         <div className="flex h-full min-h-0 flex-col gap-6">
@@ -287,31 +220,23 @@ export function AssetDetailDialog({
           )}
 
           {!showSignIn && !showNotFound && detailData && !isLoading && !error && (
-            <div className="flex h-full min-h-0 flex-col gap-6 overflow-y-auto pr-1">
-              <div className="flex flex-col gap-2">
-                <p className="text-xs uppercase tracking-[0.25em] text-white/40">
-                  Asset Details
-                </p>
-                <h2 className="text-2xl font-semibold text-white">
-                  {detailData.titleText}
-                </h2>
-                {detailData.resolvedTaskId && (
-                  <p className="text-sm text-white/60">
-                    ID: {detailData.resolvedTaskId}
-                  </p>
-                )}
-              </div>
-
-              <div className="grid gap-8 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
-                <div className="rounded-3xl border border-white/10 bg-black/40 p-4">
+            <div className="flex h-full min-h-0 flex-col gap-6">
+              <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-[minmax(0,1.9fr)_minmax(0,1fr)]">
+                <div className="flex min-h-0 flex-col rounded-3xl bg-black/40 p-4">
                   {detailData.mediaUrl ? (
-                    <div className="flex flex-col gap-4">
+                    <div
+                      className={`flex min-h-0 flex-1 flex-col rounded-2xl bg-black/60 p-3 ${
+                        detailData.mediaType === 'audio'
+                          ? 'items-center justify-start overflow-y-auto'
+                          : 'items-center justify-center'
+                      }`}
+                    >
                       {detailData.mediaType === 'video' && (
                         <video
                           controls
                           playsInline
                           poster={detailData.coverUrl ?? undefined}
-                          className="w-full rounded-2xl bg-black object-cover"
+                          className="h-full w-full rounded-2xl bg-black object-contain"
                           src={detailData.mediaUrl}
                         />
                       )}
@@ -320,34 +245,126 @@ export function AssetDetailDialog({
                         <img
                           src={detailData.mediaUrl}
                           alt={detailData.resolvedPrompt ?? 'Generated image'}
-                          className="w-full rounded-2xl bg-black object-contain"
+                          className="h-full w-full rounded-2xl bg-black object-contain"
                         />
                       )}
 
                       {detailData.mediaType === 'audio' && (
-                        <div className="flex flex-col gap-3">
-                          {detailData.coverUrl && (
-                            <img
-                              src={detailData.coverUrl}
-                              alt="Audio cover"
-                              className="w-full rounded-2xl bg-black object-cover"
-                            />
+                        <div className="grid w-full max-w-[720px] grid-cols-1 gap-4 sm:grid-cols-2 place-items-center my-auto">
+                          {detailData.audioUrls.length > 0 ? (
+                            detailData.audioUrls.map((url, index) => {
+                              const cover =
+                                detailData.audioCoverUrls[index] ??
+                                detailData.audioCoverUrls[0];
+                              return (
+                                <AudioPlayer
+                                  key={`${url}-${index}`}
+                                  audioUrl={url}
+                                  coverUrl={cover}
+                                  size="compact"
+                                  className="w-full max-w-[320px]"
+                                />
+                              );
+                            })
+                          ) : (
+                            <div className="rounded-2xl bg-white/5 px-4 py-3 text-sm text-white/60 sm:col-span-2">
+                              Preview unavailable.
+                            </div>
                           )}
-                          <audio controls className="w-full">
-                            <source src={detailData.mediaUrl} />
-                          </audio>
                         </div>
                       )}
                     </div>
                   ) : (
-                    <div className="flex min-h-[320px] items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-sm text-white/60">
+                    <div className="flex min-h-[320px] items-center justify-center rounded-2xl bg-white/5 text-sm text-white/60">
                       Preview unavailable.
                     </div>
                   )}
                 </div>
 
-                <div className="rounded-3xl border border-white/10 bg-black/40 p-4">
-                  <AssetDetailTabs sections={detailData.sections} />
+                <div className="flex min-h-0 flex-col rounded-3xl bg-black/40 p-5">
+                  <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-1">
+                    <div className="space-y-2">
+                      <p className="text-xs uppercase tracking-[0.2em] text-white/40">
+                        Model
+                      </p>
+                      <div className="rounded-2xl bg-white/5 px-4 py-3 text-sm text-white/80">
+                        {detailData.modelName ? (
+                          detailData.modelName
+                        ) : (
+                          <span className="text-white/60">No model available.</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="text-xs uppercase tracking-[0.2em] text-white/40">
+                        {detailData.originalLabel}
+                      </p>
+                      <div className="rounded-2xl bg-black/60 p-3">
+                        {detailData.originalPreview ? (
+                          detailData.originalPreview.kind === 'image' ? (
+                            <img
+                              src={detailData.originalPreview.url}
+                              alt={detailData.originalLabel}
+                              className="w-full max-h-48 rounded-xl bg-black object-contain"
+                            />
+                          ) : detailData.originalPreview.kind === 'video' ? (
+                            <video
+                              playsInline
+                              muted
+                              className="w-full max-h-48 rounded-xl bg-black object-contain"
+                              src={detailData.originalPreview.url}
+                            />
+                          ) : (
+                            <audio controls className="w-full">
+                              <source src={detailData.originalPreview.url} />
+                            </audio>
+                          )
+                        ) : (
+                          <div className="rounded-xl bg-white/5 px-3 py-4 text-sm text-white/60">
+                            Original media unavailable.
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="text-xs uppercase tracking-[0.2em] text-white/40">
+                        Prompt
+                      </p>
+                      <div className="rounded-2xl bg-white/5 px-4 py-3 text-sm text-white/80">
+                        {detailData.resolvedPrompt ? (
+                          <p className="whitespace-pre-line">
+                            {detailData.resolvedPrompt}
+                          </p>
+                        ) : (
+                          <p className="text-white/60">No prompt available.</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p className="text-xs uppercase tracking-[0.2em] text-white/40">
+                        Tags
+                      </p>
+                      <div className="rounded-2xl bg-white/5 px-4 py-3 text-sm text-white/80">
+                        {detailData.tags.length > 0 ? (
+                          <div className="flex flex-wrap gap-2">
+                            {detailData.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/70"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        ) : (
+                          <span className="text-white/60">No tags available.</span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -359,21 +376,83 @@ export function AssetDetailDialog({
 }
 
 function resolveMediaUrl(detail: AssetDetailResponse) {
-  return (
-    detail.temporaryFileUrl ??
-    detail.downloadUrl ??
-    detail.onlineUrl ??
-    buildFileDownloadUrl(detail.fileUuid) ??
-    undefined
-  );
+  const temporaryUrls = splitCommaValues(detail.temporaryFileUrl);
+  if (temporaryUrls.length > 0) {
+    return temporaryUrls[0];
+  }
+
+  const downloadUrls = splitCommaValues(detail.downloadUrl);
+  if (downloadUrls.length > 0) {
+    return downloadUrls[0];
+  }
+
+  const onlineUrls = splitCommaValues(detail.onlineUrl);
+  if (onlineUrls.length > 0) {
+    return onlineUrls[0];
+  }
+
+  const fileUuids = splitCommaValues(detail.fileUuid);
+  if (fileUuids.length > 0) {
+    return buildFileDownloadUrl(fileUuids[0]);
+  }
+
+  return undefined;
 }
 
 function resolveCoverUrl(detail: AssetDetailResponse) {
-  return (
-    detail.temporaryCoverFileUrl ??
-    buildFileDownloadUrl(detail.coverFileUuid) ??
-    undefined
-  );
+  const temporaryUrls = splitCommaValues(detail.temporaryCoverFileUrl);
+  if (temporaryUrls.length > 0) {
+    return temporaryUrls[0];
+  }
+
+  const coverUuids = splitCommaValues(detail.coverFileUuid);
+  if (coverUuids.length > 0) {
+    return buildFileDownloadUrl(coverUuids[0]);
+  }
+
+  return undefined;
+}
+
+function resolveAudioUrls(detail: AssetDetailResponse) {
+  const temporaryUrls = splitCommaValues(detail.temporaryFileUrl);
+  if (temporaryUrls.length > 0) {
+    return temporaryUrls;
+  }
+
+  const downloadUrls = splitCommaValues(detail.downloadUrl);
+  if (downloadUrls.length > 0) {
+    return downloadUrls;
+  }
+
+  const onlineUrls = splitCommaValues(detail.onlineUrl);
+  if (onlineUrls.length > 0) {
+    return onlineUrls;
+  }
+
+  const fileUuids = splitCommaValues(detail.fileUuid);
+  if (fileUuids.length > 0) {
+    return fileUuids
+      .map((uuid) => buildFileDownloadUrl(uuid))
+      .filter((url): url is string => Boolean(url));
+  }
+
+  return [];
+}
+
+function resolveAudioCoverUrls(detail: AssetDetailResponse) {
+  const temporaryUrls = splitCommaValues(detail.temporaryCoverFileUrl);
+  if (temporaryUrls.length > 0) {
+    return temporaryUrls;
+  }
+
+  const coverUuids = splitCommaValues(detail.coverFileUuid);
+  if (coverUuids.length > 0) {
+    return coverUuids
+      .map((uuid) => buildFileDownloadUrl(uuid))
+      .filter((url): url is string => Boolean(url));
+  }
+
+  return [];
 }
 
 function buildFileDownloadUrl(fileUuid?: string | null) {
@@ -383,7 +462,20 @@ function buildFileDownloadUrl(fileUuid?: string | null) {
   return `/api/files/download/${encodeURIComponent(fileUuid)}`;
 }
 
-function inferMediaType(detail: AssetDetailResponse, mediaUrl?: string) {
+function splitCommaValues(value?: string | null) {
+  if (!value) {
+    return [];
+  }
+  return value
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function inferMediaType(
+  detail: AssetDetailResponse,
+  mediaUrl?: string
+): 'video' | 'image' | 'audio' {
   const rawType = detail.mediaType?.toLowerCase();
   if (rawType === 'video' || rawType === 'image' || rawType === 'audio') {
     return rawType;
@@ -432,80 +524,87 @@ function normalizeParameters(raw: Record<string, unknown>) {
   };
 }
 
-function formatParameters(raw?: string | Record<string, unknown> | null) {
-  if (!raw) {
-    return null;
-  }
-  if (typeof raw === 'string') {
-    try {
-      const parsed = JSON.parse(raw) as Record<string, unknown>;
-      return JSON.stringify(parsed, null, 2);
-    } catch {
-      return raw;
+type OriginalPreview =
+  | {
+      kind: 'image' | 'video' | 'audio';
+      url: string;
     }
+  | null;
+
+function resolveOriginalPreview(
+  mediaType: 'video' | 'image' | 'audio',
+  mediaUrl?: string,
+  coverUrl?: string
+): OriginalPreview {
+  if (mediaType === 'image') {
+    return mediaUrl ? { kind: 'image', url: mediaUrl } : null;
   }
-  return JSON.stringify(raw, null, 2);
-}
 
-function compactItems(items: Array<{ label: string; value?: string; href?: string }>) {
-  return items
-    .filter(hasValue)
-    .map((item) => ({ ...item, value: item.value.trim() }));
-}
-
-function hasValue(
-  item: {
-    label: string;
-    value?: string;
-    href?: string;
+  if (mediaType === 'video') {
+    if (coverUrl) {
+      return { kind: 'image', url: coverUrl };
+    }
+    return mediaUrl ? { kind: 'video', url: mediaUrl } : null;
   }
-): item is { label: string; value: string; href?: string } {
-  return typeof item.value === 'string' && item.value.trim().length > 0;
+
+  if (coverUrl) {
+    return { kind: 'image', url: coverUrl };
+  }
+  return mediaUrl ? { kind: 'audio', url: mediaUrl } : null;
 }
 
-function formatValue(value: unknown) {
-  if (value === null || value === undefined) {
+function formatOriginalLabel(mediaType: 'video' | 'image' | 'audio') {
+  if (mediaType === 'video') {
+    return 'Original Video';
+  }
+  if (mediaType === 'audio') {
+    return 'Original Audio';
+  }
+  return 'Original Image';
+}
+
+type DetailTagOptions = {
+  assetTags?: string[] | null;
+  mediaType?: string | null;
+  modelName?: string;
+  resolution?: string;
+  status?: string | null;
+};
+
+function buildDetailTags({
+  assetTags,
+  mediaType,
+  modelName,
+  resolution,
+  status,
+}: DetailTagOptions) {
+  const normalizedAssetTags = Array.isArray(assetTags)
+    ? assetTags.map((tag) => tag.trim()).filter(Boolean)
+    : [];
+
+  if (normalizedAssetTags.length > 0) {
+    return Array.from(new Set(normalizedAssetTags));
+  }
+
+  const tags = [
+    formatLabel(mediaType),
+    modelName,
+    resolution,
+    formatLabel(status),
+  ].filter(Boolean) as string[];
+
+  return Array.from(new Set(tags));
+}
+
+function formatLabel(label?: string | null) {
+  if (!label) {
     return undefined;
   }
-  if (typeof value === 'string') {
-    return value.trim();
-  }
-  if (typeof value === 'number') {
-    return Number.isFinite(value) ? String(value) : undefined;
-  }
-  return String(value);
-}
 
-function formatDateTime(value?: string | null) {
-  if (!value) {
-    return undefined;
-  }
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) {
-    return value;
-  }
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(date);
-}
-
-function formatDuration(value?: number | null) {
-  if (!value || !Number.isFinite(value)) {
-    return undefined;
-  }
-  return `${Math.round(value)} ms`;
-}
-
-function formatProgress(value?: number | null) {
-  if (value === null || value === undefined) {
-    return undefined;
-  }
-  if (!Number.isFinite(value)) {
-    return undefined;
-  }
-  return `${Math.round(value * 100)}%`;
+  return label
+    .toLowerCase()
+    .split(/[_\s]+/)
+    .filter(Boolean)
+    .map((chunk) => chunk.charAt(0).toUpperCase() + chunk.slice(1))
+    .join(' ');
 }
