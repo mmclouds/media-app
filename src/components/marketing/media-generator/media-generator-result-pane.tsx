@@ -61,6 +61,7 @@ export function MediaGeneratorResultPane({
   const nextCursorRef = useRef<string | null>(null);
   const hasMoreRef = useRef(true);
   const isFetchingRef = useRef(false);
+  const inFlightPromiseRef = useRef<Promise<void> | null>(null);
 
   const [remoteFeed, setRemoteFeed] = useState<VideoGeneratorAsset[]>([]);
   const [hasMore, setHasMore] = useState(true);
@@ -115,7 +116,12 @@ export function MediaGeneratorResultPane({
       }
 
       if (isFetchingRef.current) {
-        return;
+        if (!reset) {
+          return;
+        }
+        while (isFetchingRef.current && inFlightPromiseRef.current) {
+          await inFlightPromiseRef.current;
+        }
       }
 
       if (!reset && !hasMoreRef.current) {
@@ -125,6 +131,10 @@ export function MediaGeneratorResultPane({
       isFetchingRef.current = true;
       setIsFetching(true);
       setFeedNotice(null);
+      let resolveInFlight: (() => void) | null = null;
+      inFlightPromiseRef.current = new Promise<void>((resolve) => {
+        resolveInFlight = resolve;
+      });
 
       if (reset) {
         nextCursorRef.current = null;
@@ -224,6 +234,8 @@ export function MediaGeneratorResultPane({
         setHasMore(false);
       } finally {
         isFetchingRef.current = false;
+        resolveInFlight?.();
+        inFlightPromiseRef.current = null;
         setIsFetching(false);
       }
     },

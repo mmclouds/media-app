@@ -189,6 +189,7 @@ export function useMediaGeneratorController({
   const [activeGeneration, setActiveGeneration] =
     useState<VideoGenerationState | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isSubmittingRef = useRef(false);
   const [activeModelId, setActiveModelId] = useState<string>(initialModelId);
   const [modelConfigs, setModelConfigs] =
     useState<Record<string, MediaModelConfig>>(createInitialConfigs);
@@ -304,6 +305,10 @@ export function useMediaGeneratorController({
         return;
       }
 
+      if (isSubmittingRef.current) {
+        return;
+      }
+
       const resolvedConfig = {
         ...definition.defaultConfig,
         ...payload.config,
@@ -315,6 +320,7 @@ export function useMediaGeneratorController({
       const resolvedModelName = configModelVersion || definition.modelName;
       const fileUuids: string[] = [];
 
+      isSubmittingRef.current = true;
       setIsSubmitting(true);
 
       try {
@@ -496,6 +502,9 @@ export function useMediaGeneratorController({
     onGenerate: handleGenerate,
     isGenerating: isSubmitting,
     activeGeneration,
-    finishGeneration: () => setIsSubmitting(false),
+    finishGeneration: () => {
+      isSubmittingRef.current = false;
+      setIsSubmitting(false);
+    },
   };
 }
