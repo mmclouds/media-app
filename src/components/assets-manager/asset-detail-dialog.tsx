@@ -18,6 +18,7 @@ type AssetDetailResponse = {
   onlineUrl?: string | null;
   downloadUrl?: string | null;
   temporaryFileUrl?: string | null;
+  temporaryInputFileUrl?: string | null;
   fileUuid?: string | null;
   coverFileUuid?: string | null;
   temporaryCoverFileUrl?: string | null;
@@ -164,11 +165,7 @@ export function AssetDetailDialog({
       resolution,
       status: detail.status,
     });
-    const originalPreview = resolveOriginalPreview(
-      mediaType,
-      resolvedMediaUrl,
-      resolvedCoverUrl
-    );
+    const sourceImageUrls = resolveInputImageUrls(detail);
 
     return {
       mediaType,
@@ -178,8 +175,7 @@ export function AssetDetailDialog({
       audioCoverUrls,
       modelName,
       tags,
-      originalLabel: formatOriginalLabel(mediaType),
-      originalPreview,
+      sourceImageUrls,
       resolvedPrompt,
     };
   }, [detail, asset?.modelName, asset?.prompt, asset?.tags, asset?.title]);
@@ -227,7 +223,7 @@ export function AssetDetailDialog({
                     <div
                       className={`flex min-h-0 flex-1 flex-col rounded-2xl bg-black/60 p-3 ${
                         detailData.mediaType === 'audio'
-                          ? 'items-center justify-start overflow-y-auto'
+                          ? 'items-center justify-start overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'
                           : 'items-center justify-center'
                       }`}
                     >
@@ -282,7 +278,7 @@ export function AssetDetailDialog({
                 </div>
 
                 <div className="flex min-h-0 flex-col rounded-3xl bg-black/40 p-5">
-                  <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-1">
+                  <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                     <div className="space-y-2">
                       <p className="text-xs uppercase tracking-[0.2em] text-white/40">
                         Model
@@ -296,37 +292,25 @@ export function AssetDetailDialog({
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-[0.2em] text-white/40">
-                        {detailData.originalLabel}
-                      </p>
-                      <div className="rounded-2xl bg-black/60 p-3">
-                        {detailData.originalPreview ? (
-                          detailData.originalPreview.kind === 'image' ? (
-                            <img
-                              src={detailData.originalPreview.url}
-                              alt={detailData.originalLabel}
-                              className="w-full max-h-48 rounded-xl bg-black object-contain"
-                            />
-                          ) : detailData.originalPreview.kind === 'video' ? (
-                            <video
-                              playsInline
-                              muted
-                              className="w-full max-h-48 rounded-xl bg-black object-contain"
-                              src={detailData.originalPreview.url}
-                            />
-                          ) : (
-                            <audio controls className="w-full">
-                              <source src={detailData.originalPreview.url} />
-                            </audio>
-                          )
-                        ) : (
-                          <div className="rounded-xl bg-white/5 px-3 py-4 text-sm text-white/60">
-                            Original media unavailable.
+                    {detailData.sourceImageUrls.length > 0 && (
+                      <div className="space-y-2">
+                        <p className="text-xs uppercase tracking-[0.2em] text-white/40">
+                          Source Image
+                        </p>
+                        <div className="rounded-2xl bg-black/60 p-3">
+                          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                            {detailData.sourceImageUrls.map((url, index) => (
+                              <img
+                                key={`${url}-${index}`}
+                                src={url}
+                                alt={`Source image ${index + 1}`}
+                                className="w-full max-h-48 rounded-xl bg-black object-contain"
+                              />
+                            ))}
                           </div>
-                        )}
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     <div className="space-y-2">
                       <p className="text-xs uppercase tracking-[0.2em] text-white/40">
@@ -411,6 +395,10 @@ function resolveCoverUrl(detail: AssetDetailResponse) {
   }
 
   return undefined;
+}
+
+function resolveInputImageUrls(detail: AssetDetailResponse) {
+  return splitCommaValues(detail.temporaryInputFileUrl);
 }
 
 function resolveAudioUrls(detail: AssetDetailResponse) {
@@ -522,45 +510,6 @@ function normalizeParameters(raw: Record<string, unknown>) {
     seconds: typeof merged.seconds === 'number' ? merged.seconds : undefined,
     model: typeof merged.model === 'string' ? merged.model : undefined,
   };
-}
-
-type OriginalPreview =
-  | {
-      kind: 'image' | 'video' | 'audio';
-      url: string;
-    }
-  | null;
-
-function resolveOriginalPreview(
-  mediaType: 'video' | 'image' | 'audio',
-  mediaUrl?: string,
-  coverUrl?: string
-): OriginalPreview {
-  if (mediaType === 'image') {
-    return mediaUrl ? { kind: 'image', url: mediaUrl } : null;
-  }
-
-  if (mediaType === 'video') {
-    if (coverUrl) {
-      return { kind: 'image', url: coverUrl };
-    }
-    return mediaUrl ? { kind: 'video', url: mediaUrl } : null;
-  }
-
-  if (coverUrl) {
-    return { kind: 'image', url: coverUrl };
-  }
-  return mediaUrl ? { kind: 'audio', url: mediaUrl } : null;
-}
-
-function formatOriginalLabel(mediaType: 'video' | 'image' | 'audio') {
-  if (mediaType === 'video') {
-    return 'Original Video';
-  }
-  if (mediaType === 'audio') {
-    return 'Original Audio';
-  }
-  return 'Original Image';
 }
 
 type DetailTagOptions = {
