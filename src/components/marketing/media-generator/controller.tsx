@@ -199,6 +199,10 @@ export function useMediaGeneratorController({
   const [restoredModelId, setRestoredModelId] = useState<string | null>(null);
   const hasRestoredRef = useRef(false);
   const currentUser = useCurrentUser();
+  const finishGeneration = useCallback(() => {
+    isSubmittingRef.current = false;
+    setIsSubmitting(false);
+  }, []);
 
   const effectiveMediaType = lockedMediaType ?? mediaType;
 
@@ -520,9 +524,6 @@ export function useMediaGeneratorController({
     onGenerate: handleGenerate,
     isGenerating: isSubmitting,
     activeGeneration,
-    finishGeneration: () => {
-      isSubmittingRef.current = false;
-      setIsSubmitting(false);
-    },
+    finishGeneration,
   };
 }

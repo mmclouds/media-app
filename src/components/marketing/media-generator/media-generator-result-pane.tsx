@@ -63,7 +63,8 @@ export function MediaGeneratorResultPane({
   const isFetchingRef = useRef(false);
   const inFlightPromiseRef = useRef<Promise<void> | null>(null);
   const inFlightResolveRef = useRef<(() => void) | null>(null);
-  const feedRefreshTokenRef = useRef(0);
+  const unlockedTaskIdRef = useRef<string | null>(null);
+  const onFeedRefreshedRef = useRef(onFeedRefreshed);
 
   const [remoteFeed, setRemoteFeed] = useState<VideoGeneratorAsset[]>([]);
   const [hasMore, setHasMore] = useState(true);
@@ -76,6 +77,7 @@ export function MediaGeneratorResultPane({
 
   const user = useCurrentUser();
   const isLoggedIn = !!user?.id;
+  const activeTaskId = activeGeneration?.taskId;
 
   const liveAsset = useMemo(
     () => (activeGeneration ? mapGenerationToAsset(activeGeneration) : null),
@@ -86,6 +88,10 @@ export function MediaGeneratorResultPane({
   useEffect(() => {
     liveAssetRef.current = liveAsset;
   }, [liveAsset]);
+
+  useEffect(() => {
+    onFeedRefreshedRef.current = onFeedRefreshed;
+  }, [onFeedRefreshed]);
 
   const localItems = useMemo(() => {
     if (liveAsset) {
@@ -211,6 +217,20 @@ export function MediaGeneratorResultPane({
           return merged;
         });
 
+        if (
+          activeTaskId &&
+          onFeedRefreshedRef.current &&
+          unlockedTaskIdRef.current !== activeTaskId
+        ) {
+          const hasTask = normalizedItems.some(
+            (item) => item.taskId === activeTaskId || item.id === activeTaskId
+          );
+          if (hasTask) {
+            unlockedTaskIdRef.current = activeTaskId;
+            onFeedRefreshedRef.current();
+          }
+        }
+
         const nextCursor = data.nextCursor ?? null;
         const more = Boolean(data.hasMore) && Boolean(nextCursor);
         nextCursorRef.current = nextCursor;
@@ -241,7 +261,7 @@ export function MediaGeneratorResultPane({
         setIsFetching(false);
       }
     },
-    [feedFilter, isLoggedIn]
+    [activeTaskId, feedFilter, isLoggedIn]
   );
 
   useEffect(() => {
@@ -311,18 +331,11 @@ export function MediaGeneratorResultPane({
   }, [isLoggedIn, liveAsset]);
 
   useEffect(() => {
-    const activeTaskId = activeGeneration?.taskId;
     if (!isLoggedIn || !activeTaskId) {
       return;
     }
-    feedRefreshTokenRef.current += 1;
-    const refreshToken = feedRefreshTokenRef.current;
-    void loadFeed({ reset: true }).then(() => {
-      if (feedRefreshTokenRef.current === refreshToken) {
-        onFeedRefreshed?.();
-      }
-    });
-  }, [activeGeneration?.taskId, isLoggedIn, loadFeed, onFeedRefreshed]);
+    void loadFeed({ reset: true });
+  }, [activeTaskId, isLoggedIn, loadFeed]);
 
   return (
     <section className="flex flex-1 min-h-0 flex-col bg-gradient-to-br from-[#050505] via-[#050505] to-[#0c0c0c] text-white">
