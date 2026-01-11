@@ -62,6 +62,8 @@ export function MediaGeneratorResultPane({
   const hasMoreRef = useRef(true);
   const isFetchingRef = useRef(false);
   const inFlightPromiseRef = useRef<Promise<void> | null>(null);
+  const inFlightResolveRef = useRef<(() => void) | null>(null);
+  const feedRefreshTokenRef = useRef(0);
 
   const [remoteFeed, setRemoteFeed] = useState<VideoGeneratorAsset[]>([]);
   const [hasMore, setHasMore] = useState(true);
@@ -131,9 +133,8 @@ export function MediaGeneratorResultPane({
       isFetchingRef.current = true;
       setIsFetching(true);
       setFeedNotice(null);
-      let resolveInFlight: (() => void) | null = null;
       inFlightPromiseRef.current = new Promise<void>((resolve) => {
-        resolveInFlight = resolve;
+        inFlightResolveRef.current = () => resolve();
       });
 
       if (reset) {
@@ -234,7 +235,8 @@ export function MediaGeneratorResultPane({
         setHasMore(false);
       } finally {
         isFetchingRef.current = false;
-        resolveInFlight?.();
+        inFlightResolveRef.current?.();
+        inFlightResolveRef.current = null;
         inFlightPromiseRef.current = null;
         setIsFetching(false);
       }
@@ -313,8 +315,12 @@ export function MediaGeneratorResultPane({
     if (!isLoggedIn || !activeTaskId) {
       return;
     }
+    feedRefreshTokenRef.current += 1;
+    const refreshToken = feedRefreshTokenRef.current;
     void loadFeed({ reset: true }).then(() => {
-      onFeedRefreshed?.();
+      if (feedRefreshTokenRef.current === refreshToken) {
+        onFeedRefreshed?.();
+      }
     });
   }, [activeGeneration?.taskId, isLoggedIn, loadFeed, onFeedRefreshed]);
 

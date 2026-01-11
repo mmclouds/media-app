@@ -54,9 +54,9 @@ export default async function MediaStudioPage() {
   const selection = await readMediaStudioSelection();
 
   return (
-    <main className="fixed inset-0 min-h-0 w-full overflow-hidden bg-[#020202] text-white">
+    <main className="h-[100dvh] w-full overflow-hidden bg-[#020202] text-white">
       <MediaGeneratorWorkspace
-        className="h-full w-full"
+        className="h-full w-full max-h-[100dvh]"
         persistKey="media-studio-selection"
         initialMediaType={selection?.mediaType}
         preferredModelId={selection?.modelId}
