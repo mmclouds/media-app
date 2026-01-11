@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
 
   if (!userId) {
     return NextResponse.json(
-      { error: 'Unauthorized' },
+      { error: 'Unauthorized', source: 'local' },
       {
         status: 401,
       },
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 
   if (!gatewayBaseUrl) {
     return NextResponse.json(
-      { error: 'AI gateway URL is not configured' },
+      { error: 'AI gateway URL is not configured', source: 'local' },
       {
         status: 500,
       },
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 
   if (!gatewayApiKey) {
     return NextResponse.json(
-      { error: 'AI gateway API key is not configured' },
+      { error: 'AI gateway API key is not configured', source: 'local' },
       {
         status: 500,
       },
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('解析视频生成参数失败:', error);
     return NextResponse.json(
-      { error: 'Invalid request body' },
+      { error: 'Invalid request body', source: 'local' },
       {
         status: 400,
       },
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
 
   if (!payload) {
     return NextResponse.json(
-      { error: 'Request body is required' },
+      { error: 'Request body is required', source: 'local' },
       {
         status: 400,
       },
@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
   // 必需参数检查
   if (!prompt) {
     return NextResponse.json(
-      { error: 'Prompt is required' },
+      { error: 'Prompt is required', source: 'local' },
       {
         status: 400,
       },
@@ -109,7 +109,7 @@ export async function POST(request: NextRequest) {
 
   if (!outgoingMediaType) {
     return NextResponse.json(
-      { error: 'mediaType is required' },
+      { error: 'mediaType is required', source: 'local' },
       {
         status: 400,
       },
@@ -122,6 +122,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error: `Invalid mediaType: ${outgoingMediaType}. Supported: ${supportedMediaTypes.join(', ')}`,
+        source: 'local',
       },
       {
         status: 400,
@@ -138,7 +139,7 @@ export async function POST(request: NextRequest) {
 
   if (!outgoingModelName) {
     return NextResponse.json(
-      { error: 'modelName is required' },
+      { error: 'modelName is required', source: 'local' },
       {
         status: 400,
       },
@@ -154,7 +155,7 @@ export async function POST(request: NextRequest) {
 
   if (!resolvedModel) {
     return NextResponse.json(
-      { error: 'Missing required parameter: model' },
+      { error: 'Missing required parameter: model', source: 'local' },
       {
         status: 400,
       },
@@ -164,7 +165,7 @@ export async function POST(request: NextRequest) {
   const creditResult = calculateCredits(payload);
   if (!creditResult) {
     return NextResponse.json(
-      { error: 'No matching pricing rule found' },
+      { error: 'No matching pricing rule found', source: 'local' },
       {
         status: 400,
       },
@@ -178,7 +179,10 @@ export async function POST(request: NextRequest) {
 
   if (!hasCredits) {
     return NextResponse.json(
-      { error: 'Insufficient credits. Please recharge your credits.' },
+      {
+        error: 'Insufficient credits. Please recharge your credits.',
+        source: 'local',
+      },
       {
         status: 402,
       },
@@ -242,7 +246,7 @@ export async function POST(request: NextRequest) {
       console.error('触发视频生成失败:', errorMessage, result);
 
       return NextResponse.json(
-        { error: errorMessage },
+        { error: errorMessage, source: 'gateway' },
         {
           status: response.ok ? 502 : response.status,
         },
@@ -262,7 +266,7 @@ export async function POST(request: NextRequest) {
         `扣减积分失败, userId: ${userId}, taskId: ${result.data}, error: ${errorMessage}`
       );
       return NextResponse.json(
-        { error: 'Failed to consume credits', taskId: result.data },
+        { error: 'Failed to consume credits', taskId: result.data, source: 'local' },
         { status: 500 }
       );
     }
@@ -271,7 +275,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('视频生成请求异常:', error);
     return NextResponse.json(
-      { error: 'Failed to trigger media task' },
+      { error: 'Failed to trigger media task', source: 'local' },
       {
         status: 500,
       },

@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { toast } from 'sonner';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { SunoConfigFields } from './audio/suno-config-fields';
 import {
@@ -375,11 +376,23 @@ export function useMediaGeneratorController({
           taskId?: string;
           error?: string;
           message?: string;
+          source?: 'gateway' | 'local';
         } | null;
 
         if (!response.ok || !result?.taskId) {
           const errorMessage =
             result?.error ?? result?.message ?? 'Failed to start generation.';
+          const isGatewayError = result?.source === 'gateway';
+
+          if (!isGatewayError) {
+            toast.error(errorMessage);
+          }
+
+          if (response.status === 402 && !isGatewayError) {
+            isSubmittingRef.current = false;
+            setIsSubmitting(false);
+            return;
+          }
           throw new Error(errorMessage);
         }
 

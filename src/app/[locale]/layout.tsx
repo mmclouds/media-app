@@ -64,7 +64,7 @@ export default async function LocaleLayout({
             <Providers locale={locale}>
               {children}
 
-              <Toaster richColors position="top-right" offset={64} />
+              <Toaster richColors position="bottom-right" offset={64} />
               <TailwindIndicator />
               <Analytics />
             </Providers>
