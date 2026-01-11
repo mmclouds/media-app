@@ -1,6 +1,9 @@
 'use client';
 
+import { LoginWrapper } from '@/components/auth/login-wrapper';
 import { Select, SelectContent, SelectTrigger } from '@/components/ui/select';
+import { useCurrentUser } from '@/hooks/use-current-user';
+import { useLocalePathname } from '@/i18n/navigation';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { CheckIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -40,6 +43,8 @@ export function MediaGeneratorConfigPanel({
 }: MediaGeneratorConfigPanelProps) {
   const activeModel =
     models.find((model) => model.id === activeModelId) ?? models[0];
+  const currentUser = useCurrentUser();
+  const currentPath = useLocalePathname();
 
   const activeConfig = activeModel
     ? (modelConfigs[activeModel.id] ?? activeModel.defaultConfig)
@@ -50,6 +55,20 @@ export function MediaGeneratorConfigPanel({
   useEffect(() => {
     setCreditEstimate(null);
   }, [activeModel?.id]);
+
+  const generateButton = (
+    <GenerateButton
+      mediaType={mediaType}
+      modelId={activeModel?.id ?? ''}
+      prompt={prompt}
+      config={activeConfig}
+      onGenerate={onGenerate}
+      disabled={isGenerating}
+      creditEstimate={
+        activeModel?.supportsCreditEstimate ? creditEstimate : undefined
+      }
+    />
+  );
 
   return (
     <section className="flex h-full min-h-0 w-[420px] flex-col bg-neutral-950 text-white">
@@ -92,17 +111,13 @@ export function MediaGeneratorConfigPanel({
         </div>
 
         <div className="mt-6 space-y-4">
-          <GenerateButton
-            mediaType={mediaType}
-            modelId={activeModel?.id ?? ''}
-            prompt={prompt}
-            config={activeConfig}
-            onGenerate={onGenerate}
-            disabled={isGenerating}
-            creditEstimate={
-              activeModel?.supportsCreditEstimate ? creditEstimate : undefined
-            }
-          />
+          {currentUser ? (
+            generateButton
+          ) : (
+            <LoginWrapper mode="modal" asChild callbackUrl={currentPath}>
+              {generateButton}
+            </LoginWrapper>
+          )}
         </div>
       </div>
     </section>

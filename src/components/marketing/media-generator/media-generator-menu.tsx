@@ -1,6 +1,7 @@
 'use client';
 
 import { LoginWrapper } from '@/components/auth/login-wrapper';
+import { Logo } from '@/components/layout/logo';
 import { CreditsBalanceMenu } from '@/components/layout/credits-balance-menu';
 import { UserAvatar } from '@/components/layout/user-avatar';
 import {
@@ -13,7 +14,7 @@ import {
 import { useAvatarLinks } from '@/config/avatar-config';
 import { websiteConfig } from '@/config/website';
 import { useCurrentUser } from '@/hooks/use-current-user';
-import { useLocalePathname, useLocaleRouter } from '@/i18n/navigation';
+import { LocaleLink, useLocalePathname, useLocaleRouter } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
 import type { User } from 'better-auth';
 import { LogOutIcon, MoreHorizontal } from 'lucide-react';
@@ -40,9 +41,9 @@ export function MediaGeneratorMenu({
   return (
     <aside className="flex h-full w-[72px] flex-col items-center justify-between border-r border-white/5 bg-[#060606] pt-5 pb-0 text-white">
       <div className="flex flex-col items-center gap-8">
-        {/* <div className="flex h-17 w-17 items-center justify-center rounded-2xl border border-white/20 text-lg font-semibold tracking-tight"> */}
-        VLook
-        {/* </div> */}
+        <LocaleLink href="/" aria-label="VLook Home">
+          <Logo className="size-8 rounded-lg transition hover:opacity-90" />
+        </LocaleLink>
 
         <nav className="flex flex-col items-center gap-5">
           {options.map((item) => (

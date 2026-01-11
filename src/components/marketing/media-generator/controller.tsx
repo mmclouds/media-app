@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { useCurrentUser } from '@/hooks/use-current-user';
 import { SunoConfigFields } from './audio/suno-config-fields';
 import {
   NanoBananaConfigFields,
@@ -196,6 +197,7 @@ export function useMediaGeneratorController({
   const [prompt, setPrompt] = useState('');
   const [restoredModelId, setRestoredModelId] = useState<string | null>(null);
   const hasRestoredRef = useRef(false);
+  const currentUser = useCurrentUser();
 
   const effectiveMediaType = lockedMediaType ?? mediaType;
 
@@ -290,6 +292,9 @@ export function useMediaGeneratorController({
 
   const handleGenerate = useCallback(
     async (payload: MediaGenerationPayload) => {
+      if (!currentUser) {
+        return;
+      }
       const trimmedPrompt = payload.prompt.trim();
       if (!trimmedPrompt) {
         return;
@@ -401,7 +406,7 @@ export function useMediaGeneratorController({
         });
       }
     },
-    [availableModels]
+    [availableModels, currentUser]
   );
 
   useEffect(() => {
