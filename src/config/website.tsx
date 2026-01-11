@@ -149,8 +149,8 @@ export const websiteConfig: WebsiteConfig = {
     enableCredits: true,
     enablePackagesForFreePlan: false,
     registerGiftCredits: {
-      enable: true,
-      amount: 50,
+      enable: false,
+      amount: 10,
       expireDays: 30,
     },
     packages: {
