@@ -57,6 +57,18 @@ export const currentPricingConfig: CreditPricingConfig = {
       priceUsd: 3.15, // 630 积分
     },
 
+    // ==================== veo3.1 ====================
+    {
+      model: 'veo3_fast',
+      params: {},
+      priceUsd: 0.3, // 60 积分
+    },
+    {
+      model: 'veo3',
+      params: {},
+      priceUsd: 1.25, // 250 积分
+    },
+
     // ==================== nano-banana ====================
     {
       model: ['google/nano-banana', 'google/nano-banana-edit'],

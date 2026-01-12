@@ -31,6 +31,10 @@ import {
   SoraConfigFields,
   buildSoraRequestBody,
 } from './video/sora-config-fields';
+import {
+  Veo3ConfigFields,
+  buildVeo3RequestBody,
+} from './video/veo3-config-fields';
 
 const POLLING_INTERVAL_MS = 5000;
 const FINAL_STATUSES: MediaTaskStatus[] = ['completed', 'failed', 'timeout'];
@@ -115,6 +119,22 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
         quality: 'standard',
       },
       configComponent: SoraConfigFields,
+      supportsCreditEstimate: true,
+    },
+    {
+      id: 'veo3',
+      label: 'Veo 3.1',
+      description: 'Cinematic motion with crisp detail',
+      provider: 'Google',
+      mediaType: 'video',
+      modelName: 'veo3.1',
+      model: 'veo3.1',
+      defaultConfig: {
+        generationType: 'TEXT_2_VIDEO',
+        modelVersion: 'veo3_fast',
+        aspectRatio: '16:9',
+      },
+      configComponent: Veo3ConfigFields,
       supportsCreditEstimate: true,
     },
   ],
@@ -327,8 +347,12 @@ export function useMediaGeneratorController({
         typeof resolvedConfig.modelVersion === 'string'
           ? resolvedConfig.modelVersion.trim()
           : '';
-      const resolvedModelName = configModelVersion || definition.modelName;
+      let resolvedModelName = configModelVersion || definition.modelName;
       const fileUuids: string[] = [];
+      const rawGenerationType =
+        typeof resolvedConfig.generationType === 'string'
+          ? resolvedConfig.generationType.trim()
+          : '';
 
       isSubmittingRef.current = true;
       setIsSubmitting(true);
@@ -336,7 +360,11 @@ export function useMediaGeneratorController({
       try {
         const isSora = definition.id === 'sora';
         const isNanoBanana = definition.id === 'nano-banana';
-        const requestBody = isSora
+        const isVeo3 = definition.id === 'veo3';
+        if (isVeo3 && (definition.model ?? definition.modelName)) {
+          resolvedModelName = definition.model ?? definition.modelName;
+        }
+        const requestBody = (isSora
           ? buildSoraRequestBody({
             prompt: trimmedPrompt,
             resolvedConfig,
@@ -348,13 +376,47 @@ export function useMediaGeneratorController({
               resolvedConfig,
               fileUuids,
             })
-            : {
-              mediaType: payload.mediaType.toUpperCase(),
-              modelName: resolvedModelName,
-              model: definition.model ?? definition.modelName,
-              prompt: trimmedPrompt,
-              ...resolvedConfig,
-            };
+            : isVeo3
+              ? buildVeo3RequestBody({
+                prompt: trimmedPrompt,
+                resolvedConfig,
+                fileUuids,
+              })
+              : {
+                mediaType: payload.mediaType.toUpperCase(),
+                modelName: resolvedModelName,
+                model: definition.model ?? definition.modelName,
+                prompt: trimmedPrompt,
+                ...resolvedConfig,
+              }) as Record<string, unknown>;
+
+        if (isVeo3) {
+          const generationType =
+            typeof requestBody.generationType === 'string'
+              ? requestBody.generationType
+              : rawGenerationType;
+          const imageUrls = Array.isArray(requestBody.imageUrls)
+            ? requestBody.imageUrls.filter(
+              (item): item is string =>
+                typeof item === 'string' && item.trim().length > 0
+            )
+            : [];
+
+          if (
+            (generationType === 'REFERENCE_2_VIDEO' ||
+              generationType === 'FIRST_AND_LAST_FRAMES_2_VIDEO') &&
+            imageUrls.length === 0
+          ) {
+            toast.error(
+              generationType === 'REFERENCE_2_VIDEO'
+                ? 'Add at least 1 reference image.'
+                : 'Add at least 1 frame image.'
+            );
+            isSubmittingRef.current = false;
+            setIsSubmitting(false);
+            return;
+          }
+        }
 
         const queryParams = new URLSearchParams();
         queryParams.set('mediaType', payload.mediaType.toUpperCase());
