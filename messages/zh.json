@@ -1142,5 +1142,124 @@
   "AIAudioPage": {
     "title": "AI 音频",
     "description": "用 Suno 秒级生成原创音乐。"
+  },
+  "NanoBananaStudioPage": {
+    "title": "Nano Banana 工作室",
+    "description": "用 Nano Banana 快速生成高转化图片，支持文生图、图生图与品牌化控制。",
+    "eyebrow": "图片模型",
+    "hero": {
+      "title": "Nano Banana 工作室",
+      "subtitle": "用 Nano Banana 默认参数快速产出营销视觉，再在同一工作区精修每个细节。",
+      "primaryCta": "立即生成",
+      "secondaryCta": "查看价格",
+      "tags": {
+        "tag-1": "快速迭代",
+        "tag-2": "风格一致",
+        "tag-3": "参考图可编辑"
+      }
+    },
+    "studio": {
+      "title": "实时工作台",
+      "description": "在下方直接生成，保留全部控制、历史和模型切换。"
+    },
+    "snapshot": {
+      "title": "模型速览",
+      "description": "Nano Banana 兼顾清晰度与速度，适合日常创意产出。可从文本生成，也可用参考图引导编辑。",
+      "items": {
+        "item-1": {
+          "title": "文生图",
+          "description": "短提示词即可生成清晰、构图稳定的视觉。"
+        },
+        "item-2": {
+          "title": "图生图",
+          "description": "最多上传 10 张参考图引导编辑与变体。"
+        },
+        "item-3": {
+          "title": "风格控制",
+          "description": "锁定配色、光线与氛围，保持品牌一致性。"
+        },
+        "item-4": {
+          "title": "批量出图",
+          "description": "快速生成多方案，再迭代到最佳版本。"
+        }
+      }
+    },
+    "workflow": {
+      "title": "可重复的高效流程",
+      "description": "为营销团队打造的快速产出闭环。",
+      "stepLabel": "步骤 {index}",
+      "items": {
+        "item-1": {
+          "title": "选择模式",
+          "description": "一键选择文生图或图生图。"
+        },
+        "item-2": {
+          "title": "写清晰提示词",
+          "description": "描述主体、风格与光线以提升质量。"
+        },
+        "item-3": {
+          "title": "预览并精修",
+          "description": "调整尺寸、格式与参考图。"
+        },
+        "item-4": {
+          "title": "导出与复用",
+          "description": "立即下载或继续迭代成整套素材。"
+        }
+      }
+    },
+    "useCases": {
+      "title": "为营销场景而生",
+      "description": "不用长周期拍摄，也能产出吸睛素材。",
+      "items": {
+        "item-1": "产品展示图",
+        "item-2": "广告创意",
+        "item-3": "社媒配图",
+        "item-4": "分镜草图",
+        "item-5": "包装灵感",
+        "item-6": "品牌变体"
+      }
+    },
+    "promptTips": {
+      "title": "高转化提示词公式",
+      "description": "用统一结构保持活动一致性。",
+      "formula": "主体 + 风格 + 光线 + 镜头",
+      "examples": {
+        "item-1": "极简护肤瓶，柔和日光，干净阴影，50mm 产品摄影。",
+        "item-2": "运动鞋置于水泥地，电影感光线，偏冷色调，广角镜头。",
+        "item-3": "冰咖啡飞溅，高速捕捉，明亮棚拍光，微距镜头。"
+      }
+    },
+    "faq": {
+      "title": "Nano Banana 常见问题",
+      "description": "计划投放前的快速解答。",
+      "items": {
+        "item-1": {
+          "question": "可导出什么格式？",
+          "answer": "支持 PNG 或 JPEG，适用于广告与社媒。"
+        },
+        "item-2": {
+          "question": "能编辑已有图片吗？",
+          "answer": "可以，使用图生图并上传最多 10 张参考图。"
+        },
+        "item-3": {
+          "question": "每次生成需要多少积分？",
+          "answer": "每次生成消耗 4 积分。"
+        },
+        "item-4": {
+          "question": "适合日常内容生产吗？",
+          "answer": "为快速迭代优化，输出稳定。"
+        },
+        "item-5": {
+          "question": "能保持品牌风格吗？",
+          "answer": "结合参考图和风格提示可保持一致。"
+        }
+      }
+    },
+    "cta": {
+      "title": "用 Nano Banana 更快交付营销素材",
+      "description": "几分钟生成清晰、统一的视觉素材，直到满意为止。",
+      "primaryCta": "打开工作室",
+      "secondaryCta": "对比方案"
+    }
   }
 }

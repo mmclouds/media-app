@@ -1142,5 +1142,124 @@
   "AIAudioPage": {
     "title": "AI Audio",
     "description": "Generate original music with Suno in seconds."
+  },
+  "NanoBananaStudioPage": {
+    "title": "Nano Banana Studio",
+    "description": "Build high-impact images fast with Nano Banana. Text-to-image, image-to-image, and brand-ready control in one focused studio.",
+    "eyebrow": "Image model",
+    "hero": {
+      "title": "Nano Banana Studio",
+      "subtitle": "Launch campaign-ready visuals with Nano Banana defaults, then refine every detail with the full model switcher at hand.",
+      "primaryCta": "Start generating",
+      "secondaryCta": "View pricing",
+      "tags": {
+        "tag-1": "Fast iteration",
+        "tag-2": "Consistent style",
+        "tag-3": "Editable with references"
+      }
+    },
+    "studio": {
+      "title": "Live Studio",
+      "description": "Generate directly in the studio below and keep your controls, history, and model switching in one view."
+    },
+    "snapshot": {
+      "title": "Model snapshot",
+      "description": "Nano Banana balances clarity and speed for everyday creative production. Start from text or guide edits with image references.",
+      "items": {
+        "item-1": {
+          "title": "Text to image",
+          "description": "Turn short prompts into crisp visuals with stable composition."
+        },
+        "item-2": {
+          "title": "Image to image",
+          "description": "Upload up to 10 references to steer edits and variations."
+        },
+        "item-3": {
+          "title": "Style control",
+          "description": "Lock palettes, lighting, and mood for on-brand consistency."
+        },
+        "item-4": {
+          "title": "Batch ready",
+          "description": "Generate multiple options fast, then iterate on the winner."
+        }
+      }
+    },
+    "workflow": {
+      "title": "Fast, repeatable workflow",
+      "description": "A simple loop designed for marketing teams shipping new creatives weekly.",
+      "stepLabel": "Step {index}",
+      "items": {
+        "item-1": {
+          "title": "Choose a mode",
+          "description": "Pick text-to-image or image-to-image in one click."
+        },
+        "item-2": {
+          "title": "Write a focused prompt",
+          "description": "Describe subject, style, and lighting for stronger results."
+        },
+        "item-3": {
+          "title": "Review and refine",
+          "description": "Adjust format, size, and references to tighten the look."
+        },
+        "item-4": {
+          "title": "Export and reuse",
+          "description": "Download instantly or iterate into a full campaign set."
+        }
+      }
+    },
+    "useCases": {
+      "title": "Made for marketing teams",
+      "description": "Ship scroll-stopping visuals without the long production cycles.",
+      "items": {
+        "item-1": "Product mockups",
+        "item-2": "Ad concepts",
+        "item-3": "Social posts",
+        "item-4": "Storyboards",
+        "item-5": "Packaging ideas",
+        "item-6": "Brand variations"
+      }
+    },
+    "promptTips": {
+      "title": "Prompt formula that converts",
+      "description": "Use a repeatable structure to keep campaigns consistent.",
+      "formula": "Subject + Style + Lighting + Lens",
+      "examples": {
+        "item-1": "Minimalist skincare bottle, soft daylight, clean shadow, 50mm product shot.",
+        "item-2": "Athleisure sneakers on concrete, cinematic lighting, moody tone, wide angle.",
+        "item-3": "Iced coffee splash, high-speed capture, bright studio light, macro lens."
+      }
+    },
+    "faq": {
+      "title": "Nano Banana FAQ",
+      "description": "Quick answers for planning your next launch.",
+      "items": {
+        "item-1": {
+          "question": "What formats can I export?",
+          "answer": "PNG or JPEG, ready for ads and social."
+        },
+        "item-2": {
+          "question": "Can I edit existing images?",
+          "answer": "Yes. Use image-to-image with up to 10 references."
+        },
+        "item-3": {
+          "question": "How much does each generation cost?",
+          "answer": "Nano Banana runs at 4 credits per generation."
+        },
+        "item-4": {
+          "question": "Is Nano Banana fast enough for daily content?",
+          "answer": "It is tuned for quick iteration with stable outputs."
+        },
+        "item-5": {
+          "question": "Can I keep brand style consistent?",
+          "answer": "Use references plus style cues to keep campaigns aligned."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ship campaigns faster with Nano Banana",
+      "description": "Generate sharp, on-brand visuals in minutes. Refine until every frame clicks.",
+      "primaryCta": "Open the studio",
+      "secondaryCta": "Compare plans"
+    }
   }
 }
