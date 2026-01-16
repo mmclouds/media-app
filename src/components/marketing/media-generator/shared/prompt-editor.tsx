@@ -23,7 +23,7 @@ export function PromptEditor({
         <p className="text-sm font-semibold text-white">{label}</p>
       </div>
       <textarea
-        className="h-40 w-full resize-none rounded-2xl border border-white/30 bg-black/60 p-4 text-sm text-white/80 outline-none transition focus:border-white/60"
+        className="h-40 w-full resize-none rounded-2xl border border-white/20 bg-[#0b0d10] p-4 text-sm text-white/80 shadow-inner shadow-black/40 outline-none transition focus:border-white/50 focus:ring-2 focus:ring-[#64ff6a]/30"
         placeholder={placeholder}
         value={value}
         maxLength={maxLength}

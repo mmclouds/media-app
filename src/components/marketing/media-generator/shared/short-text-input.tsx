@@ -25,7 +25,7 @@ export function ShortTextInput({
         <p className="text-sm font-semibold text-white">{label}</p>
       </div>
       <Input
-        className="h-11 rounded-2xl border-white/30 bg-black/60 px-4 text-sm text-white/80 placeholder:text-white/40 focus-visible:border-white/60 focus-visible:ring-0"
+        className="h-11 rounded-2xl border-white/20 bg-[#0b0d10] px-4 text-sm text-white/80 placeholder:text-white/40 shadow-inner shadow-black/40 transition focus-visible:border-white/50 focus-visible:ring-2 focus-visible:ring-[#64ff6a]/30"
         placeholder={placeholder}
         value={value}
         maxLength={maxLength}

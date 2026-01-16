@@ -57,8 +57,8 @@ export function ModelVersionSwitcher({
                     type="button"
                     className={`flex w-full flex-col items-start gap-1 rounded-xl border px-4 py-3 text-left transition ${
                       isActive
-                        ? 'border-white bg-white/10 text-white shadow-lg shadow-white/10'
-                        : 'border-white/15 bg-black/60 text-white/80 hover:border-white/30 hover:bg-white/5'
+                        ? 'border-white/40 bg-white/10 text-white shadow-lg shadow-black/40'
+                        : 'border-white/15 bg-[#0b0d10] text-white/70 hover:border-white/30 hover:bg-white/5'
                     }`}
                     onClick={() => onChange(option.value)}
                   >
@@ -115,8 +115,8 @@ export function SliderField({
               key={option}
               className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition ${
                 isChecked
-                  ? 'border-white bg-white/10 text-white'
-                  : 'border-white/20 bg-black/40 text-white/70 hover:border-white/40 hover:bg-white/5'
+                  ? 'border-white/40 bg-white/10 text-white'
+                  : 'border-white/15 bg-[#0b0d10] text-white/70 hover:border-white/40 hover:bg-white/5'
               }`}
             >
               <input
@@ -152,7 +152,7 @@ export function SelectField({
     <div className="space-y-2">
       <Label className="text-xs text-white/70">{label}</Label>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className="h-10 rounded-xl border-white/20 bg-black/60 text-white">
+        <SelectTrigger className="h-10 rounded-xl border-white/20 bg-[#0b0d10] text-white shadow-inner shadow-black/40 transition focus:ring-2 focus:ring-[#64ff6a]/30">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
@@ -208,8 +208,8 @@ export function AspectRatioField({
               key={option}
               className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition ${
                 isChecked
-                  ? 'border-white bg-white/10 text-white'
-                  : 'border-white/20 bg-black/40 text-white/70 hover:border-white/40 hover:bg-white/5'
+                  ? 'border-white/40 bg-white/10 text-white'
+                  : 'border-white/15 bg-[#0b0d10] text-white/70 hover:border-white/40 hover:bg-white/5'
               }`}
             >
               <input
@@ -261,8 +261,8 @@ export function CheckboxGroupField({
               key={option}
               className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition ${
                 isChecked
-                  ? 'border-white bg-white/10 text-white'
-                  : 'border-white/20 bg-black/40 text-white/70 hover:border-white/40 hover:bg-white/5'
+                  ? 'border-white/40 bg-white/10 text-white'
+                  : 'border-white/15 bg-[#0b0d10] text-white/70 hover:border-white/40 hover:bg-white/5'
               }`}
             >
               <input
@@ -307,8 +307,8 @@ export function Resolution({
               key={option.value}
               className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition ${
                 isChecked
-                  ? 'border-white bg-white/10 text-white'
-                  : 'border-white/20 bg-black/40 text-white/70 hover:border-white/40 hover:bg-white/5'
+                  ? 'border-white/40 bg-white/10 text-white'
+                  : 'border-white/15 bg-[#0b0d10] text-white/70 hover:border-white/40 hover:bg-white/5'
               }`}
             >
               <input
@@ -336,7 +336,7 @@ export function ToggleField({
   onChange: (value: boolean) => void;
 }) {
   return (
-    <label className="flex cursor-pointer items-center justify-between rounded-xl border border-white/20 bg-black/60 px-4 py-2 text-sm text-white/80">
+    <label className="flex cursor-pointer items-center justify-between rounded-xl border border-white/20 bg-[#0b0d10] px-4 py-2 text-sm text-white/80 shadow-inner shadow-black/40 transition hover:border-white/40">
       {label}
       <input
         type="checkbox"

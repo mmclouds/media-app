@@ -39,10 +39,10 @@ export function MediaGeneratorMenu({
   const currentUser = useCurrentUser();
 
   return (
-    <aside className="flex h-full w-[72px] flex-col items-center justify-between border-r border-white/5 bg-[#060606] pt-5 pb-0 text-white">
+    <aside className="flex h-full w-[72px] flex-col items-center justify-between border-r border-white/10 bg-gradient-to-b from-[#0c0f14] via-[#07090c] to-[#050506] pt-5 pb-0 text-white">
       <div className="flex flex-col items-center gap-8">
         <LocaleLink href="/" aria-label="VLook Home">
-          <Logo className="size-8 rounded-lg transition hover:opacity-90" />
+          <Logo className="size-8 rounded-lg border border-white/10 bg-white/5 p-1.5 transition hover:border-white/30 hover:bg-white/10" />
         </LocaleLink>
 
         <nav className="flex flex-col items-center gap-5">
@@ -63,13 +63,13 @@ export function MediaGeneratorMenu({
           <UserAvatar
             name={currentUser.name}
             image={currentUser.image}
-            className="border border-white/20"
+            className="border border-white/20 shadow-lg shadow-black/40"
           />
         ) : (
           <LoginWrapper callbackUrl={currentPath}>
             <button
               type="button"
-              className="text-xs font-semibold uppercase tracking-wide text-white/70 transition hover:text-white"
+              className="rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/70 transition hover:border-white/30 hover:text-white"
             >
               Sign In
             </button>
@@ -108,7 +108,7 @@ function MediaGeneratorUserMenu({ user }: { user: User }) {
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="flex h-10 w-full items-center justify-center text-white/60 transition hover:text-white"
+          className="flex h-10 w-full items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60 transition hover:border-white/30 hover:text-white"
           aria-label="Open user menu"
         >
           <MoreHorizontal className="h-6 w-6" />
@@ -190,7 +190,7 @@ function SidebarButton({
   return (
     <button
       className={`flex h-10 w-10 items-center justify-center rounded-xl transition ${active
-        ? 'bg-white/10 text-white'
+        ? 'bg-white/15 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.2)]'
         : 'text-white/50 hover:bg-white/5 hover:text-white'
         }`}
       aria-pressed={active}

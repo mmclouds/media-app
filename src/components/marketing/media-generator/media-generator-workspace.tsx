@@ -42,7 +42,7 @@ export function MediaGeneratorWorkspace({
   return (
     <div
       className={cn(
-        'flex h-full w-full max-h-screen min-h-0 overflow-hidden border border-white/10 bg-black text-white shadow-[0_40px_120px_rgba(0,0,0,0.45)]',
+        'flex h-full w-full max-h-screen min-h-0 overflow-hidden border border-white/10 bg-gradient-to-br from-[#0b0d10] via-[#080a0d] to-[#050608] text-white shadow-[0_40px_120px_rgba(0,0,0,0.55)]',
         className
       )}
     >

@@ -24,7 +24,7 @@ export function CreditEstimate({
   // 显示加载状态
   if (loading) {
     return (
-      <div className="rounded-lg border border-white/10 bg-black/40 p-3 text-sm">
+      <div className="rounded-2xl border border-white/15 bg-[#0b0d10] p-3 text-sm shadow-inner shadow-black/40">
         <div className="flex items-center justify-between">
           <span className="text-white/70">积分预估</span>
           <span className="h-4 w-16 animate-pulse rounded bg-white/20"></span>
@@ -40,7 +40,7 @@ export function CreditEstimate({
   // 显示错误信息
   if (error) {
     return (
-      <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm">
+      <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-3 text-sm">
         <div className="flex items-center justify-between">
           <span className="text-white/70">积分预估</span>
           <span className="text-red-400">计算失败</span>
@@ -55,7 +55,7 @@ export function CreditEstimate({
     const hasEnoughCredits = userCredits === undefined || userCredits >= result.credits;
 
     return (
-      <div className={`rounded-lg border p-3 text-sm ${
+      <div className={`rounded-2xl border p-3 text-sm ${
         hasEnoughCredits
           ? 'border-green-500/30 bg-green-500/10'
           : 'border-red-500/30 bg-red-500/10'
@@ -86,7 +86,7 @@ export function CreditEstimate({
 
   // 无数据状态
   return (
-    <div className="rounded-lg border border-white/10 bg-black/40 p-3 text-sm">
+    <div className="rounded-2xl border border-white/15 bg-[#0b0d10] p-3 text-sm shadow-inner shadow-black/40">
       <div className="flex items-center justify-between">
         <span className="text-white/70">积分预估</span>
         <span className="text-white/50">-</span>

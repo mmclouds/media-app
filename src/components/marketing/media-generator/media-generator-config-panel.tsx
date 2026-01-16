@@ -71,9 +71,9 @@ export function MediaGeneratorConfigPanel({
   );
 
   return (
-    <section className="flex h-full min-h-0 w-[420px] flex-col bg-neutral-950 text-white">
+    <section className="flex h-full min-h-0 w-[420px] flex-col border-r border-white/5 bg-gradient-to-b from-[#0b0e12] via-[#090b10] to-[#060709] text-white">
       {/* 顶层栏 */}
-      <div className="flex h-14 items-center justify-between border-b border-white/5 px-5">
+      <div className="flex h-14 items-center justify-between border-b border-white/10 bg-white/[0.02] px-5">
         <div>
           <p className="text-xs uppercase tracking-[0.32em] text-white/40">
             Creator
@@ -104,7 +104,7 @@ export function MediaGeneratorConfigPanel({
               />
             </div>
           ) : (
-            <div className="rounded-2xl border border-dashed border-white/10 p-4 text-sm text-white/60">
+            <div className="rounded-2xl border border-dashed border-white/15 bg-white/[0.02] p-4 text-sm text-white/60">
               Models for {mediaType} are coming soon.
             </div>
           )}
@@ -141,14 +141,14 @@ function ModelDropdown({ models, activeModelId, onChange }: ModelSelectProps) {
   return (
     <Select value={selectedModel?.id} onValueChange={onChange}>
       <SelectTrigger
-        className="w-[220px] rounded-full border-white/20 bg-white/5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white focus:ring-0 focus:ring-offset-0"
+        className="w-[220px] rounded-full border-white/20 bg-white/5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:border-white/40 hover:bg-white/10 focus:ring-0 focus:ring-offset-0"
         aria-label={selectedModel?.label ?? 'Select model'}
       >
         <span className="truncate">
           {selectedModel?.label ?? 'Select model'}
         </span>
       </SelectTrigger>
-      <SelectContent className="w-[240px] border-white/10 bg-black/90 text-white">
+      <SelectContent className="w-[240px] border-white/10 bg-[#0b0d11]/95 text-white shadow-2xl backdrop-blur">
         {models.map((model) => (
           <SelectPrimitive.Item
             key={model.id}

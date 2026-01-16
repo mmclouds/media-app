@@ -338,9 +338,9 @@ export function MediaGeneratorResultPane({
   }, [activeTaskId, isLoggedIn, loadFeed]);
 
   return (
-    <section className="flex flex-1 min-h-0 flex-col bg-gradient-to-br from-[#050505] via-[#050505] to-[#0c0c0c] text-white">
-      <div className="flex h-14 items-center justify-between border-b border-white/5 px-0">
-        <div className="flex gap-1 rounded-lg bg-white/5 p-1 text-xs font-semibold">
+    <section className="flex flex-1 min-h-0 flex-col border-l border-white/5 bg-gradient-to-br from-[#0a0c10] via-[#090b0f] to-[#060709] text-white">
+      <div className="flex h-14 items-center justify-between border-b border-white/10 bg-white/[0.02] px-6">
+        <div className="flex gap-1 rounded-full bg-white/5 p-1 text-xs font-semibold shadow-inner shadow-black/40">
           {FEED_TABS.map((tab) => (
             <Tab
               key={tab.id}
@@ -357,17 +357,17 @@ export function MediaGeneratorResultPane({
 
       <div
         ref={scrollRef}
-        className="flex-1 space-y-0 overflow-y-auto px-0 pb-6 pt-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="flex-1 space-y-0 overflow-y-auto px-6 pb-6 pt-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {!isLoggedIn && (
-          <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/80">
+          <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/80 shadow-lg shadow-black/30 backdrop-blur">
             <div className="h-2 w-2 rounded-full bg-[#64ff6a]" />
             Sign in to view your recent renders.
           </div>
         )}
 
         {feedNotice && (
-          <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/80">
+          <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/80 shadow-lg shadow-black/30 backdrop-blur">
             <div className="h-2 w-2 rounded-full bg-[#64ff6a]" />
             <span>{feedNotice.message}</span>
             {feedNotice.allowRetry && (
@@ -448,7 +448,7 @@ function Tab({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-md px-3 py-1 ${active ? 'bg-white/10 text-white' : 'text-white/60'
+      className={`rounded-full px-3 py-1 transition ${active ? 'bg-white/15 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.15)]' : 'text-white/60 hover:bg-white/5 hover:text-white'
         }`}
     >
       {label}
@@ -464,7 +464,7 @@ function AssetsButton() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-1.5 text-white/80 transition hover:text-white"
+        className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-white/80 transition hover:border-white/30 hover:text-white"
       >
         <FolderOpen className="h-4 w-4" />
         Assets
@@ -564,9 +564,9 @@ function VideoPreviewCard({
   return (
     <article
       ref={cardRef}
-      className="overflow-hidden shadow-2xl shadow-black/40"
+      className="overflow-hidden rounded-2xl border border-white/10 bg-[#0b0d10] shadow-2xl shadow-black/60 transition hover:border-white/20"
     >
-      <div className="space-y-3 px-6 py-5">
+      <div className="space-y-3 border-b border-white/10 bg-white/[0.02] px-6 py-5">
         <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-white/40">
           <span className="rounded-full border border-white/10 px-3 py-1 text-white">
             {mediaLabel}
@@ -588,13 +588,13 @@ function VideoPreviewCard({
         </p>
       </div>
       <div
-        className="bg-black"
+        className="bg-black/60"
         onMouseEnter={isVideo ? handleMouseEnter : undefined}
         onMouseLeave={isVideo ? handleMouseLeave : undefined}
       >
-        <div className="px-6">
+        <div className="px-6 pb-6">
           {isError ? (
-            <div className="relative aspect-video w-full overflow-hidden rounded-none bg-neutral-900">
+            <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/10 bg-neutral-900">
               <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
                 <p
                   role="alert"
@@ -607,7 +607,7 @@ function VideoPreviewCard({
           ) : isLoading ? (
             <GenerationProgressVisual />
           ) : isImage ? (
-            <div className="relative flex aspect-video w-full items-center justify-center rounded-lg bg-neutral-900">
+            <div className="relative flex aspect-video w-full items-center justify-center rounded-2xl border border-white/10 bg-neutral-900">
               <img
                 src={resolvedImageSrc}
                 alt={displayPrompt || 'Generated image'}
@@ -616,14 +616,14 @@ function VideoPreviewCard({
               <a
                 href={resolvedImageSrc}
                 download
-                className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg bg-black/60 text-white backdrop-blur-sm transition-all hover:bg-black/80 hover:scale-110"
+                className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/60 text-white backdrop-blur-sm transition hover:border-white/30 hover:bg-black/80"
                 title="Download image"
               >
                 <Download className="h-4 w-4" />
               </a>
             </div>
           ) : isAudio ? (
-            <div className="rounded-lg bg-neutral-900 px-4 py-4">
+            <div className="rounded-2xl border border-white/10 bg-neutral-900 px-4 py-4">
               {audioTracks.length > 0 ? (
                 <div className="grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2">
                   {audioTracks.map((track, index) => (

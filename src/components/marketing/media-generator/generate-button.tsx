@@ -98,7 +98,7 @@ export const GenerateButton = forwardRef<
         }}
         disabled={isDisabled}
         className={cn(
-          'flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-[#64ff6a] text-sm font-semibold uppercase tracking-[0.2em] text-black transition hover:bg-[#4ae052] disabled:bg-white/10 disabled:text-white/40',
+          'flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#64ff6a] to-[#3ddf88] text-sm font-semibold uppercase tracking-[0.2em] text-black shadow-[0_10px_30px_rgba(100,255,106,0.25)] transition hover:from-[#4ae052] hover:to-[#38d27f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#64ff6a]/40 focus-visible:ring-offset-0 disabled:bg-[#0b0d10] disabled:text-white/30 disabled:shadow-none disabled:border disabled:border-white/10 disabled:from-[#0b0d10] disabled:to-[#0b0d10]',
           className
         )}
         {...rest}
