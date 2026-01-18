@@ -85,7 +85,6 @@ export const buildSoraRequestBody = ({
     aspect_ratio: aspectRatio,
     n_frames: `${nFrames}`,
     size: isPro ? quality : null,
-    remove_watermark: true,
   };
 
   if (inputMode === 'image') {

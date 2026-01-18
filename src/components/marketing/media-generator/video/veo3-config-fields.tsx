@@ -122,7 +122,6 @@ export const buildVeo3RequestBody = ({
     model: resolvedModel,
     prompt,
     aspectRatio: resolvedAspectRatio,
-    enableFallback: true,
   };
 
   if (imageUrls.length > 0) {
