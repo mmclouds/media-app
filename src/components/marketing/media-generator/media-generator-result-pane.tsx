@@ -338,7 +338,7 @@ export function MediaGeneratorResultPane({
   }, [activeTaskId, isLoggedIn, loadFeed]);
 
   return (
-    <section className="flex flex-1 min-h-0 flex-col border-l border-white/5 bg-gradient-to-br from-[#0a0c10] via-[#090b0f] to-[#060709] text-white">
+    <section className="flex flex-1 min-h-0 flex-col bg-gradient-to-br from-[#0a0c10] via-[#090b0f] to-[#060709] text-white">
       <div className="flex h-14 items-center justify-between border-b border-white/10 bg-white/[0.02] px-6">
         <div className="flex gap-1 rounded-full bg-white/5 p-1 text-xs font-semibold shadow-inner shadow-black/40">
           {FEED_TABS.map((tab) => (
@@ -357,7 +357,7 @@ export function MediaGeneratorResultPane({
 
       <div
         ref={scrollRef}
-        className="flex-1 space-y-0 overflow-y-auto px-6 pb-6 pt-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="flex-1 space-y-0 overflow-y-auto p-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {!isLoggedIn && (
           <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/80 shadow-lg shadow-black/30 backdrop-blur">
@@ -564,9 +564,9 @@ function VideoPreviewCard({
   return (
     <article
       ref={cardRef}
-      className="overflow-hidden rounded-2xl border border-white/10 bg-[#0b0d10] shadow-2xl shadow-black/60 transition hover:border-white/20"
+      className="overflow-hidden bg-[#0b0d10] shadow-2xl shadow-black/60 transition"
     >
-      <div className="space-y-3 border-b border-white/10 bg-white/[0.02] px-6 py-5">
+      <div className="space-y-3 bg-black px-6 py-5">
         <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-white/40">
           <span className="rounded-full border border-white/10 px-3 py-1 text-white">
             {mediaLabel}
