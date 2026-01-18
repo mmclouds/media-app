@@ -60,11 +60,19 @@ export function MediaGeneratorMenu({
 
       <div className="flex w-full flex-col items-center gap-4 self-stretch pb-6 pt-1">
         {currentUser ? (
-          <UserAvatar
-            name={currentUser.name}
-            image={currentUser.image}
-            className="border border-white/20 shadow-lg shadow-black/40"
-          />
+          <>
+            <LocaleLink
+              href="/#pricing"
+              className="mx-1.5 inline-flex h-8 w-[60px] items-center justify-center rounded-md border border-emerald-200/60 bg-emerald-300/15 text-[11px] font-semibold uppercase tracking-[0.08em] text-emerald-100 transition hover:border-emerald-100 hover:bg-emerald-300/25 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/40"
+            >
+              Upgrade
+            </LocaleLink>
+            <UserAvatar
+              name={currentUser.name}
+              image={currentUser.image}
+              className="border border-white/20 shadow-lg shadow-black/40"
+            />
+          </>
         ) : (
           <LoginWrapper callbackUrl={currentPath}>
             <button
@@ -108,7 +116,7 @@ function MediaGeneratorUserMenu({ user }: { user: User }) {
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="flex h-10 w-full items-center justify-center rounded-lg text-white/60 transition hover:bg-white/10 hover:text-white"
+          className="flex h-10 w-full cursor-pointer items-center justify-center rounded-lg text-white/60 transition hover:bg-white/10 hover:text-white"
           aria-label="Open user menu"
         >
           <MoreHorizontal className="h-6 w-6" />
