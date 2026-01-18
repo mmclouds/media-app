@@ -54,9 +54,9 @@ export default async function MediaStudioPage() {
   const selection = await readMediaStudioSelection();
 
   return (
-    <main className="relative h-[100dvh] w-full overflow-hidden bg-[#0B0D10] text-white antialiased [background-image:radial-gradient(80%_60%_at_20%_0%,rgba(59,130,246,0.25),rgba(2,2,2,0)),radial-gradient(60%_50%_at_80%_10%,rgba(249,115,22,0.18),rgba(2,2,2,0)),linear-gradient(180deg,rgba(15,23,42,0.6),rgba(2,2,2,0.9))]">
+    <main className="relative h-screen w-full overflow-hidden bg-[#0B0D10] text-white antialiased [background-image:radial-gradient(80%_60%_at_20%_0%,rgba(59,130,246,0.25),rgba(2,2,2,0)),radial-gradient(60%_50%_at_80%_10%,rgba(249,115,22,0.18),rgba(2,2,2,0)),linear-gradient(180deg,rgba(15,23,42,0.6),rgba(2,2,2,0.9))]">
       <MediaGeneratorWorkspace
-        className="h-full w-full max-h-[100dvh]"
+        className="h-full w-full max-h-screen"
         persistKey="media-studio-selection"
         initialMediaType={selection?.mediaType}
         preferredModelId={selection?.modelId}

@@ -655,12 +655,6 @@ function VideoPreviewCard({
               className="aspect-video w-full bg-transparent object-cover"
               onLoadedData={handleVideoLoaded}
             >
-              <track
-                kind="captions"
-                label="Captions"
-                src="/captions/placeholder.vtt"
-                default
-              />
             </video>
           )}
         </div>

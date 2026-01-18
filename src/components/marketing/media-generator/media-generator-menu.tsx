@@ -69,7 +69,7 @@ export function MediaGeneratorMenu({
           <LoginWrapper callbackUrl={currentPath}>
             <button
               type="button"
-              className="rounded-full border border-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/70 transition hover:border-white/30 hover:text-white"
+              className="mx-1.5 inline-flex h-[45px] w-[60px] items-center justify-center whitespace-nowrap rounded-lg border border-white/35 bg-white/10 px-2 py-1 text-[11px] font-semibold capitalize tracking-[0.18em] leading-none text-white transition hover:border-white/50 hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
             >
               Sign In
             </button>
@@ -108,7 +108,7 @@ function MediaGeneratorUserMenu({ user }: { user: User }) {
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="flex h-10 w-full items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60 transition hover:border-white/30 hover:text-white"
+          className="flex h-10 w-full items-center justify-center rounded-lg text-white/60 transition hover:bg-white/10 hover:text-white"
           aria-label="Open user menu"
         >
           <MoreHorizontal className="h-6 w-6" />
