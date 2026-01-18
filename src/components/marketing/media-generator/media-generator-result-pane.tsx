@@ -45,8 +45,8 @@ type FeedFilter = 'all' | MediaType;
 
 const FEED_TABS: Array<{ id: FeedFilter; label: string }> = [
   { id: 'all', label: 'All' },
-  { id: 'image', label: 'Images' },
   { id: 'video', label: 'Videos' },
+  { id: 'image', label: 'Images' },
   { id: 'audio', label: 'Audio' },
 ];
 
@@ -643,19 +643,21 @@ function VideoPreviewCard({
               )}
             </div>
           ) : (
-            <video
-              ref={videoRef}
-              key={asset.id}
-              src={resolvedSrc || undefined}
-              crossOrigin="anonymous"
-              controls
-              loop
-              playsInline
-              poster={resolvedPoster}
-              className="aspect-video w-full bg-transparent object-cover"
-              onLoadedData={handleVideoLoaded}
-            >
-            </video>
+            <div className="relative flex aspect-video w-full max-h-[min(60vh,520px)] items-center justify-center rounded-2xl border border-white/10 bg-neutral-900">
+              <video
+                ref={videoRef}
+                key={asset.id}
+                src={resolvedSrc || undefined}
+                crossOrigin="anonymous"
+                controls
+                loop
+                playsInline
+                poster={resolvedPoster}
+                className="h-full w-full object-contain"
+                onLoadedData={handleVideoLoaded}
+              >
+              </video>
+            </div>
           )}
         </div>
       </div>
