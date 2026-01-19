@@ -29,6 +29,43 @@ export async function generateMetadata({
 
 export default async function NanoBananaStudioPage() {
   const t = await getTranslations('NanoBananaStudioPage');
+  const heroTagKeys = [
+    'hero.tags.tag-1',
+    'hero.tags.tag-2',
+    'hero.tags.tag-3',
+  ] as const;
+  const snapshotItemKeys = [
+    'snapshot.items.item-1',
+    'snapshot.items.item-2',
+    'snapshot.items.item-3',
+    'snapshot.items.item-4',
+  ] as const;
+  const workflowItemKeys = [
+    'workflow.items.item-1',
+    'workflow.items.item-2',
+    'workflow.items.item-3',
+    'workflow.items.item-4',
+  ] as const;
+  const useCaseKeys = [
+    'useCases.items.item-1',
+    'useCases.items.item-2',
+    'useCases.items.item-3',
+    'useCases.items.item-4',
+    'useCases.items.item-5',
+    'useCases.items.item-6',
+  ] as const;
+  const promptExampleKeys = [
+    'promptTips.examples.item-1',
+    'promptTips.examples.item-2',
+    'promptTips.examples.item-3',
+  ] as const;
+  const faqItemKeys = [
+    'faq.items.item-1',
+    'faq.items.item-2',
+    'faq.items.item-3',
+    'faq.items.item-4',
+    'faq.items.item-5',
+  ] as const;
 
   return (
     <main className="min-h-screen w-full bg-[#020202] px-6 py-10 text-white">
@@ -44,12 +81,12 @@ export default async function NanoBananaStudioPage() {
             {t('hero.subtitle')}
           </p>
           <div className="flex flex-wrap gap-2">
-            {['tag-1', 'tag-2', 'tag-3'].map((tag) => (
+            {heroTagKeys.map((tagKey) => (
               <span
-                key={tag}
+                key={tagKey}
                 className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70"
               >
-                {t(`hero.tags.${tag}`)}
+                {t(tagKey)}
               </span>
             ))}
           </div>
@@ -98,16 +135,16 @@ export default async function NanoBananaStudioPage() {
             </p>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            {['item-1', 'item-2', 'item-3', 'item-4'].map((item) => (
+            {snapshotItemKeys.map((itemKey) => (
               <div
-                key={item}
+                key={itemKey}
                 className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-4"
               >
                 <h3 className="text-base font-semibold text-white">
-                  {t(`snapshot.items.${item}.title`)}
+                  {t(`${itemKey}.title`)}
                 </h3>
                 <p className="mt-2 text-sm text-white/60">
-                  {t(`snapshot.items.${item}.description`)}
+                  {t(`${itemKey}.description`)}
                 </p>
               </div>
             ))}
@@ -124,19 +161,19 @@ export default async function NanoBananaStudioPage() {
             </p>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
-            {['item-1', 'item-2', 'item-3', 'item-4'].map((item, index) => (
+            {workflowItemKeys.map((itemKey, index) => (
               <div
-                key={item}
+                key={itemKey}
                 className="rounded-2xl border border-white/10 bg-[#0b0b0b] p-4"
               >
                 <p className="text-xs uppercase tracking-[0.2em] text-white/40">
                   {t('workflow.stepLabel', { index: index + 1 })}
                 </p>
                 <h3 className="mt-2 text-base font-semibold text-white">
-                  {t(`workflow.items.${item}.title`)}
+                  {t(`${itemKey}.title`)}
                 </h3>
                 <p className="mt-2 text-sm text-white/60">
-                  {t(`workflow.items.${item}.description`)}
+                  {t(`${itemKey}.description`)}
                 </p>
               </div>
             ))}
@@ -153,16 +190,14 @@ export default async function NanoBananaStudioPage() {
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {['item-1', 'item-2', 'item-3', 'item-4', 'item-5', 'item-6'].map(
-              (item) => (
-                <div
-                  key={item}
-                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80"
-                >
-                  {t(`useCases.items.${item}`)}
-                </div>
-              )
-            )}
+            {useCaseKeys.map((itemKey) => (
+              <div
+                key={itemKey}
+                className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80"
+              >
+                {t(itemKey)}
+              </div>
+            ))}
           </div>
         </section>
 
@@ -179,12 +214,12 @@ export default async function NanoBananaStudioPage() {
             </div>
           </div>
           <div className="space-y-3">
-            {['item-1', 'item-2', 'item-3'].map((item) => (
+            {promptExampleKeys.map((itemKey) => (
               <div
-                key={item}
+                key={itemKey}
                 className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/70"
               >
-                {t(`promptTips.examples.${item}`)}
+                {t(itemKey)}
               </div>
             ))}
           </div>
@@ -200,16 +235,16 @@ export default async function NanoBananaStudioPage() {
             </p>
           </div>
           <dl className="space-y-4">
-            {['item-1', 'item-2', 'item-3', 'item-4', 'item-5'].map((item) => (
+            {faqItemKeys.map((itemKey) => (
               <div
-                key={item}
+                key={itemKey}
                 className="rounded-2xl border border-white/10 bg-[#0b0b0b] p-4"
               >
                 <dt className="text-sm font-semibold text-white">
-                  {t(`faq.items.${item}.question`)}
+                  {t(`${itemKey}.question`)}
                 </dt>
                 <dd className="mt-2 text-sm text-white/60">
-                  {t(`faq.items.${item}.answer`)}
+                  {t(`${itemKey}.answer`)}
                 </dd>
               </div>
             ))}
