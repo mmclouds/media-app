@@ -4,6 +4,7 @@ import {
   buildPublicFileDownloadUrl,
   uploadFileToBucket,
 } from '@/lib/file-transfer';
+import { RemoteImagePickerDialog } from './remote-image-picker-dialog';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 type SingleImageUploadFieldProps = {
@@ -46,6 +47,7 @@ export function SingleImageUploadField({
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [remoteOpen, setRemoteOpen] = useState(false);
   const fallbackTenantId = useMemo(
     () => process.env.NEXT_PUBLIC_TENANT_ID || '0',
     []
@@ -252,9 +254,21 @@ export function SingleImageUploadField({
                 ? 'Uploading image...'
                 : 'Attach an image to guide the video.'}
             </span>
-            <span className="rounded-lg bg-white/10 px-3 py-1 text-xs font-semibold text-white transition group-hover:bg-white/20">
-              {previewUrl ? 'Replace image' : 'Upload image'}
-            </span>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                className="rounded-lg border border-white/10 bg-white/10 px-3 py-1 text-xs font-semibold text-white transition hover:border-white/30 hover:bg-white/20"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setRemoteOpen(true);
+                }}
+              >
+                Choose from library
+              </button>
+              <span className="rounded-lg bg-white/10 px-3 py-1 text-xs font-semibold text-white transition group-hover:bg-white/20">
+                {previewUrl ? 'Replace image' : 'Upload image'}
+              </span>
+            </div>
           </div>
         </div>
         {isUploading ? (
@@ -266,6 +280,20 @@ export function SingleImageUploadField({
           </div>
         ) : null}
       </label>
+      <RemoteImagePickerDialog
+        open={remoteOpen}
+        onOpenChange={setRemoteOpen}
+        apiBaseUrl={apiBaseUrl}
+        onSelect={(item) => {
+          setError(null);
+          setPreviewUrl(item.downloadUrl);
+          onChange(item.downloadUrl);
+          onUploaded?.({
+            uuid: item.fileUuid,
+            downloadUrl: item.downloadUrl,
+          });
+        }}
+      />
       {helperText ? (
         <p className="text-xs text-white/50">{helperText}</p>
       ) : null}

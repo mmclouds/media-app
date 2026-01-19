@@ -4,6 +4,7 @@ import {
   buildPublicFileDownloadUrl,
   uploadFileToBucket,
 } from '@/lib/file-transfer';
+import { RemoteImagePickerDialog } from './remote-image-picker-dialog';
 import { useMemo, useRef, useState } from 'react';
 
 type UploadSlot = 'first' | 'last';
@@ -67,6 +68,10 @@ export function TwoFrameImageUploadField({
   const [errors, setErrors] = useState<Record<UploadSlot, string | null>>({
     first: null,
     last: null,
+  });
+  const [remoteOpen, setRemoteOpen] = useState<Record<UploadSlot, boolean>>({
+    first: false,
+    last: false,
   });
 
   const resolvePreviewUrl = (candidate?: string | null) => {
@@ -272,9 +277,40 @@ export function TwoFrameImageUploadField({
           </span>
           <span>{previewUrl ? 'Image attached' : 'No image'}</span>
         </div>
+        <div className="flex items-center justify-end">
+          <button
+            type="button"
+            className="text-[11px] font-semibold text-white/70 underline-offset-2 hover:text-white hover:underline"
+            onClick={() => setRemoteOpen((current) => ({ ...current, [slot]: true }))}
+          >
+            Choose from library
+          </button>
+        </div>
         {errors[slot] ? (
           <p className="text-xs text-rose-400">{errors[slot]}</p>
         ) : null}
+        <RemoteImagePickerDialog
+          open={remoteOpen[slot]}
+          onOpenChange={(open) =>
+            setRemoteOpen((current) => ({ ...current, [slot]: open }))
+          }
+          apiBaseUrl={apiBaseUrl}
+          onSelect={(item) => {
+            setErrors((current) => ({ ...current, [slot]: null }));
+            const nextUrl = item.downloadUrl;
+            onChange({
+              first: slot === 'first' ? nextUrl : firstValue ?? null,
+              last: slot === 'last' ? nextUrl : lastValue ?? null,
+            });
+            onUploaded?.({
+              slot,
+              file: {
+                uuid: item.fileUuid,
+                downloadUrl: item.downloadUrl,
+              },
+            });
+          }}
+        />
       </div>
     );
   };

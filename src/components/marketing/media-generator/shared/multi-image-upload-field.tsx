@@ -4,6 +4,7 @@ import {
   buildPublicFileDownloadUrl,
   uploadFileToBucket,
 } from '@/lib/file-transfer';
+import { RemoteImagePickerDialog } from './remote-image-picker-dialog';
 import { useMemo, useRef, useState } from 'react';
 
 type MultiImageUploadFieldProps = {
@@ -48,6 +49,7 @@ export function MultiImageUploadField({
   const [isUploading, setIsUploading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [remoteOpen, setRemoteOpen] = useState(false);
   const fallbackTenantId = useMemo(
     () => process.env.NEXT_PUBLIC_TENANT_ID || '0',
     []
@@ -291,9 +293,18 @@ export function MultiImageUploadField({
             ? 'Uploading images...'
             : `Up to ${normalizedMaxFiles} images.`}
         </span>
-        <span>
-          {resolvedValue.length}/{normalizedMaxFiles}
-        </span>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            className="text-xs font-semibold text-white/70 underline-offset-2 hover:text-white hover:underline"
+            onClick={() => setRemoteOpen(true)}
+          >
+            Choose from library
+          </button>
+          <span>
+            {resolvedValue.length}/{normalizedMaxFiles}
+          </span>
+        </div>
       </div>
 
       {helperText ? (
@@ -303,6 +314,29 @@ export function MultiImageUploadField({
         Limit: up to {normalizedMaxFiles} images, max {normalizedMaxSize}MB each.
       </p>
       {error ? <p className="text-xs text-rose-400">{error}</p> : null}
+      <RemoteImagePickerDialog
+        open={remoteOpen}
+        onOpenChange={setRemoteOpen}
+        apiBaseUrl={apiBaseUrl}
+        onSelect={(item) => {
+          if (!canAddMore) {
+            setError(`You can upload up to ${normalizedMaxFiles} images.`);
+            return;
+          }
+          setError(null);
+          const nextUrls = [...resolvedValue, item.downloadUrl].slice(
+            0,
+            normalizedMaxFiles
+          );
+          onChange(nextUrls);
+          onUploaded?.([
+            {
+              uuid: item.fileUuid,
+              downloadUrl: item.downloadUrl,
+            },
+          ]);
+        }}
+      />
     </div>
   );
 }
