@@ -202,7 +202,12 @@ export function TwoFrameImageUploadField({
         <label
           className={`group relative flex h-28 w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-dashed border-white/20 bg-black/60 transition hover:border-white/40 hover:bg-white/5 ${
             dragging ? 'border-white/50 bg-white/10' : ''
-          } ${uploading ? 'pointer-events-none opacity-60' : ''}`}
+          } ${
+            uploading
+              ? 'pointer-events-none border-blue-400/70 bg-blue-500/10 shadow-[0_0_0_1px_rgba(37,99,235,0.35),0_0_18px_rgba(249,115,22,0.25)]'
+              : ''
+          }`}
+          aria-busy={uploading}
           onDragEnter={(event) => {
             event.preventDefault();
             if (!uploading) {
@@ -251,10 +256,20 @@ export function TwoFrameImageUploadField({
               <span className="text-[11px] text-white/40">PNG, JPG or WEBP</span>
             </div>
           )}
+          {uploading ? (
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/45">
+              <div className="flex items-center gap-2 rounded-full border border-blue-400/60 bg-black/70 px-3 py-1 text-xs font-semibold text-white">
+                <span className="h-3 w-3 animate-spin rounded-full border-2 border-white/70 border-t-transparent" />
+                Uploading...
+              </div>
+            </div>
+          ) : null}
         </label>
 
         <div className="flex items-center justify-between text-[11px] text-white/50">
-          <span>{uploading ? 'Uploading...' : 'Max 10MB.'}</span>
+          <span className={uploading ? 'text-blue-200' : undefined}>
+            {uploading ? 'Uploading...' : 'Max 10MB.'}
+          </span>
           <span>{previewUrl ? 'Image attached' : 'No image'}</span>
         </div>
         {errors[slot] ? (

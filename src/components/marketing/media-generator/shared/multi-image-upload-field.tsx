@@ -197,7 +197,14 @@ export function MultiImageUploadField({
       </div>
 
       <div
-        className={`rounded-2xl border border-dashed border-white/20 bg-black/60 p-3 transition hover:border-white/40 hover:bg-white/5 ${isDragging ? 'border-white/50 bg-white/10' : ''}`}
+        className={`relative rounded-2xl border border-dashed border-white/20 bg-black/60 p-3 transition hover:border-white/40 hover:bg-white/5 ${
+          isDragging ? 'border-white/50 bg-white/10' : ''
+        } ${
+          isUploading
+            ? 'border-blue-400/70 bg-blue-500/10 shadow-[0_0_0_1px_rgba(37,99,235,0.35),0_0_24px_rgba(249,115,22,0.25)]'
+            : ''
+        }`}
+        aria-busy={isUploading}
         onDragEnter={(event) => {
           event.preventDefault();
           if (!isUploading) {
@@ -270,10 +277,16 @@ export function MultiImageUploadField({
             </label>
           ) : null}
         </div>
+        {isUploading ? (
+          <div className="pointer-events-none absolute right-3 top-3 flex items-center gap-2 rounded-full border border-blue-400/60 bg-black/70 px-3 py-1 text-xs font-semibold text-white">
+            <span className="h-3 w-3 animate-spin rounded-full border-2 border-white/70 border-t-transparent" />
+            Uploading...
+          </div>
+        ) : null}
       </div>
 
       <div className="flex items-center justify-between text-xs text-white/60">
-        <span>
+        <span className={isUploading ? 'text-blue-200' : undefined}>
           {isUploading
             ? 'Uploading images...'
             : `Up to ${normalizedMaxFiles} images.`}
