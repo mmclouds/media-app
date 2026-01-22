@@ -13,6 +13,7 @@ type FeatureItem = {
 };
 
 type Features3SectionProps = {
+  id?: string;
   title: ReactNode;
   subtitle: ReactNode;
   description: ReactNode;
@@ -20,13 +21,14 @@ type Features3SectionProps = {
 };
 
 export default function Features3Section({
+  id,
   title,
   subtitle,
   description,
   items,
 }: Features3SectionProps) {
   return (
-    <section id="features3" className="px-4 py-16">
+    <section id={id ?? 'features3'} className="px-4 py-16">
       <div className="mx-auto max-w-6xl space-y-8 lg:space-y-20">
         <HeaderSection
           title={title}

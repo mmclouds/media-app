@@ -1,9 +1,31 @@
+import CallToActionSection from '@/components/custom-blocks/calltoaction/calltoaction';
+import FaqSection from '@/components/custom-blocks/faqs/faqs';
+import Features3Section from '@/components/custom-blocks/features3/features3';
+import HeroSection from '@/components/custom-blocks/hero/hero';
 import Container from '@/components/layout/container';
-import { MediaOnlyGeneratorWorkspace } from '@/components/marketing/media-generator/media-only-generator-workspace';
+import { Navbar } from '@/components/layout/navbar';
+import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { constructMetadata } from '@/lib/metadata';
+import {
+  AudioLines,
+  Download,
+  Film,
+  GraduationCap,
+  Image as ImageIcon,
+  Languages,
+  Megaphone,
+  PencilLine,
+  Share2,
+  ShieldCheck,
+  Sliders,
+  Sparkles,
+  Type,
+  UserRound,
+  Users,
+  Wand2,
+} from 'lucide-react';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
-import type { ReactNode } from 'react';
 
 const PAGE_CONTENT = {
   en: {
@@ -18,6 +40,8 @@ const PAGE_CONTENT = {
       subtitle:
         'Turn text or images into cinematic short videos with improved physical realism, continuity, and sound.',
       cta: 'Start creating in the workspace below.',
+      primaryLabel: 'Open studio',
+      secondaryLabel: 'View capabilities',
     },
     overview: {
       title: 'Model Overview',
@@ -68,12 +92,10 @@ const PAGE_CONTENT = {
             'Animate an uploaded image or extend a short clip into a sequence.',
         },
       ],
-      note:
-        'Generated videos include synchronized audio such as ambience, music, and simple dialogue.',
+      note: 'Generated videos include synchronized audio such as ambience, music, and simple dialogue.',
     },
     workflow: {
       title: 'How It Works',
-      stepLabel: 'Step',
       steps: [
         {
           title: 'Input your idea',
@@ -143,6 +165,7 @@ const PAGE_CONTENT = {
     },
     faq: {
       title: 'FAQ',
+      subtitle: 'Common questions about Sora 2 generation.',
       items: [
         {
           question: 'How does Sora generate video?',
@@ -185,190 +208,176 @@ const PAGE_CONTENT = {
       title: 'Responsible Use',
       description:
         'Only upload content you own or have rights to use. Generated videos may include visible watermarks. Do not remove marks or misuse generated content.',
+      primaryLabel: 'Back to studio',
+      secondaryLabel: 'View FAQ',
     },
   },
   zh: {
     meta: {
       title: 'Sora 2 Studio',
       description:
-        'Generate cinematic AI videos with OpenAI Sora 2. Stronger physics realism, higher fidelity, and better multi-scene control.',
+        '使用 OpenAI Sora 2 生成电影感 AI 视频，物理真实感更强、清晰度更高，并支持多场景控制。',
     },
     hero: {
-      eyebrow: 'AI video generation',
+      eyebrow: 'AI 视频生成',
       title: 'Sora 2 Studio',
       subtitle:
-        'Turn text or images into cinematic short videos with improved physical realism, continuity, and sound.',
-      cta: 'Start creating in the workspace below.',
+        '将文本或图片转化为电影感短视频，具备更强的物理真实感与连贯性。',
+      cta: '在下方工作区开始创作。',
+      primaryLabel: '进入工作室',
+      secondaryLabel: '查看能力',
     },
     overview: {
-      title: 'Model Overview',
+      title: '模型概览',
       description:
-        'Sora is OpenAI’s text-to-video model introduced in 2024. Sora 2 (2025) upgrades physical understanding, visual fidelity, and controllability for multi-shot storytelling.',
+        'Sora 是 OpenAI 在 2024 年推出的文本生成视频模型。Sora 2（2025）在物理理解、画面清晰度与多镜头可控性上进一步升级。',
       bullets: [
-        'Public demos in 2024 with expanded access afterward.',
-        'Sora 2 improves realism, motion coherence, and continuity.',
-        'The Sora app pairs creation with sharing and remixing.',
+        '2024 年公开演示，并逐步扩大访问范围。',
+        'Sora 2 提升真实感、运动连贯性与场景一致性。',
+        'Sora 应用支持创作、分享与 remix。',
       ],
     },
     highlights: {
-      title: 'Key Highlights',
+      title: '核心亮点',
       items: [
         {
-          title: 'Physics-consistent motion',
-          description:
-            'Better cause-and-effect behavior like realistic bounces and momentum.',
+          title: '物理一致的运动',
+          description: '更真实的因果运动表现，如弹跳与惯性。',
         },
         {
-          title: 'Higher fidelity with sound',
-          description:
-            'Sharper lighting and textures with synced ambience, effects, and dialogue.',
+          title: '更高保真与音效',
+          description: '更清晰的光影与材质，并同步环境音、效果与对白。',
         },
         {
-          title: 'Stronger control',
-          description:
-            'Handles multi-shot prompts and keeps scenes consistent across cuts.',
+          title: '更强可控性',
+          description: '支持多镜头提示词，跨镜头保持画面一致。',
         },
         {
-          title: 'Character injection',
-          description:
-            'Blend real people into generated scenes with stable appearance.',
+          title: '角色注入',
+          description: '将真人融入生成场景，保持稳定外观。',
         },
       ],
     },
     capabilities: {
-      title: 'Core Capabilities',
+      title: '核心能力',
       items: [
         {
-          title: 'Text-to-video',
-          description:
-            'Describe a scene in words and generate a short video with motion and sound.',
+          title: '文本生成视频',
+          description: '用文字描述场景，生成带运动与音效的短视频。',
         },
         {
-          title: 'Image-to-video',
-          description:
-            'Animate an uploaded image or extend a short clip into a sequence.',
+          title: '图片生成视频',
+          description: '动画化上传图片或扩展短片为连贯序列。',
         },
       ],
-      note:
-        'Generated videos include synchronized audio such as ambience, music, and simple dialogue.',
+      note: '生成视频包含同步音频，如环境声、音乐与简单对白。',
     },
     workflow: {
-      title: 'How It Works',
-      stepLabel: 'Step',
+      title: '工作流程',
       steps: [
         {
-          title: 'Input your idea',
-          description:
-            'Type a prompt or upload a starter image or clip from the editor.',
+          title: '输入创意',
+          description: '输入提示词或上传起始图片/片段。',
         },
         {
-          title: 'Set parameters',
-          description:
-            'Choose aspect ratio, resolution, duration, and number of variations.',
+          title: '设置参数',
+          description: '选择比例、清晰度、时长与变体数量。',
         },
         {
-          title: 'Generate',
-          description:
-            'Sora renders a short video in seconds to minutes with audio.',
+          title: '生成视频',
+          description: 'Sora 在数秒到数分钟内输出带音频的短片。',
         },
         {
-          title: 'Refine and export',
-          description:
-            'Compare versions, remix, extend, and download MP4 files.',
+          title: '润色与导出',
+          description: '对比版本、重混、扩展并导出 MP4。',
         },
       ],
     },
     useCases: {
-      title: 'Use Cases',
+      title: '使用场景',
       items: [
-        'Creators and influencers: rapid social clips without filming.',
-        'Education: visualize concepts and historical scenes.',
-        'Brand marketing: fast ad variations and product demos.',
-        'Previs and visualization: quick storyboarding for films or games.',
+        '创作者与达人：快速生成社媒短片。',
+        '教育：可视化概念与历史场景。',
+        '品牌营销：快速制作广告与产品演示。',
+        '预演与可视化：用于影视/游戏分镜。',
       ],
     },
     examples: {
-      title: 'Prompt Examples',
+      title: '提示词示例',
       items: [
         {
-          language: 'Chinese',
-          prompt: 'A blue dragon soaring above the Great Wall at sunset.',
-          description:
-            'A majestic dragon weaves along the wall with golden light and drifting clouds.',
+          language: '中文',
+          prompt: '一条蓝色巨龙在夕阳下飞越长城。',
+          description: '金色光线与云层交织，巨龙沿城墙盘旋。',
         },
         {
-          language: 'English',
+          language: '英文',
           prompt: 'A group of cats playing jazz on a moonlit rooftop.',
-          description:
-            'A whimsical night performance with smooth camera pans and synced jazz.',
+          description: '夜色轻松，镜头平滑移动，爵士同步。',
         },
         {
-          language: 'Japanese',
+          language: '日文',
           prompt: 'A giant robot protecting Tokyo at night.',
-          description:
-            'Neon cityscapes, anime-style action, and a heroic final pose.',
+          description: '霓虹城市与动漫风动作，英雄式定格。',
         },
         {
-          language: 'Korean',
+          language: '韩文',
           prompt: 'A K-pop group performs on a futuristic stage.',
-          description:
-            'Holograms, tight choreography, and pulsing cyberpunk lighting.',
+          description: '全息舞台与整齐编舞，赛博灯光律动。',
         },
         {
-          language: 'Spanish',
+          language: '西班牙文',
           prompt: 'An enchanted forest lit by fireflies that whisper stories.',
-          description:
-            'Soft golden glows, ancient trees, and a calm mythical atmosphere.',
+          description: '温暖萤光与古树交错，氛围宁静奇幻。',
         },
       ],
     },
     faq: {
-      title: 'FAQ',
+      title: '常见问题',
+      subtitle: '关于 Sora 2 生成的常见疑问。',
       items: [
         {
-          question: 'How does Sora generate video?',
-          answer:
-            'It uses large generative diffusion models to transform text or image inputs into coherent video frames over time.',
+          question: 'Sora 如何生成视频？',
+          answer: '基于扩散式生成模型，将文本或图像转化为连贯视频帧。',
         },
         {
-          question: 'Does Sora output include audio?',
-          answer:
-            'Yes, Sora 2 adds synced ambience, music, and basic dialogue to complete the scene.',
+          question: '输出是否包含音频？',
+          answer: '是的，Sora 2 会同步生成环境声、音乐与基础对白。',
         },
         {
-          question: 'How long can videos be?',
-          answer:
-            'Official limits vary by plan, with typical ranges around 10 to 60 seconds.',
+          question: '视频最长能生成多长？',
+          answer: '长度受套餐限制，通常在 10-60 秒范围内。',
         },
         {
-          question: 'Can I control style and length?',
-          answer:
-            'Yes. Use prompts plus settings like aspect ratio, resolution, and duration to guide output.',
+          question: '可以控制风格和长度吗？',
+          answer: '可以，通过提示词与比例、清晰度、时长等参数控制。',
         },
       ],
     },
     community: {
-      title: 'Community Highlights',
+      title: '社区亮点',
       items: [
         {
-          title: 'OpenAI Sora demos',
-          description:
-            'Official showcases of text-to-video scenes and cinematic realism.',
+          title: 'OpenAI Sora 演示',
+          description: '官方展示的文本生成视频与电影级画面。',
         },
         {
-          title: 'Sora 2 launch clips',
-          description:
-            'Creators remixing and sharing multi-scene videos with new controls.',
+          title: 'Sora 2 发布片段',
+          description: '创作者分享多镜头视频与新控制能力。',
         },
       ],
     },
     compliance: {
-      title: 'Responsible Use',
+      title: '负责任使用',
       description:
-        'Only upload content you own or have rights to use. Generated videos may include visible watermarks. Do not remove marks or misuse generated content.',
+        '仅上传你拥有或有权使用的内容。生成视频可能带有水印，请勿移除或滥用。',
+      primaryLabel: '返回工作室',
+      secondaryLabel: '查看常见问题',
     },
   },
 } as const;
+
+const iconClassName = 'size-4';
 
 export async function generateMetadata({
   params,
@@ -394,239 +403,188 @@ interface Sora2StudioPageProps {
 export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
   const params = await props.params;
   const content =
-    PAGE_CONTENT[params.locale as keyof typeof PAGE_CONTENT] ??
-    PAGE_CONTENT.en;
+    PAGE_CONTENT[params.locale as keyof typeof PAGE_CONTENT] ?? PAGE_CONTENT.en;
+
+  const overviewIcons = [
+    <Sparkles key="overview-1" className={iconClassName} />,
+    <Share2 key="overview-2" className={iconClassName} />,
+    <Wand2 key="overview-3" className={iconClassName} />,
+  ];
+
+  const highlightIcons = [
+    <ShieldCheck key="highlight-1" className={iconClassName} />,
+    <AudioLines key="highlight-2" className={iconClassName} />,
+    <Sliders key="highlight-3" className={iconClassName} />,
+    <UserRound key="highlight-4" className={iconClassName} />,
+  ];
+
+  const capabilityIcons = [
+    <Type key="capability-1" className={iconClassName} />,
+    <ImageIcon key="capability-2" className={iconClassName} />,
+  ];
+
+  const workflowIcons = [
+    <PencilLine key="workflow-1" className={iconClassName} />,
+    <Sliders key="workflow-2" className={iconClassName} />,
+    <Wand2 key="workflow-3" className={iconClassName} />,
+    <Download key="workflow-4" className={iconClassName} />,
+  ];
+
+  const useCaseIcons = [
+    <Users key="usecase-1" className={iconClassName} />,
+    <GraduationCap key="usecase-2" className={iconClassName} />,
+    <Megaphone key="usecase-3" className={iconClassName} />,
+    <Film key="usecase-4" className={iconClassName} />,
+  ];
+
+  const communityIcons = [
+    <Share2 key="community-1" className={iconClassName} />,
+    <Sparkles key="community-2" className={iconClassName} />,
+  ];
 
   return (
-    <main className="bg-background text-foreground">
-      <section className="relative overflow-hidden">
+    <>
+      <Navbar scroll={true} />
+      <main className="bg-background text-foreground">
+      <HeroSection
+        eyebrow={content.hero.eyebrow}
+        title={content.hero.title}
+        description={content.hero.subtitle}
+        cta={content.hero.cta}
+        primaryLabel={content.hero.primaryLabel}
+        secondaryLabel={content.hero.secondaryLabel}
+        primaryHref="#studio"
+        secondaryHref="#capabilities"
+      />
+
+      <section id="studio" className="relative overflow-hidden">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsla(0,0%,90%,0.25),transparent_55%),radial-gradient(circle_at_top_right,hsla(0,0%,80%,0.2),transparent_60%)]"
         />
-        <Container className="relative px-6 pb-16 pt-14 lg:pt-20">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
-              {content.hero.eyebrow}
-            </p>
-            <h1 className="mt-6 text-4xl font-semibold text-foreground md:text-5xl">
-              {content.hero.title}
-            </h1>
-            <p className="mt-6 text-lg text-muted-foreground">
-              {content.hero.subtitle}
-            </p>
-            <p className="mt-4 text-sm text-muted-foreground">
-              {content.hero.cta}
-            </p>
-          </div>
-          <div className="mt-12 rounded-3xl border border-border/60 bg-muted/40 p-3 shadow-lg">
-            <MediaOnlyGeneratorWorkspace
+        <Container className="relative px-6 pb-16 pt-10 lg:pt-16">
+          <div className="mt-10 rounded-3xl border border-border/60 bg-muted/40 p-3 shadow-lg">
+            <MediaGeneratorWorkspace
               className="h-[720px]"
+              initialMediaType="video"
               preferredModelId="sora2"
             />
           </div>
         </Container>
       </section>
 
-      <section className="border-t border-border/60">
-        <Container className="space-y-12 px-6 py-16">
-          <SectionHeader
-            title={content.overview.title}
-            description={content.overview.description}
-          />
-          <div className="grid gap-4 md:grid-cols-3">
-            {content.overview.bullets.map((item) => (
-              <InfoCard key={item} description={item} />
-            ))}
-          </div>
-        </Container>
-      </section>
+      <Features3Section
+        id="overview"
+        title={content.overview.title}
+        subtitle={null}
+        description={content.overview.description}
+        items={content.overview.bullets.map((item, index) => ({
+          title: item,
+          description: null,
+          icon: overviewIcons[index] ?? overviewIcons[0],
+        }))}
+      />
 
-      <section className="border-t border-border/60">
-        <Container className="space-y-12 px-6 py-16">
-          <SectionHeader title={content.highlights.title} />
-          <div className="grid gap-4 md:grid-cols-2">
-            {content.highlights.items.map((item) => (
-              <InfoCard
-                key={item.title}
-                title={item.title}
-                description={item.description}
-              />
-            ))}
-          </div>
-        </Container>
-      </section>
+      <Features3Section
+        id="highlights"
+        title={content.highlights.title}
+        subtitle={null}
+        description={null}
+        items={content.highlights.items.map((item, index) => ({
+          title: item.title,
+          description: item.description,
+          icon: highlightIcons[index] ?? highlightIcons[0],
+        }))}
+      />
 
-      <section className="border-t border-border/60">
-        <Container className="space-y-12 px-6 py-16">
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_1fr]">
-            <div className="space-y-10">
-              <SectionHeader
-                title={content.capabilities.title}
-                description={content.capabilities.note}
-              />
-              <div className="grid gap-4">
-                {content.capabilities.items.map((item) => (
-                  <InfoCard
-                    key={item.title}
-                    title={item.title}
-                    description={item.description}
-                  />
-                ))}
-              </div>
-            </div>
-            <div className="rounded-3xl border border-border/60 bg-muted/40 p-6">
-              <h3 className="text-xl font-semibold text-foreground">
-                {content.workflow.title}
-              </h3>
-              <div className="mt-6 space-y-4">
-                {content.workflow.steps.map((step, index) => (
-                  <div
-                    key={step.title}
-                    className="rounded-2xl border border-border/60 bg-background p-4"
-                  >
-                    <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                      {content.workflow.stepLabel} {index + 1}
-                    </p>
-                    <h4 className="mt-3 text-base font-semibold text-foreground">
-                      {step.title}
-                    </h4>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      {step.description}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
+      <Features3Section
+        id="capabilities"
+        title={content.capabilities.title}
+        subtitle={null}
+        description={content.capabilities.note}
+        items={content.capabilities.items.map((item, index) => ({
+          title: item.title,
+          description: item.description,
+          icon: capabilityIcons[index] ?? capabilityIcons[0],
+        }))}
+      />
 
-      <section className="border-t border-border/60">
-        <Container className="space-y-12 px-6 py-16">
-          <SectionHeader title={content.useCases.title} />
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {content.useCases.items.map((item) => (
-              <div
-                key={item}
-                className="rounded-2xl border border-border/60 bg-muted/40 px-4 py-3 text-sm text-muted-foreground"
-              >
-                {item}
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
+      <Features3Section
+        id="workflow"
+        title={content.workflow.title}
+        subtitle={null}
+        description={null}
+        items={content.workflow.steps.map((step, index) => ({
+          title: step.title,
+          description: step.description,
+          icon: workflowIcons[index] ?? workflowIcons[0],
+        }))}
+      />
 
-      <section className="border-t border-border/60">
-        <Container className="space-y-12 px-6 py-16">
-          <SectionHeader title={content.examples.title} />
-          <div className="grid gap-4 md:grid-cols-2">
-            {content.examples.items.map((item) => (
-              <div
-                key={item.prompt}
-                className="rounded-2xl border border-border/60 bg-muted/40 p-4"
-              >
-                <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
-                  {item.language}
-                </p>
-                <p className="mt-3 text-sm font-semibold text-foreground">
-                  {item.prompt}
-                </p>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
+      <Features3Section
+        id="use-cases"
+        title={content.useCases.title}
+        subtitle={null}
+        description={null}
+        items={content.useCases.items.map((item, index) => ({
+          title: item,
+          description: null,
+          icon: useCaseIcons[index] ?? useCaseIcons[0],
+        }))}
+      />
 
-      <section className="border-t border-border/60">
-        <Container className="space-y-12 px-6 py-16">
-          <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr]">
-            <div className="space-y-6">
-              <SectionHeader title={content.faq.title} />
-              <div className="space-y-4">
-                {content.faq.items.map((item) => (
-                  <div
-                    key={item.question}
-                    className="rounded-2xl border border-border/60 bg-muted/40 p-4"
-                  >
-                    <h4 className="text-sm font-semibold text-foreground">
-                      {item.question}
-                    </h4>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      {item.answer}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="space-y-6">
-              <SectionHeader title={content.community.title} />
-              <div className="space-y-4">
-                {content.community.items.map((item) => (
-                  <InfoCard
-                    key={item.title}
-                    title={item.title}
-                    description={item.description}
-                  />
-                ))}
-              </div>
-              <div className="rounded-3xl border border-border/60 bg-foreground p-6 text-background">
-                <h3 className="text-lg font-semibold">
-                  {content.compliance.title}
-                </h3>
-                <p className="mt-3 text-sm text-background/80">
-                  {content.compliance.description}
-                </p>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-    </main>
-  );
-}
+      <Features3Section
+        id="examples"
+        title={content.examples.title}
+        subtitle={null}
+        description={null}
+        items={content.examples.items.map((item) => ({
+          title: item.language,
+          description: (
+            <>
+              <span className="block text-foreground font-semibold">
+                {item.prompt}
+              </span>
+              <span className="mt-2 block text-muted-foreground">
+                {item.description}
+              </span>
+            </>
+          ),
+          icon: <Languages className={iconClassName} />,
+        }))}
+      />
 
-function SectionHeader({
-  title,
-  description,
-}: {
-  title: string;
-  description?: string;
-}) {
-  return (
-    <div className="space-y-3">
-      <h2 className="text-2xl font-semibold text-foreground">{title}</h2>
-      {description ? (
-        <p className="text-sm text-muted-foreground md:text-base">
-          {description}
-        </p>
-      ) : null}
-    </div>
-  );
-}
+      <FaqSection
+        title={content.faq.title}
+        subtitle={content.faq.subtitle}
+        items={content.faq.items.map((item, index) => ({
+          id: `faq-${index + 1}`,
+          question: item.question,
+          answer: item.answer,
+        }))}
+      />
 
-function InfoCard({
-  title,
-  description,
-  footer,
-}: {
-  title?: string;
-  description?: string;
-  footer?: ReactNode;
-}) {
-  return (
-    <div className="rounded-2xl border border-border/60 bg-muted/40 p-4">
-      {title ? (
-        <h3 className="text-base font-semibold text-foreground">{title}</h3>
-      ) : null}
-      {description ? (
-        <p className="mt-2 text-sm text-muted-foreground">{description}</p>
-      ) : null}
-      {footer ? <div className="mt-3">{footer}</div> : null}
-    </div>
+      <Features3Section
+        id="community"
+        title={content.community.title}
+        subtitle={null}
+        description={null}
+        items={content.community.items.map((item, index) => ({
+          title: item.title,
+          description: item.description,
+          icon: communityIcons[index] ?? communityIcons[0],
+        }))}
+      />
+
+      <CallToActionSection
+        title={content.compliance.title}
+        description={content.compliance.description}
+        primaryLabel={content.compliance.primaryLabel}
+        secondaryLabel={content.compliance.secondaryLabel}
+        primaryHref="#studio"
+        secondaryHref="#faqs"
+      />
+      </main>
+    </>
   );
 }

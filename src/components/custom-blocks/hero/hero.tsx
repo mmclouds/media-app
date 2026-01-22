@@ -25,22 +25,28 @@ const transitionVariants = {
 };
 
 type HeroSectionProps = {
+  eyebrow?: ReactNode;
   title: ReactNode;
   description: ReactNode;
-  primaryLabel: ReactNode;
-  secondaryLabel: ReactNode;
+  cta?: ReactNode;
+  primaryLabel?: ReactNode;
+  secondaryLabel?: ReactNode;
   primaryHref?: string;
   secondaryHref?: string;
 };
 
 export default function HeroSection({
+  eyebrow,
   title,
   description,
+  cta,
   primaryLabel,
   secondaryLabel,
   primaryHref = '/media-studio',
   secondaryHref = '#pricing',
 }: HeroSectionProps) {
+  const hasActions = primaryLabel || secondaryLabel;
+
   return (
     <>
       <main id="hero" className="overflow-hidden">
@@ -83,13 +89,19 @@ export default function HeroSection({
                   </LocaleLink>
                 </AnimatedGroup> */}
 
+                {eyebrow ? (
+                  <p className="text-xs uppercase tracking-[0.35em] text-muted-foreground">
+                    {eyebrow}
+                  </p>
+                ) : null}
+
                 {/* title */}
                 <TextEffect
                   per="line"
                   preset="fade-in-blur"
                   speedSegment={0.3}
                   as="h1"
-                  className="mt-8 text-balance text-5xl font-bricolage-grotesque lg:mt-16 xl:text-[5rem]"
+                  className="mt-6 text-balance text-5xl font-bricolage-grotesque lg:mt-12 xl:text-[5rem]"
                 >
                   {title}
                 </TextEffect>
@@ -106,47 +118,56 @@ export default function HeroSection({
                   {description}
                 </TextEffect>
 
-                {/* action buttons */}
-                <AnimatedGroup
-                  variants={{
-                    container: {
-                      visible: {
-                        transition: {
-                          staggerChildren: 0.05,
-                          delayChildren: 0.75,
+                {cta ? (
+                  <p className="mt-4 text-sm text-muted-foreground">{cta}</p>
+                ) : null}
+
+                {hasActions ? (
+                  <AnimatedGroup
+                    variants={{
+                      container: {
+                        visible: {
+                          transition: {
+                            staggerChildren: 0.05,
+                            delayChildren: 0.75,
+                          },
                         },
                       },
-                    },
-                    ...transitionVariants,
-                  }}
-                  className="mt-12 flex flex-row items-center justify-center gap-4"
-                >
-                  <div
-                    key={1}
-                    className="bg-foreground/10 rounded-[calc(var(--radius-xl)+0.125rem)] border p-0.5"
+                      ...transitionVariants,
+                    }}
+                    className="mt-12 flex flex-row items-center justify-center gap-4"
                   >
-                    <Button
-                      asChild
-                      size="lg"
-                      className="rounded-xl px-5 text-base"
-                    >
-                      <LocaleLink href={primaryHref}>
-                        <span className="text-nowrap">{primaryLabel}</span>
-                      </LocaleLink>
-                    </Button>
-                  </div>
-                  <Button
-                    key={2}
-                    asChild
-                    size="lg"
-                    variant="outline"
-                    className="h-10.5 rounded-xl px-5"
-                  >
-                    <LocaleLink href={secondaryHref}>
-                      <span className="text-nowrap">{secondaryLabel}</span>
-                    </LocaleLink>
-                  </Button>
-                </AnimatedGroup>
+                    {primaryLabel ? (
+                      <div
+                        key={1}
+                        className="bg-foreground/10 rounded-[calc(var(--radius-xl)+0.125rem)] border p-0.5"
+                      >
+                        <Button
+                          asChild
+                          size="lg"
+                          className="rounded-xl px-5 text-base"
+                        >
+                          <LocaleLink href={primaryHref}>
+                            <span className="text-nowrap">{primaryLabel}</span>
+                          </LocaleLink>
+                        </Button>
+                      </div>
+                    ) : null}
+                    {secondaryLabel ? (
+                      <Button
+                        key={2}
+                        asChild
+                        size="lg"
+                        variant="outline"
+                        className="h-10.5 rounded-xl px-5"
+                      >
+                        <LocaleLink href={secondaryHref}>
+                          <span className="text-nowrap">{secondaryLabel}</span>
+                        </LocaleLink>
+                      </Button>
+                    ) : null}
+                  </AnimatedGroup>
+                ) : null}
               </div>
             </div>
 
