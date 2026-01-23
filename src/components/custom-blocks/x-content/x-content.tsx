@@ -12,6 +12,7 @@ type XContentSectionProps = {
   cardClassName?: string;
   iframeClassName?: string;
   cardHeight?: string;
+  iframeTitlePrefix?: string;
 };
 
 const getTweetId = (url: string) => {
@@ -37,12 +38,13 @@ export default function XContentSection({
   cardClassName,
   iframeClassName,
   cardHeight = 'h-[460px]',
+  iframeTitlePrefix = 'X post preview',
 }: XContentSectionProps) {
   const showHeader = title || subtitle || description;
 
   return (
     <section id={id ?? 'x-content'} className={cn('px-4 py-16', className)}>
-      <div className="mx-auto max-w-6xl space-y-8 lg:space-y-16">
+      <div className="w-full space-y-8 lg:space-y-16">
         {showHeader ? (
           <HeaderSection
             title={title ?? undefined}
@@ -53,7 +55,7 @@ export default function XContentSection({
           />
         ) : null}
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {urls.map((url, index) => {
             const embedUrl = getEmbedUrl(url);
             if (!embedUrl) {
@@ -72,7 +74,7 @@ export default function XContentSection({
                     className={cn('h-full w-full', iframeClassName)}
                     sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
                     src={embedUrl}
-                    title={`X post preview ${index + 1}`}
+                    title={`${iframeTitlePrefix} ${index + 1}`}
                     loading="lazy"
                   />
                 </div>

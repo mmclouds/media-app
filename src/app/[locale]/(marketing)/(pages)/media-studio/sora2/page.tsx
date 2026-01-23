@@ -5,12 +5,11 @@ import HeroSection from '@/components/custom-blocks/hero/hero';
 import WorkflowStepsSection from '@/components/custom-blocks/workflow-steps/workflow-steps';
 import AlternatingMediaSection from '@/components/custom-blocks/alternating-media/alternating-media';
 import XContentSection from '@/components/custom-blocks/x-content/x-content';
+import YouTubeContentSection from '@/components/custom-blocks/youtube-content/youtube-content';
 import Container from '@/components/layout/container';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { constructMetadata } from '@/lib/metadata';
-import {
-} from 'lucide-react';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 
@@ -187,6 +186,15 @@ const PAGE_CONTENT = {
       title: 'X Highlights',
       subtitle: 'Latest community takes on Sora 2',
       description: 'See how creators describe prompts and results in the wild.',
+      iframeTitlePrefix: 'X post preview',
+    },
+    youtube: {
+      title: 'YouTube Highlights',
+      subtitle: 'Sora 2 in action',
+      description: 'Watch creator demos, breakdowns, and real workflows.',
+      prevLabel: 'Scroll to previous videos',
+      nextLabel: 'Scroll to next videos',
+      iframeTitlePrefix: 'YouTube video',
     },
   },
   zh: {
@@ -341,9 +349,18 @@ const PAGE_CONTENT = {
       secondaryLabel: '查看常见问题',
     },
     social: {
-      title: 'X Highlights',
-      subtitle: 'Latest community takes on Sora 2',
-      description: 'See how creators describe prompts and results in the wild.',
+      title: 'X 精选内容',
+      subtitle: '社区最新的 Sora 2 观点',
+      description: '看看创作者如何描述提示词与生成结果。',
+      iframeTitlePrefix: 'X 帖子预览',
+    },
+    youtube: {
+      title: 'YouTube 精选内容',
+      subtitle: 'Sora 2 实战演示',
+      description: '观看创作者演示、拆解与真实工作流。',
+      prevLabel: '查看上一组视频',
+      nextLabel: '查看下一组视频',
+      iframeTitlePrefix: 'YouTube 视频',
     },
   },
 } as const;
@@ -384,6 +401,12 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
     'https://x.com/Raindropsmedia1/status/1974484908639691142',
     'https://x.com/goth600/status/1973424740133179667',
     'https://x.com/gabriel1/status/1973071380842229781',
+  ];
+  const youtubeUrls = [
+    'https://www.youtube.com/watch?v=OY2x0TyKzIQ',
+    'https://www.youtube.com/watch?v=HK6y8DAPN_0',
+    'https://www.youtube.com/watch?v=iVtqtu6HceI',
+    'https://www.youtube.com/watch?v=iiRwMCeDPkM',
   ];
   const highlightItems = [
     {
@@ -473,11 +496,24 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
           className="[&_h2]:text-4xl [&_h2]:font-bold"
         />
 
+        <YouTubeContentSection
+          id="youtube-highlights"
+          title={content.youtube.title}
+          subtitle={content.youtube.subtitle}
+          description={content.youtube.description}
+          prevLabel={content.youtube.prevLabel}
+          nextLabel={content.youtube.nextLabel}
+          iframeTitlePrefix={content.youtube.iframeTitlePrefix}
+          urls={youtubeUrls}
+          className="[&_h2]:text-4xl [&_h2]:font-bold"
+        />
+
         <XContentSection
           id="x-highlights"
           title={content.social.title}
           subtitle={content.social.subtitle}
           description={content.social.description}
+          iframeTitlePrefix={content.social.iframeTitlePrefix}
           urls={socialUrls}
           className="[&_h2]:text-4xl [&_h2]:font-bold"
         />
