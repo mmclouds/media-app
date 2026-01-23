@@ -3,6 +3,7 @@ import FaqSection from '@/components/custom-blocks/faqs/faqs';
 import Features3Section from '@/components/custom-blocks/features3/features3';
 import HeroSection from '@/components/custom-blocks/hero/hero';
 import AlternatingMediaSection from '@/components/custom-blocks/alternating-media/alternating-media';
+import XContentSection from '@/components/custom-blocks/x-content/x-content';
 import Container from '@/components/layout/container';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
@@ -197,6 +198,11 @@ const PAGE_CONTENT = {
       primaryLabel: 'Back to studio',
       secondaryLabel: 'View FAQ',
     },
+    social: {
+      title: 'X Highlights',
+      subtitle: 'Latest community takes on Sora 2',
+      description: 'See how creators describe prompts and results in the wild.',
+    },
   },
   zh: {
     meta: {
@@ -350,6 +356,11 @@ const PAGE_CONTENT = {
       primaryLabel: '返回工作室',
       secondaryLabel: '查看常见问题',
     },
+    social: {
+      title: 'X Highlights',
+      subtitle: 'Latest community takes on Sora 2',
+      description: 'See how creators describe prompts and results in the wild.',
+    },
   },
 } as const;
 
@@ -398,6 +409,15 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
   const communityIcons = [
     <Share2 key="community-1" className={iconClassName} />,
     <Sparkles key="community-2" className={iconClassName} />,
+  ];
+  const socialUrls = [
+    'https://x.com/slow_developer/status/1973079395863548172',
+    'https://x.com/AngryTomtweets/status/1975499455035220353',
+    'https://x.com/azed_ai/status/1983488326708727882',
+    'https://x.com/levelsio/status/1975505972765323447',
+    'https://x.com/Raindropsmedia1/status/1974484908639691142',
+    'https://x.com/goth600/status/1973424740133179667',
+    'https://x.com/gabriel1/status/1973071380842229781',
   ];
   const highlightItems = [
     {
@@ -470,121 +490,129 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
     <>
       <Navbar scroll={true} />
       <main className="bg-background text-foreground">
-      <HeroSection
-        eyebrow={content.hero.eyebrow}
-        title={content.hero.title}
-        description={content.hero.subtitle}
-        cta={content.hero.cta}
-        primaryLabel={content.hero.primaryLabel}
-        secondaryLabel={content.hero.secondaryLabel}
-        primaryHref="#studio"
-        secondaryHref="#capabilities"
-      />
-
-      <section id="studio" className="relative overflow-hidden">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsla(0,0%,90%,0.25),transparent_55%),radial-gradient(circle_at_top_right,hsla(0,0%,80%,0.2),transparent_60%)]"
+        <HeroSection
+          eyebrow={content.hero.eyebrow}
+          title={content.hero.title}
+          description={content.hero.subtitle}
+          cta={content.hero.cta}
+          primaryLabel={content.hero.primaryLabel}
+          secondaryLabel={content.hero.secondaryLabel}
+          primaryHref="#studio"
+          secondaryHref="#capabilities"
         />
-        <Container className="relative px-6 pb-16 pt-10 lg:pt-16">
-          <div className="mt-10 rounded-3xl border border-border/60 bg-muted/40 p-3 shadow-lg">
-            <MediaGeneratorWorkspace
-              className="h-[720px]"
-              initialMediaType="video"
-              preferredModelId="sora2"
-            />
-          </div>
-        </Container>
-      </section>
 
-      <AlternatingMediaSection
-        id="highlights"
-        title={content.highlights.title}
-        items={highlightItems}
-      />
+        <section id="studio" className="relative overflow-hidden">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsla(0,0%,90%,0.25),transparent_55%),radial-gradient(circle_at_top_right,hsla(0,0%,80%,0.2),transparent_60%)]"
+          />
+          <Container className="relative px-6 pb-16 pt-10 lg:pt-16">
+            <div className="mt-10 rounded-3xl border border-border/60 bg-muted/40 p-3 shadow-lg">
+              <MediaGeneratorWorkspace
+                className="h-[720px]"
+                initialMediaType="video"
+                preferredModelId="sora2"
+              />
+            </div>
+          </Container>
+        </section>
 
-      <AlternatingMediaSection
-        id="capabilities"
-        title={content.capabilities.title}
-        description={content.capabilities.note}
-        items={capabilityItems}
-      />
+        <AlternatingMediaSection
+          id="highlights"
+          title={content.highlights.title}
+          items={highlightItems}
+        />
 
-      <Features3Section
-        id="workflow"
-        title={content.workflow.title}
-        subtitle={null}
-        description={null}
-        items={content.workflow.steps.map((step, index) => ({
-          title: step.title,
-          description: step.description,
-          icon: workflowIcons[index] ?? workflowIcons[0],
-        }))}
-      />
+        <AlternatingMediaSection
+          id="capabilities"
+          title={content.capabilities.title}
+          description={content.capabilities.note}
+          items={capabilityItems}
+        />
 
-      <Features3Section
-        id="use-cases"
-        title={content.useCases.title}
-        subtitle={null}
-        description={null}
-        items={content.useCases.items.map((item, index) => ({
-          title: item,
-          description: null,
-          icon: useCaseIcons[index] ?? useCaseIcons[0],
-        }))}
-      />
+        <Features3Section
+          id="workflow"
+          title={content.workflow.title}
+          subtitle={null}
+          description={null}
+          items={content.workflow.steps.map((step, index) => ({
+            title: step.title,
+            description: step.description,
+            icon: workflowIcons[index] ?? workflowIcons[0],
+          }))}
+        />
 
-      <Features3Section
-        id="examples"
-        title={content.examples.title}
-        subtitle={null}
-        description={null}
-        items={content.examples.items.map((item) => ({
-          title: item.language,
-          description: (
-            <>
-              <span className="block text-foreground font-semibold">
-                {item.prompt}
-              </span>
-              <span className="mt-2 block text-muted-foreground">
-                {item.description}
-              </span>
-            </>
-          ),
-          icon: <Languages className={iconClassName} />,
-        }))}
-      />
+        <Features3Section
+          id="use-cases"
+          title={content.useCases.title}
+          subtitle={null}
+          description={null}
+          items={content.useCases.items.map((item, index) => ({
+            title: item,
+            description: null,
+            icon: useCaseIcons[index] ?? useCaseIcons[0],
+          }))}
+        />
 
-      <FaqSection
-        title={content.faq.title}
-        subtitle={content.faq.subtitle}
-        items={content.faq.items.map((item, index) => ({
-          id: `faq-${index + 1}`,
-          question: item.question,
-          answer: item.answer,
-        }))}
-      />
+        <Features3Section
+          id="examples"
+          title={content.examples.title}
+          subtitle={null}
+          description={null}
+          items={content.examples.items.map((item) => ({
+            title: item.language,
+            description: (
+              <>
+                <span className="block text-foreground font-semibold">
+                  {item.prompt}
+                </span>
+                <span className="mt-2 block text-muted-foreground">
+                  {item.description}
+                </span>
+              </>
+            ),
+            icon: <Languages className={iconClassName} />,
+          }))}
+        />
 
-      <Features3Section
-        id="community"
-        title={content.community.title}
-        subtitle={null}
-        description={null}
-        items={content.community.items.map((item, index) => ({
-          title: item.title,
-          description: item.description,
-          icon: communityIcons[index] ?? communityIcons[0],
-        }))}
-      />
+        <XContentSection
+          id="x-highlights"
+          title={content.social.title}
+          subtitle={content.social.subtitle}
+          description={content.social.description}
+          urls={socialUrls}
+        />
 
-      <CallToActionSection
-        title={content.compliance.title}
-        description={content.compliance.description}
-        primaryLabel={content.compliance.primaryLabel}
-        secondaryLabel={content.compliance.secondaryLabel}
-        primaryHref="#studio"
-        secondaryHref="#faqs"
-      />
+        <FaqSection
+          title={content.faq.title}
+          subtitle={content.faq.subtitle}
+          items={content.faq.items.map((item, index) => ({
+            id: `faq-${index + 1}`,
+            question: item.question,
+            answer: item.answer,
+          }))}
+        />
+
+        <Features3Section
+          id="community"
+          title={content.community.title}
+          subtitle={null}
+          description={null}
+          items={content.community.items.map((item, index) => ({
+            title: item.title,
+            description: item.description,
+            icon: communityIcons[index] ?? communityIcons[0],
+          }))}
+        />
+
+        <CallToActionSection
+          title={content.compliance.title}
+          description={content.compliance.description}
+          primaryLabel={content.compliance.primaryLabel}
+          secondaryLabel={content.compliance.secondaryLabel}
+          primaryHref="#studio"
+          secondaryHref="#faqs"
+        />
       </main>
     </>
   );
