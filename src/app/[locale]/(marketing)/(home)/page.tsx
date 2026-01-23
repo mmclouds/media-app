@@ -53,22 +53,20 @@ export default async function HomePage(props: HomePageProps) {
         </div> */}
         <HeroSection />
 
+        {/* <LogoCloud /> */}
 
-
-        <LogoCloud />
-
-        <StatsSection />
+        {/* <StatsSection /> */}
 
         {/* <IntegrationSection /> */}
         <Integration3Section />
 
         <FeaturesSection />
 
-        <Features2Section />
+        {/* <Features2Section /> */}
 
         <Features3Section />
 
-        <Integration2Section />
+        {/* <Integration2Section /> */}
 
         <PricingSection />
 
@@ -76,11 +74,13 @@ export default async function HomePage(props: HomePageProps) {
 
         <CallToActionSection />
 
-        <TestimonialsSection />
+        {/* <TestimonialsSection /> */}
 
         <NewsletterCard />
 
         <CrispChat />
+
+
       </div>
     </>
   );

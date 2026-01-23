@@ -6,6 +6,7 @@ import WorkflowStepsSection from '@/components/custom-blocks/workflow-steps/work
 import AlternatingMediaSection from '@/components/custom-blocks/alternating-media/alternating-media';
 import XContentSection from '@/components/custom-blocks/x-content/x-content';
 import YouTubeContentSection from '@/components/custom-blocks/youtube-content/youtube-content';
+import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-promo';
 import Container from '@/components/layout/container';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
@@ -196,6 +197,13 @@ const PAGE_CONTENT = {
       nextLabel: 'Scroll to next videos',
       iframeTitlePrefix: 'YouTube video',
     },
+    studioPromo: {
+      title: 'VLook.ai Studio: Cinematic AI video creation for everyone',
+      description:
+        'Create high-fidelity clips fast with VLook.ai. Prompt, refine, and publish in minutes.',
+      primaryLabel: 'Open VLook.ai Studio',
+      secondaryLabel: 'Explore VLook.ai',
+    },
   },
   zh: {
     meta: {
@@ -361,6 +369,13 @@ const PAGE_CONTENT = {
       prevLabel: '查看上一组视频',
       nextLabel: '查看下一组视频',
       iframeTitlePrefix: 'YouTube 视频',
+    },
+    studioPromo: {
+      title: 'VLook.ai 工作室：人人可用的电影级 AI 视频创作',
+      description:
+        '通过 VLook.ai 快速生成高质量视频：输入提示词、微调细节、数分钟内发布。',
+      primaryLabel: '打开 VLook.ai 工作室',
+      secondaryLabel: '了解 VLook.ai',
     },
   },
 } as const;
@@ -530,13 +545,23 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
           />
         </div>
 
-        <CallToActionSection
+        {/* <CallToActionSection
           title={content.compliance.title}
           description={content.compliance.description}
           primaryLabel={content.compliance.primaryLabel}
           secondaryLabel={content.compliance.secondaryLabel}
           primaryHref="#studio"
           secondaryHref="#faqs"
+        /> */}
+
+        <StudioPromoSection
+          id="studio-promo"
+          title={content.studioPromo.title}
+          description={content.studioPromo.description}
+          primaryLabel={content.studioPromo.primaryLabel}
+          secondaryLabel={content.studioPromo.secondaryLabel}
+          primaryHref="#studio"
+          secondaryHref="/"
         />
       </main>
     </>
