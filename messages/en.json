@@ -462,6 +462,27 @@
     },
     "footer": {
       "tagline": "vlook.ai - fast, affordable AI image, video, and music creation.",
+      "models": {
+        "video": {
+          "title": "Video Models",
+          "items": {
+            "sora2": "Sora 2",
+            "veo3": "Veo 3"
+          }
+        },
+        "music": {
+          "title": "Music Models",
+          "items": {
+            "suno": "Suno"
+          }
+        },
+        "image": {
+          "title": "Image Models",
+          "items": {
+            "nanoBanana": "Nano Banana"
+          }
+        }
+      },
       "product": {
         "title": "Product",
         "items": {

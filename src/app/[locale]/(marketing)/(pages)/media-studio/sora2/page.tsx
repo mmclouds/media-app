@@ -418,6 +418,7 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
     'https://x.com/Raindropsmedia1/status/1974484908639691142',
     'https://x.com/goth600/status/1973424740133179667',
     'https://x.com/gabriel1/status/1973071380842229781',
+    'https://x.com/AviSchiffmann/status/1758199766234624333',
   ];
   const youtubeUrls = [
     'https://www.youtube.com/watch?v=OY2x0TyKzIQ',

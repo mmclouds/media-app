@@ -20,21 +20,37 @@ export function useFooterLinks(): NestedMenuItem[] {
 
   return [
     {
-      title: t('product.title'),
+      title: t('models.video.title'),
       items: [
         {
-          title: t('product.items.features'),
-          href: Routes.Features,
+          title: t('models.video.items.sora2'),
+          href: Routes.MediaStudioSora2,
           external: false,
         },
         {
-          title: t('product.items.pricing'),
-          href: Routes.Pricing,
+          title: t('models.video.items.veo3'),
+          href: Routes.MediaStudioVeo3,
           external: false,
         },
+      ],
+    },
+
+    {
+      title: t('models.image.title'),
+      items: [
         {
-          title: t('product.items.faq'),
-          href: Routes.FAQ,
+          title: t('models.image.items.nanoBanana'),
+          href: Routes.MediaStudioNanoBanana,
+          external: false,
+        },
+      ],
+    },
+    {
+      title: t('models.music.title'),
+      items: [
+        {
+          title: t('models.music.items.suno'),
+          href: Routes.AIAudio,
           external: false,
         },
       ],
@@ -76,6 +92,21 @@ export function useFooterLinks(): NestedMenuItem[] {
       title: t('company.title'),
       items: [
         {
+          title: t('product.items.features'),
+          href: Routes.Features,
+          external: false,
+        },
+        {
+          title: t('product.items.pricing'),
+          href: Routes.Pricing,
+          external: false,
+        },
+        {
+          title: t('product.items.faq'),
+          href: Routes.FAQ,
+          external: false,
+        },
+        {
           title: t('company.items.about'),
           href: Routes.About,
           external: false,
@@ -90,11 +121,6 @@ export function useFooterLinks(): NestedMenuItem[] {
           href: Routes.Waitlist,
           external: false,
         },
-      ],
-    },
-    {
-      title: t('legal.title'),
-      items: [
         {
           title: t('legal.items.cookiePolicy'),
           href: Routes.CookiePolicy,
@@ -112,5 +138,6 @@ export function useFooterLinks(): NestedMenuItem[] {
         },
       ],
     },
+
   ];
 }

@@ -20,6 +20,10 @@ export enum Routes {
   CookiePolicy = '/cookie',
   PrivacyPolicy = '/privacy',
   TermsOfService = '/terms',
+  MediaStudio = '/media-studio',
+  MediaStudioSora2 = '/media-studio/sora2',
+  MediaStudioVeo3 = '/media-studio/veo3',
+  MediaStudioNanoBanana = '/media-studio/nano-banana',
 
   // auth routes
   Login = '/auth/login',

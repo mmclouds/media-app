@@ -462,6 +462,27 @@
     },
     "footer": {
       "tagline": "vlook.ai - 快速、实惠的 AI 图片、视频与音乐创作。",
+      "models": {
+        "video": {
+          "title": "视频模型",
+          "items": {
+            "sora2": "Sora 2",
+            "veo3": "Veo 3"
+          }
+        },
+        "music": {
+          "title": "音乐模型",
+          "items": {
+            "suno": "Suno"
+          }
+        },
+        "image": {
+          "title": "图像模型",
+          "items": {
+            "nanoBanana": "Nano Banana"
+          }
+        }
+      },
       "product": {
         "title": "产品",
         "items": {
