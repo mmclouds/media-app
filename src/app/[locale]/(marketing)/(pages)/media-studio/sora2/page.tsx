@@ -154,7 +154,12 @@ const PAGE_CONTENT = {
         {
           question: 'How long can videos be?',
           answer:
-            'Official limits vary by plan, with typical ranges around 10 to 60 seconds.',
+            'Official limits vary by plan, with typical ranges around 10-15 seconds.',
+        },
+        {
+          question: "Is OpenAI's Sora free to use?",
+          answer:
+            'Not fully. Longer clips and higher resolutions need ChatGPT Plus ($20/month) or Pro ($200/month). For a more cost-effective option, Pollo AI offers text-to-video and image-to-video tools.',
         },
         {
           question: 'Can I control style and length?',
@@ -330,7 +335,12 @@ const PAGE_CONTENT = {
         },
         {
           question: '视频最长能生成多长？',
-          answer: '长度受套餐限制，通常在 10-60 秒范围内。',
+          answer: '长度受套餐限制，通常在 10-15 秒范围内。',
+        },
+        {
+          question: 'OpenAI 的 Sora 是免费的吗？',
+          answer:
+            '不完全免费。更高分辨率与更长时长需要 ChatGPT Plus（$20/月）或 Pro（$200/月）。更看重性价比可考虑 Pollo AI 的文生视频与图生视频。',
         },
         {
           question: '可以控制风格和长度吗？',
