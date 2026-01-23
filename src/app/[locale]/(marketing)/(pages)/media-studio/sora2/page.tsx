@@ -5,6 +5,7 @@ import HeroSection from '@/components/custom-blocks/hero/hero';
 import WorkflowStepsSection from '@/components/custom-blocks/workflow-steps/workflow-steps';
 import AlternatingMediaSection from '@/components/custom-blocks/alternating-media/alternating-media';
 import XContentSection from '@/components/custom-blocks/x-content/x-content';
+import Container from '@/components/layout/container';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { constructMetadata } from '@/lib/metadata';
@@ -442,15 +443,15 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsla(0,0%,90%,0.25),transparent_55%),radial-gradient(circle_at_top_right,hsla(0,0%,80%,0.2),transparent_60%)]"
           />
-          <div className="relative px-6 pb-16 pt-10 lg:pt-16">
-            <div className="mt-10 w-full rounded-3xl border border-border/60 bg-muted/40 p-3 shadow-lg">
+          <Container className="relative px-6 pb-16 pt-10 lg:pt-16">
+            <div className="mt-10 rounded-3xl border border-border/60 bg-muted/40 p-3 shadow-lg">
               <MediaGeneratorWorkspace
                 className="h-[720px]"
                 initialMediaType="video"
                 preferredModelId="sora2"
               />
             </div>
-          </div>
+          </Container>
         </section>
 
         <AlternatingMediaSection
