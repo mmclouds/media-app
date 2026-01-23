@@ -2,24 +2,13 @@ import CallToActionSection from '@/components/custom-blocks/calltoaction/calltoa
 import FaqSection from '@/components/custom-blocks/faqs/faqs';
 import Features3Section from '@/components/custom-blocks/features3/features3';
 import HeroSection from '@/components/custom-blocks/hero/hero';
+import WorkflowStepsSection from '@/components/custom-blocks/workflow-steps/workflow-steps';
 import AlternatingMediaSection from '@/components/custom-blocks/alternating-media/alternating-media';
 import XContentSection from '@/components/custom-blocks/x-content/x-content';
-import Container from '@/components/layout/container';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { constructMetadata } from '@/lib/metadata';
 import {
-  Download,
-  Film,
-  GraduationCap,
-  Languages,
-  Megaphone,
-  PencilLine,
-  Share2,
-  Sliders,
-  Sparkles,
-  Users,
-  Wand2,
 } from 'lucide-react';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
@@ -87,7 +76,7 @@ const PAGE_CONTENT = {
         {
           title: 'Set parameters',
           description:
-            'Choose aspect ratio, resolution, duration, and number of variations.',
+            'Choose aspect ratio, resolution, duration of variations.',
         },
         {
           title: 'Generate',
@@ -257,7 +246,7 @@ const PAGE_CONTENT = {
         },
         {
           title: '设置参数',
-          description: '选择比例、清晰度、时长与变体数量。',
+          description: '选择比例、清晰度、时长',
         },
         {
           title: '生成视频',
@@ -386,24 +375,6 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
   const content =
     PAGE_CONTENT[params.locale as keyof typeof PAGE_CONTENT] ?? PAGE_CONTENT.en;
 
-  const workflowIcons = [
-    <PencilLine key="workflow-1" className={iconClassName} />,
-    <Sliders key="workflow-2" className={iconClassName} />,
-    <Wand2 key="workflow-3" className={iconClassName} />,
-    <Download key="workflow-4" className={iconClassName} />,
-  ];
-
-  const useCaseIcons = [
-    <Users key="usecase-1" className={iconClassName} />,
-    <GraduationCap key="usecase-2" className={iconClassName} />,
-    <Megaphone key="usecase-3" className={iconClassName} />,
-    <Film key="usecase-4" className={iconClassName} />,
-  ];
-
-  const communityIcons = [
-    <Share2 key="community-1" className={iconClassName} />,
-    <Sparkles key="community-2" className={iconClassName} />,
-  ];
   const socialUrls = [
     'https://x.com/slow_developer/status/1973079395863548172',
     'https://x.com/AngryTomtweets/status/1975499455035220353',
@@ -449,30 +420,6 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
       },
     },
   ];
-  const capabilityItems = [
-    {
-      title: content.capabilities.items[0]?.title,
-      description: content.capabilities.items[0]?.description,
-      image: {
-        src: '/blocks/multimodal-generation.png',
-        alt: 'Text-to-video generation preview',
-        width: 1207,
-        height: 929,
-        priority: true,
-      },
-    },
-    {
-      title: content.capabilities.items[1]?.title,
-      description: content.capabilities.items[1]?.description,
-      image: {
-        src: '/blocks/fast-smooth-experience.png',
-        alt: 'Image-to-video generation preview',
-        width: 1207,
-        height: 929,
-      },
-    },
-  ];
-
   return (
     <>
       <Navbar scroll={true} />
@@ -485,8 +432,8 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
             cta={content.hero.cta}
             primaryLabel={content.hero.primaryLabel}
             secondaryLabel={content.hero.secondaryLabel}
-            primaryHref="/media-studio"
-            secondaryHref="#capabilities"
+            primaryHref="#studio"
+            secondaryHref="#highlights"
           />
         </div>
 
@@ -495,73 +442,34 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsla(0,0%,90%,0.25),transparent_55%),radial-gradient(circle_at_top_right,hsla(0,0%,80%,0.2),transparent_60%)]"
           />
-          <Container className="relative px-6 pb-16 pt-10 lg:pt-16">
-            <div className="mt-10 rounded-3xl border border-border/60 bg-muted/40 p-3 shadow-lg">
+          <div className="relative px-6 pb-16 pt-10 lg:pt-16">
+            <div className="mt-10 w-full rounded-3xl border border-border/60 bg-muted/40 p-3 shadow-lg">
               <MediaGeneratorWorkspace
                 className="h-[720px]"
                 initialMediaType="video"
                 preferredModelId="sora2"
               />
             </div>
-          </Container>
+          </div>
         </section>
 
         <AlternatingMediaSection
           id="highlights"
           subtitle={content.highlights.title}
           items={highlightItems}
+          className="[&_h2]:text-4xl [&_h2]:font-bold"
         />
 
-        <AlternatingMediaSection
-          id="capabilities"
-          subtitle={content.capabilities.title}
-          description={content.capabilities.note}
-          items={capabilityItems}
-        />
-
-        <Features3Section
+        <WorkflowStepsSection
           id="workflow"
           title={null}
           subtitle={content.workflow.title}
           description={null}
-          items={content.workflow.steps.map((step, index) => ({
+          items={content.workflow.steps.map((step) => ({
             title: step.title,
             description: step.description,
-            icon: workflowIcons[index] ?? workflowIcons[0],
           }))}
-        />
-
-        <Features3Section
-          id="use-cases"
-          title={null}
-          subtitle={content.useCases.title}
-          description={null}
-          items={content.useCases.items.map((item, index) => ({
-            title: item,
-            description: null,
-            icon: useCaseIcons[index] ?? useCaseIcons[0],
-          }))}
-        />
-
-        <Features3Section
-          id="examples"
-          title={null}
-          subtitle={content.examples.title}
-          description={null}
-          items={content.examples.items.map((item) => ({
-            title: item.language,
-            description: (
-              <>
-                <span className="block text-foreground font-semibold">
-                  {item.prompt}
-                </span>
-                <span className="mt-2 block text-muted-foreground">
-                  {item.description}
-                </span>
-              </>
-            ),
-            icon: <Languages className={iconClassName} />,
-          }))}
+          className="[&_h2]:text-4xl [&_h2]:font-bold"
         />
 
         <XContentSection
@@ -570,29 +478,20 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
           subtitle={content.social.subtitle}
           description={content.social.description}
           urls={socialUrls}
+          className="[&_h2]:text-4xl [&_h2]:font-bold"
         />
 
-        <FaqSection
-          title={content.faq.title}
-          subtitle={content.faq.subtitle}
-          items={content.faq.items.map((item, index) => ({
-            id: `faq-${index + 1}`,
-            question: item.question,
-            answer: item.answer,
-          }))}
-        />
-
-        <Features3Section
-          id="community"
-          title={null}
-          subtitle={content.community.title}
-          description={null}
-          items={content.community.items.map((item, index) => ({
-            title: item.title,
-            description: item.description,
-            icon: communityIcons[index] ?? communityIcons[0],
-          }))}
-        />
+        <div className="[&_h2]:text-4xl [&_h2]:font-bold">
+          <FaqSection
+            title={content.faq.title}
+            subtitle={content.faq.subtitle}
+            items={content.faq.items.map((item, index) => ({
+              id: `faq-${index + 1}`,
+              question: item.question,
+              answer: item.answer,
+            }))}
+          />
+        </div>
 
         <CallToActionSection
           title={content.compliance.title}
