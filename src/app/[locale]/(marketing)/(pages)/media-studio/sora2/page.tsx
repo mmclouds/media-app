@@ -2,25 +2,21 @@ import CallToActionSection from '@/components/custom-blocks/calltoaction/calltoa
 import FaqSection from '@/components/custom-blocks/faqs/faqs';
 import Features3Section from '@/components/custom-blocks/features3/features3';
 import HeroSection from '@/components/custom-blocks/hero/hero';
+import AlternatingMediaSection from '@/components/custom-blocks/alternating-media/alternating-media';
 import Container from '@/components/layout/container';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { constructMetadata } from '@/lib/metadata';
 import {
-  AudioLines,
   Download,
   Film,
   GraduationCap,
-  Image as ImageIcon,
   Languages,
   Megaphone,
   PencilLine,
   Share2,
-  ShieldCheck,
   Sliders,
   Sparkles,
-  Type,
-  UserRound,
   Users,
   Wand2,
 } from 'lucide-react';
@@ -38,20 +34,10 @@ const PAGE_CONTENT = {
       eyebrow: 'AI video generation',
       title: 'Sora 2 Studio',
       subtitle:
-        'Turn text or images into cinematic short videos with improved physical realism, continuity, and sound.',
+        'Turn text or images into cinematic short videos with improved physical realism, continuity, and sound. Sora 2 (2025) upgrades physical understanding, visual fidelity, and controllability for multi-shot storytelling.',
       cta: 'Start creating in the workspace below.',
       primaryLabel: 'Open studio',
       secondaryLabel: 'View capabilities',
-    },
-    overview: {
-      title: 'Model Overview',
-      description:
-        'Sora is OpenAI’s text-to-video model introduced in 2024. Sora 2 (2025) upgrades physical understanding, visual fidelity, and controllability for multi-shot storytelling.',
-      bullets: [
-        'Public demos in 2024 with expanded access afterward.',
-        'Sora 2 improves realism, motion coherence, and continuity.',
-        'The Sora app pairs creation with sharing and remixing.',
-      ],
     },
     highlights: {
       title: 'Key Highlights',
@@ -222,20 +208,10 @@ const PAGE_CONTENT = {
       eyebrow: 'AI 视频生成',
       title: 'Sora 2 Studio',
       subtitle:
-        '将文本或图片转化为电影感短视频，具备更强的物理真实感与连贯性。',
+        '将文本或图片转化为电影感短视频，具备更强的物理真实感与连贯性。Sora 2（2025）在物理理解、画面清晰度与多镜头可控性上进一步升级。',
       cta: '在下方工作区开始创作。',
       primaryLabel: '进入工作室',
       secondaryLabel: '查看能力',
-    },
-    overview: {
-      title: '模型概览',
-      description:
-        'Sora 是 OpenAI 在 2024 年推出的文本生成视频模型。Sora 2（2025）在物理理解、画面清晰度与多镜头可控性上进一步升级。',
-      bullets: [
-        '2024 年公开演示，并逐步扩大访问范围。',
-        'Sora 2 提升真实感、运动连贯性与场景一致性。',
-        'Sora 应用支持创作、分享与 remix。',
-      ],
     },
     highlights: {
       title: '核心亮点',
@@ -405,24 +381,6 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
   const content =
     PAGE_CONTENT[params.locale as keyof typeof PAGE_CONTENT] ?? PAGE_CONTENT.en;
 
-  const overviewIcons = [
-    <Sparkles key="overview-1" className={iconClassName} />,
-    <Share2 key="overview-2" className={iconClassName} />,
-    <Wand2 key="overview-3" className={iconClassName} />,
-  ];
-
-  const highlightIcons = [
-    <ShieldCheck key="highlight-1" className={iconClassName} />,
-    <AudioLines key="highlight-2" className={iconClassName} />,
-    <Sliders key="highlight-3" className={iconClassName} />,
-    <UserRound key="highlight-4" className={iconClassName} />,
-  ];
-
-  const capabilityIcons = [
-    <Type key="capability-1" className={iconClassName} />,
-    <ImageIcon key="capability-2" className={iconClassName} />,
-  ];
-
   const workflowIcons = [
     <PencilLine key="workflow-1" className={iconClassName} />,
     <Sliders key="workflow-2" className={iconClassName} />,
@@ -440,6 +398,72 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
   const communityIcons = [
     <Share2 key="community-1" className={iconClassName} />,
     <Sparkles key="community-2" className={iconClassName} />,
+  ];
+  const highlightItems = [
+    {
+      title: content.highlights.items[0]?.title,
+      description: content.highlights.items[0]?.description,
+      image: {
+        src: '/blocks/ai-models-integration.png',
+        alt: 'Physics-consistent motion preview',
+        width: 1207,
+        height: 929,
+        priority: true,
+      },
+    },
+    {
+      title: content.highlights.items[1]?.title,
+      description: content.highlights.items[1]?.description,
+      image: {
+        src: '/blocks/pricing-free-trial.png',
+        alt: 'Higher fidelity with sound preview',
+        width: 1207,
+        height: 929,
+      },
+    },
+    {
+      title: content.highlights.items[2]?.title,
+      description: content.highlights.items[2]?.description,
+      image: {
+        src: '/blocks/fast-smooth-experience.png',
+        alt: 'Stronger control preview',
+        width: 1207,
+        height: 929,
+      },
+    },
+    {
+      title: content.highlights.items[3]?.title,
+      description: content.highlights.items[3]?.description,
+      image: {
+        src: '/blocks/multimodal-generation.png',
+        alt: 'Character injection preview',
+        width: 1207,
+        height: 929,
+      },
+    },
+  ];
+  const capabilityItems = [
+    {
+      title: content.capabilities.items[0]?.title,
+      description: content.capabilities.items[0]?.description,
+      image: {
+        src: '/blocks/multimodal-generation.png',
+        alt: 'Text-to-video generation preview',
+        width: 1207,
+        height: 929,
+        priority: true,
+      },
+    },
+    {
+      title: content.capabilities.items[1]?.title,
+      description: content.capabilities.items[1]?.description,
+      image: {
+        src: '/blocks/fast-smooth-experience.png',
+        alt: 'Image-to-video generation preview',
+        width: 1207,
+        height: 929,
+      },
+    },
   ];
 
   return (
@@ -473,40 +497,17 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
         </Container>
       </section>
 
-      <Features3Section
-        id="overview"
-        title={content.overview.title}
-        subtitle={null}
-        description={content.overview.description}
-        items={content.overview.bullets.map((item, index) => ({
-          title: item,
-          description: null,
-          icon: overviewIcons[index] ?? overviewIcons[0],
-        }))}
-      />
-
-      <Features3Section
+      <AlternatingMediaSection
         id="highlights"
         title={content.highlights.title}
-        subtitle={null}
-        description={null}
-        items={content.highlights.items.map((item, index) => ({
-          title: item.title,
-          description: item.description,
-          icon: highlightIcons[index] ?? highlightIcons[0],
-        }))}
+        items={highlightItems}
       />
 
-      <Features3Section
+      <AlternatingMediaSection
         id="capabilities"
         title={content.capabilities.title}
-        subtitle={null}
         description={content.capabilities.note}
-        items={content.capabilities.items.map((item, index) => ({
-          title: item.title,
-          description: item.description,
-          icon: capabilityIcons[index] ?? capabilityIcons[0],
-        }))}
+        items={capabilityItems}
       />
 
       <Features3Section

@@ -45,7 +45,6 @@ export default async function HomePage(props: HomePageProps) {
   const params = await props.params;
   const { locale } = params;
   const t = await getTranslations('HomePage');
-
   return (
     <>
       <div className="flex flex-col">
@@ -56,20 +55,20 @@ export default async function HomePage(props: HomePageProps) {
 
 
 
-        {/* <LogoCloud /> */}
+        <LogoCloud />
 
-        {/* <StatsSection /> */}
+        <StatsSection />
 
         {/* <IntegrationSection /> */}
         <Integration3Section />
 
         <FeaturesSection />
 
-        {/* <Features2Section /> */}
+        <Features2Section />
 
         <Features3Section />
 
-        {/* <Integration2Section /> */}
+        <Integration2Section />
 
         <PricingSection />
 
@@ -77,7 +76,7 @@ export default async function HomePage(props: HomePageProps) {
 
         <CallToActionSection />
 
-        {/* <TestimonialsSection /> */}
+        <TestimonialsSection />
 
         <NewsletterCard />
 
