@@ -44,24 +44,19 @@ const PAGE_CONTENT = {
       title: 'Key Highlights',
       items: [
         {
-          title: 'Physics-consistent motion',
+          title: 'Stronger physics consistency, more realistic results',
           description:
-            'Better cause-and-effect behavior like realistic bounces and momentum.',
+            'Sora 2 follows real-world physics and cause-and-effect more closely. It avoids breaking common sense just to satisfy prompts, and instead simulates believable outcomes.',
         },
         {
-          title: 'Higher fidelity with sound',
+          title: 'Cinematic visuals with a complete audio-visual experience',
           description:
-            'Sharper lighting and textures with synced ambience, effects, and dialogue.',
+            'Compared with the previous version, Sora 2 greatly improves realism, lighting, texture, and motion continuity, delivering photoreal, cinematic, and high-quality animation styles. It also auto-generates matching dialogue, sound effects, and background music with tight sync for deeper immersion.',
         },
         {
-          title: 'Stronger control',
+          title: 'Greater control and long-range continuity',
           description:
-            'Handles multi-shot prompts and keeps scenes consistent across cuts.',
-        },
-        {
-          title: 'Character injection',
-          description:
-            'Blend real people into generated scenes with stable appearance.',
+            'Sora 2 understands complex instructions, supports multi-shot and multi-scene generation, and keeps people, environments, and objects consistent. New “character injection” lets you bring specific faces and voices into scenes for efficient, controllable storytelling.',
         },
       ],
     },
@@ -223,20 +218,19 @@ const PAGE_CONTENT = {
       title: '核心亮点',
       items: [
         {
-          title: '物理一致的运动',
-          description: '更真实的因果运动表现，如弹跳与惯性。',
+          title: '物理一致性更强，结果更真实',
+          description:
+            'Sora 2 在视频生成中更加遵循现实世界的物理与因果规律。它不会为了“完成指令”而违背常识，而是合理模拟真实结果。',
         },
         {
-          title: '更高保真与音效',
-          description: '更清晰的光影与材质，并同步环境音、效果与对白。',
+          title: '电影级画质与完整视听体验',
+          description:
+            '相较前代，Sora 2 在画面真实度、光影质感和动作连续性上大幅提升，能够稳定生成写实、电影级及高质量动画风格的视频。同时，视频会自动生成匹配的对白、音效与背景音乐，画面与声音高度同步，沉浸感更强。',
         },
         {
-          title: '更强可控性',
-          description: '支持多镜头提示词，跨镜头保持画面一致。',
-        },
-        {
-          title: '角色注入',
-          description: '将真人融入生成场景，保持稳定外观。',
+          title: '更高可控性与长程连贯性',
+          description:
+            'Sora 2 能理解复杂指令，支持多镜头、多场景的连续生成，并保持人物、环境和物体状态的一致性。新增“角色注入”等能力，允许用户将特定人物的外貌与声音融入视频创作，使复杂叙事与个性化创作更加高效可控。',
         },
       ],
     },
@@ -424,10 +418,11 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
       title: content.highlights.items[0]?.title,
       description: content.highlights.items[0]?.description,
       image: {
-        src: '/blocks/ai-models-integration.png',
-        alt: 'Physics-consistent motion preview',
+        src: '/images/generated/sora2-physics-realism-20260123-002.jpg',
+        alt: 'Physics-first realism preview',
         width: 1207,
         height: 929,
+        className: 'scale-95',
         priority: true,
       },
     },
@@ -435,30 +430,22 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
       title: content.highlights.items[1]?.title,
       description: content.highlights.items[1]?.description,
       image: {
-        src: '/blocks/pricing-free-trial.png',
-        alt: 'Higher fidelity with sound preview',
+        src: '/images/generated/sora2-fidelity-audio-20260123-003.jpg',
+        alt: 'High-fidelity visuals and audio preview',
         width: 1207,
         height: 929,
+        className: 'scale-95',
       },
     },
     {
       title: content.highlights.items[2]?.title,
       description: content.highlights.items[2]?.description,
       image: {
-        src: '/blocks/fast-smooth-experience.png',
-        alt: 'Stronger control preview',
-        width: 1207,
-        height: 929,
-      },
-    },
-    {
-      title: content.highlights.items[3]?.title,
-      description: content.highlights.items[3]?.description,
-      image: {
-        src: '/blocks/multimodal-generation.png',
+        src: '/images/generated/sora2-character-injection-20260123-003.jpg',
         alt: 'Character injection preview',
         width: 1207,
         height: 929,
+        className: 'scale-95',
       },
     },
   ];
@@ -490,16 +477,18 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
     <>
       <Navbar scroll={true} />
       <main className="bg-background text-foreground">
-        <HeroSection
-          eyebrow={content.hero.eyebrow}
-          title={content.hero.title}
-          description={content.hero.subtitle}
-          cta={content.hero.cta}
-          primaryLabel={content.hero.primaryLabel}
-          secondaryLabel={content.hero.secondaryLabel}
-          primaryHref="#studio"
-          secondaryHref="#capabilities"
-        />
+        <div className="mb-12 lg:mb-16">
+          <HeroSection
+            eyebrow={content.hero.eyebrow}
+            title={content.hero.title}
+            description={content.hero.subtitle}
+            cta={content.hero.cta}
+            primaryLabel={content.hero.primaryLabel}
+            secondaryLabel={content.hero.secondaryLabel}
+            primaryHref="/media-studio"
+            secondaryHref="#capabilities"
+          />
+        </div>
 
         <section id="studio" className="relative overflow-hidden">
           <div
@@ -519,21 +508,21 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
 
         <AlternatingMediaSection
           id="highlights"
-          title={content.highlights.title}
+          subtitle={content.highlights.title}
           items={highlightItems}
         />
 
         <AlternatingMediaSection
           id="capabilities"
-          title={content.capabilities.title}
+          subtitle={content.capabilities.title}
           description={content.capabilities.note}
           items={capabilityItems}
         />
 
         <Features3Section
           id="workflow"
-          title={content.workflow.title}
-          subtitle={null}
+          title={null}
+          subtitle={content.workflow.title}
           description={null}
           items={content.workflow.steps.map((step, index) => ({
             title: step.title,
@@ -544,8 +533,8 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
 
         <Features3Section
           id="use-cases"
-          title={content.useCases.title}
-          subtitle={null}
+          title={null}
+          subtitle={content.useCases.title}
           description={null}
           items={content.useCases.items.map((item, index) => ({
             title: item,
@@ -556,8 +545,8 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
 
         <Features3Section
           id="examples"
-          title={content.examples.title}
-          subtitle={null}
+          title={null}
+          subtitle={content.examples.title}
           description={null}
           items={content.examples.items.map((item) => ({
             title: item.language,
@@ -595,8 +584,8 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
 
         <Features3Section
           id="community"
-          title={content.community.title}
-          subtitle={null}
+          title={null}
+          subtitle={content.community.title}
           description={null}
           items={content.community.items.map((item, index) => ({
             title: item.title,
