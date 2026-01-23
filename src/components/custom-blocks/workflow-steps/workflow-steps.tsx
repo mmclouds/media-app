@@ -11,9 +11,9 @@ type WorkflowStep = {
 
 type WorkflowStepsSectionProps = {
   id?: string;
-  title?: ReactNode;
-  subtitle?: ReactNode;
-  description?: ReactNode;
+  title?: string;
+  subtitle?: string;
+  description?: string;
   items: WorkflowStep[];
   className?: string;
 };
@@ -30,10 +30,10 @@ export default function WorkflowStepsSection({
     <section id={id ?? 'workflow-steps'} className={cn('px-4 py-16', className)}>
       <div className="mx-auto max-w-6xl space-y-8 lg:space-y-16">
         <HeaderSection
-          title={title ?? null}
-          subtitle={subtitle ?? null}
+          title={title}
+          subtitle={subtitle}
           subtitleAs="h2"
-          description={description ?? null}
+          description={description}
           descriptionAs="p"
         />
 

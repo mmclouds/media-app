@@ -13,9 +13,9 @@ type IntegrationItem = {
 };
 
 type Integration3SectionProps = {
-  title: ReactNode;
-  subtitle: ReactNode;
-  description: ReactNode;
+  title: string;
+  subtitle: string;
+  description: string;
   learnMoreLabel: ReactNode;
   items: IntegrationItem[];
 };

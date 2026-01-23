@@ -43,10 +43,10 @@ export default function AlternatingMediaSection({
       <div className="mx-auto max-w-6xl space-y-12 lg:space-y-20">
         {showHeader ? (
           <HeaderSection
-            title={title ?? null}
-            subtitle={subtitle ?? null}
+            title={title}
+            subtitle={subtitle}
             subtitleAs="h2"
-            description={description ?? null}
+            description={description}
             descriptionAs="p"
           />
         ) : null}

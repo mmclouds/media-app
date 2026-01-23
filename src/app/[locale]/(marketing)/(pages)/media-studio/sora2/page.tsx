@@ -10,9 +10,11 @@ import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-p
 import Container from '@/components/layout/container';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
+import FooterSection from '@/components/tailark/preview/footer/one/page';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
+import { Footer } from '@/components/layout/footer';
 
 const PAGE_CONTENT = {
   en: {
@@ -501,9 +503,9 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
 
         <WorkflowStepsSection
           id="workflow"
-          title={null}
+          title={undefined}
           subtitle={content.workflow.title}
-          description={null}
+          description={undefined}
           items={content.workflow.steps.map((step) => ({
             title: step.title,
             description: step.description,
@@ -563,6 +565,8 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
           primaryHref="#studio"
           secondaryHref="/"
         />
+
+        <Footer />
       </main>
     </>
   );

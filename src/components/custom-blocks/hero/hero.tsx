@@ -26,8 +26,8 @@ const transitionVariants = {
 
 type HeroSectionProps = {
   eyebrow?: ReactNode;
-  title: ReactNode;
-  description: ReactNode;
+  title: string;
+  description: string;
   cta?: ReactNode;
   primaryLabel?: ReactNode;
   secondaryLabel?: ReactNode;

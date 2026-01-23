@@ -11,8 +11,8 @@ type Testimonial = {
 };
 
 type TestimonialsSectionProps = {
-  title: ReactNode;
-  subtitle: ReactNode;
+  title: string;
+  subtitle: string;
   items: Testimonial[];
 };
 

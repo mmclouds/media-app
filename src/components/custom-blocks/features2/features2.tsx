@@ -13,9 +13,9 @@ type FeatureItem = {
 };
 
 type Features2SectionProps = {
-  title: ReactNode;
-  subtitle: ReactNode;
-  description: ReactNode;
+  title: string;
+  subtitle: string;
+  description: string;
   items: FeatureItem[];
   lightImageSrc: string;
   darkImageSrc: string;

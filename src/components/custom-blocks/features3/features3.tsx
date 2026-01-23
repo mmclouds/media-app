@@ -14,9 +14,9 @@ type FeatureItem = {
 
 type Features3SectionProps = {
   id?: string;
-  title: ReactNode;
-  subtitle: ReactNode;
-  description: ReactNode;
+  title: string;
+  subtitle: string;
+  description: string;
   items: FeatureItem[];
 };
 

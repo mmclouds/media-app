@@ -3,8 +3,8 @@ import { PricingTable } from '@/components/pricing/pricing-table';
 import type { ReactNode } from 'react';
 
 type PricingSectionProps = {
-  subtitle: ReactNode;
-  description: ReactNode;
+  subtitle: string;
+  description: string;
   subtitleClassName?: string;
 };
 

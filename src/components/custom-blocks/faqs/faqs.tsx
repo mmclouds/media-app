@@ -16,8 +16,8 @@ type FAQItem = {
 };
 
 type FaqSectionProps = {
-  title: ReactNode;
-  subtitle: ReactNode;
+  title: string;
+  subtitle: string;
   items: FAQItem[];
 };
 
