@@ -338,6 +338,39 @@
       "docs": {
         "title": "Docs"
       },
+      "models": {
+        "video": {
+          "title": "Video AI",
+          "items": {
+            "sora2": {
+              "title": "Sora 2",
+              "description": "Generate cinematic videos with Sora 2."
+            },
+            "veo3": {
+              "title": "Veo 3",
+              "description": "Create high-fidelity videos with Veo 3."
+            }
+          }
+        },
+        "image": {
+          "title": "Image AI",
+          "items": {
+            "nanoBanana": {
+              "title": "Nano Banana",
+              "description": "Create sharp, vibrant images with Nano Banana."
+            }
+          }
+        },
+        "music": {
+          "title": "Music AI",
+          "items": {
+            "suno": {
+              "title": "Suno",
+              "description": "Generate original music and audio with Suno."
+            }
+          }
+        }
+      },
       "ai": {
         "title": "AI Tools",
         "items": {
@@ -377,6 +410,10 @@
           "waitlist": {
             "title": "Waitlist",
             "description": "Join our waitlist for latest news and updates"
+          },
+          "faq": {
+            "title": "FAQ",
+            "description": "Find answers to common questions"
           },
           "changelog": {
             "title": "Changelog",

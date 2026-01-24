@@ -338,6 +338,39 @@
       "docs": {
         "title": "文档"
       },
+      "models": {
+        "video": {
+          "title": "视频AI",
+          "items": {
+            "sora2": {
+              "title": "Sora 2",
+              "description": "使用 Sora 2 生成电影级视频。"
+            },
+            "veo3": {
+              "title": "Veo 3",
+              "description": "使用 Veo 3 生成高保真视频。"
+            }
+          }
+        },
+        "image": {
+          "title": "图片AI",
+          "items": {
+            "nanoBanana": {
+              "title": "Nano Banana",
+              "description": "使用 Nano Banana 生成清晰、鲜活的图片。"
+            }
+          }
+        },
+        "music": {
+          "title": "音乐AI",
+          "items": {
+            "suno": {
+              "title": "Suno",
+              "description": "使用 Suno 生成原创音乐与音频。"
+            }
+          }
+        }
+      },
       "ai": {
         "title": "AI 工具",
         "items": {
@@ -377,6 +410,10 @@
           "waitlist": {
             "title": "邮件列表",
             "description": "加入我们的邮件列表，获取最新消息和更新"
+          },
+          "faq": {
+            "title": "常见问题",
+            "description": "查看常见问题与解答"
           },
           "changelog": {
             "title": "更新日志",
