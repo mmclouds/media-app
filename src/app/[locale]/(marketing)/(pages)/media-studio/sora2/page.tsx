@@ -10,11 +10,13 @@ import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-p
 import Container from '@/components/layout/container';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
+import { Button } from '@/components/ui/button';
 import FooterSection from '@/components/tailark/preview/footer/one/page';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 import { Footer } from '@/components/layout/footer';
+import Link from 'next/link';
 
 const PAGE_CONTENT = {
   en: {
@@ -211,6 +213,9 @@ const PAGE_CONTENT = {
       primaryLabel: 'Open VLook.ai Studio',
       secondaryLabel: 'Explore VLook.ai',
     },
+    immersiveStudio: {
+      label: 'Start immersive studio',
+    },
   },
   zh: {
     meta: {
@@ -389,6 +394,9 @@ const PAGE_CONTENT = {
       primaryLabel: '打开 VLook.ai 工作室',
       secondaryLabel: '了解 VLook.ai',
     },
+    immersiveStudio: {
+      label: '开始沉浸式工作室',
+    },
   },
 } as const;
 
@@ -501,6 +509,17 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
                 initialMediaType="video"
                 preferredModelId="sora2"
               />
+            </div>
+            <div className="mt-6 flex justify-center">
+              <Button
+                asChild
+                size="lg"
+                className="cursor-pointer h-12 px-8 text-base md:h-14 md:px-10 md:text-lg"
+              >
+                <Link href="/media-studio">
+                  {content.immersiveStudio.label}
+                </Link>
+              </Button>
             </div>
           </Container>
         </section>
