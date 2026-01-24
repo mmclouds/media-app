@@ -63,9 +63,9 @@ export function MediaGeneratorMenu({
           <>
             <LocaleLink
               href="/#pricing"
-              className="mx-1.5 inline-flex h-8 w-[60px] items-center justify-center rounded-md border border-emerald-200/60 bg-emerald-300/15 text-[11px] font-semibold uppercase tracking-[0.08em] text-emerald-100 transition hover:border-emerald-100 hover:bg-emerald-300/25 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/40"
+              className="mx-1.5 inline-flex h-8 w-[60px] items-center justify-center rounded-lg px-5 text-[11px] font-semibold uppercase tracking-[0.08em] transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#64ff6a]/40"
             >
-              Upgrade
+              <span className="text-[#64ff6a]">Upgrade</span>
             </LocaleLink>
             <UserAvatar
               name={currentUser.name}
