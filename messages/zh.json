@@ -1014,22 +1014,46 @@
       "subtitle": "关于 vlook.ai 的快速解答",
       "items": {
         "item-1": {
+          "question": "vlook.ai 是什么？",
+          "answer": "vlook.ai 是一站式 AI 媒体工作室，可通过提示词生成图片、视频和音乐。"
+        },
+        "item-2": {
+          "question": "如何开始使用？",
+          "answer": "输入文本提示词、上传图片或提供视频参考，选择模型后即可生成。"
+        },
+        "item-3": {
+          "question": "生成速度有多快？",
+          "answer": "速度取决于模型与输入复杂度，但 vlook.ai 旨在提供快速预览与高效迭代。"
+        },
+        "item-4": {
+          "question": "为什么使用视频生成器？",
+          "answer": "支持从文本或参考图生成，内置如 Veo 3.1、Nano Banana Pro 等领先模型。"
+        },
+        "item-5": {
+          "question": "生成结果是否独特？",
+          "answer": "是的。输出基于你的特定输入生成，每次结果都针对你的需求定制。"
+        },
+        "item-6": {
+          "question": "导出会有水印吗？",
+          "answer": "免费方案可能包含水印，升级后可在符合条件的套餐中去除水印。"
+        },
+        "item-7": {
+          "question": "可以用于商业用途吗？",
+          "answer": "付费套餐支持商业用途，可用于广告、推广与产品演示等场景。"
+        },
+        "item-8": {
           "question": "你们提供免费试用吗？",
           "answer": "提供免费试用积分，可体验核心模型。"
         },
-        "item-2": {
-          "question": "如何取消我的计划？",
-          "answer": "可在账单设置中随时取消。"
+        "item-9": {
+          "question": "如何管理我的计划？",
+          "answer": "可在账单设置中随时升级、降级或取消。"
         },
-        "item-3": {
-          "question": "可以更改我的计划吗？",
-          "answer": "可以，随时升级或降级。"
-        },
-        "item-4": {
+        "item-10": {
           "question": "退款政策是什么？",
           "answer": "符合条件的订单可退款，联系 support@vlook.ai。"
         },
-        "item-5": {
+        "item-11": {
           "question": "需要帮助或定制需求？",
           "answer": "发送邮件至 support@vlook.ai，我们会尽快回复。"
         }

@@ -1014,22 +1014,46 @@
       "subtitle": "Quick answers for vlook.ai",
       "items": {
         "item-1": {
+          "question": "What is vlook.ai?",
+          "answer": "vlook.ai is an all-in-one AI media studio for creating images, videos, and music from prompts."
+        },
+        "item-2": {
+          "question": "How do I get started?",
+          "answer": "Provide a text prompt, upload an image, or bring a video reference, then choose a model and generate."
+        },
+        "item-3": {
+          "question": "How fast is generation?",
+          "answer": "Speed depends on model and input complexity, but vlook.ai is built for fast previews and iteration."
+        },
+        "item-4": {
+          "question": "Why use the video generator?",
+          "answer": "Generate visuals from text or references using leading models like Veo 3.1 and Nano Banana Pro."
+        },
+        "item-5": {
+          "question": "Are my outputs unique?",
+          "answer": "Yes. Outputs are generated from your specific inputs, making each result original to your request."
+        },
+        "item-6": {
+          "question": "Will my exports have watermarks?",
+          "answer": "Free outputs may include watermarks. Upgrade to remove watermarks on eligible plans."
+        },
+        "item-7": {
+          "question": "Can I use outputs commercially?",
+          "answer": "Paid plans allow commercial use for ads, promos, and product demos."
+        },
+        "item-8": {
           "question": "Do you offer a free trial?",
           "answer": "Yes. Start with free trial credits and explore core models."
         },
-        "item-2": {
-          "question": "How do I cancel my plan?",
-          "answer": "You can cancel anytime from your billing settings."
+        "item-9": {
+          "question": "How do I manage my plan?",
+          "answer": "You can upgrade, downgrade, or cancel anytime from your billing settings."
         },
-        "item-3": {
-          "question": "Can I change my plan?",
-          "answer": "Yes, upgrade or downgrade anytime from billing."
-        },
-        "item-4": {
+        "item-10": {
           "question": "What is the refund policy?",
           "answer": "Refunds are available for eligible purchases. Contact support@vlook.ai."
         },
-        "item-5": {
+        "item-11": {
           "question": "Need help or a custom request?",
           "answer": "Email support@vlook.ai and we will get back quickly."
         }
