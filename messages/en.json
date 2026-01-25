@@ -498,7 +498,7 @@
       }
     },
     "footer": {
-      "tagline": "vlook.ai - fast, affordable AI image, video, and music creation.",
+      "tagline": "vlook.ai - fast, affordable, AI image, video, and music creation.",
       "models": {
         "video": {
           "title": "Video Models",
