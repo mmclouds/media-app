@@ -147,26 +147,20 @@ const PAGE_CONTENT = {
       subtitle: 'Real prompts paired with image/video previews',
       items: [
         {
-          title: 'Product cinematic sweep',
-          description:
-            'Use multi-shot guidance to keep lighting and texture consistent across angles.',
+          title: 'Joyful snow leopard animation',
+          description: 'Detailed prompt tuning for a playful 3D scene.',
           prompts: [
-            'Slow dolly-in on a matte-black sneaker, glossy studio lighting, macro texture detail.',
-            'Cut to a top-down shot, soft bounce light, crisp edge highlights.',
+            'Create a short 3D animated scene in a joyful cartoon style. A cute creature with snow leopard-like fur, large expressive eyes, and a friendly, rounded form happily prances through a whimsical winter forest. The scene should feature rounded, snow-covered trees, gentle falling snowflakes, and warm sunlight filtering through the branches. The creature\'s bouncy movements and wide smile should convey pure delight. Aim for an upbeat, heartwarming tone with bright, cheerful colors and playful animation.',
           ],
-          output: '/images/generated/kitten-dreamy-20260123-001.jpg',
+          output: '/images/generated/veo3-snow-run.gif',
         },
         {
-          title: 'Vertical story beat with sound',
-          description:
-            'Combine first/last frame control with ambient audio cues for social-ready clips.',
-          prompts: [
-            'First frame: perfume bottle on a pedestal, 9:16 vertical, soft haze.',
-            'Last frame: bottle held in hand, warm rim light, quiet room tone.',
-          ],
-          output:
-            'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+          title: 'City reflected in the eye',
+          description: 'Composition-focused extreme close-up.',
+          prompts: ['Extreme close-up of a an eye with city reflected in it.'],
+          output: '/images/generated/veo3-eye-city.gif',
         },
+
       ],
     },
     imageToMediaReference: {
@@ -246,22 +240,44 @@ const PAGE_CONTENT = {
       subtitle: 'Common questions about Veo 3 generation.',
       items: [
         {
-          question: 'What inputs does Veo 3 support?',
+          question: 'What is Google Veo 3?',
           answer:
-            'Use text prompts, up to three reference images, and first/last frames.',
+            'Veo 3 is Google DeepMind’s newest AI video model. It creates high-quality videos from text or image prompts, with stronger subject consistency, style control, and camera direction.',
         },
         {
-          question: 'Does it support vertical video?',
-          answer: 'Yes, choose 16:9 or vertical 9:16 outputs.',
-        },
-        {
-          question: 'What resolutions are available?',
-          answer: 'Veo 3.1 supports 720p, 1080p, and 4k.',
-        },
-        {
-          question: 'Can I extend a generated video?',
+          question: 'How is Veo 3 different from Veo 2?',
           answer:
-            'Yes, you can extend a previously generated video for longer edits.',
+            'Veo 3 can generate native audio alongside video. It improves realism with better physics, stronger lip sync, and a deeper understanding of complex narrative prompts.',
+        },
+        {
+          question: 'Which platforms can access Veo 3?',
+          answer:
+            'You can try Google Veo 3 on Pollo AI. Since Pollo AI integrates Veo 3, its text-to-video workflow uses the Google model under the hood.',
+        },
+        {
+          question: 'How does Google ensure responsible Veo 3 usage?',
+          answer:
+            'Veo 3 videos include invisible SynthID watermarks that label content as AI-generated, improving transparency and reducing misinformation risks.',
+        },
+        {
+          question: 'What inputs and controls are supported?',
+          answer:
+            'Use text prompts, up to three reference images, and optional first/last frames. You can also set aspect ratio (16:9 or 9:16) and resolution.',
+        },
+        {
+          question: 'What outputs can I expect?',
+          answer:
+            'Veo 3.1 generates 8-second clips with native audio. Outputs support MP4 export in 720p, 1080p, or 4k.',
+        },
+        {
+          question: 'Can I generate or sync audio?',
+          answer:
+            'Yes. Describe dialogue in quotes, call out SFX events, and define ambience so Veo 3 can build a synchronized soundtrack.',
+        },
+        {
+          question: 'Can I use generated content commercially?',
+          answer:
+            'Please follow the platform’s terms and ensure you own or have rights to all input materials. Avoid unauthorized trademarks or copyrighted content.',
         },
       ],
     },
@@ -431,28 +447,24 @@ const PAGE_CONTENT = {
       ],
     },
     mediaShowcase: {
-      title: '提示词到视觉输出',
-      subtitle: '真实提示词与图片/视频预览配对展示',
+      title: '文生视频',
+      subtitle: '基于提示词生成视频内容',
       items: [
         {
-          title: '产品质感镜头',
-          description: '多镜头提示让材质与光线在不同角度保持一致。',
+          title: '雪豹精灵的欢乐动画',
+          description: '用完整细节提示词实现欢乐 3D 场景。',
           prompts: [
-            '慢速推进镜头：哑光黑色球鞋，棚拍硬光，突出材质细节。',
-            '切换俯拍：柔和反射光，边缘高光清晰。',
+            '创作一个简短的 3D 动画场景，采用欢快的卡通风格。一只可爱的生物，有着雪豹般的皮毛、富有表现力的大眼睛和圆润友好的身形，在奇幻的冬季森林中欢快地跳跃。场景中应有圆润的雪树、缓缓飘落的雪花，以及透过树枝的温暖阳光。生物的弹跳动作和灿烂笑容应传达出纯粹的喜悦。采用欢快温馨的基调，搭配明亮欢快的色彩和活泼的动画。',
           ],
-          output: '/images/generated/kitten-dreamy-20260123-001.jpg',
+          output: '/images/generated/veo3-snow-run.gif',
         },
         {
-          title: '竖屏故事节奏',
-          description: '首尾帧控制结合环境音，适合短视频发布。',
-          prompts: [
-            '首帧：香水瓶在台座上，9:16 竖屏，轻雾氛围。',
-            '尾帧：手持香水瓶，暖色轮廓光，室内安静环境音。',
-          ],
-          output:
-            'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+          title: '眼睛中的城市',
+          description: '通过镜头构图强调极近特写。',
+          prompts: ['眼睛的极近特写，眼睛中映出城市。'],
+          output: '/images/generated/veo3-eye-city.gif',
         },
+
       ],
     },
     imageToMediaReference: {
@@ -502,21 +514,44 @@ const PAGE_CONTENT = {
       subtitle: '关于 Veo 3 生成的常见疑问。',
       items: [
         {
-          question: 'Veo 3 支持哪些输入？',
+          question: '什么是 Google Veo 3？',
           answer:
-            '支持文本提示词、最多三张参考图，以及首尾帧输入。',
+            'Veo 3 是 Google DeepMind 最新的 AI 视频生成模型，可根据文本或图像提示生成高质量视频，并强化角色一致性、风格控制与镜头可控性。',
         },
         {
-          question: '支持竖屏输出吗？',
-          answer: '支持，可选择 16:9 或 9:16。',
+          question: 'Veo 3 与 Veo 2 有何不同？',
+          answer:
+            '相较 Veo 2，Veo 3 可同时生成原生音频与视频，并通过更逼真的物理效果、更好的口型同步与更强的叙事理解提供更高质量的输出。',
         },
         {
-          question: '支持哪些分辨率？',
-          answer: '支持 720p、1080p 与 4k。',
+          question: '哪些平台可以访问 Veo 3？',
+          answer:
+            '您可以在 Pollo AI 上免费试用 Google Veo 3。由于 Pollo AI 集成了 Veo 3，使用其文本转视频功能生成的也是 Google 的模型。',
         },
         {
-          question: '可以扩展已生成的视频吗？',
-          answer: '可以，对已有视频进行扩展生成。',
+          question: 'Google 如何确保以合乎道德的方式使用 Veo 3？',
+          answer:
+            '所有 Veo 3 视频都包含隐形的 SynthID 水印，可将内容标识为 AI 生成，有助于提升透明度并减少错误信息。',
+        },
+        {
+          question: 'Veo 3 支持哪些输入与控制？',
+          answer:
+            '支持文本提示词、最多三张参考图与首尾帧输入，并可设置画幅（16:9 或 9:16）与分辨率。',
+        },
+        {
+          question: '输出时长与格式是怎样的？',
+          answer:
+            'Veo 3.1 默认生成约 8 秒短片，支持导出 MP4，并提供 720p、1080p 或 4K 选择。',
+        },
+        {
+          question: '可以生成或同步音频吗？',
+          answer:
+            '可以。提示词中可写对白、音效（SFX）与环境声描述，Veo 3 会生成同步音轨。',
+        },
+        {
+          question: '生成内容可以商用吗？',
+          answer:
+            '请遵循平台条款并确保对所有输入素材拥有权利，避免使用受版权或商标保护的内容。',
         },
       ],
     },
@@ -593,8 +628,25 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
   const content =
     PAGE_CONTENT[params.locale as keyof typeof PAGE_CONTENT] ?? PAGE_CONTENT.en;
 
-  const socialUrls: string[] = [];
-  const youtubeUrls: string[] = [];
+  const socialUrls: string[] = [
+    'https://x.com/Google/status/2011955248806449442',
+    'https://x.com/freepik/status/1978491483243331796',
+    'https://x.com/TheoMediaAI/status/1978794063676518801',
+    'https://x.com/GoogleCloudTech/status/2011123593451544944',
+    'https://x.com/minchoi/status/1881099992297021540',
+    'https://x.com/ginacostag_/status/1947879928197968071',
+    'https://x.com/minchoi/status/1927006378222125310',
+    'https://x.com/TheoMediaAI/status/1942564887114166493',
+  ];
+  const youtubeUrls: string[] = [
+
+    'https://www.youtube.com/watch?v=WeIzH2jFsNw',
+    'https://www.youtube.com/watch?v=ecTqFLS-9mg&pp=ygULdmVvMyBnb29nbGU%3D',
+    'https://www.youtube.com/watch?v=I06Ef8alr2Y&pp=ygUKdmVvMyB2aWRlbw%3D%3D',
+    'https://www.youtube.com/shorts/_9y1Dxa46hY',
+    'https://www.youtube.com/shorts/rwUt22HTTx0',
+    'https://www.youtube.com/shorts/kL0kj47FDZM'
+  ];
   const highlightItems = [
     {
       title: content.highlights.items[0]?.title,
