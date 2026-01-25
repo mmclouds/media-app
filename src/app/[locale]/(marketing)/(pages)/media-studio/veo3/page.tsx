@@ -180,37 +180,7 @@ const PAGE_CONTENT = {
           inputImages: ['/images/generated/veo3-sink-surfers-input.png'],
           output: '/images/generated/veo3-sink-surfers-output.gif',
         },
-        {
-          title: 'Style transfer product shot',
-          description:
-            'Keep the sneaker silhouette consistent. Apply glossy highlights and soft reflections. Match cool studio tones with tight shadows.',
-          prompt: [
-            'Keep the sneaker silhouette consistent. Apply glossy highlights and soft reflections.',
-            'Match cool studio tones with tight shadows.',
-          ],
-          inputImages: [
-            '/images/generated/kitten-dreamy-20260123-001.jpg',
-            '/images/generated/sora2-fidelity-audio-20260123-003.jpg',
-            '/images/generated/sora2-physics-realism-20260123-002.jpg',
-          ],
-          output: '/images/generated/sora2-multishot-continuity-20260123-003.jpg',
-        },
-        {
-          title: 'Image-driven vertical motion',
-          description:
-            'Vertical 9:16, slow parallax push-in, preserve bottle details. Ambient room tone, warm rim light.',
-          prompt: [
-            'Vertical 9:16, slow parallax push-in, preserve bottle details.',
-            'Ambient room tone, warm rim light.',
-          ],
-          inputImages: [
-            '/images/generated/sora2-physics-realism-20260123-002.jpg',
-            '/images/generated/sora2-fidelity-audio-20260123-003.jpg',
-            '/images/generated/kitten-dreamy-20260123-001.jpg',
-          ],
-          output:
-            'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-        },
+
       ],
     },
     imageToMediaFrames: {
