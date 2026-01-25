@@ -10,6 +10,7 @@ import { Footer } from '@/components/layout/footer';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { Button } from '@/components/ui/button';
+import MediaPromptShowcase from '@/components/cutomer/media-prompt-showcase';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
@@ -135,6 +136,33 @@ const PAGE_CONTENT = {
             'Prompt: cinematic dialogue with synchronized ambient audio.',
           description:
             'Native audio adds realism for storytelling clips.',
+        },
+      ],
+    },
+    mediaShowcase: {
+      title: 'Prompt to Visual Outputs',
+      subtitle: 'Real prompts paired with image/video previews',
+      items: [
+        {
+          title: 'Product cinematic sweep',
+          description:
+            'Use multi-shot guidance to keep lighting and texture consistent across angles.',
+          prompts: [
+            'Slow dolly-in on a matte-black sneaker, glossy studio lighting, macro texture detail.',
+            'Cut to a top-down shot, soft bounce light, crisp edge highlights.',
+          ],
+          output: '/images/generated/kitten-dreamy-20260123-001.jpg',
+        },
+        {
+          title: 'Vertical story beat with sound',
+          description:
+            'Combine first/last frame control with ambient audio cues for social-ready clips.',
+          prompts: [
+            'First frame: perfume bottle on a pedestal, 9:16 vertical, soft haze.',
+            'Last frame: bottle held in hand, warm rim light, quiet room tone.',
+          ],
+          output:
+            'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
         },
       ],
     },
@@ -324,6 +352,31 @@ const PAGE_CONTENT = {
             '提示词：电影感对白场景，带同步环境音。',
           description:
             '原生音频让叙事更完整。',
+        },
+      ],
+    },
+    mediaShowcase: {
+      title: '提示词到视觉输出',
+      subtitle: '真实提示词与图片/视频预览配对展示',
+      items: [
+        {
+          title: '产品质感镜头',
+          description: '多镜头提示让材质与光线在不同角度保持一致。',
+          prompts: [
+            '慢速推进镜头：哑光黑色球鞋，棚拍硬光，突出材质细节。',
+            '切换俯拍：柔和反射光，边缘高光清晰。',
+          ],
+          output: '/images/generated/kitten-dreamy-20260123-001.jpg',
+        },
+        {
+          title: '竖屏故事节奏',
+          description: '首尾帧控制结合环境音，适合短视频发布。',
+          prompts: [
+            '首帧：香水瓶在台座上，9:16 竖屏，轻雾氛围。',
+            '尾帧：手持香水瓶，暖色轮廓光，室内安静环境音。',
+          ],
+          output:
+            'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
         },
       ],
     },
@@ -534,6 +587,13 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
             description: step.description,
           }))}
           className="[&_h2]:text-4xl [&_h2]:font-bold"
+        />
+
+        <MediaPromptShowcase
+          id="prompt-examples"
+          title={content.mediaShowcase.title}
+          subtitle={content.mediaShowcase.subtitle}
+          items={content.mediaShowcase.items}
         />
 
         <YouTubeContentSection

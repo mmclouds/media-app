@@ -21,13 +21,13 @@ import Link from 'next/link';
 const PAGE_CONTENT = {
   en: {
     meta: {
-      title: 'Sora 2 Studio',
+      title: 'Sora2 AI Video Generator',
       description:
         'Generate cinematic AI videos with OpenAI Sora 2. Stronger physics realism, higher fidelity, and better multi-scene control.',
     },
     hero: {
       eyebrow: 'AI video generation',
-      title: 'Sora 2 Studio',
+      title: 'Sora2 AI Video Generator',
       subtitle:
         'Turn text or images into cinematic short videos with improved physical realism, continuity, and sound. Sora 2 (2025) upgrades physical understanding, visual fidelity, and controllability for multi-shot storytelling.',
       cta: 'Start creating in the workspace below.',
@@ -219,13 +219,13 @@ const PAGE_CONTENT = {
   },
   zh: {
     meta: {
-      title: 'Sora 2 Studio',
+      title: 'Sora2 AI Video Generator',
       description:
         '使用 OpenAI Sora 2 生成电影感 AI 视频，物理真实感更强、清晰度更高，并支持多场景控制。',
     },
     hero: {
       eyebrow: 'AI 视频生成',
-      title: 'Sora 2 Studio',
+      title: 'Sora2 AI Video Generator',
       subtitle:
         '将文本或图片转化为电影感短视频，具备更强的物理真实感与连贯性。Sora 2（2025）在物理理解、画面清晰度与多镜头可控性上进一步升级。',
       cta: '在下方工作区开始创作。',
