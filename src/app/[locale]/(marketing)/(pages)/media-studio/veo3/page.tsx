@@ -652,7 +652,7 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
       title: content.highlights.items[0]?.title,
       description: content.highlights.items[0]?.description,
       image: {
-        src: '/images/generated/kitten-dreamy-20260123-001.jpg',
+        src: '/images/generated/veo3-highlight-audio-20260125-001.jpg',
         alt: 'Cinematic motion preview',
         width: 1207,
         height: 929,
@@ -664,7 +664,7 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
       title: content.highlights.items[1]?.title,
       description: content.highlights.items[1]?.description,
       image: {
-        src: '/images/generated/sora2-fidelity-audio-20260123-003.jpg',
+        src: '/images/generated/veo3-highlight-first-last-20260125-002.jpg',
         alt: 'High-fidelity lighting preview',
         width: 1207,
         height: 929,
@@ -675,7 +675,7 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
       title: content.highlights.items[2]?.title,
       description: content.highlights.items[2]?.description,
       image: {
-        src: '/images/generated/sora2-multishot-continuity-20260123-003.jpg',
+        src: '/images/generated/veo3-highlight-reference-20260125-001.jpg',
         alt: 'Multi-shot continuity preview',
         width: 1207,
         height: 929,
@@ -686,7 +686,7 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
       title: content.highlights.items[3]?.title,
       description: content.highlights.items[3]?.description,
       image: {
-        src: '/images/generated/sora2-physics-realism-20260123-002.jpg',
+        src: '/images/generated/veo3-highlight-aspect-20260125-001.jpg',
         alt: 'Resolution and aspect ratio preview',
         width: 1207,
         height: 929,
