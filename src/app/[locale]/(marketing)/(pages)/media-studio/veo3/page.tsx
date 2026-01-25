@@ -435,8 +435,7 @@ const PAGE_CONTENT = {
           ],
           inputImages: [
             '/images/generated/kitten-dreamy-20260123-001.jpg',
-            '/images/generated/sora2-fidelity-audio-20260123-003.jpg',
-            '/images/generated/sora2-physics-realism-20260123-002.jpg',
+
           ],
           output: '/images/generated/sora2-multishot-continuity-20260123-003.jpg',
         },
@@ -450,7 +449,6 @@ const PAGE_CONTENT = {
           inputImages: [
             '/images/generated/sora2-physics-realism-20260123-002.jpg',
             '/images/generated/sora2-fidelity-audio-20260123-003.jpg',
-            '/images/generated/kitten-dreamy-20260123-001.jpg',
           ],
           output:
             'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',

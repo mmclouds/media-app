@@ -77,16 +77,19 @@ const ImageToMediaShowcase = ({
                   ) : null}
                 </div>
 
-                <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-                  <div className="space-y-3">
-                    <p className="text-sm font-semibold uppercase tracking-[0.26em] text-muted-foreground">
-                      {inputLabel}
-                    </p>
-                    <div className="grid w-full gap-3 sm:grid-cols-2">
+                <div className="overflow-hidden rounded-2xl border border-border/60 bg-muted/20">
+                  <div className="grid border-b border-border/60 bg-muted/40 text-sm font-semibold text-foreground sm:grid-cols-2">
+                    <div className="px-4 py-3">{inputLabel}</div>
+                    <div className="border-t border-border/60 px-4 py-3 sm:border-t-0 sm:border-l">
+                      {outputLabel}
+                    </div>
+                  </div>
+                  <div className="grid gap-6 p-4 sm:grid-cols-[0.9fr_1.1fr]">
+                    <div className="grid gap-4">
                       {item.inputImages.map((image, imageIndex) => (
                         <div
                           key={`${item.title}-input-${imageIndex}`}
-                          className="aspect-video overflow-hidden rounded-2xl bg-muted/30"
+                          className="aspect-video overflow-hidden rounded-2xl bg-background/80"
                         >
                           <img
                             src={image}
@@ -97,32 +100,28 @@ const ImageToMediaShowcase = ({
                         </div>
                       ))}
                     </div>
-                  </div>
-
-                  <div className="flex w-full flex-col items-center justify-center space-y-4">
-                    <p className="text-sm font-semibold uppercase tracking-[0.26em] text-muted-foreground">
-                      {outputLabel}
-                    </p>
-                    <div className="flex w-full max-w-[720px] aspect-video items-center justify-center overflow-hidden rounded-2xl bg-muted/30 shadow-sm">
-                      {outputKind === 'video' ? (
-                        <video
-                          controls
-                          muted
-                          playsInline
-                          preload="metadata"
-                          className="h-full w-full object-contain"
-                          aria-label={`${item.title} output video`}
-                        >
-                          <source src={item.output} />
-                        </video>
-                      ) : (
-                        <img
-                          src={item.output}
-                          alt={`${item.title} output image`}
-                          loading="lazy"
-                          className="h-full w-full object-contain"
-                        />
-                      )}
+                    <div className="flex items-center justify-center">
+                      <div className="w-full max-w-[520px] overflow-hidden rounded-2xl bg-background/80">
+                        {outputKind === 'video' ? (
+                          <video
+                            controls
+                            muted
+                            playsInline
+                            preload="metadata"
+                            className="aspect-video h-full w-full object-contain"
+                            aria-label={`${item.title} output video`}
+                          >
+                            <source src={item.output} />
+                          </video>
+                        ) : (
+                          <img
+                            src={item.output}
+                            alt={`${item.title} output image`}
+                            loading="lazy"
+                            className="aspect-video h-full w-full object-contain"
+                          />
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
