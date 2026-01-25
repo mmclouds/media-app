@@ -11,7 +11,9 @@ import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { Button } from '@/components/ui/button';
 import MediaPromptShowcase from '@/components/cutomer/media-prompt-showcase';
+import type { MediaPromptExample } from '@/components/cutomer/media-prompt-showcase';
 import ImageToMediaShowcase from '@/components/cutomer/image-to-media-showcase';
+import type { ImageToMediaExample } from '@/components/cutomer/image-to-media-showcase';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
@@ -167,16 +169,27 @@ const PAGE_CONTENT = {
         },
       ],
     },
-    imageToMedia: {
-      title: 'Image-to-Video / Image-to-Image',
-      subtitle: 'Reference images + prompt in, single output out',
+    imageToMediaReference: {
+      title: 'Reference-Image-to-Video',
+      subtitle: 'Reference images + prompt in',
       inputLabel: 'Input Images',
       outputLabel: 'Output',
       items: [
         {
+          title: 'Surreal macro sink surfers',
+          description:
+            'A hyper-realistic macro photo of miniature surfers riding waves in a rustic stone bathroom sink. An old-fashioned brass faucet runs water, creating an eternal surf sound. Surreal, whimsical, bright natural light. Audio: "Surfing? In my bathtub?"',
+          prompt: [
+            'A hyper-realistic macro photo of miniature surfers riding waves in a rustic stone bathroom sink. An old-fashioned brass faucet runs water, creating an eternal surf sound. Surreal, whimsical, bright natural light.',
+            'Audio: "Surfing? In my bathtub?"',
+          ],
+          inputImages: ['/images/generated/veo3-sink-surfers-input.png'],
+          output: '/images/generated/veo3-sink-surfers-output.gif',
+        },
+        {
           title: 'Style transfer product shot',
           description:
-            'Blend two lighting references and push a premium studio look.',
+            'Keep the sneaker silhouette consistent. Apply glossy highlights and soft reflections. Match cool studio tones with tight shadows.',
           prompt: [
             'Keep the sneaker silhouette consistent. Apply glossy highlights and soft reflections.',
             'Match cool studio tones with tight shadows.',
@@ -191,7 +204,7 @@ const PAGE_CONTENT = {
         {
           title: 'Image-driven vertical motion',
           description:
-            'Use reference frames to generate a vertical clip with subtle camera movement.',
+            'Vertical 9:16, slow parallax push-in, preserve bottle details. Ambient room tone, warm rim light.',
           prompt: [
             'Vertical 9:16, slow parallax push-in, preserve bottle details.',
             'Ambient room tone, warm rim light.',
@@ -203,6 +216,28 @@ const PAGE_CONTENT = {
           ],
           output:
             'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+        },
+      ],
+    },
+    imageToMediaFrames: {
+      title: 'First/Last Frame Control',
+      subtitle: 'Define the opening and closing frame for a guided clip',
+      inputLabel: 'First & Last Frames',
+      outputLabel: 'Output',
+      items: [
+        {
+          title: 'Ginger cat race launch',
+          description:
+            'First image: A high-quality photorealistic front-facing image of an orange tabby cat driving a red convertible car along the French Riviera coast. Last image: Show what happens when the car takes off from a cliff.',
+          prompt: [
+            'First image: A high-quality photorealistic front-facing image of an orange tabby cat driving a red convertible car along the French Riviera coast.',
+            'Last image: Show what happens when the car takes off from a cliff.',
+          ],
+          inputImages: [
+            '/images/generated/veo3-race-cat-first.jpeg',
+            '/images/generated/veo3-race-cat-last.jpeg',
+          ],
+          output: '/images/generated/veo3-race-cat-output.gif',
         },
       ],
     },
@@ -420,38 +455,45 @@ const PAGE_CONTENT = {
         },
       ],
     },
-    imageToMedia: {
-      title: '图生视频 / 图生图',
-      subtitle: '参考图与提示词输入，单一输出呈现',
+    imageToMediaReference: {
+      title: '参考图生成视频',
+      subtitle: '参考图与提示词输入',
       inputLabel: '输入图片',
       outputLabel: '生成结果',
       items: [
         {
-          title: '产品质感迁移',
-          description: '融合多张参考图，输出统一的棚拍质感。',
+          title: '超写实微距冲浪者',
+          description:
+            '一张超写实的微距照片，照片中，迷你冲浪者在古朴的石制浴室水槽内乘风破浪。一个老式黄铜水龙头正在流水，营造出永恒的冲浪声。超现实、异想天开、明亮的自然光线。音频：“冲浪？在我的浴缸里？”',
           prompt: [
-            '保持鞋型一致，增加高光与柔和反射。',
-            '冷色棚拍基调，阴影紧凑。',
+            '一张超写实的微距照片，照片中，迷你冲浪者在古朴的石制浴室水槽内乘风破浪。一个老式黄铜水龙头正在流水，营造出永恒的冲浪声。超现实、异想天开、明亮的自然光线。',
+            '音频：“冲浪？在我的浴缸里？”',
           ],
-          inputImages: [
-            '/images/generated/kitten-dreamy-20260123-001.jpg',
-
-          ],
-          output: '/images/generated/sora2-multishot-continuity-20260123-003.jpg',
+          inputImages: ['/images/generated/veo3-sink-surfers-input.png'],
+          output: '/images/generated/veo3-sink-surfers-output.gif',
         },
+
+      ],
+    },
+    imageToMediaFrames: {
+      title: '首尾帧控制',
+      subtitle: '指定首帧与尾帧，生成受控镜头',
+      inputLabel: '首帧与尾帧',
+      outputLabel: '生成结果',
+      items: [
         {
-          title: '参考图驱动竖屏视频',
-          description: '参考关键帧生成轻微镜头运动的竖屏短片。',
+          title: '姜黄色猫咪赛车起飞',
+          description:
+            '首帧：一只姜黄色猫咪驾驶一辆红色敞篷赛车行驶在法国里维埃拉海岸上的高品质逼真正面图片。尾帧：表现赛车从悬崖起飞的场景。',
           prompt: [
-            '9:16 竖屏，轻微推镜，保留瓶身纹理。',
-            '室内环境音，暖色轮廓光。',
+            '首帧：一只姜黄色猫咪驾驶一辆红色敞篷赛车行驶在法国里维埃拉海岸上的高品质逼真正面图片。',
+            '尾帧：表现赛车从悬崖起飞的场景。',
           ],
           inputImages: [
-            '/images/generated/sora2-physics-realism-20260123-002.jpg',
-            '/images/generated/sora2-fidelity-audio-20260123-003.jpg',
+            '/images/generated/veo3-race-cat-first.jpeg',
+            '/images/generated/veo3-race-cat-last.jpeg',
           ],
-          output:
-            'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+          output: '/images/generated/veo3-race-cat-output.gif',
         },
       ],
     },
@@ -600,6 +642,33 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
       },
     },
   ];
+  const mediaShowcaseItems: MediaPromptExample[] =
+    content.mediaShowcase.items.map((item) => ({
+      ...item,
+      prompts: [...item.prompts],
+    }));
+  const imageToMediaReferenceItems: ImageToMediaExample[] =
+    content.imageToMediaReference.items.map((item) => {
+      const prompt = (Array.isArray(item.prompt)
+        ? [...item.prompt]
+        : item.prompt) as string | string[];
+      return {
+        ...item,
+        prompt,
+        inputImages: [...item.inputImages],
+      };
+    });
+  const imageToMediaFrameItems: ImageToMediaExample[] =
+    content.imageToMediaFrames.items.map((item) => {
+      const prompt = (Array.isArray(item.prompt)
+        ? [...item.prompt]
+        : item.prompt) as string | string[];
+      return {
+        ...item,
+        prompt,
+        inputImages: [...item.inputImages],
+      };
+    });
 
   return (
     <>
@@ -668,16 +737,25 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
           id="prompt-examples"
           title={content.mediaShowcase.title}
           subtitle={content.mediaShowcase.subtitle}
-          items={content.mediaShowcase.items}
+          items={mediaShowcaseItems}
         />
 
         <ImageToMediaShowcase
           id="image-to-media"
-          title={content.imageToMedia.title}
-          subtitle={content.imageToMedia.subtitle}
-          inputLabel={content.imageToMedia.inputLabel}
-          outputLabel={content.imageToMedia.outputLabel}
-          items={content.imageToMedia.items}
+          title={content.imageToMediaReference.title}
+          subtitle={content.imageToMediaReference.subtitle}
+          inputLabel={content.imageToMediaReference.inputLabel}
+          outputLabel={content.imageToMediaReference.outputLabel}
+          items={imageToMediaReferenceItems}
+        />
+
+        <ImageToMediaShowcase
+          id="first-last-frame"
+          title={content.imageToMediaFrames.title}
+          subtitle={content.imageToMediaFrames.subtitle}
+          inputLabel={content.imageToMediaFrames.inputLabel}
+          outputLabel={content.imageToMediaFrames.outputLabel}
+          items={imageToMediaFrameItems}
         />
 
         <YouTubeContentSection
