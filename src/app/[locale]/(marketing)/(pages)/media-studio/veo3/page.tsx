@@ -11,6 +11,7 @@ import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { Button } from '@/components/ui/button';
 import MediaPromptShowcase from '@/components/cutomer/media-prompt-showcase';
+import ImageToMediaShowcase from '@/components/cutomer/image-to-media-showcase';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
@@ -160,6 +161,45 @@ const PAGE_CONTENT = {
           prompts: [
             'First frame: perfume bottle on a pedestal, 9:16 vertical, soft haze.',
             'Last frame: bottle held in hand, warm rim light, quiet room tone.',
+          ],
+          output:
+            'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+        },
+      ],
+    },
+    imageToMedia: {
+      title: 'Image-to-Video / Image-to-Image',
+      subtitle: 'Reference images + prompt in, single output out',
+      inputLabel: 'Input Images',
+      outputLabel: 'Output',
+      items: [
+        {
+          title: 'Style transfer product shot',
+          description:
+            'Blend two lighting references and push a premium studio look.',
+          prompt: [
+            'Keep the sneaker silhouette consistent. Apply glossy highlights and soft reflections.',
+            'Match cool studio tones with tight shadows.',
+          ],
+          inputImages: [
+            '/images/generated/kitten-dreamy-20260123-001.jpg',
+            '/images/generated/sora2-fidelity-audio-20260123-003.jpg',
+            '/images/generated/sora2-physics-realism-20260123-002.jpg',
+          ],
+          output: '/images/generated/sora2-multishot-continuity-20260123-003.jpg',
+        },
+        {
+          title: 'Image-driven vertical motion',
+          description:
+            'Use reference frames to generate a vertical clip with subtle camera movement.',
+          prompt: [
+            'Vertical 9:16, slow parallax push-in, preserve bottle details.',
+            'Ambient room tone, warm rim light.',
+          ],
+          inputImages: [
+            '/images/generated/sora2-physics-realism-20260123-002.jpg',
+            '/images/generated/sora2-fidelity-audio-20260123-003.jpg',
+            '/images/generated/kitten-dreamy-20260123-001.jpg',
           ],
           output:
             'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
@@ -380,6 +420,43 @@ const PAGE_CONTENT = {
         },
       ],
     },
+    imageToMedia: {
+      title: '图生视频 / 图生图',
+      subtitle: '参考图与提示词输入，单一输出呈现',
+      inputLabel: '输入图片',
+      outputLabel: '生成结果',
+      items: [
+        {
+          title: '产品质感迁移',
+          description: '融合多张参考图，输出统一的棚拍质感。',
+          prompt: [
+            '保持鞋型一致，增加高光与柔和反射。',
+            '冷色棚拍基调，阴影紧凑。',
+          ],
+          inputImages: [
+            '/images/generated/kitten-dreamy-20260123-001.jpg',
+            '/images/generated/sora2-fidelity-audio-20260123-003.jpg',
+            '/images/generated/sora2-physics-realism-20260123-002.jpg',
+          ],
+          output: '/images/generated/sora2-multishot-continuity-20260123-003.jpg',
+        },
+        {
+          title: '参考图驱动竖屏视频',
+          description: '参考关键帧生成轻微镜头运动的竖屏短片。',
+          prompt: [
+            '9:16 竖屏，轻微推镜，保留瓶身纹理。',
+            '室内环境音，暖色轮廓光。',
+          ],
+          inputImages: [
+            '/images/generated/sora2-physics-realism-20260123-002.jpg',
+            '/images/generated/sora2-fidelity-audio-20260123-003.jpg',
+            '/images/generated/kitten-dreamy-20260123-001.jpg',
+          ],
+          output:
+            'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+        },
+      ],
+    },
     faq: {
       title: '常见问题',
       subtitle: '关于 Veo 3 生成的常见疑问。',
@@ -594,6 +671,15 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
           title={content.mediaShowcase.title}
           subtitle={content.mediaShowcase.subtitle}
           items={content.mediaShowcase.items}
+        />
+
+        <ImageToMediaShowcase
+          id="image-to-media"
+          title={content.imageToMedia.title}
+          subtitle={content.imageToMedia.subtitle}
+          inputLabel={content.imageToMedia.inputLabel}
+          outputLabel={content.imageToMedia.outputLabel}
+          items={content.imageToMedia.items}
         />
 
         <YouTubeContentSection
