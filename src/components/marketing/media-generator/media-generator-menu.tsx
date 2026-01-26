@@ -14,6 +14,7 @@ import {
 import { useAvatarLinks } from '@/config/avatar-config';
 import { websiteConfig } from '@/config/website';
 import { useCurrentUser } from '@/hooks/use-current-user';
+import { useCurrentPlan } from '@/hooks/use-payment';
 import { LocaleLink, useLocalePathname, useLocaleRouter } from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
 import type { User } from 'better-auth';
@@ -37,6 +38,10 @@ export function MediaGeneratorMenu({
 }: MediaGeneratorMenuProps) {
   const currentPath = useLocalePathname();
   const currentUser = useCurrentUser();
+  const { data: currentPlanData } = useCurrentPlan(currentUser?.id);
+  const shouldShowUpgrade = Boolean(
+    currentUser && currentPlanData?.currentPlan?.isFree
+  );
 
   return (
     <aside className="flex h-full w-[72px] flex-col items-center justify-between border-r border-white/10 bg-gradient-to-b from-[#0c0f14] via-[#07090c] to-[#050506] pt-5 pb-0 text-white">
@@ -61,12 +66,14 @@ export function MediaGeneratorMenu({
       <div className="flex w-full flex-col items-center gap-4 self-stretch pb-6 pt-1">
         {currentUser ? (
           <>
-            <LocaleLink
-              href="/#pricing"
-              className="mx-1.5 inline-flex h-8 w-[60px] items-center justify-center rounded-md border border-emerald-200/60 bg-emerald-300/15 text-[11px] font-semibold uppercase tracking-[0.08em] text-emerald-100 transition hover:border-emerald-100 hover:bg-emerald-300/25 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300/40"
-            >
-              Upgrade
-            </LocaleLink>
+            {shouldShowUpgrade ? (
+              <LocaleLink
+                href="/#pricing"
+                className="mx-1.5 inline-flex h-8 w-[60px] items-center justify-center rounded-lg px-5 text-[11px] font-semibold uppercase tracking-[0.08em] transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#64ff6a]/40"
+              >
+                <span className="text-[#64ff6a]">Upgrade</span>
+              </LocaleLink>
+            ) : null}
             <UserAvatar
               name={currentUser.name}
               image={currentUser.image}

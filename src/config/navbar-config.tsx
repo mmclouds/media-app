@@ -79,6 +79,49 @@ export function useNavbarLinks(): NestedMenuItem[] {
         },
       ]
       : []),
+    {
+      title: t('models.video.title'),
+      items: [
+        {
+          title: t('models.video.items.sora2.title'),
+          description: t('models.video.items.sora2.description'),
+          icon: <FilmIcon className="size-4 shrink-0" />,
+          href: Routes.MediaStudioSora2,
+          external: false,
+        },
+        {
+          title: t('models.video.items.veo3.title'),
+          description: t('models.video.items.veo3.description'),
+          icon: <FilmIcon className="size-4 shrink-0" />,
+          href: Routes.MediaStudioVeo3,
+          external: false,
+        },
+      ],
+    },
+    {
+      title: t('models.image.title'),
+      items: [
+        {
+          title: t('models.image.items.nanoBanana.title'),
+          description: t('models.image.items.nanoBanana.description'),
+          icon: <ImageIcon className="size-4 shrink-0" />,
+          href: Routes.MediaStudioNanoBanana,
+          external: false,
+        },
+      ],
+    },
+    {
+      title: t('models.music.title'),
+      items: [
+        {
+          title: t('models.music.items.suno.title'),
+          description: t('models.music.items.suno.description'),
+          icon: <AudioLinesIcon className="size-4 shrink-0" />,
+          href: Routes.AIAudio,
+          external: false,
+        },
+      ],
+    },
     // {
     //   title: t('ai.title'),
     //   items: [
@@ -141,6 +184,13 @@ export function useNavbarLinks(): NestedMenuItem[] {
           description: t('pages.items.waitlist.description'),
           icon: <MailboxIcon className="size-4 shrink-0" />,
           href: Routes.Waitlist,
+          external: false,
+        },
+        {
+          title: t('pages.items.faq.title'),
+          description: t('pages.items.faq.description'),
+          icon: <CircleHelpIcon className="size-4 shrink-0" />,
+          href: Routes.FAQ,
           external: false,
         },
         // {

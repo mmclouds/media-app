@@ -10,6 +10,7 @@ import LogoCloud from '@/components/blocks/logo-cloud/logo-cloud';
 import PricingSection from '@/components/blocks/pricing/pricing';
 import StatsSection from '@/components/blocks/stats/stats';
 import TestimonialsSection from '@/components/blocks/testimonials/testimonials';
+import MediaShowcaseSection from '@/components/blocks/media-showcase/media-showcase';
 import CrispChat from '@/components/layout/crisp-chat';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { NewsletterCard } from '@/components/newsletter/newsletter-card';
@@ -42,10 +43,7 @@ interface HomePageProps {
 }
 
 export default async function HomePage(props: HomePageProps) {
-  const params = await props.params;
-  const { locale } = params;
-  const t = await getTranslations('HomePage');
-
+  await props.params;
   return (
     <>
       <div className="flex flex-col">
@@ -53,8 +51,6 @@ export default async function HomePage(props: HomePageProps) {
           <MediaGeneratorWorkspace className="h-full w-full" />
         </div> */}
         <HeroSection />
-
-
 
         {/* <LogoCloud /> */}
 
@@ -69,6 +65,8 @@ export default async function HomePage(props: HomePageProps) {
 
         <Features3Section />
 
+        <MediaShowcaseSection />
+
         {/* <Integration2Section /> */}
 
         <PricingSection />
@@ -82,6 +80,8 @@ export default async function HomePage(props: HomePageProps) {
         <NewsletterCard />
 
         <CrispChat />
+
+
       </div>
     </>
   );

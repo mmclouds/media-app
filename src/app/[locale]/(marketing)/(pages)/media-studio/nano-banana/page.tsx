@@ -1,4 +1,5 @@
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
+import { Navbar } from '@/components/layout/navbar';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { constructMetadata } from '@/lib/metadata';
 import { cn } from '@/lib/utils';
@@ -68,8 +69,10 @@ export default async function NanoBananaStudioPage() {
   ] as const;
 
   return (
-    <main className="min-h-screen w-full bg-[#020202] px-6 py-10 text-white">
-      <div className="mx-auto w-full max-w-6xl space-y-10">
+    <>
+      <Navbar scroll={true} />
+      <main className="min-h-screen w-full bg-[#020202] px-6 py-10 text-white">
+        <div className="mx-auto w-full max-w-6xl space-y-10">
         <header className="space-y-4">
           <p className="text-xs uppercase tracking-[0.28em] text-white/40">
             {t('eyebrow')}
@@ -273,7 +276,8 @@ export default async function NanoBananaStudioPage() {
             </Link>
           </div>
         </section>
-      </div>
-    </main>
+        </div>
+      </main>
+    </>
   );
 }
