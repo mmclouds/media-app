@@ -16,6 +16,10 @@ import {
   NanoBananaConfigFields,
   buildNanoBananaRequestBody,
 } from './image/nano-banana-config-fields';
+import {
+  GptImageConfigFields,
+  buildGptImageRequestBody,
+} from './image/gpt-image-1-5-config-fields';
 
 import type {
   MediaGenerationPayload,
@@ -139,6 +143,22 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
     },
   ],
   image: [
+    {
+      id: 'gpt-image-1.5',
+      label: 'GPT Image 1.5',
+      description: 'GPT Image 1.5 is OpenAIs flagship image generation model',
+      provider: 'OpenAI',
+      mediaType: 'image',
+      modelName: 'gpt-image-1.5',
+      model: 'gpt-image-1.5',
+      defaultConfig: {
+        inputMode: 'text',
+        aspectRatio: '1:1',
+        quality: 'medium',
+      },
+      configComponent: GptImageConfigFields,
+      supportsCreditEstimate: true,
+    },
     {
       id: 'nano-banana',
       label: 'Nano Banana',
@@ -358,14 +378,15 @@ export function useMediaGeneratorController({
       setIsSubmitting(true);
 
       try {
-        const isSora = definition.id === 'sora';
-        const isNanoBanana = definition.id === 'nano-banana';
-        const isVeo3 = definition.id === 'veo3';
-        if (isVeo3 && (definition.model ?? definition.modelName)) {
-          resolvedModelName = definition.model ?? definition.modelName;
-        }
-        const requestBody = (isSora
-          ? buildSoraRequestBody({
+      const isSora = definition.id === 'sora';
+      const isNanoBanana = definition.id === 'nano-banana';
+      const isVeo3 = definition.id === 'veo3';
+      const isGptImage = definition.id === 'gpt-image-1.5';
+      if (isVeo3 && (definition.model ?? definition.modelName)) {
+        resolvedModelName = definition.model ?? definition.modelName;
+      }
+      const requestBody = (isSora
+        ? buildSoraRequestBody({
             prompt: trimmedPrompt,
             resolvedConfig,
             fileUuids,
@@ -382,13 +403,19 @@ export function useMediaGeneratorController({
                 resolvedConfig,
                 fileUuids,
               })
-              : {
-                mediaType: payload.mediaType.toUpperCase(),
-                modelName: resolvedModelName,
-                model: definition.model ?? definition.modelName,
-                prompt: trimmedPrompt,
-                ...resolvedConfig,
-              }) as Record<string, unknown>;
+              : isGptImage
+                ? buildGptImageRequestBody({
+                  prompt: trimmedPrompt,
+                  resolvedConfig,
+                  fileUuids,
+                })
+                : {
+                  mediaType: payload.mediaType.toUpperCase(),
+                  modelName: resolvedModelName,
+                  model: definition.model ?? definition.modelName,
+                  prompt: trimmedPrompt,
+                  ...resolvedConfig,
+                }) as Record<string, unknown>;
 
         if (isVeo3) {
           const generationType =
@@ -412,6 +439,18 @@ export function useMediaGeneratorController({
                 ? 'Add at least 1 reference image.'
                 : 'Add at least 1 frame image.'
             );
+            isSubmittingRef.current = false;
+            setIsSubmitting(false);
+            return;
+          }
+        }
+        if (isGptImage) {
+          const inputMode =
+            typeof resolvedConfig.inputMode === 'string'
+              ? resolvedConfig.inputMode.trim()
+              : '';
+          if (inputMode === 'image' && fileUuids.length === 0) {
+            toast.error('Add at least 1 input image.');
             isSubmittingRef.current = false;
             setIsSubmitting(false);
             return;

@@ -76,6 +76,18 @@ export const currentPricingConfig: CreditPricingConfig = {
       priceUsd: 0.02, // 4 积分
     },
 
+    // ==================== gpt-image-1.5 ====================
+    {
+      model: ['gpt-image/1.5-text-to-image', 'gpt-image/1.5-image-to-image'],
+      params: { quality: 'medium' },
+      priceUsd: 0.02, // 4 积分
+    },
+    {
+      model: ['gpt-image/1.5-text-to-image', 'gpt-image/1.5-image-to-image'],
+      params: { quality: 'high' },
+      priceUsd: 0.11, // 22 积分
+    },
+
     // ==================== suno v5 ====================
     {
       model: 'V5',
