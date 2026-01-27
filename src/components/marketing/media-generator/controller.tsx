@@ -16,6 +16,14 @@ import {
   NanoBananaConfigFields,
   buildNanoBananaRequestBody,
 } from './image/nano-banana-config-fields';
+import {
+  GptImageConfigFields,
+  buildGptImageRequestBody,
+} from './image/gpt-image-1-5-config-fields';
+import {
+  ZImageConfigFields,
+  buildZImageRequestBody,
+} from './image/z-image-config-fields';
 
 import type {
   MediaGenerationPayload,
@@ -140,6 +148,22 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
   ],
   image: [
     {
+      id: 'gpt-image-1.5',
+      label: 'GPT Image 1.5',
+      description: 'GPT Image 1.5 is OpenAIs flagship image generation model',
+      provider: 'OpenAI',
+      mediaType: 'image',
+      modelName: 'gpt-image-1.5',
+      model: 'gpt-image-1.5',
+      defaultConfig: {
+        inputMode: 'text',
+        aspectRatio: '1:1',
+        quality: 'medium',
+      },
+      configComponent: GptImageConfigFields,
+      supportsCreditEstimate: true,
+    },
+    {
       id: 'nano-banana',
       label: 'Nano Banana',
       description: 'Ultra-high character consistency',
@@ -153,6 +177,20 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
         imageSize: 'auto',
       },
       configComponent: NanoBananaConfigFields,
+      supportsCreditEstimate: true,
+    },
+    {
+      id: 'z-image',
+      label: 'Z-Image',
+      description: 'Z-Image is Tongyi-MAIs efficient image generation model',
+      provider: 'Tongyi-MAI',
+      mediaType: 'image',
+      modelName: 'z-image',
+      model: 'z-image',
+      defaultConfig: {
+        aspectRatio: '1:1',
+      },
+      configComponent: ZImageConfigFields,
       supportsCreditEstimate: true,
     },
   ],
@@ -358,14 +396,16 @@ export function useMediaGeneratorController({
       setIsSubmitting(true);
 
       try {
-        const isSora = definition.id === 'sora';
-        const isNanoBanana = definition.id === 'nano-banana';
-        const isVeo3 = definition.id === 'veo3';
-        if (isVeo3 && (definition.model ?? definition.modelName)) {
-          resolvedModelName = definition.model ?? definition.modelName;
-        }
-        const requestBody = (isSora
-          ? buildSoraRequestBody({
+      const isSora = definition.id === 'sora';
+      const isNanoBanana = definition.id === 'nano-banana';
+      const isVeo3 = definition.id === 'veo3';
+      const isGptImage = definition.id === 'gpt-image-1.5';
+      const isZImage = definition.id === 'z-image';
+      if (isVeo3 && (definition.model ?? definition.modelName)) {
+        resolvedModelName = definition.model ?? definition.modelName;
+      }
+      const requestBody = (isSora
+        ? buildSoraRequestBody({
             prompt: trimmedPrompt,
             resolvedConfig,
             fileUuids,
@@ -382,13 +422,24 @@ export function useMediaGeneratorController({
                 resolvedConfig,
                 fileUuids,
               })
-              : {
-                mediaType: payload.mediaType.toUpperCase(),
-                modelName: resolvedModelName,
-                model: definition.model ?? definition.modelName,
-                prompt: trimmedPrompt,
-                ...resolvedConfig,
-              }) as Record<string, unknown>;
+              : isGptImage
+                ? buildGptImageRequestBody({
+                  prompt: trimmedPrompt,
+                  resolvedConfig,
+                  fileUuids,
+                })
+                : isZImage
+                  ? buildZImageRequestBody({
+                    prompt: trimmedPrompt,
+                    resolvedConfig,
+                  })
+                : {
+                  mediaType: payload.mediaType.toUpperCase(),
+                  modelName: resolvedModelName,
+                  model: definition.model ?? definition.modelName,
+                  prompt: trimmedPrompt,
+                  ...resolvedConfig,
+                }) as Record<string, unknown>;
 
         if (isVeo3) {
           const generationType =
@@ -412,6 +463,18 @@ export function useMediaGeneratorController({
                 ? 'Add at least 1 reference image.'
                 : 'Add at least 1 frame image.'
             );
+            isSubmittingRef.current = false;
+            setIsSubmitting(false);
+            return;
+          }
+        }
+        if (isGptImage) {
+          const inputMode =
+            typeof resolvedConfig.inputMode === 'string'
+              ? resolvedConfig.inputMode.trim()
+              : '';
+          if (inputMode === 'image' && fileUuids.length === 0) {
+            toast.error('Add at least 1 input image.');
             isSubmittingRef.current = false;
             setIsSubmitting(false);
             return;

@@ -40,6 +40,11 @@ function extractPricingParams(payload: Record<string, unknown>): {
     params.size = input.size.trim();
   }
 
+  // 提取 quality（图片模型质量）
+  if (typeof input.quality === 'string' && input.quality.trim().length > 0) {
+    params.quality = input.quality.trim();
+  }
+
   return { model, params };
 }
 
