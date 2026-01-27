@@ -88,6 +88,13 @@ export const currentPricingConfig: CreditPricingConfig = {
       priceUsd: 0.11, // 22 积分
     },
 
+    // ==================== z-image ====================
+    {
+      model: 'z-image',
+      params: {},
+      priceUsd: 0.004, // 1 积分
+    },
+
     // ==================== suno v5 ====================
     {
       model: 'V5',

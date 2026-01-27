@@ -20,6 +20,10 @@ import {
   GptImageConfigFields,
   buildGptImageRequestBody,
 } from './image/gpt-image-1-5-config-fields';
+import {
+  ZImageConfigFields,
+  buildZImageRequestBody,
+} from './image/z-image-config-fields';
 
 import type {
   MediaGenerationPayload,
@@ -173,6 +177,20 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
         imageSize: 'auto',
       },
       configComponent: NanoBananaConfigFields,
+      supportsCreditEstimate: true,
+    },
+    {
+      id: 'z-image',
+      label: 'Z-Image',
+      description: 'Z-Image is Tongyi-MAIs efficient image generation model',
+      provider: 'Tongyi-MAI',
+      mediaType: 'image',
+      modelName: 'z-image',
+      model: 'z-image',
+      defaultConfig: {
+        aspectRatio: '1:1',
+      },
+      configComponent: ZImageConfigFields,
       supportsCreditEstimate: true,
     },
   ],
@@ -382,6 +400,7 @@ export function useMediaGeneratorController({
       const isNanoBanana = definition.id === 'nano-banana';
       const isVeo3 = definition.id === 'veo3';
       const isGptImage = definition.id === 'gpt-image-1.5';
+      const isZImage = definition.id === 'z-image';
       if (isVeo3 && (definition.model ?? definition.modelName)) {
         resolvedModelName = definition.model ?? definition.modelName;
       }
@@ -409,6 +428,11 @@ export function useMediaGeneratorController({
                   resolvedConfig,
                   fileUuids,
                 })
+                : isZImage
+                  ? buildZImageRequestBody({
+                    prompt: trimmedPrompt,
+                    resolvedConfig,
+                  })
                 : {
                   mediaType: payload.mediaType.toUpperCase(),
                   modelName: resolvedModelName,
