@@ -17,9 +17,8 @@ export function AssetsManager({
   defaultMediaType = 'VIDEO',
 }: AssetsManagerProps) {
   const [selectedMediaType, setSelectedMediaType] = useState(defaultMediaType);
-  const [selectedAsset, setSelectedAsset] = useState<VideoGeneratorAsset | null>(
-    null
-  );
+  const [selectedAsset, setSelectedAsset] =
+    useState<VideoGeneratorAsset | null>(null);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const { assets, isLoading, hasMore, error, setMediaType, loadMore, refresh } =
     useAssetsManager({

@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 import {
   Tooltip,
   TooltipContent,
@@ -345,5 +346,29 @@ export function ToggleField({
         onChange={(event) => onChange(event.target.checked)}
       />
     </label>
+  );
+}
+
+export function SwitchField({
+  label,
+  checked,
+  helperText,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  helperText?: string;
+  onChange: (value: boolean) => void;
+}) {
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between rounded-xl border border-white/20 bg-[#0b0d10] px-4 py-2 text-sm text-white/80 shadow-inner shadow-black/40">
+        <span className="font-medium">{label}</span>
+        <Switch checked={checked} onCheckedChange={onChange} />
+      </div>
+      {helperText ? (
+        <p className="text-xs text-white/50">{helperText}</p>
+      ) : null}
+    </div>
   );
 }

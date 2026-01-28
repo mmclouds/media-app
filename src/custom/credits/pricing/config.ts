@@ -69,11 +69,50 @@ export const currentPricingConfig: CreditPricingConfig = {
       priceUsd: 1.25, // 250 积分
     },
 
+    // ==================== kling 2.6 ====================
+    {
+      model: ['kling-2.6/text-to-video', 'kling-2.6/image-to-video'],
+      params: { sound: false, duration: 5 },
+      priceUsd: 0.28, // 56 积分
+    },
+    {
+      model: ['kling-2.6/text-to-video', 'kling-2.6/image-to-video'],
+      params: { sound: false, duration: 10 },
+      priceUsd: 0.55, // 110 积分
+    },
+    {
+      model: ['kling-2.6/text-to-video', 'kling-2.6/image-to-video'],
+      params: { sound: true, duration: 5 },
+      priceUsd: 0.55, // 110 积分
+    },
+    {
+      model: ['kling-2.6/text-to-video', 'kling-2.6/image-to-video'],
+      params: { sound: true, duration: 10 },
+      priceUsd: 1.1, // 220 积分
+    },
+
     // ==================== nano-banana ====================
     {
       model: ['google/nano-banana', 'google/nano-banana-edit'],
       params: {},
       priceUsd: 0.02, // 4 积分
+    },
+
+    // ==================== nano-banana-pro ====================
+    {
+      model: 'google/nano-banana-pro',
+      params: { resolution: '1K' },
+      priceUsd: 0.09, // 18 积分
+    },
+    {
+      model: 'google/nano-banana-pro',
+      params: { resolution: '2K' },
+      priceUsd: 0.09, // 18 积分
+    },
+    {
+      model: 'google/nano-banana-pro',
+      params: { resolution: '4K' },
+      priceUsd: 0.12, // 24 积分
     },
 
     // ==================== gpt-image-1.5 ====================

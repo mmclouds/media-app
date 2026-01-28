@@ -25,6 +25,7 @@ type ImageToMediaShowcaseProps = {
   id?: string;
   title: string;
   subtitle?: string;
+  exampleLabel?: string;
   inputLabel?: string;
   outputLabel?: string;
   items: ImageToMediaExample[];
@@ -35,6 +36,7 @@ const ImageToMediaShowcase = ({
   id,
   title,
   subtitle,
+  exampleLabel = 'Example',
   inputLabel = 'Input Images',
   outputLabel = 'Output',
   items,
@@ -65,7 +67,7 @@ const ImageToMediaShowcase = ({
               >
                 <div className="space-y-3">
                   <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-                    Example {index + 1}
+                    {exampleLabel} {index + 1}
                   </p>
                   <h3 className="text-xl font-semibold text-foreground">
                     {item.title}

@@ -24,6 +24,9 @@ type MediaPromptShowcaseProps = {
   id?: string;
   title: string;
   subtitle?: string;
+  exampleLabel?: string;
+  promptSetLabel?: string;
+  outputPreviewLabel?: string;
   items: MediaPromptExample[];
   className?: string;
 };
@@ -32,6 +35,9 @@ const MediaPromptShowcase = ({
   id,
   title,
   subtitle,
+  exampleLabel = 'Example',
+  promptSetLabel = 'Prompt Set',
+  outputPreviewLabel = 'Output Preview',
   items,
   className,
 }: MediaPromptShowcaseProps) => {
@@ -58,7 +64,7 @@ const MediaPromptShowcase = ({
               <div className="space-y-6">
                 <div className="space-y-3">
                   <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-                    Example {index + 1}
+                    {exampleLabel} {index + 1}
                   </p>
                   <h3 className="text-2xl font-semibold text-foreground">
                     {item.title}
@@ -72,7 +78,7 @@ const MediaPromptShowcase = ({
 
                 <div className="rounded-2xl border border-border/70 bg-muted/40 p-5">
                   <p className="text-sm font-semibold uppercase tracking-[0.26em] text-muted-foreground">
-                    Prompt Set
+                    {promptSetLabel}
                   </p>
                   <ul className="mt-4 space-y-3">
                     {item.prompts.map((prompt, promptIndex) => (
@@ -92,7 +98,7 @@ const MediaPromptShowcase = ({
 
               <div className="space-y-4">
                 <p className="text-sm font-semibold uppercase tracking-[0.26em] text-muted-foreground">
-                  Output Preview
+                  {outputPreviewLabel}
                 </p>
                 {(() => {
                   const kind = getMediaKind(item.output);

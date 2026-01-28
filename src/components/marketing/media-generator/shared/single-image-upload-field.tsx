@@ -4,8 +4,8 @@ import {
   buildPublicFileDownloadUrl,
   uploadFileToBucket,
 } from '@/lib/file-transfer';
-import { RemoteImagePickerDialog } from './remote-image-picker-dialog';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { RemoteImagePickerDialog } from './remote-image-picker-dialog';
 
 type SingleImageUploadFieldProps = {
   label: string;
@@ -205,7 +205,9 @@ export function SingleImageUploadField({
         }}
         onDragLeave={(event) => {
           event.preventDefault();
-          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          if (
+            !event.currentTarget.contains(event.relatedTarget as Node | null)
+          ) {
             setIsDragging(false);
           }
         }}

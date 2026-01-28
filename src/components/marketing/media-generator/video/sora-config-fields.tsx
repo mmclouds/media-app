@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import {
   AspectRatioField,
   ModelVersionSwitcher,
@@ -10,7 +11,6 @@ import { PromptEditor } from '../shared/prompt-editor';
 import { SingleImageUploadField } from '../shared/single-image-upload-field';
 import { useCreditEstimate } from '../shared/use-credit-estimate';
 import type { MediaModelConfig, MediaModelConfigProps } from '../types';
-import { useMemo } from 'react';
 
 const generationModes = [
   {
@@ -257,7 +257,6 @@ export function SoraConfigFields({
           }
         />
       ) : null}
-
     </div>
   );
 }

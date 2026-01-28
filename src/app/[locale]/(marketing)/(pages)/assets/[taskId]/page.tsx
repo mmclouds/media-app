@@ -1,10 +1,10 @@
-import Container from '@/components/layout/container';
 import {
-  AssetDetailTabs,
   type AssetDetailSection,
+  AssetDetailTabs,
 } from '@/components/assets-manager/asset-detail-tabs';
-import { getSession } from '@/lib/server';
+import Container from '@/components/layout/container';
 import { constructMetadata } from '@/lib/metadata';
+import { getSession } from '@/lib/server';
 import type { NextPageProps } from '@/types/next-page-props';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
@@ -99,18 +99,21 @@ export default async function AssetDetailPage(props: NextPageProps) {
   }
 
   const prompt =
-    typeof assetDetail.prompt === 'string' && assetDetail.prompt.trim().length > 0
+    typeof assetDetail.prompt === 'string' &&
+    assetDetail.prompt.trim().length > 0
       ? assetDetail.prompt.trim()
       : undefined;
   const parsedParameters = parseParameters(assetDetail.parameters);
   const resolvedPrompt = prompt ?? parsedParameters?.prompt;
   const resolution = parsedParameters?.size;
   const duration =
-    typeof parsedParameters?.seconds === 'number' && parsedParameters.seconds > 0
+    typeof parsedParameters?.seconds === 'number' &&
+    parsedParameters.seconds > 0
       ? `${parsedParameters.seconds}s`
       : undefined;
   const modelName =
-    typeof assetDetail.modelName === 'string' && assetDetail.modelName.length > 0
+    typeof assetDetail.modelName === 'string' &&
+    assetDetail.modelName.length > 0
       ? assetDetail.modelName
       : parsedParameters?.model;
 
@@ -126,10 +129,16 @@ export default async function AssetDetailPage(props: NextPageProps) {
     { label: 'Provider', value: formatValue(assetDetail.providerName) },
     { label: 'Resolution', value: formatValue(resolution) },
     { label: 'Duration', value: formatValue(duration) },
-    { label: 'Progress', value: formatValue(formatProgress(assetDetail.progress)) },
+    {
+      label: 'Progress',
+      value: formatValue(formatProgress(assetDetail.progress)),
+    },
     { label: 'Created At', value: formatDateTime(assetDetail.createdAt) },
     { label: 'Completed At', value: formatDateTime(assetDetail.completedAt) },
-    { label: 'Execution Time', value: formatDuration(assetDetail.executionTimeMs) },
+    {
+      label: 'Execution Time',
+      value: formatDuration(assetDetail.executionTimeMs),
+    },
     { label: 'Retry Count', value: formatValue(assetDetail.retryCount) },
     { label: 'Error', value: formatValue(assetDetail.errorMessage) },
   ]);
@@ -138,12 +147,32 @@ export default async function AssetDetailPage(props: NextPageProps) {
   const coverDownloadUrl = buildFileDownloadUrl(assetDetail.coverFileUuid);
   const fileItems = compactItems([
     { label: 'Media URL', value: mediaUrl, href: mediaUrl },
-    { label: 'Download URL', value: formatValue(assetDetail.downloadUrl), href: assetDetail.downloadUrl ?? undefined },
-    { label: 'Online URL', value: formatValue(assetDetail.onlineUrl), href: assetDetail.onlineUrl ?? undefined },
-    { label: 'Temporary URL', value: formatValue(assetDetail.temporaryFileUrl), href: assetDetail.temporaryFileUrl ?? undefined },
-    { label: 'File UUID', value: formatValue(assetDetail.fileUuid), href: fileDownloadUrl },
+    {
+      label: 'Download URL',
+      value: formatValue(assetDetail.downloadUrl),
+      href: assetDetail.downloadUrl ?? undefined,
+    },
+    {
+      label: 'Online URL',
+      value: formatValue(assetDetail.onlineUrl),
+      href: assetDetail.onlineUrl ?? undefined,
+    },
+    {
+      label: 'Temporary URL',
+      value: formatValue(assetDetail.temporaryFileUrl),
+      href: assetDetail.temporaryFileUrl ?? undefined,
+    },
+    {
+      label: 'File UUID',
+      value: formatValue(assetDetail.fileUuid),
+      href: fileDownloadUrl,
+    },
     { label: 'Cover URL', value: formatValue(coverUrl), href: coverUrl },
-    { label: 'Cover File UUID', value: formatValue(assetDetail.coverFileUuid), href: coverDownloadUrl },
+    {
+      label: 'Cover File UUID',
+      value: formatValue(assetDetail.coverFileUuid),
+      href: coverDownloadUrl,
+    },
   ]);
 
   const metaItems = compactItems([
@@ -276,9 +305,9 @@ async function fetchAssetDetail(taskId: string, headersList: Headers) {
     if (!response.ok) {
       return null;
     }
-    const payload = (await response.json().catch(() => null)) as
-      | AssetDetailResponse
-      | null;
+    const payload = (await response
+      .json()
+      .catch(() => null)) as AssetDetailResponse | null;
     return payload;
   } catch {
     return null;
@@ -349,7 +378,9 @@ function parseParameters(raw?: string | Record<string, unknown> | null) {
 function normalizeParameters(raw: Record<string, unknown>) {
   const merged = {
     ...raw,
-    ...(typeof raw.input === 'object' && raw.input ? (raw.input as Record<string, unknown>) : {}),
+    ...(typeof raw.input === 'object' && raw.input
+      ? (raw.input as Record<string, unknown>)
+      : {}),
   };
   return {
     prompt: typeof merged.prompt === 'string' ? merged.prompt : undefined,
@@ -374,19 +405,19 @@ function formatParameters(raw?: string | Record<string, unknown> | null) {
   return JSON.stringify(raw, null, 2);
 }
 
-function compactItems(items: Array<{ label: string; value?: string; href?: string }>) {
+function compactItems(
+  items: Array<{ label: string; value?: string; href?: string }>
+) {
   return items
     .filter(hasValue)
     .map((item) => ({ ...item, value: item.value.trim() }));
 }
 
-function hasValue(
-  item: {
-    label: string;
-    value?: string;
-    href?: string;
-  }
-): item is { label: string; value: string; href?: string } {
+function hasValue(item: {
+  label: string;
+  value?: string;
+  href?: string;
+}): item is { label: string; value: string; href?: string } {
   return typeof item.value === 'string' && item.value.trim().length > 0;
 }
 

@@ -55,8 +55,7 @@ export function AudioPlayer({
 
   const isCompact = size === 'compact';
 
-  const progressRatio =
-    duration > 0 ? Math.min(currentTime / duration, 1) : 0;
+  const progressRatio = duration > 0 ? Math.min(currentTime / duration, 1) : 0;
 
   useEffect(() => {
     setIsPlaying(false);

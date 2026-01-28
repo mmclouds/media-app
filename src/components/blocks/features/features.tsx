@@ -32,22 +32,22 @@ export default function FeaturesSection() {
     'item-1': {
       image: '/blocks/ai-models-integration.png',
       darkImage: '/blocks/ai-models-integration.png',
-      alt: 'AI Models Integration - Gemini, Sora, Veo, Suno',
+      alt: t('images.item-1'),
     },
     'item-2': {
       image: '/blocks/multimodal-generation.png',
       darkImage: '/blocks/multimodal-generation.png',
-      alt: 'Multimodal Generation - Images, Videos, Music',
+      alt: t('images.item-2'),
     },
     'item-3': {
       image: '/blocks/pricing-free-trial.png',
       darkImage: '/blocks/pricing-free-trial.png',
-      alt: 'Free Trial and Affordable Pricing',
+      alt: t('images.item-3'),
     },
     'item-4': {
       image: '/blocks/fast-smooth-experience.png',
       darkImage: '/blocks/fast-smooth-experience.png',
-      alt: 'Fast and Smooth User Experience',
+      alt: t('images.item-4'),
     },
   };
 

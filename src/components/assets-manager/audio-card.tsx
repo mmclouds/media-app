@@ -15,7 +15,8 @@ export function AudioCard({ asset, cardRef }: AudioCardProps) {
   const isLoading = isInProgressStatus(asset.status);
   const modelLabel = asset.modelName ?? asset.tags[1] ?? '—';
   const resolvedErrorMessage =
-    typeof asset.errorMessage === 'string' && asset.errorMessage.trim().length > 0
+    typeof asset.errorMessage === 'string' &&
+    asset.errorMessage.trim().length > 0
       ? asset.errorMessage
       : DEFAULT_ERROR_MESSAGE;
 

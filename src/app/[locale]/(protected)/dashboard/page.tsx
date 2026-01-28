@@ -4,9 +4,9 @@ import { DataTable } from '@/components/dashboard/data-table';
 import { SectionCards } from '@/components/dashboard/section-cards';
 import { useTranslations } from 'next-intl';
 
-import data from './data.json';
 import { Routes } from '@/routes';
 import { redirect } from 'next/navigation';
+import data from './data.json';
 /**
  * Dashboard page
  *

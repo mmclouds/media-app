@@ -27,7 +27,10 @@ export default function WorkflowStepsSection({
   className,
 }: WorkflowStepsSectionProps) {
   return (
-    <section id={id ?? 'workflow-steps'} className={cn('px-4 py-16', className)}>
+    <section
+      id={id ?? 'workflow-steps'}
+      className={cn('px-4 py-16', className)}
+    >
       <div className="mx-auto max-w-6xl space-y-8 lg:space-y-16">
         <HeaderSection
           title={title}

@@ -179,7 +179,11 @@ export async function addCredits({
     throw new Error('Invalid expire days');
   }
   if (expirationDate && Number.isNaN(expirationDate.getTime())) {
-    console.error('addCredits, invalid expiration date', userId, expirationDate);
+    console.error(
+      'addCredits, invalid expiration date',
+      userId,
+      expirationDate
+    );
     throw new Error('Invalid expiration date');
   }
   // Update user credit balance
@@ -219,7 +223,8 @@ export async function addCredits({
     description,
     paymentId,
     expirationDate:
-      expirationDate || (expireDays ? addDays(new Date(), expireDays) : undefined),
+      expirationDate ||
+      (expireDays ? addDays(new Date(), expireDays) : undefined),
   });
 }
 

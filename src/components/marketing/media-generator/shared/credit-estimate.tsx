@@ -52,19 +52,24 @@ export function CreditEstimate({
 
   // 显示计算结果
   if (result) {
-    const hasEnoughCredits = userCredits === undefined || userCredits >= result.credits;
+    const hasEnoughCredits =
+      userCredits === undefined || userCredits >= result.credits;
 
     return (
-      <div className={`rounded-2xl border p-3 text-sm ${
-        hasEnoughCredits
-          ? 'border-green-500/30 bg-green-500/10'
-          : 'border-red-500/30 bg-red-500/10'
-      }`}>
+      <div
+        className={`rounded-2xl border p-3 text-sm ${
+          hasEnoughCredits
+            ? 'border-green-500/30 bg-green-500/10'
+            : 'border-red-500/30 bg-red-500/10'
+        }`}
+      >
         <div className="flex items-center justify-between">
           <span className="text-white/70">积分预估</span>
-          <span className={`font-semibold ${
-            hasEnoughCredits ? 'text-green-400' : 'text-red-400'
-          }`}>
+          <span
+            className={`font-semibold ${
+              hasEnoughCredits ? 'text-green-400' : 'text-red-400'
+            }`}
+          >
             {result.credits} 积分
           </span>
         </div>
@@ -75,7 +80,11 @@ export function CreditEstimate({
         {userCredits !== undefined && (
           <div className="mt-1 flex items-center justify-between text-xs">
             <span className="text-white/50">余额</span>
-            <span className={hasEnoughCredits ? 'text-green-400/80' : 'text-red-400/80'}>
+            <span
+              className={
+                hasEnoughCredits ? 'text-green-400/80' : 'text-red-400/80'
+              }
+            >
               {userCredits} 积分
             </span>
           </div>

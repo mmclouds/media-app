@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import {
   AspectRatioField,
   CheckboxGroupField,
@@ -8,7 +9,6 @@ import { MultiImageUploadField } from '../shared/multi-image-upload-field';
 import { PromptEditor } from '../shared/prompt-editor';
 import { useCreditEstimate } from '../shared/use-credit-estimate';
 import type { MediaModelConfig, MediaModelConfigProps } from '../types';
-import { useMemo } from 'react';
 
 const generationModes = [
   { value: 'text', label: 'Text to Image' },
@@ -50,9 +50,9 @@ export const buildNanoBananaRequestBody = ({
       : '';
   const imageUuids = Array.isArray(resolvedConfig.imageUuids)
     ? resolvedConfig.imageUuids
-      .filter((item) => typeof item === 'string')
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0)
+        .filter((item) => typeof item === 'string')
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0)
     : [];
 
   const inputPayload: Record<string, unknown> = { prompt };
@@ -83,8 +83,7 @@ export function NanoBananaConfigFields({
   onPromptChange,
   onCreditEstimateChange,
 }: MediaModelConfigProps) {
-  const mode =
-    typeof config.inputMode === 'string' ? config.inputMode : '';
+  const mode = typeof config.inputMode === 'string' ? config.inputMode : '';
   const outputFormat =
     typeof config.outputFormat === 'string' ? config.outputFormat : '';
   const sizeValue =
@@ -94,15 +93,15 @@ export function NanoBananaConfigFields({
   const imageSize = sizeValue;
   const imageUrls = Array.isArray(config.imageUrls)
     ? config.imageUrls
-      .filter((item): item is string => typeof item === 'string')
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0)
+        .filter((item): item is string => typeof item === 'string')
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0)
     : [];
   const imageUuids = Array.isArray(config.imageUuids)
     ? config.imageUuids
-      .filter((item): item is string => typeof item === 'string')
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0)
+        .filter((item): item is string => typeof item === 'string')
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0)
     : [];
 
   const creditEstimatePayload = useMemo(
@@ -128,10 +127,11 @@ export function NanoBananaConfigFields({
             <button
               key={option.value}
               type="button"
-              className={`flex-1 rounded-xl px-3 py-2 text-sm font-semibold transition ${isActive
-                ? 'bg-white/10 text-white shadow-lg shadow-white/10'
-                : 'text-white/60 hover:bg-white/5 hover:text-white'
-                }`}
+              className={`flex-1 rounded-xl px-3 py-2 text-sm font-semibold transition ${
+                isActive
+                  ? 'bg-white/10 text-white shadow-lg shadow-white/10'
+                  : 'text-white/60 hover:bg-white/5 hover:text-white'
+              }`}
               onClick={() =>
                 onChange({
                   ...config,
@@ -169,7 +169,8 @@ export function NanoBananaConfigFields({
             onChange({
               ...config,
               imageUrls: nextImageUrls.length > 0 ? nextImageUrls : undefined,
-              imageUuids: nextImageUuids.length > 0 ? nextImageUuids : undefined,
+              imageUuids:
+                nextImageUuids.length > 0 ? nextImageUuids : undefined,
             });
           }}
           onUploaded={(files) => {
@@ -190,7 +191,8 @@ export function NanoBananaConfigFields({
             onChange({
               ...config,
               imageUrls: nextImageUrls.length > 0 ? nextImageUrls : undefined,
-              imageUuids: nextImageUuids.length > 0 ? nextImageUuids : undefined,
+              imageUuids:
+                nextImageUuids.length > 0 ? nextImageUuids : undefined,
             });
           }}
           helperText="Attach images when using Image to Image."
@@ -224,8 +226,6 @@ export function NanoBananaConfigFields({
           })
         }
       />
-
-
     </div>
   );
 }

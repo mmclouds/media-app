@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import {
   AspectRatioField,
   CheckboxGroupField,
@@ -8,7 +9,6 @@ import { MultiImageUploadField } from '../shared/multi-image-upload-field';
 import { PromptEditor } from '../shared/prompt-editor';
 import { useCreditEstimate } from '../shared/use-credit-estimate';
 import type { MediaModelConfig, MediaModelConfigProps } from '../types';
-import { useMemo } from 'react';
 
 const generationModes = [
   { value: 'text', label: 'Text to Image' },
@@ -73,8 +73,7 @@ export function GptImageConfigFields({
   onPromptChange,
   onCreditEstimateChange,
 }: MediaModelConfigProps) {
-  const mode =
-    typeof config.inputMode === 'string' ? config.inputMode : '';
+  const mode = typeof config.inputMode === 'string' ? config.inputMode : '';
   const aspectRatio =
     typeof config.aspectRatio === 'string' ? config.aspectRatio : '';
   const quality = typeof config.quality === 'string' ? config.quality : '';
@@ -157,7 +156,8 @@ export function GptImageConfigFields({
             onChange({
               ...config,
               imageUrls: nextImageUrls.length > 0 ? nextImageUrls : undefined,
-              imageUuids: nextImageUuids.length > 0 ? nextImageUuids : undefined,
+              imageUuids:
+                nextImageUuids.length > 0 ? nextImageUuids : undefined,
             });
           }}
           onUploaded={(files) => {
@@ -178,7 +178,8 @@ export function GptImageConfigFields({
             onChange({
               ...config,
               imageUrls: nextImageUrls.length > 0 ? nextImageUrls : undefined,
-              imageUuids: nextImageUuids.length > 0 ? nextImageUuids : undefined,
+              imageUuids:
+                nextImageUuids.length > 0 ? nextImageUuids : undefined,
             });
           }}
           helperText="Attach images when using Image to Image."

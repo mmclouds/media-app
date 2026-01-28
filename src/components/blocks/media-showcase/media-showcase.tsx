@@ -10,11 +10,15 @@ type ShowcaseCopy = {
   promptShowcase: {
     title: string;
     subtitle: string;
+    exampleLabel: string;
+    promptSetLabel: string;
+    outputPreviewLabel: string;
     items: MediaPromptExample[];
   };
   referenceShowcase: {
     title: string;
     subtitle: string;
+    exampleLabel: string;
     inputLabel: string;
     outputLabel: string;
     items: ImageToMediaExample[];
@@ -22,6 +26,7 @@ type ShowcaseCopy = {
   frameShowcase: {
     title: string;
     subtitle: string;
+    exampleLabel: string;
     inputLabel: string;
     outputLabel: string;
     items: ImageToMediaExample[];
@@ -31,21 +36,23 @@ type ShowcaseCopy = {
 const CONTENT: Record<string, ShowcaseCopy> = {
   en: {
     promptShowcase: {
-      title: 'Sora2 prompt-to-video examples',
-      subtitle: 'Real prompts with Sora2 output previews',
+      title: 'AI video generator examples (Sora2)',
+      subtitle: 'Real prompts and AI video outputs',
+      exampleLabel: 'Example',
+      promptSetLabel: 'Prompt Set',
+      outputPreviewLabel: 'Output Preview',
       items: [
         {
-          title: 'Cyberpunk alley tracking shot',
-          description:
-            'Neon reflections, rain-soaked streets, and a synth-driven atmosphere.',
+          title: 'AI video generator: cyberpunk alley',
+          description: 'Moody neon, rain-soaked streets, and cinematic motion.',
           prompts: [
             'A cyberpunk teaser: rain trickles off neon signs, wet alleyways mirror vibrant colours, and a low tracking shot glides through steam-filled passages while a pulsing synth score swells.',
           ],
           output: 'https://media.vlook.ai/media/download/0/public/sora2.mp4',
         },
         {
-          title: 'Neon Times Square panda',
-          description: 'Wild breakdance energy with fast, social-style camera cuts.',
+          title: 'AI video generator: Times Square panda',
+          description: 'High-energy dance with fast social-style cuts.',
           prompts: [
             'In neon-lit Times Square at night, a panda in sunglasses breakdances wildly as cheering crowds and flashing billboards surround it. The camera weaves through the scene with TikTok-style quick cuts and spinning close-ups.',
           ],
@@ -54,15 +61,15 @@ const CONTENT: Record<string, ShowcaseCopy> = {
       ],
     },
     referenceShowcase: {
-      title: 'Veo3.1 reference-image-to-video',
-      subtitle: 'Reference images + Veo3.1 video prompt in',
+      title: 'AI video generator from image (Veo3.1)',
+      subtitle: 'Reference image + prompt to AI video',
+      exampleLabel: 'Example',
       inputLabel: 'Input Images',
       outputLabel: 'Output',
       items: [
         {
-          title: 'Surreal macro sink surfers',
-          description:
-            'A hyper-realistic macro photo of miniature surfers riding waves in a rustic stone bathroom sink. An old-fashioned brass faucet runs water, creating an eternal surf sound. Surreal, whimsical, bright natural light. Audio: "Surfing? In my bathtub?"',
+          title: 'AI video from image: surreal sink surfers',
+          description: 'Photoreal macro scene with sound cues and motion.',
           prompt: [
             'A hyper-realistic macro photo of miniature surfers riding waves in a rustic stone bathroom sink. An old-fashioned brass faucet runs water, creating an eternal surf sound. Surreal, whimsical, bright natural light.',
             'Audio: "Surfing? In my bathtub?"',
@@ -73,15 +80,15 @@ const CONTENT: Record<string, ShowcaseCopy> = {
       ],
     },
     frameShowcase: {
-      title: 'Veo3.1 first/last frame video control',
-      subtitle: 'Define the opening and closing frame for a guided Veo3.1 video clip',
+      title: 'AI video generator with first/last frame control',
+      subtitle: 'Guide the opening and closing frame for your AI video',
+      exampleLabel: 'Example',
       inputLabel: 'First & Last Frames',
       outputLabel: 'Output',
       items: [
         {
-          title: 'Ginger cat race launch',
-          description:
-            'First image: A high-quality photorealistic front-facing image of an orange tabby cat driving a red convertible car along the French Riviera coast. Last image: Show what happens when the car takes off from a cliff.',
+          title: 'AI video with frame control: ginger cat launch',
+          description: 'Set the first and last frames to shape the final clip.',
           prompt: [
             'First image: A high-quality photorealistic front-facing image of an orange tabby cat driving a red convertible car along the French Riviera coast.',
             'Last image: Show what happens when the car takes off from a cliff.',
@@ -97,20 +104,23 @@ const CONTENT: Record<string, ShowcaseCopy> = {
   },
   zh: {
     promptShowcase: {
-      title: 'Sora2 文生视频示例',
-      subtitle: '真实提示词与 Sora2 输出预览',
+      title: 'AI 视频生成器示例（Sora2）',
+      subtitle: '真实提示词与 AI 视频输出',
+      exampleLabel: '示例',
+      promptSetLabel: '提示词组',
+      outputPreviewLabel: '输出预览',
       items: [
         {
-          title: '赛博朋克巷道跟拍',
-          description: '霓虹倒影、雨湿街巷与合成器氛围。',
+          title: 'AI 视频生成器：赛博朋克巷道',
+          description: '霓虹氛围、雨湿街巷与电影级运动感。',
           prompts: [
             '赛博朋克预告：雨水从霓虹灯牌滑落，潮湿的小巷映出鲜艳色彩，低机位跟拍穿行在蒸汽弥漫的通道中，脉动的合成器配乐逐渐推高。',
           ],
           output: 'https://media.vlook.ai/media/download/0/public/sora2.mp4',
         },
         {
-          title: '霓虹时代广场熊猫',
-          description: '疯狂霹雳舞，社交短视频风格的快切镜头。',
+          title: 'AI 视频生成器：时代广场熊猫',
+          description: '高能舞步与社媒风格快切镜头。',
           prompts: [
             '夜晚的霓虹时代广场，一只戴墨镜的熊猫疯狂跳霹雳舞，周围是欢呼的人群和闪烁的广告牌。镜头在场景中穿梭，带有 TikTok 风格的快速剪辑与旋转特写。',
           ],
@@ -119,15 +129,15 @@ const CONTENT: Record<string, ShowcaseCopy> = {
       ],
     },
     referenceShowcase: {
-      title: 'Veo3.1 参考图生成视频',
-      subtitle: '参考图 + Veo3.1 提示词生成视频',
+      title: '参考图生成 AI 视频（Veo3.1）',
+      subtitle: '参考图 + 提示词生成 AI 视频',
+      exampleLabel: '示例',
       inputLabel: '参考图片',
       outputLabel: '输出',
       items: [
         {
-          title: '超现实微缩水槽冲浪',
-          description:
-            '超写实微距：微型冲浪者在乡村石质水槽里乘浪。复古黄铜水龙头流水，形成持续的冲浪声。超现实、俏皮、明亮自然光。音频：“在浴缸里冲浪？”',
+          title: '参考图生成 AI 视频：超现实水槽冲浪',
+          description: '写实微距场景，包含音效与动态细节。',
           prompt: [
             '超写实微距：微型冲浪者在乡村石质水槽里乘浪。复古黄铜水龙头流水，形成持续的冲浪声。超现实、俏皮、明亮自然光。',
             '音频：“在浴缸里冲浪？”',
@@ -138,15 +148,15 @@ const CONTENT: Record<string, ShowcaseCopy> = {
       ],
     },
     frameShowcase: {
-      title: 'Veo3.1 首尾帧生成视频',
-      subtitle: '指定首帧与尾帧，引导生成完整视频',
+      title: '首尾帧控制的 AI 视频生成器',
+      subtitle: '指定开头与结尾帧，引导生成完整视频',
+      exampleLabel: '示例',
       inputLabel: '首帧与尾帧',
       outputLabel: '输出',
       items: [
         {
-          title: '姜黄色猫咪赛车起飞',
-          description:
-            '首张图：高质量写实正面图，橘色虎斑猫驾驶红色敞篷车沿法国里维埃拉海岸行驶。尾帧：展示汽车从悬崖起飞后的画面。',
+          title: '首尾帧控制：姜黄色猫咪起飞',
+          description: '用首尾帧塑造最终视频走向。',
           prompt: [
             '首张图：高质量写实正面图，橘色虎斑猫驾驶红色敞篷车沿法国里维埃拉海岸行驶。',
             '尾帧：展示汽车从悬崖起飞后的画面。',
@@ -172,6 +182,9 @@ export default function MediaShowcaseSection() {
         id="sora2-examples"
         title={content.promptShowcase.title}
         subtitle={content.promptShowcase.subtitle}
+        exampleLabel={content.promptShowcase.exampleLabel}
+        promptSetLabel={content.promptShowcase.promptSetLabel}
+        outputPreviewLabel={content.promptShowcase.outputPreviewLabel}
         items={content.promptShowcase.items}
       />
 
@@ -179,6 +192,7 @@ export default function MediaShowcaseSection() {
         id="reference-to-video"
         title={content.referenceShowcase.title}
         subtitle={content.referenceShowcase.subtitle}
+        exampleLabel={content.referenceShowcase.exampleLabel}
         inputLabel={content.referenceShowcase.inputLabel}
         outputLabel={content.referenceShowcase.outputLabel}
         items={content.referenceShowcase.items}
@@ -188,6 +202,7 @@ export default function MediaShowcaseSection() {
         id="first-last-frame"
         title={content.frameShowcase.title}
         subtitle={content.frameShowcase.subtitle}
+        exampleLabel={content.frameShowcase.exampleLabel}
         inputLabel={content.frameShowcase.inputLabel}
         outputLabel={content.frameShowcase.outputLabel}
         items={content.frameShowcase.items}

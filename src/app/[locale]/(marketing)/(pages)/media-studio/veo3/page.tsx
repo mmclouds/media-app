@@ -5,15 +5,15 @@ import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-p
 import WorkflowStepsSection from '@/components/custom-blocks/workflow-steps/workflow-steps';
 import XContentSection from '@/components/custom-blocks/x-content/x-content';
 import YouTubeContentSection from '@/components/custom-blocks/youtube-content/youtube-content';
+import ImageToMediaShowcase from '@/components/cutomer/image-to-media-showcase';
+import type { ImageToMediaExample } from '@/components/cutomer/image-to-media-showcase';
+import MediaPromptShowcase from '@/components/cutomer/media-prompt-showcase';
+import type { MediaPromptExample } from '@/components/cutomer/media-prompt-showcase';
 import Container from '@/components/layout/container';
 import { Footer } from '@/components/layout/footer';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { Button } from '@/components/ui/button';
-import MediaPromptShowcase from '@/components/cutomer/media-prompt-showcase';
-import type { MediaPromptExample } from '@/components/cutomer/media-prompt-showcase';
-import ImageToMediaShowcase from '@/components/cutomer/image-to-media-showcase';
-import type { ImageToMediaExample } from '@/components/cutomer/image-to-media-showcase';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
@@ -54,7 +54,8 @@ const PAGE_CONTENT = {
             'Veo3.1 supports up to three clear reference images to keep people, characters, or products visually consistent across Veo3.1 video outputs.',
         },
         {
-          title: 'Aspect ratio + resolution for Veo3.1 video: 16:9 or 9:16, 720p–4K',
+          title:
+            'Aspect ratio + resolution for Veo3.1 video: 16:9 or 9:16, 720p–4K',
           description:
             'Choose 16:9 (default) or 9:16 for Reels/Shorts/TikTok, and generate 720p, 1080p, or 4K. Higher resolutions add latency and cost more for each Veo3.1 video.',
         },
@@ -133,15 +134,13 @@ const PAGE_CONTENT = {
           language: 'English',
           prompt:
             'Veo3.1 video first frame: a perfume bottle on a pedestal. Last frame: the bottle in a hand, vertical 9:16.',
-          description:
-            'First/last frame control locks the transition beats.',
+          description: 'First/last frame control locks the transition beats.',
         },
         {
           language: 'English',
           prompt:
             'Veo3.1 video prompt: cinematic dialogue with synchronized ambient audio.',
-          description:
-            'Native audio adds realism for storytelling clips.',
+          description: 'Native audio adds realism for storytelling clips.',
         },
       ],
     },
@@ -153,7 +152,7 @@ const PAGE_CONTENT = {
           title: 'Joyful snow leopard animation',
           description: 'Detailed prompt tuning for a playful 3D scene.',
           prompts: [
-            'Create a short 3D animated scene in a joyful cartoon style. A cute creature with snow leopard-like fur, large expressive eyes, and a friendly, rounded form happily prances through a whimsical winter forest. The scene should feature rounded, snow-covered trees, gentle falling snowflakes, and warm sunlight filtering through the branches. The creature\'s bouncy movements and wide smile should convey pure delight. Aim for an upbeat, heartwarming tone with bright, cheerful colors and playful animation.',
+            "Create a short 3D animated scene in a joyful cartoon style. A cute creature with snow leopard-like fur, large expressive eyes, and a friendly, rounded form happily prances through a whimsical winter forest. The scene should feature rounded, snow-covered trees, gentle falling snowflakes, and warm sunlight filtering through the branches. The creature's bouncy movements and wide smile should convey pure delight. Aim for an upbeat, heartwarming tone with bright, cheerful colors and playful animation.",
           ],
           output: '/images/generated/veo3-snow-run.gif',
         },
@@ -163,7 +162,6 @@ const PAGE_CONTENT = {
           prompts: ['Extreme close-up of a an eye with city reflected in it.'],
           output: '/images/generated/veo3-eye-city.gif',
         },
-
       ],
     },
     imageToMediaReference: {
@@ -183,12 +181,12 @@ const PAGE_CONTENT = {
           inputImages: ['/images/generated/veo3-sink-surfers-input.png'],
           output: '/images/generated/veo3-sink-surfers-output.gif',
         },
-
       ],
     },
     imageToMediaFrames: {
       title: 'Veo3.1 video first/last frame control',
-      subtitle: 'Define the opening and closing frame for a guided Veo3.1 video clip',
+      subtitle:
+        'Define the opening and closing frame for a guided Veo3.1 video clip',
       inputLabel: 'First & Last Frames',
       outputLabel: 'Output',
       items: [
@@ -318,12 +316,14 @@ const PAGE_CONTENT = {
             'Veo3.1 支持在提示词中直接描述音频：对话用引号写台词，音效（SFX）明确描述声音事件（如轮胎尖叫、引擎轰鸣），环境声描述声景氛围（如低频嗡鸣、风声、鸟鸣），模型会理解细节并为 Veo3.1 video 生成同步音轨。',
         },
         {
-          title: 'Veo3.1 video 首尾帧能力（First/Last Frame）：用“起始+结束”锁定镜头叙事',
+          title:
+            'Veo3.1 video 首尾帧能力（First/Last Frame）：用“起始+结束”锁定镜头叙事',
           description:
             'Veo3.1 支持通过指定第一帧与最后一帧来生成视频（仅适用于 Veo3.1）。适合让镜头从 A 场景自然过渡到 B 场景，控制消失/出现/变形等关键结尾画面，并固定广告或剧情分镜的开头与收尾，强化 Veo3.1 video 的叙事稳定性。',
         },
         {
-          title: 'Veo3.1 video 参考图生成（Reference Images）：最多 3 张清晰参考图保持主体一致',
+          title:
+            'Veo3.1 video 参考图生成（Reference Images）：最多 3 张清晰参考图保持主体一致',
           description:
             'Veo3.1 现支持最多 3 张参考图片（人物/角色/产品均可），用来指导生成并在输出中保留 Veo3.1 video 主体外观一致性。',
         },
@@ -365,13 +365,11 @@ const PAGE_CONTENT = {
         },
         {
           title: '设置参数',
-          description:
-            '选择 16:9 或 9:16、分辨率与 Veo3.1 预设。',
+          description: '选择 16:9 或 9:16、分辨率与 Veo3.1 预设。',
         },
         {
           title: '生成视频',
-          description:
-            '模型输出 8 秒 Veo3.1 video 短片并保持镜头意图一致。',
+          description: '模型输出 8 秒 Veo3.1 video 短片并保持镜头意图一致。',
         },
         {
           title: '润色与导出',
@@ -395,22 +393,18 @@ const PAGE_CONTENT = {
           language: '中文',
           prompt:
             '参考图（3 张）：同款运动鞋。Veo3.1 video 提示词：缓慢跟拍，棚拍柔光，细节特写。',
-          description:
-            '多参考图保持产品一致性。',
+          description: '多参考图保持产品一致性。',
         },
         {
           language: '中文',
           prompt:
             'Veo3.1 video 首帧：香水瓶在台座。尾帧：手持香水瓶，9:16 竖屏。',
-          description:
-            '首尾帧控制锁定关键过渡。',
+          description: '首尾帧控制锁定关键过渡。',
         },
         {
           language: '中文',
-          prompt:
-            'Veo3.1 video 提示词：电影感对白场景，带同步环境音。',
-          description:
-            '原生音频让叙事更完整。',
+          prompt: 'Veo3.1 video 提示词：电影感对白场景，带同步环境音。',
+          description: '原生音频让叙事更完整。',
         },
       ],
     },
@@ -432,7 +426,6 @@ const PAGE_CONTENT = {
           prompts: ['眼睛的极近特写，眼睛中映出城市。'],
           output: '/images/generated/veo3-eye-city.gif',
         },
-
       ],
     },
     imageToMediaReference: {
@@ -452,7 +445,6 @@ const PAGE_CONTENT = {
           inputImages: ['/images/generated/veo3-sink-surfers-input.png'],
           output: '/images/generated/veo3-sink-surfers-output.gif',
         },
-
       ],
     },
     imageToMediaFrames: {
@@ -602,13 +594,12 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
     'https://x.com/TheoMediaAI/status/1942564887114166493',
   ];
   const youtubeUrls: string[] = [
-
     'https://www.youtube.com/watch?v=WeIzH2jFsNw',
     'https://www.youtube.com/watch?v=ecTqFLS-9mg&pp=ygULdmVvMyBnb29nbGU%3D',
     'https://www.youtube.com/watch?v=I06Ef8alr2Y&pp=ygUKdmVvMyB2aWRlbw%3D%3D',
     'https://www.youtube.com/shorts/_9y1Dxa46hY',
     'https://www.youtube.com/shorts/rwUt22HTTx0',
-    'https://www.youtube.com/shorts/kL0kj47FDZM'
+    'https://www.youtube.com/shorts/kL0kj47FDZM',
   ];
   const highlightItems = [
     {
@@ -664,9 +655,9 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
     }));
   const imageToMediaReferenceItems: ImageToMediaExample[] =
     content.imageToMediaReference.items.map((item) => {
-      const prompt = (Array.isArray(item.prompt)
-        ? [...item.prompt]
-        : item.prompt) as string | string[];
+      const prompt = (
+        Array.isArray(item.prompt) ? [...item.prompt] : item.prompt
+      ) as string | string[];
       return {
         ...item,
         prompt,
@@ -675,9 +666,9 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
     });
   const imageToMediaFrameItems: ImageToMediaExample[] =
     content.imageToMediaFrames.items.map((item) => {
-      const prompt = (Array.isArray(item.prompt)
-        ? [...item.prompt]
-        : item.prompt) as string | string[];
+      const prompt = (
+        Array.isArray(item.prompt) ? [...item.prompt] : item.prompt
+      ) as string | string[];
       return {
         ...item,
         prompt,

@@ -92,9 +92,7 @@
         "feature-5": "支持多任务同时运行",
         "feature-6": "高级模型支持"
       },
-      "limits": {
-  
-      }
+      "limits": {}
     },
     "pro": {
       "name": "专业版",
@@ -107,9 +105,7 @@
         "feature-5": "支持多任务同时运行",
         "feature-6": "高级模型支持"
       },
-      "limits": {
-
-      }
+      "limits": {}
     },
     "lifetime": {
       "name": "终身版",
@@ -860,10 +856,10 @@
   },
   "HomePage": {
     "title": "vlook.ai",
-    "description": "在一个流畅的工作室里，使用最新 AI 模型生成图片、视频与音乐。",
+    "description": "在一个 AI 工作室里生成图片、视频和音乐，快速、稳定、为创作者而生。",
     "hero": {
-      "title": "用最新 AI 模型生成图片、视频与音乐",
-      "description": "vlook.ai 集成 Gemini Nano Banana Pro、OpenAI Sora2、Google Veo 3.1、Sunod等最先进模型，提供快速、低价的一体化创作体验。",
+      "title": "面向创作者的 AI 视频、图片与音乐生成器",
+      "description": "vlook 汇集顶级模型于一体，统一工作室内快速生成、对比并导出。",
       "introduction": "认识 vlook.ai",
       "primary": "开始免费试用",
       "secondary": "查看价格"
@@ -874,7 +870,7 @@
     "integration": {
       "title": "顶级 AI 模型",
       "subtitle": "每个创意都选对模型",
-      "description": "无需离开 vlook.ai，即可切换图片、视频、音乐模型。",
+      "description": "在 vlook.ai 内自由切换图片、视频与音乐模型。",
       "learnMore": "查看全部模型",
       "items": {
         "item-1": {
@@ -883,7 +879,7 @@
         },
         "item-2": {
           "title": "OpenAI Sora2",
-          "description": "电影级文生视频，运动更自然。"
+          "description": "电影级文生视频，运动自然。"
         },
         "item-3": {
           "title": "Google Veo 3.1",
@@ -910,41 +906,41 @@
       "secondaryButton": "查看价格"
     },
     "integration3": {
-      "title": "一站式内容生成",
-      "subtitle": "图片、视频、音频一次打通",
-      "description": "统一模型中心、亲民价格与丝滑体验，让创作更高效。",
+      "title": "一站式创作栈",
+      "subtitle": "图片、视频、音频一体化",
+      "description": "选对模型、控制成本，从想法到成品更快。",
       "learnMore": "了解更多",
       "items": {
         "item-1": {
           "title": "图片内容生成",
-          "description": "高分辨率图片一键生成，细节更清晰。"
+          "description": "生成高分辨率视觉，细节清晰。"
         },
         "item-2": {
           "title": "视频内容生成",
-          "description": "镜头连贯、运动自然的文生视频。"
+          "description": "镜头连贯、运动自然的电影感视频。"
         },
         "item-3": {
           "title": "音频内容生成",
-          "description": "音乐、音效与配音一次生成。"
+          "description": "音乐、音效与配音一条流程完成。"
         },
         "item-4": {
           "title": "统一模型中心",
-          "description": "在同一工作区管理与对比多模型。"
+          "description": "在同一工作区对比多模型结果。"
         },
         "item-5": {
-          "title": "优惠价格",
-          "description": "低于官方API价格，成本更可控。"
+          "title": "透明定价",
+          "description": "简单套餐，随用量平滑升级。"
         },
         "item-6": {
-          "title": "丝滑流畅体验",
-          "description": "预览、生成、下载全流程更顺滑。"
+          "title": "流畅响应体验",
+          "description": "预览、迭代、下载都更顺滑。"
         }
       }
     },
     "features": {
       "title": "为什么选择 vlook.ai",
-      "subtitle": "为现代 AI 创作者打造",
-      "description": "顶级模型、多模态输出与亲民价格。",
+      "subtitle": "为现代创作者打造",
+      "description": "旗舰模型、多模态输出与高效工作流。",
       "items": {
         "item-1": {
           "title": "旗舰模型一站接入",
@@ -955,13 +951,19 @@
           "description": "一个提示词即可生成图片、视频与音乐。"
         },
         "item-3": {
-          "title": "免费试用 + 低价",
-          "description": "先免费体验，按需升级，价格透明。"
+          "title": "先免费开始",
+          "description": "先用核心模型体验，需要更多再升级。"
         },
         "item-4": {
-          "title": "快速顺滑体验",
-          "description": "预览迅速、界面流畅、下载便捷。"
+          "title": "快速迭代",
+          "description": "预览迅速、历史清晰、导出便捷。"
         }
+      },
+      "images": {
+        "item-1": "AI 模型集成 - Gemini、Sora、Veo、Suno",
+        "item-2": "多模态生成 - 图片、视频、音乐",
+        "item-3": "免费试用与透明定价",
+        "item-4": "快速且顺滑的使用体验"
       }
     },
     "features2": {
@@ -970,33 +972,33 @@
       "description": "以创作者为中心的一体化工作室。",
       "feature-1": "图片、视频、音乐同一工作区",
       "feature-2": "Gemini Nano Banana Pro、Sora2、Veo 3.1、Suno",
-      "feature-3": "免费试用与亲民价格",
+      "feature-3": "免费试用与透明定价",
       "feature-4": "流程顺滑，高效出片"
     },
     "features3": {
-      "title": "更多选择 vlook.ai 的理由",
-      "subtitle": "质量、速度与灵活度",
-      "description": "选对模型、控制成本、快速产出。",
+      "title": "选择 vlook.ai 的更多理由",
+      "subtitle": "质量、速度、灵活度",
+      "description": "选对模型、控制成本、快速交付。",
       "items": {
         "item-1": {
-          "title": "自由选择最适合模型",
-          "description": "按任务切换图片、视频、音乐模型。"
+          "title": "按任务选择模型",
+          "description": "自由切换模型，不打断创作节奏。"
         },
         "item-2": {
           "title": "高质量视觉",
-          "description": "生成清晰图片与电影级视频。"
+          "description": "生成清晰图片与电影级镜头。"
         },
         "item-3": {
           "title": "音乐更简单",
           "description": "用 Suno 生成原创配乐与音床。"
         },
         "item-4": {
-          "title": "规模化也实惠",
-          "description": "清晰计划，成本可控。"
+          "title": "费用更可控",
+          "description": "使用增长也能保持预算清晰。"
         },
         "item-5": {
           "title": "顺滑创作流程",
-          "description": "预览清晰、历史可追溯，迭代更快。"
+          "description": "清晰预览与版本历史，迭代更快。"
         },
         "item-6": {
           "title": "创作者友好导出",
@@ -1014,24 +1016,24 @@
       "subtitle": "关于 vlook.ai 的快速解答",
       "items": {
         "item-1": {
-          "question": "vlook.ai 是什么？",
-          "answer": "vlook.ai 是一站式 AI 媒体工作室，可通过提示词生成图片、视频和音乐。"
+          "question": "vlook 是 AI 视频、图片与音乐生成器吗？",
+          "answer": "是的。vlook 是一站式 AI 视频、图片与音乐生成器，可用提示词生成多模态内容。"
         },
         "item-2": {
-          "question": "如何开始使用？",
-          "answer": "输入文本提示词、上传图片或提供视频参考，选择模型后即可生成。"
+          "question": "如何生成 AI 视频、图片或音乐？",
+          "answer": "输入提示词或参考素材，选择模型即可在一个工作室内生成 AI 视频、图片与音乐。"
         },
         "item-3": {
           "question": "生成速度有多快？",
-          "answer": "速度取决于模型与输入复杂度，但 vlook.ai 旨在提供快速预览与高效迭代。"
+          "answer": "速度取决于模型与输入复杂度，但 vlook.ai 优先保证快速预览与高效迭代。"
         },
         "item-4": {
-          "question": "为什么使用视频生成器？",
-          "answer": "支持从文本或参考图生成，内置如 Veo 3.1、Nano Banana Pro 等领先模型。"
+          "question": "为什么说 vlook 是优秀的 AI 视频生成器？",
+          "answer": "vlook 集成领先模型，预览快速，AI 视频生成后可直接迭代与导出。"
         },
         "item-5": {
           "question": "生成结果是否独特？",
-          "answer": "是的。输出基于你的特定输入生成，每次结果都针对你的需求定制。"
+          "answer": "是的。输出基于你的输入生成，每次结果都不同。"
         },
         "item-6": {
           "question": "导出会有水印吗？",
@@ -1155,9 +1157,49 @@
     },
     "calltoaction": {
       "title": "开始使用 vlook.ai 创作",
-      "description": "用顶级 AI 模型生成图片、视频与音乐。现在免费试用。",
+      "description": "用领先 AI 模型生成图片、视频与音乐。现在免费试用。",
       "primaryButton": "开始免费试用",
       "secondaryButton": "查看价格"
+    },
+    "meta": {
+      "title": "vlook | AI 视频、图片与音乐生成器",
+      "description": "vlook 是一站式 AI 视频、图片与音乐生成器，集合多模型，快速生成、对比并导出。"
+    },
+    "showcase": {
+      "prompt": {
+        "title": "AI 视频生成器示例（Sora2）",
+        "subtitle": "真实提示词与 AI 视频输出",
+        "items": {
+          "item-1": {
+            "title": "AI 视频生成器：赛博朋克巷道",
+            "description": "霓虹氛围、雨湿街巷与电影级运动感。"
+          },
+          "item-2": {
+            "title": "AI 视频生成器：时代广场熊猫",
+            "description": "高能舞步与社媒风格快切镜头。"
+          }
+        }
+      },
+      "reference": {
+        "title": "参考图生成 AI 视频（Veo3.1）",
+        "subtitle": "参考图 + 提示词生成 AI 视频",
+        "items": {
+          "item-1": {
+            "title": "参考图生成 AI 视频：超现实水槽冲浪",
+            "description": "写实微距场景，包含音效与动态细节。"
+          }
+        }
+      },
+      "frame": {
+        "title": "首尾帧控制的 AI 视频生成器",
+        "subtitle": "指定开头与结尾帧，引导生成完整视频",
+        "items": {
+          "item-1": {
+            "title": "首尾帧控制：姜黄色猫咪起飞",
+            "description": "用首尾帧塑造最终视频走向。"
+          }
+        }
+      }
     }
   },
   "AITextPage": {

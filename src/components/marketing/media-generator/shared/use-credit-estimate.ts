@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import type { CalculateCreditsResult } from '@/custom/credits/pricing/types';
+import { useEffect } from 'react';
 import type { CreditEstimateState } from '../types';
 
 type UseCreditEstimateOptions = {
@@ -72,7 +72,9 @@ export function useCreditEstimate({
         onCreditEstimateChange({
           result: null,
           error:
-            error instanceof Error ? error.message : 'Failed to estimate credits',
+            error instanceof Error
+              ? error.message
+              : 'Failed to estimate credits',
           loading: false,
         });
       }

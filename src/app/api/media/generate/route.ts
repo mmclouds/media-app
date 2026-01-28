@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       { error: 'Unauthorized', source: 'local' },
       {
         status: 401,
-      },
+      }
     );
   }
 
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
       { error: 'AI gateway URL is not configured', source: 'local' },
       {
         status: 500,
-      },
+      }
     );
   }
 
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       { error: 'AI gateway API key is not configured', source: 'local' },
       {
         status: 500,
-      },
+      }
     );
   }
 
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
       { error: 'Invalid request body', source: 'local' },
       {
         status: 400,
-      },
+      }
     );
   }
 
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
       { error: 'Request body is required', source: 'local' },
       {
         status: 400,
-      },
+      }
     );
   }
 
@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
       { error: 'Prompt is required', source: 'local' },
       {
         status: 400,
-      },
+      }
     );
   }
 
@@ -102,7 +102,8 @@ export async function POST(request: NextRequest) {
   const queryModelName = searchParams.get('modelName');
 
   // 媒体类型：优先使用查询参数，其次使用 body 参数
-  const outgoingMediaType = queryMediaType?.trim() ||
+  const outgoingMediaType =
+    queryMediaType?.trim() ||
     (typeof bodyMediaType === 'string' && bodyMediaType.trim().length > 0
       ? bodyMediaType.trim()
       : undefined);
@@ -112,7 +113,7 @@ export async function POST(request: NextRequest) {
       { error: 'mediaType is required', source: 'local' },
       {
         status: 400,
-      },
+      }
     );
   }
 
@@ -126,7 +127,7 @@ export async function POST(request: NextRequest) {
       },
       {
         status: 400,
-      },
+      }
     );
   }
 
@@ -142,7 +143,7 @@ export async function POST(request: NextRequest) {
       { error: 'modelName is required', source: 'local' },
       {
         status: 400,
-      },
+      }
     );
   }
 
@@ -158,7 +159,7 @@ export async function POST(request: NextRequest) {
       { error: 'Missing required parameter: model', source: 'local' },
       {
         status: 400,
-      },
+      }
     );
   }
 
@@ -168,7 +169,7 @@ export async function POST(request: NextRequest) {
       { error: 'No matching pricing rule found', source: 'local' },
       {
         status: 400,
-      },
+      }
     );
   }
 
@@ -185,7 +186,7 @@ export async function POST(request: NextRequest) {
       },
       {
         status: 402,
-      },
+      }
     );
   }
 
@@ -223,9 +224,15 @@ export async function POST(request: NextRequest) {
     .getAll('fileUuids')
     .filter((uuid) => uuid.trim().length > 0);
   fileUuids.forEach((uuid) => outgoingParams.append('fileUuids', uuid.trim()));
+  const inputFileUuids = searchParams
+    .getAll('inputFileUuids')
+    .filter((uuid) => uuid.trim().length > 0);
+  inputFileUuids.forEach((uuid) =>
+    outgoingParams.append('inputFileUuids', uuid.trim())
+  );
 
   const targetUrl = `${normalizedBaseUrl}/api/v1/media/generate?${outgoingParams.toString()}`;
-  console.log("请求的参数是：",JSON.stringify(bodyPayload));
+  console.log('请求的参数是：', JSON.stringify(bodyPayload));
   try {
     const response = await fetch(targetUrl, {
       method: 'POST',
@@ -249,7 +256,7 @@ export async function POST(request: NextRequest) {
         { error: errorMessage, source: 'gateway' },
         {
           status: response.ok ? 502 : response.status,
-        },
+        }
       );
     }
 
@@ -266,7 +273,11 @@ export async function POST(request: NextRequest) {
         `扣减积分失败, userId: ${userId}, taskId: ${result.data}, error: ${errorMessage}`
       );
       return NextResponse.json(
-        { error: 'Failed to consume credits', taskId: result.data, source: 'local' },
+        {
+          error: 'Failed to consume credits',
+          taskId: result.data,
+          source: 'local',
+        },
         { status: 500 }
       );
     }
@@ -278,7 +289,7 @@ export async function POST(request: NextRequest) {
       { error: 'Failed to trigger media task', source: 'local' },
       {
         status: 500,
-      },
+      }
     );
   }
 }

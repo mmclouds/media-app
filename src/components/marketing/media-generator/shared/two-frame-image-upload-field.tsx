@@ -4,8 +4,8 @@ import {
   buildPublicFileDownloadUrl,
   uploadFileToBucket,
 } from '@/lib/file-transfer';
-import { RemoteImagePickerDialog } from './remote-image-picker-dialog';
 import { useMemo, useRef, useState } from 'react';
+import { RemoteImagePickerDialog } from './remote-image-picker-dialog';
 
 type UploadSlot = 'first' | 'last';
 
@@ -147,8 +147,8 @@ export function TwoFrameImageUploadField({
       });
 
       onChange({
-        first: slot === 'first' ? downloadUrl : firstValue ?? null,
-        last: slot === 'last' ? downloadUrl : lastValue ?? null,
+        first: slot === 'first' ? downloadUrl : (firstValue ?? null),
+        last: slot === 'last' ? downloadUrl : (lastValue ?? null),
       });
 
       onUploaded?.({
@@ -177,7 +177,11 @@ export function TwoFrameImageUploadField({
     }
   };
 
-  const renderSlot = (slot: UploadSlot, title: string, value: string | null) => {
+  const renderSlot = (
+    slot: UploadSlot,
+    title: string,
+    value: string | null
+  ) => {
     const previewUrl = slot === 'first' ? previewUrls.first : previewUrls.last;
     const uploading = isUploading[slot];
     const dragging = isDragging[slot];
@@ -194,8 +198,8 @@ export function TwoFrameImageUploadField({
               className="text-[11px] font-semibold text-white/70 underline-offset-2 hover:text-white hover:underline"
               onClick={() =>
                 onChange({
-                  first: slot === 'first' ? null : firstValue ?? null,
-                  last: slot === 'last' ? null : lastValue ?? null,
+                  first: slot === 'first' ? null : (firstValue ?? null),
+                  last: slot === 'last' ? null : (lastValue ?? null),
                 })
               }
             >
@@ -228,7 +232,9 @@ export function TwoFrameImageUploadField({
           }}
           onDragLeave={(event) => {
             event.preventDefault();
-            if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+            if (
+              !event.currentTarget.contains(event.relatedTarget as Node | null)
+            ) {
               setIsDragging((current) => ({ ...current, [slot]: false }));
             }
           }}
@@ -258,7 +264,9 @@ export function TwoFrameImageUploadField({
           ) : (
             <div className="flex flex-col items-center gap-1 text-xs text-white/60">
               <span className="text-sm font-semibold">Upload image</span>
-              <span className="text-[11px] text-white/40">PNG, JPG or WEBP</span>
+              <span className="text-[11px] text-white/40">
+                PNG, JPG or WEBP
+              </span>
             </div>
           )}
           {uploading ? (
@@ -281,7 +289,9 @@ export function TwoFrameImageUploadField({
           <button
             type="button"
             className="text-[11px] font-semibold text-white/70 underline-offset-2 hover:text-white hover:underline"
-            onClick={() => setRemoteOpen((current) => ({ ...current, [slot]: true }))}
+            onClick={() =>
+              setRemoteOpen((current) => ({ ...current, [slot]: true }))
+            }
           >
             Choose from library
           </button>
@@ -299,8 +309,8 @@ export function TwoFrameImageUploadField({
             setErrors((current) => ({ ...current, [slot]: null }));
             const nextUrl = item.downloadUrl;
             onChange({
-              first: slot === 'first' ? nextUrl : firstValue ?? null,
-              last: slot === 'last' ? nextUrl : lastValue ?? null,
+              first: slot === 'first' ? nextUrl : (firstValue ?? null),
+              last: slot === 'last' ? nextUrl : (lastValue ?? null),
             });
             onUploaded?.({
               slot,
