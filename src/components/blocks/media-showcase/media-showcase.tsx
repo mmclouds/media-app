@@ -10,11 +10,15 @@ type ShowcaseCopy = {
   promptShowcase: {
     title: string;
     subtitle: string;
+    exampleLabel: string;
+    promptSetLabel: string;
+    outputPreviewLabel: string;
     items: MediaPromptExample[];
   };
   referenceShowcase: {
     title: string;
     subtitle: string;
+    exampleLabel: string;
     inputLabel: string;
     outputLabel: string;
     items: ImageToMediaExample[];
@@ -22,6 +26,7 @@ type ShowcaseCopy = {
   frameShowcase: {
     title: string;
     subtitle: string;
+    exampleLabel: string;
     inputLabel: string;
     outputLabel: string;
     items: ImageToMediaExample[];
@@ -33,6 +38,9 @@ const CONTENT: Record<string, ShowcaseCopy> = {
     promptShowcase: {
       title: 'Sora2 prompt-to-video examples',
       subtitle: 'Real prompts with Sora2 output previews',
+      exampleLabel: 'Example',
+      promptSetLabel: 'Prompt Set',
+      outputPreviewLabel: 'Output Preview',
       items: [
         {
           title: 'Cyberpunk alley tracking shot',
@@ -56,6 +64,7 @@ const CONTENT: Record<string, ShowcaseCopy> = {
     referenceShowcase: {
       title: 'Veo3.1 reference-image-to-video',
       subtitle: 'Reference images + Veo3.1 video prompt in',
+      exampleLabel: 'Example',
       inputLabel: 'Input Images',
       outputLabel: 'Output',
       items: [
@@ -75,6 +84,7 @@ const CONTENT: Record<string, ShowcaseCopy> = {
     frameShowcase: {
       title: 'Veo3.1 first/last frame video control',
       subtitle: 'Define the opening and closing frame for a guided Veo3.1 video clip',
+      exampleLabel: 'Example',
       inputLabel: 'First & Last Frames',
       outputLabel: 'Output',
       items: [
@@ -99,6 +109,9 @@ const CONTENT: Record<string, ShowcaseCopy> = {
     promptShowcase: {
       title: 'Sora2 文生视频示例',
       subtitle: '真实提示词与 Sora2 输出预览',
+      exampleLabel: '示例',
+      promptSetLabel: '提示词组',
+      outputPreviewLabel: '输出预览',
       items: [
         {
           title: '赛博朋克巷道跟拍',
@@ -121,6 +134,7 @@ const CONTENT: Record<string, ShowcaseCopy> = {
     referenceShowcase: {
       title: 'Veo3.1 参考图生成视频',
       subtitle: '参考图 + Veo3.1 提示词生成视频',
+      exampleLabel: '示例',
       inputLabel: '参考图片',
       outputLabel: '输出',
       items: [
@@ -140,6 +154,7 @@ const CONTENT: Record<string, ShowcaseCopy> = {
     frameShowcase: {
       title: 'Veo3.1 首尾帧生成视频',
       subtitle: '指定首帧与尾帧，引导生成完整视频',
+      exampleLabel: '示例',
       inputLabel: '首帧与尾帧',
       outputLabel: '输出',
       items: [
@@ -172,6 +187,9 @@ export default function MediaShowcaseSection() {
         id="sora2-examples"
         title={content.promptShowcase.title}
         subtitle={content.promptShowcase.subtitle}
+        exampleLabel={content.promptShowcase.exampleLabel}
+        promptSetLabel={content.promptShowcase.promptSetLabel}
+        outputPreviewLabel={content.promptShowcase.outputPreviewLabel}
         items={content.promptShowcase.items}
       />
 
@@ -179,6 +197,7 @@ export default function MediaShowcaseSection() {
         id="reference-to-video"
         title={content.referenceShowcase.title}
         subtitle={content.referenceShowcase.subtitle}
+        exampleLabel={content.referenceShowcase.exampleLabel}
         inputLabel={content.referenceShowcase.inputLabel}
         outputLabel={content.referenceShowcase.outputLabel}
         items={content.referenceShowcase.items}
@@ -188,6 +207,7 @@ export default function MediaShowcaseSection() {
         id="first-last-frame"
         title={content.frameShowcase.title}
         subtitle={content.frameShowcase.subtitle}
+        exampleLabel={content.frameShowcase.exampleLabel}
         inputLabel={content.frameShowcase.inputLabel}
         outputLabel={content.frameShowcase.outputLabel}
         items={content.frameShowcase.items}

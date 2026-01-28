@@ -92,9 +92,7 @@
         "feature-5": "Run multiple tasks in parallel",
         "feature-6": "Advanced model access"
       },
-      "limits": {
-
-      }
+      "limits": {}
     },
     "pro": {
       "name": "Pro",
@@ -107,9 +105,7 @@
         "feature-5": "Run multiple tasks in parallel",
         "feature-6": "Advanced model access"
       },
-      "limits": {
-
-      }
+      "limits": {}
     },
     "lifetime": {
       "name": "Lifetime",
@@ -860,10 +856,10 @@
   },
   "HomePage": {
     "title": "vlook.ai",
-    "description": "Create images, videos, and music with the latest AI models in one smooth studio.",
+    "description": "Generate images, video, and music in one AI studio. Fast, affordable, and built for creators.",
     "hero": {
-      "title": "Create images, videos, and music with the latest AI models.",
-      "description": "vlook.ai unifies Gemini Nano Banana Pro, OpenAI Sora2, Google Veo 3.1, Suno, and other top-tier AI models in one fast, affordable workflow.",
+      "title": "Create images, video, and music in one AI studio.",
+      "description": "vlook.ai brings leading models together so you can prompt, compare, and export without jumping between tools.",
       "introduction": "Meet vlook.ai",
       "primary": "Start Free Trial",
       "secondary": "View Pricing"
@@ -872,9 +868,9 @@
       "title": "Trusted by creators and teams worldwide"
     },
     "integration": {
-      "title": "Top AI Models",
-      "subtitle": "Choose the best model for every idea",
-      "description": "Switch between image, video, and music models without leaving vlook.ai.",
+      "title": "Top AI models",
+      "subtitle": "Pick the best model for every idea",
+      "description": "Move between image, video, and music models without leaving vlook.ai.",
       "learnMore": "See all models",
       "items": {
         "item-1": {
@@ -883,7 +879,7 @@
         },
         "item-2": {
           "title": "OpenAI Sora2",
-          "description": "Cinematic text-to-video with smooth motion."
+          "description": "Cinematic text-to-video with natural motion."
         },
         "item-3": {
           "title": "Google Veo 3.1",
@@ -894,73 +890,73 @@
           "description": "Original music and audio tracks from prompts."
         },
         "item-5": {
-          "title": "Unified Model Hub",
+          "title": "Unified model hub",
           "description": "Compare outputs across models in one workspace."
         },
         "item-6": {
-          "title": "Smooth Web Studio",
+          "title": "Smooth web studio",
           "description": "A fast, responsive UI for rapid iteration."
         }
       }
     },
     "integration2": {
       "title": "All-in-one AI media studio",
-      "description": "Generate, compare, and refine images, videos, and music in one place.",
+      "description": "Generate, compare, and refine images, video, and music in one place.",
       "primaryButton": "Start Free Trial",
       "secondaryButton": "View Pricing"
     },
     "integration3": {
-      "title": "All-in-one creation stack",
+      "title": "Your all-in-one creation stack",
       "subtitle": "Images, video, and audio in one studio",
-      "description": "Unified model hub, affordable pricing, and a smooth UI for fast production.",
+      "description": "Choose the right model, keep costs predictable, and move from idea to output fast.",
       "learnMore": "Learn more",
       "items": {
         "item-1": {
           "title": "Image generation",
-          "description": "Create high-resolution visuals with crisp detail."
+          "description": "Generate high-resolution visuals with crisp detail."
         },
         "item-2": {
           "title": "Video generation",
-          "description": "Cinematic text-to-video with coherent motion."
+          "description": "Create cinematic clips with coherent motion."
         },
         "item-3": {
           "title": "Audio generation",
-          "description": "Generate music, SFX, and voice in one flow."
+          "description": "Produce music, SFX, and voice in one flow."
         },
         "item-4": {
           "title": "Unified model hub",
-          "description": "Manage and compare multiple models in one workspace."
+          "description": "Compare results across models in a single workspace."
         },
         "item-5": {
-          "title": "Affordable pricing",
-          "description": "Transparent costs that scale with your usage."
+          "title": "Transparent pricing",
+          "description": "Simple plans that scale with your usage."
         },
         "item-6": {
-          "title": "Smooth, responsive UI",
-          "description": "Faster previews, generation, and downloads."
+          "title": "Fast, responsive UI",
+          "description": "Preview, iterate, and download without lag."
         }
       }
     },
     "features": {
       "title": "Why vlook.ai",
-      "subtitle": "Built for modern AI creators",
-      "description": "Best-in-class models, multimodal outputs, and affordable plans.",
+      "subtitle": "Built for modern creators",
+      "description": "Flagship models, multimodal output, and a workflow that stays fast.",
       "items": {
         "item-1": {
           "title": "Flagship model access",
-          "description": "Gemini Nano Banana Pro, OpenAI Sora2, Google Veo 3.1, and Suno in one workflow."
+          "description": "Use Gemini Nano Banana Pro, OpenAI Sora2, Google Veo 3.1, and Suno from one studio."
         },
         "item-2": {
           "title": "Multimodal generation",
-          "description": "Create images, videos, and music from a single prompt."
+          "description": "Turn a single prompt into images, video, and music."
         },
         "item-3": {
-          "title": "Free trial + low cost",
-          "description": "Start free and scale with transparent, affordable pricing."
+          "title": "Free to start",
+          "description": "Try core models free, then upgrade when you need more."
         },
         "item-4": {
-          "title": "Fast, smooth experience",
-          "description": "Quick previews, responsive UI, and easy downloads."
+          "title": "Fast iteration",
+          "description": "Quick previews, clean history, easy exports."
         }
       }
     },
@@ -968,70 +964,70 @@
       "title": "Highlights",
       "subtitle": "Everything you need to ship AI content",
       "description": "Create faster with a unified, creator-first studio.",
-      "feature-1": "Image, video, and music in one workspace",
+      "feature-1": "Images, video, and music in one workspace",
       "feature-2": "Gemini Nano Banana Pro, Sora2, Veo 3.1, Suno",
-      "feature-3": "Free trial and affordable pricing",
+      "feature-3": "Free trial and transparent pricing",
       "feature-4": "Fast, smooth workflow"
     },
     "features3": {
       "title": "More reasons to choose vlook.ai",
-      "subtitle": "Quality, speed, and flexibility",
-      "description": "Pick the right model, keep costs low, and move fast.",
+      "subtitle": "Quality, speed, flexibility",
+      "description": "Pick the right model, control cost, and ship faster.",
       "items": {
         "item-1": {
-          "title": "Choose the best model",
-          "description": "Switch between image, video, and music models per task."
+          "title": "Pick the right model",
+          "description": "Switch models by task without breaking your flow."
         },
         "item-2": {
-          "title": "High-quality visuals",
-          "description": "Produce crisp images and cinematic clips with top models."
+          "title": "Crisp visuals",
+          "description": "Create sharp images and cinematic shots."
         },
         "item-3": {
           "title": "Music made simple",
           "description": "Generate original tracks and sound beds with Suno."
         },
         "item-4": {
-          "title": "Affordable at scale",
-          "description": "Clear plans that stay budget-friendly as you grow."
+          "title": "Predictable spend",
+          "description": "Plans stay clear as usage grows."
         },
         "item-5": {
           "title": "Smooth creation flow",
-          "description": "Iterate quickly with clean previews and history."
+          "description": "Clean previews and version history for rapid iteration."
         },
         "item-6": {
-          "title": "Creator-ready outputs",
-          "description": "Export assets for social, ads, and product demos."
+          "title": "Ready-to-use exports",
+          "description": "Download assets for social, ads, and product demos."
         }
       }
     },
     "pricing": {
       "title": "Pricing",
-      "subtitle": "Simple pricing",
+      "subtitle": "Simple, transparent pricing",
       "description": "Start free and upgrade only when you need more."
     },
     "faqs": {
       "title": "FAQ",
-      "subtitle": "Quick answers for vlook.ai",
+      "subtitle": "Quick answers about vlook.ai",
       "items": {
         "item-1": {
           "question": "What is vlook.ai?",
-          "answer": "vlook.ai is an all-in-one AI media studio for creating images, videos, and music from prompts."
+          "answer": "vlook.ai is an all-in-one AI media studio for creating images, video, and music from prompts."
         },
         "item-2": {
           "question": "How do I get started?",
-          "answer": "Provide a text prompt, upload an image, or bring a video reference, then choose a model and generate."
+          "answer": "Enter a text prompt, upload an image, or add a video reference, then choose a model and generate."
         },
         "item-3": {
           "question": "How fast is generation?",
-          "answer": "Speed depends on model and input complexity, but vlook.ai is built for fast previews and iteration."
+          "answer": "Speed depends on the model and input complexity, but vlook.ai is built for fast previews and iteration."
         },
         "item-4": {
           "question": "Why use the video generator?",
-          "answer": "Generate visuals from text or references using leading models like Veo 3.1 and Nano Banana Pro."
+          "answer": "Create clips from text or references with leading models like Veo 3.1 and Nano Banana Pro."
         },
         "item-5": {
           "question": "Are my outputs unique?",
-          "answer": "Yes. Outputs are generated from your specific inputs, making each result original to your request."
+          "answer": "Yes. Outputs are generated from your inputs, making each result unique to your request."
         },
         "item-6": {
           "question": "Will my exports have watermarks?",
@@ -1047,7 +1043,7 @@
         },
         "item-9": {
           "question": "How do I manage my plan?",
-          "answer": "You can upgrade, downgrade, or cancel anytime from your billing settings."
+          "answer": "Upgrade, downgrade, or cancel anytime from your billing settings."
         },
         "item-10": {
           "question": "What is the refund policy?",
@@ -1155,7 +1151,7 @@
     },
     "calltoaction": {
       "title": "Start creating with vlook.ai",
-      "description": "Create images, videos, and music with the best AI models. Start free today.",
+      "description": "Generate images, video, and music with leading AI models. Start free today.",
       "primaryButton": "Start Free Trial",
       "secondaryButton": "View Pricing"
     }
