@@ -60,7 +60,12 @@ export default function StudioPromoSection({
                 <LocaleLink href={primaryHref}>{primaryLabel}</LocaleLink>
               </Button>
               {secondaryLabel ? (
-                <Button asChild size="lg" variant="outline" className="rounded-full">
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full"
+                >
                   <LocaleLink href={secondaryHref}>{secondaryLabel}</LocaleLink>
                 </Button>
               ) : null}

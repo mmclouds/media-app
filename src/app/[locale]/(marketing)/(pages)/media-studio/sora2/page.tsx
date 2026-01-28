@@ -1,21 +1,21 @@
+import AlternatingMediaSection from '@/components/custom-blocks/alternating-media/alternating-media';
 import CallToActionSection from '@/components/custom-blocks/calltoaction/calltoaction';
 import FaqSection from '@/components/custom-blocks/faqs/faqs';
 import Features3Section from '@/components/custom-blocks/features3/features3';
 import HeroSection from '@/components/custom-blocks/hero/hero';
+import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-promo';
 import WorkflowStepsSection from '@/components/custom-blocks/workflow-steps/workflow-steps';
-import AlternatingMediaSection from '@/components/custom-blocks/alternating-media/alternating-media';
 import XContentSection from '@/components/custom-blocks/x-content/x-content';
 import YouTubeContentSection from '@/components/custom-blocks/youtube-content/youtube-content';
-import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-promo';
 import Container from '@/components/layout/container';
+import { Footer } from '@/components/layout/footer';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
-import { Button } from '@/components/ui/button';
 import FooterSection from '@/components/tailark/preview/footer/one/page';
+import { Button } from '@/components/ui/button';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
-import { Footer } from '@/components/layout/footer';
 import Link from 'next/link';
 
 const PAGE_CONTENT = {

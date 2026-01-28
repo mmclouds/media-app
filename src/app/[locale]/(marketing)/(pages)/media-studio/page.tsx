@@ -1,10 +1,10 @@
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
+import type { MediaType } from '@/components/marketing/media-generator/types';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
-import type { MediaType } from '@/components/marketing/media-generator/types';
 import type { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
+import { cookies } from 'next/headers';
 
 const MEDIA_STUDIO_SELECTION_COOKIE = 'media-studio-selection';
 const MEDIA_TYPES: MediaType[] = ['video', 'image', 'audio'];

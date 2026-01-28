@@ -33,7 +33,9 @@ export function AssetDetailTabs({ sections, className }: AssetDetailTabsProps) {
     [sections]
   );
   const [activeId, setActiveId] = useState(visibleSections[0]?.id ?? '');
-  const activeSection = visibleSections.find((section) => section.id === activeId);
+  const activeSection = visibleSections.find(
+    (section) => section.id === activeId
+  );
 
   if (!visibleSections.length) {
     return (

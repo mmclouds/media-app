@@ -16,6 +16,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { GenerationProgressVisual } from './generation-progress-visual';
 import type {
   MediaFeedItem,
   MediaFeedResponse,
@@ -23,7 +24,6 @@ import type {
   VideoGenerationState,
   VideoGeneratorAsset,
 } from './types';
-import { GenerationProgressVisual } from './generation-progress-visual';
 
 type PreviewPanelProps = {
   asset?: VideoGeneratorAsset | null;
@@ -308,9 +308,9 @@ export function MediaGeneratorResultPane({
 
   const visibleItems = usingRemoteFeed
     ? remoteFeed.slice(
-      virtualRange.start,
-      Math.min(virtualRange.end + 1, remoteFeed.length)
-    )
+        virtualRange.start,
+        Math.min(virtualRange.end + 1, remoteFeed.length)
+      )
     : localItems;
 
   useEffect(() => {
@@ -448,8 +448,11 @@ function Tab({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-full px-3 py-1 transition ${active ? 'bg-white/15 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.15)]' : 'text-white/60 hover:bg-white/5 hover:text-white'
-        }`}
+      className={`rounded-full px-3 py-1 transition ${
+        active
+          ? 'bg-white/15 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.15)]'
+          : 'text-white/60 hover:bg-white/5 hover:text-white'
+      }`}
     >
       {label}
     </button>
@@ -525,7 +528,8 @@ function VideoPreviewCard({
   const modelLabel = asset.modelName ?? asset.tags[1] ?? '—';
   const displayPrompt = asset.prompt ?? asset.title;
   const resolvedErrorMessage =
-    typeof asset.errorMessage === 'string' && asset.errorMessage.trim().length > 0
+    typeof asset.errorMessage === 'string' &&
+    asset.errorMessage.trim().length > 0
       ? asset.errorMessage
       : DEFAULT_ERROR_MESSAGE;
 
@@ -547,7 +551,9 @@ function VideoPreviewCard({
     isError || isLoading ? undefined : asset.src || undefined;
   const statusLabel = formatLabel(asset.status);
   const audioSources =
-    isAudio && Array.isArray(asset.audioSources) && asset.audioSources.length > 0
+    isAudio &&
+    Array.isArray(asset.audioSources) &&
+    asset.audioSources.length > 0
       ? asset.audioSources
       : resolvedAudioSrc
         ? [resolvedAudioSrc]
@@ -556,9 +562,9 @@ function VideoPreviewCard({
     isAudio && Array.isArray(asset.audioCovers) ? asset.audioCovers : [];
   const audioTracks = isAudio
     ? audioSources.map((source, index) => ({
-      src: source,
-      cover: audioCovers[index] ?? audioCovers[0],
-    }))
+        src: source,
+        cover: audioCovers[index] ?? audioCovers[0],
+      }))
     : [];
 
   return (
@@ -655,8 +661,7 @@ function VideoPreviewCard({
                 poster={resolvedPoster}
                 className="h-full w-full object-contain"
                 onLoadedData={handleVideoLoaded}
-              >
-              </video>
+              ></video>
             </div>
           )}
         </div>
@@ -995,7 +1000,11 @@ function normalizeMediaType(mediaType?: string | null): MediaType | undefined {
     return undefined;
   }
   const normalized = mediaType.toLowerCase();
-  if (normalized === 'video' || normalized === 'image' || normalized === 'audio') {
+  if (
+    normalized === 'video' ||
+    normalized === 'image' ||
+    normalized === 'audio'
+  ) {
     return normalized;
   }
   return undefined;

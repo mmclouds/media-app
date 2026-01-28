@@ -1,13 +1,9 @@
 'use client';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { buildPublicFileDownloadUrl } from '@/lib/file-transfer';
-import type { MediaFeedItem, MediaFeedResponse } from '../types';
 import { useEffect, useMemo, useState } from 'react';
+import type { MediaFeedItem, MediaFeedResponse } from '../types';
 
 type RemoteImagePickerItem = {
   fileUuid: string;

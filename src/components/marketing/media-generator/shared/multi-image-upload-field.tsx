@@ -4,8 +4,8 @@ import {
   buildPublicFileDownloadUrl,
   uploadFileToBucket,
 } from '@/lib/file-transfer';
-import { RemoteImagePickerDialog } from './remote-image-picker-dialog';
 import { useMemo, useRef, useState } from 'react';
+import { RemoteImagePickerDialog } from './remote-image-picker-dialog';
 
 type MultiImageUploadFieldProps = {
   label: string;
@@ -17,13 +17,15 @@ type MultiImageUploadFieldProps = {
   helperText?: string;
   maxSize?: number;
   maxFiles?: number;
-  onUploaded?: (files: {
-    uuid: string;
-    downloadUrl: string;
-    bucketName?: string;
-    objectKey?: string;
-    fileName?: string;
-  }[]) => void;
+  onUploaded?: (
+    files: {
+      uuid: string;
+      downloadUrl: string;
+      bucketName?: string;
+      objectKey?: string;
+      fileName?: string;
+    }[]
+  ) => void;
 };
 
 const UUID_PATTERN =
@@ -222,7 +224,9 @@ export function MultiImageUploadField({
         }}
         onDragLeave={(event) => {
           event.preventDefault();
-          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          if (
+            !event.currentTarget.contains(event.relatedTarget as Node | null)
+          ) {
             setIsDragging(false);
           }
         }}
@@ -311,7 +315,8 @@ export function MultiImageUploadField({
         <p className="text-xs text-white/50">{helperText}</p>
       ) : null}
       <p className="text-[11px] text-white/40">
-        Limit: up to {normalizedMaxFiles} images, max {normalizedMaxSize}MB each.
+        Limit: up to {normalizedMaxFiles} images, max {normalizedMaxSize}MB
+        each.
       </p>
       {error ? <p className="text-xs text-rose-400">{error}</p> : null}
       <RemoteImagePickerDialog

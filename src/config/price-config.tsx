@@ -41,8 +41,6 @@ export function usePricePlans(): Record<string, PricePlan> {
     };
   }
 
-
-
   if (priceConfig.plans.pro) {
     plans.pro = {
       ...priceConfig.plans.pro,

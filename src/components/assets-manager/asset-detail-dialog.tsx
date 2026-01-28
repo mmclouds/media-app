@@ -1,13 +1,9 @@
 'use client';
 
 import type { VideoGeneratorAsset } from '@/components/marketing/media-generator/types';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import { useCurrentUser } from '@/hooks/use-current-user';
 import { AudioPlayer } from '@/components/shared/audio-player';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { useCurrentUser } from '@/hooks/use-current-user';
 import { useEffect, useMemo, useState } from 'react';
 
 type AssetDetailResponse = {
@@ -94,13 +90,15 @@ export function AssetDetailDialog({
         if (!response.ok) {
           setDetail(null);
           setError(
-            response.status === 404 ? 'Asset not found.' : 'Unable to load asset.'
+            response.status === 404
+              ? 'Asset not found.'
+              : 'Unable to load asset.'
           );
           return;
         }
-        const payload = (await response.json().catch(() => null)) as
-          | AssetDetailResponse
-          | null;
+        const payload = (await response
+          .json()
+          .catch(() => null)) as AssetDetailResponse | null;
         if (!payload) {
           setDetail(null);
           setError('Asset not found.');
@@ -141,7 +139,8 @@ export function AssetDetailDialog({
     const modelName =
       typeof detail.modelName === 'string' && detail.modelName.length > 0
         ? detail.modelName
-        : typeof parsedParameters?.model === 'string' && parsedParameters.model.length > 0
+        : typeof parsedParameters?.model === 'string' &&
+            parsedParameters.model.length > 0
           ? parsedParameters.model
           : typeof asset?.modelName === 'string' && asset.modelName.length > 0
             ? asset.modelName
@@ -153,11 +152,12 @@ export function AssetDetailDialog({
     const coverUrl = resolveCoverUrl(detail);
     const mediaType = inferMediaType(detail, mediaUrl);
     const audioUrls = mediaType === 'audio' ? resolveAudioUrls(detail) : [];
-    const audioCoverUrls = mediaType === 'audio' ? resolveAudioCoverUrls(detail) : [];
+    const audioCoverUrls =
+      mediaType === 'audio' ? resolveAudioCoverUrls(detail) : [];
     const resolvedMediaUrl =
-      mediaType === 'audio' ? audioUrls[0] ?? mediaUrl : mediaUrl;
+      mediaType === 'audio' ? (audioUrls[0] ?? mediaUrl) : mediaUrl;
     const resolvedCoverUrl =
-      mediaType === 'audio' ? audioCoverUrls[0] ?? coverUrl : coverUrl;
+      mediaType === 'audio' ? (audioCoverUrls[0] ?? coverUrl) : coverUrl;
     const tags = buildDetailTags({
       assetTags: asset?.tags,
       mediaType,
@@ -185,9 +185,7 @@ export function AssetDetailDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
-        className="h-[min(86vh,calc(92vw*9/16))] w-[min(92vw,calc(86vh*16/9))] !max-w-none overflow-hidden bg-[#0a0a0a] border border-white/10 text-white"
-      >
+      <DialogContent className="h-[min(86vh,calc(92vw*9/16))] w-[min(92vw,calc(86vh*16/9))] !max-w-none overflow-hidden bg-[#0a0a0a] border border-white/10 text-white">
         <DialogTitle className="sr-only">Asset Details</DialogTitle>
         <div className="flex h-full min-h-0 flex-col gap-6">
           {showSignIn && (
@@ -215,144 +213,154 @@ export function AssetDetailDialog({
             </div>
           )}
 
-          {!showSignIn && !showNotFound && detailData && !isLoading && !error && (
-            <div className="flex h-full min-h-0 flex-col gap-6">
-              <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-[minmax(0,1.9fr)_minmax(0,1fr)]">
-                <div className="flex min-h-0 flex-col rounded-3xl bg-black/40 p-4">
-                  {detailData.mediaUrl ? (
-                    <div
-                      className={`flex min-h-0 flex-1 flex-col rounded-2xl bg-black/60 p-3 ${
-                        detailData.mediaType === 'audio'
-                          ? 'items-center justify-start overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'
-                          : 'items-center justify-center'
-                      }`}
-                    >
-                      {detailData.mediaType === 'video' && (
-                        <video
-                          controls
-                          playsInline
-                          poster={detailData.coverUrl ?? undefined}
-                          className="h-full w-full rounded-2xl bg-black object-contain"
-                          src={detailData.mediaUrl}
-                        />
-                      )}
+          {!showSignIn &&
+            !showNotFound &&
+            detailData &&
+            !isLoading &&
+            !error && (
+              <div className="flex h-full min-h-0 flex-col gap-6">
+                <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-[minmax(0,1.9fr)_minmax(0,1fr)]">
+                  <div className="flex min-h-0 flex-col rounded-3xl bg-black/40 p-4">
+                    {detailData.mediaUrl ? (
+                      <div
+                        className={`flex min-h-0 flex-1 flex-col rounded-2xl bg-black/60 p-3 ${
+                          detailData.mediaType === 'audio'
+                            ? 'items-center justify-start overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden'
+                            : 'items-center justify-center'
+                        }`}
+                      >
+                        {detailData.mediaType === 'video' && (
+                          <video
+                            controls
+                            playsInline
+                            poster={detailData.coverUrl ?? undefined}
+                            className="h-full w-full rounded-2xl bg-black object-contain"
+                            src={detailData.mediaUrl}
+                          />
+                        )}
 
-                      {detailData.mediaType === 'image' && (
-                        <img
-                          src={detailData.mediaUrl}
-                          alt={detailData.resolvedPrompt ?? 'Generated image'}
-                          className="h-full w-full rounded-2xl bg-black object-contain"
-                        />
-                      )}
+                        {detailData.mediaType === 'image' && (
+                          <img
+                            src={detailData.mediaUrl}
+                            alt={detailData.resolvedPrompt ?? 'Generated image'}
+                            className="h-full w-full rounded-2xl bg-black object-contain"
+                          />
+                        )}
 
-                      {detailData.mediaType === 'audio' && (
-                        <div className="grid w-full max-w-[720px] grid-cols-1 gap-4 sm:grid-cols-2 place-items-center my-auto">
-                          {detailData.audioUrls.length > 0 ? (
-                            detailData.audioUrls.map((url, index) => {
-                              const cover =
-                                detailData.audioCoverUrls[index] ??
-                                detailData.audioCoverUrls[0];
-                              return (
-                                <AudioPlayer
-                                  key={`${url}-${index}`}
-                                  audioUrl={url}
-                                  coverUrl={cover}
-                                  size="compact"
-                                  className="w-full max-w-[320px]"
-                                />
-                              );
-                            })
-                          ) : (
-                            <div className="rounded-2xl bg-white/5 px-4 py-3 text-sm text-white/60 sm:col-span-2">
-                              Preview unavailable.
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="flex min-h-[320px] items-center justify-center rounded-2xl bg-white/5 text-sm text-white/60">
-                      Preview unavailable.
-                    </div>
-                  )}
-                </div>
-
-                <div className="flex min-h-0 flex-col rounded-3xl bg-black/40 p-5">
-                  <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-                    <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-[0.2em] text-white/40">
-                        Model
-                      </p>
-                      <div className="rounded-2xl bg-white/5 px-4 py-3 text-sm text-white/80">
-                        {detailData.modelName ? (
-                          detailData.modelName
-                        ) : (
-                          <span className="text-white/60">No model available.</span>
+                        {detailData.mediaType === 'audio' && (
+                          <div className="grid w-full max-w-[720px] grid-cols-1 gap-4 sm:grid-cols-2 place-items-center my-auto">
+                            {detailData.audioUrls.length > 0 ? (
+                              detailData.audioUrls.map((url, index) => {
+                                const cover =
+                                  detailData.audioCoverUrls[index] ??
+                                  detailData.audioCoverUrls[0];
+                                return (
+                                  <AudioPlayer
+                                    key={`${url}-${index}`}
+                                    audioUrl={url}
+                                    coverUrl={cover}
+                                    size="compact"
+                                    className="w-full max-w-[320px]"
+                                  />
+                                );
+                              })
+                            ) : (
+                              <div className="rounded-2xl bg-white/5 px-4 py-3 text-sm text-white/60 sm:col-span-2">
+                                Preview unavailable.
+                              </div>
+                            )}
+                          </div>
                         )}
                       </div>
-                    </div>
-
-                    {detailData.sourceImageUrls.length > 0 && (
-                      <div className="space-y-2">
-                        <p className="text-xs uppercase tracking-[0.2em] text-white/40">
-                          Source Image
-                        </p>
-                        <div className="rounded-2xl bg-black/60 p-3">
-                          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                            {detailData.sourceImageUrls.map((url, index) => (
-                              <img
-                                key={`${url}-${index}`}
-                                src={url}
-                                alt={`Source image ${index + 1}`}
-                                className="w-full max-h-48 rounded-xl bg-black object-contain"
-                              />
-                            ))}
-                          </div>
-                        </div>
+                    ) : (
+                      <div className="flex min-h-[320px] items-center justify-center rounded-2xl bg-white/5 text-sm text-white/60">
+                        Preview unavailable.
                       </div>
                     )}
+                  </div>
 
-                    <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-[0.2em] text-white/40">
-                        Prompt
-                      </p>
-                      <div className="rounded-2xl bg-white/5 px-4 py-3 text-sm text-white/80">
-                        {detailData.resolvedPrompt ? (
-                          <p className="whitespace-pre-line">
-                            {detailData.resolvedPrompt}
-                          </p>
-                        ) : (
-                          <p className="text-white/60">No prompt available.</p>
-                        )}
+                  <div className="flex min-h-0 flex-col rounded-3xl bg-black/40 p-5">
+                    <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto pr-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                      <div className="space-y-2">
+                        <p className="text-xs uppercase tracking-[0.2em] text-white/40">
+                          Model
+                        </p>
+                        <div className="rounded-2xl bg-white/5 px-4 py-3 text-sm text-white/80">
+                          {detailData.modelName ? (
+                            detailData.modelName
+                          ) : (
+                            <span className="text-white/60">
+                              No model available.
+                            </span>
+                          )}
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="space-y-2">
-                      <p className="text-xs uppercase tracking-[0.2em] text-white/40">
-                        Tags
-                      </p>
-                      <div className="rounded-2xl bg-white/5 px-4 py-3 text-sm text-white/80">
-                        {detailData.tags.length > 0 ? (
-                          <div className="flex flex-wrap gap-2">
-                            {detailData.tags.map((tag) => (
-                              <span
-                                key={tag}
-                                className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/70"
-                              >
-                                {tag}
-                              </span>
-                            ))}
+                      {detailData.sourceImageUrls.length > 0 && (
+                        <div className="space-y-2">
+                          <p className="text-xs uppercase tracking-[0.2em] text-white/40">
+                            Source Image
+                          </p>
+                          <div className="rounded-2xl bg-black/60 p-3">
+                            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                              {detailData.sourceImageUrls.map((url, index) => (
+                                <img
+                                  key={`${url}-${index}`}
+                                  src={url}
+                                  alt={`Source image ${index + 1}`}
+                                  className="w-full max-h-48 rounded-xl bg-black object-contain"
+                                />
+                              ))}
+                            </div>
                           </div>
-                        ) : (
-                          <span className="text-white/60">No tags available.</span>
-                        )}
+                        </div>
+                      )}
+
+                      <div className="space-y-2">
+                        <p className="text-xs uppercase tracking-[0.2em] text-white/40">
+                          Prompt
+                        </p>
+                        <div className="rounded-2xl bg-white/5 px-4 py-3 text-sm text-white/80">
+                          {detailData.resolvedPrompt ? (
+                            <p className="whitespace-pre-line">
+                              {detailData.resolvedPrompt}
+                            </p>
+                          ) : (
+                            <p className="text-white/60">
+                              No prompt available.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <p className="text-xs uppercase tracking-[0.2em] text-white/40">
+                          Tags
+                        </p>
+                        <div className="rounded-2xl bg-white/5 px-4 py-3 text-sm text-white/80">
+                          {detailData.tags.length > 0 ? (
+                            <div className="flex flex-wrap gap-2">
+                              {detailData.tags.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/70"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          ) : (
+                            <span className="text-white/60">
+                              No tags available.
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
       </DialogContent>
     </Dialog>
@@ -502,7 +510,9 @@ function parseParameters(raw?: string | Record<string, unknown> | null) {
 function normalizeParameters(raw: Record<string, unknown>) {
   const merged = {
     ...raw,
-    ...(typeof raw.input === 'object' && raw.input ? (raw.input as Record<string, unknown>) : {}),
+    ...(typeof raw.input === 'object' && raw.input
+      ? (raw.input as Record<string, unknown>)
+      : {}),
   };
   return {
     prompt: typeof merged.prompt === 'string' ? merged.prompt : undefined,

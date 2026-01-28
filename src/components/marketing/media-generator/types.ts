@@ -1,6 +1,6 @@
+import type { CalculateCreditsResult } from '@/custom/credits/pricing/types';
 import type { LucideIcon } from 'lucide-react';
 import type { ComponentType } from 'react';
-import type { CalculateCreditsResult } from '@/custom/credits/pricing/types';
 
 export type VideoGeneratorAsset = {
   id: string;

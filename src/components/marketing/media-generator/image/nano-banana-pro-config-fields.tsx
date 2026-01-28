@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import {
   AspectRatioField,
   CheckboxGroupField,
@@ -8,7 +9,6 @@ import { MultiImageUploadField } from '../shared/multi-image-upload-field';
 import { PromptEditor } from '../shared/prompt-editor';
 import { useCreditEstimate } from '../shared/use-credit-estimate';
 import type { MediaModelConfig, MediaModelConfigProps } from '../types';
-import { useMemo } from 'react';
 
 const outputFormatOptions = ['png', 'jpg'];
 const resolutionOptions = ['1K', '2K', '4K'];

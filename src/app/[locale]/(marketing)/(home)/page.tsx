@@ -4,13 +4,13 @@ import FeaturesSection from '@/components/blocks/features/features';
 import Features2Section from '@/components/blocks/features/features2';
 import Features3Section from '@/components/blocks/features/features3';
 import HeroSection from '@/components/blocks/hero/hero';
-import Integration3Section from '@/components/blocks/integration/integration3';
 import Integration2Section from '@/components/blocks/integration/integration2';
+import Integration3Section from '@/components/blocks/integration/integration3';
 import LogoCloud from '@/components/blocks/logo-cloud/logo-cloud';
+import MediaShowcaseSection from '@/components/blocks/media-showcase/media-showcase';
 import PricingSection from '@/components/blocks/pricing/pricing';
 import StatsSection from '@/components/blocks/stats/stats';
 import TestimonialsSection from '@/components/blocks/testimonials/testimonials';
-import MediaShowcaseSection from '@/components/blocks/media-showcase/media-showcase';
 import CrispChat from '@/components/layout/crisp-chat';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
 import { NewsletterCard } from '@/components/newsletter/newsletter-card';
@@ -47,7 +47,10 @@ export default async function HomePage(props: HomePageProps) {
   const { locale } = await props.params;
   const faq = await getTranslations({ locale, namespace: 'HomePage.faqs' });
   const faqItems = Object.values(
-    faq.raw('items') as Record<string, { question: string; answer: string }>
+    (faq.raw as (key: string) => unknown)('items') as Record<
+      string,
+      { question: string; answer: string }
+    >
   );
 
   const faqJsonLd = {
@@ -103,8 +106,6 @@ export default async function HomePage(props: HomePageProps) {
         <NewsletterCard />
 
         <CrispChat />
-
-
       </div>
     </>
   );

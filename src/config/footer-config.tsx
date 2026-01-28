@@ -138,6 +138,5 @@ export function useFooterLinks(): NestedMenuItem[] {
         },
       ],
     },
-
   ];
 }

@@ -1,8 +1,8 @@
 'use client';
 
 import { LoginWrapper } from '@/components/auth/login-wrapper';
-import { Logo } from '@/components/layout/logo';
 import { CreditsBalanceMenu } from '@/components/layout/credits-balance-menu';
+import { Logo } from '@/components/layout/logo';
 import { UserAvatar } from '@/components/layout/user-avatar';
 import {
   DropdownMenu,
@@ -15,7 +15,11 @@ import { useAvatarLinks } from '@/config/avatar-config';
 import { websiteConfig } from '@/config/website';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { useCurrentPlan } from '@/hooks/use-payment';
-import { LocaleLink, useLocalePathname, useLocaleRouter } from '@/i18n/navigation';
+import {
+  LocaleLink,
+  useLocalePathname,
+  useLocaleRouter,
+} from '@/i18n/navigation';
 import { authClient } from '@/lib/auth-client';
 import type { User } from 'better-auth';
 import { LogOutIcon, MoreHorizontal } from 'lucide-react';
@@ -204,10 +208,11 @@ function SidebarButton({
 }) {
   return (
     <button
-      className={`flex h-10 w-10 items-center justify-center rounded-xl transition ${active
-        ? 'bg-white/15 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.2)]'
-        : 'text-white/50 hover:bg-white/5 hover:text-white'
-        }`}
+      className={`flex h-10 w-10 items-center justify-center rounded-xl transition ${
+        active
+          ? 'bg-white/15 text-white shadow-[0_0_0_1px_rgba(255,255,255,0.2)]'
+          : 'text-white/50 hover:bg-white/5 hover:text-white'
+      }`}
       aria-pressed={active}
       onClick={onClick}
       aria-label={label}

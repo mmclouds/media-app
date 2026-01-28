@@ -35,10 +35,11 @@ const getYoutubeId = (url: string) => {
     if (id) {
       return id;
     }
-  } catch {
-  }
+  } catch {}
 
-  const match = url.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([a-zA-Z0-9_-]+)/);
+  const match = url.match(
+    /(?:v=|youtu\.be\/|embed\/|shorts\/)([a-zA-Z0-9_-]+)/
+  );
   return match?.[1] ?? '';
 };
 
@@ -94,7 +95,10 @@ export default function YouTubeContentSection({
   }
 
   return (
-    <section id={id ?? 'youtube-content'} className={cn('px-4 py-16', className)}>
+    <section
+      id={id ?? 'youtube-content'}
+      className={cn('px-4 py-16', className)}
+    >
       <div className="w-full space-y-8 lg:space-y-12">
         {showHeader ? (
           <HeaderSection

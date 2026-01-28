@@ -7,10 +7,7 @@ type GenerationProgressVisualProps = {
   className?: string;
 };
 
-const STATUS_MESSAGES = [
-  'Generating ...',
-
-];
+const STATUS_MESSAGES = ['Generating ...'];
 
 const TEXT_ROTATION = 7000;
 const FADE_DURATION = 500;
@@ -45,7 +42,7 @@ export function GenerationProgressVisual({
     <div
       className={cn(
         'relative aspect-video w-full overflow-hidden rounded-none bg-[#050607]',
-        className,
+        className
       )}
       role="status"
       aria-live="polite"
@@ -60,7 +57,13 @@ export function GenerationProgressVisual({
               style={{ overflow: 'visible' }}
             >
               <defs>
-                <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <linearGradient
+                  id="neonGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
                   <stop offset="0%" stopColor="#00E5FF" />
                   <stop offset="50%" stopColor="#A855F7" />
                   <stop offset="100%" stopColor="#00E5FF" />

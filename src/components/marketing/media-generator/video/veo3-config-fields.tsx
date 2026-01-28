@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import {
   AspectRatioField,
   ModelVersionSwitcher,
@@ -9,7 +10,6 @@ import { PromptEditor } from '../shared/prompt-editor';
 import { TwoFrameImageUploadField } from '../shared/two-frame-image-upload-field';
 import { useCreditEstimate } from '../shared/use-credit-estimate';
 import type { MediaModelConfig, MediaModelConfigProps } from '../types';
-import { useMemo } from 'react';
 
 const generationTypes = [
   { value: 'TEXT_2_VIDEO', label: 'Text to Video' },
@@ -85,7 +85,9 @@ export const buildVeo3RequestBody = ({
     imageUrls = referenceUrls;
     inputFileUuids = referenceUrls
       .map((_, index) => referenceUuids[index])
-      .filter((uuid): uuid is string => typeof uuid === 'string' && uuid.length > 0);
+      .filter(
+        (uuid): uuid is string => typeof uuid === 'string' && uuid.length > 0
+      );
   }
 
   if (generationType === 'FIRST_AND_LAST_FRAMES_2_VIDEO') {
@@ -252,10 +254,15 @@ export function Veo3ConfigFields({
             onChange({
               ...config,
               firstFrameUrl:
-                slot === 'first' ? file.downloadUrl : firstFrameUrl ?? undefined,
+                slot === 'first'
+                  ? file.downloadUrl
+                  : (firstFrameUrl ?? undefined),
               lastFrameUrl:
-                slot === 'last' ? file.downloadUrl : lastFrameUrl ?? undefined,
-              firstFrameUuid: slot === 'first' ? file.uuid : config.firstFrameUuid,
+                slot === 'last'
+                  ? file.downloadUrl
+                  : (lastFrameUrl ?? undefined),
+              firstFrameUuid:
+                slot === 'first' ? file.uuid : config.firstFrameUuid,
               lastFrameUuid: slot === 'last' ? file.uuid : config.lastFrameUuid,
             });
           }}
@@ -286,7 +293,8 @@ export function Veo3ConfigFields({
             onChange({
               ...config,
               imageUrls: nextImageUrls.length > 0 ? nextImageUrls : undefined,
-              imageUuids: nextImageUuids.length > 0 ? nextImageUuids : undefined,
+              imageUuids:
+                nextImageUuids.length > 0 ? nextImageUuids : undefined,
             });
           }}
           onUploaded={(files) => {
@@ -302,18 +310,19 @@ export function Veo3ConfigFields({
                 (uuid): uuid is string =>
                   typeof uuid === 'string' && uuid.trim().length > 0
               );
-            const nextImageUrls = [...referenceImageUrls, ...uploadedUrls].slice(
-              0,
-              3
-            );
-            const nextImageUuids = [...referenceImageUuids, ...uploadedUuids].slice(
-              0,
-              3
-            );
+            const nextImageUrls = [
+              ...referenceImageUrls,
+              ...uploadedUrls,
+            ].slice(0, 3);
+            const nextImageUuids = [
+              ...referenceImageUuids,
+              ...uploadedUuids,
+            ].slice(0, 3);
             onChange({
               ...config,
               imageUrls: nextImageUrls.length > 0 ? nextImageUrls : undefined,
-              imageUuids: nextImageUuids.length > 0 ? nextImageUuids : undefined,
+              imageUuids:
+                nextImageUuids.length > 0 ? nextImageUuids : undefined,
             });
           }}
           helperText="Add 1-3 reference images."

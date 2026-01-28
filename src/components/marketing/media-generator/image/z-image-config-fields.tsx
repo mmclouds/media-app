@@ -1,10 +1,10 @@
 'use client';
 
+import { useMemo } from 'react';
 import { AspectRatioField } from '../shared/config-field-controls';
 import { PromptEditor } from '../shared/prompt-editor';
 import { useCreditEstimate } from '../shared/use-credit-estimate';
 import type { MediaModelConfig, MediaModelConfigProps } from '../types';
-import { useMemo } from 'react';
 
 const aspectRatioOptions = ['1:1', '4:3', '3:4', '16:9', '9:16'];
 

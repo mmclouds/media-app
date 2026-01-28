@@ -132,7 +132,7 @@ export const websiteConfig: WebsiteConfig = {
             amount: 1490,
             currency: 'USD',
             interval: PlanIntervals.MONTH,
-          }
+          },
         ],
         isFree: false,
         isLifetime: false,
@@ -142,7 +142,7 @@ export const websiteConfig: WebsiteConfig = {
           amount: 2500,
           expireDays: 30,
         },
-      }
+      },
     },
   },
   credits: {

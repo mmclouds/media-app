@@ -1,5 +1,6 @@
 'use client';
 
+import { useCurrentUser } from '@/hooks/use-current-user';
 import { Image as ImageIcon, Music, Video } from 'lucide-react';
 import {
   useCallback,
@@ -10,8 +11,11 @@ import {
   useState,
 } from 'react';
 import { toast } from 'sonner';
-import { useCurrentUser } from '@/hooks/use-current-user';
 import { SunoConfigFields } from './audio/suno-config-fields';
+import {
+  GptImageConfigFields,
+  buildGptImageRequestBody,
+} from './image/gpt-image-1-5-config-fields';
 import {
   NanoBananaConfigFields,
   buildNanoBananaRequestBody,
@@ -20,10 +24,6 @@ import {
   NanoBananaProConfigFields,
   buildNanoBananaProRequestBody,
 } from './image/nano-banana-pro-config-fields';
-import {
-  GptImageConfigFields,
-  buildGptImageRequestBody,
-} from './image/gpt-image-1-5-config-fields';
 import {
   ZImageConfigFields,
   buildZImageRequestBody,
@@ -39,6 +39,10 @@ import type {
   MediaTypeOption,
   VideoGenerationState,
 } from './types';
+import {
+  KlingConfigFields,
+  buildKlingRequestBody,
+} from './video/kling-config-fields';
 import {
   SoraConfigFields,
   buildSoraRequestBody,
@@ -147,6 +151,23 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
         aspectRatio: '16:9',
       },
       configComponent: Veo3ConfigFields,
+      supportsCreditEstimate: true,
+    },
+    {
+      id: 'kling-2.6',
+      label: 'Kling 2.6',
+      description: 'Kling 2.6 is Kling AI’s audio-visual generation model',
+      provider: 'Kling AI',
+      mediaType: 'video',
+      modelName: 'kling-2.6',
+      model: 'kling-2.6',
+      defaultConfig: {
+        model: 'kling-2.6/text-to-video',
+        aspect_ratio: '1:1',
+        sound: true,
+        duration: 5,
+      },
+      configComponent: KlingConfigFields,
       supportsCreditEstimate: true,
     },
   ],
@@ -263,9 +284,9 @@ export function useMediaGeneratorController({
   const initialModels = MODEL_REGISTRY[resolvedInitial] ?? [];
   const initialModelId =
     preferredModelId &&
-      initialModels.some((model) => model.id === preferredModelId)
+    initialModels.some((model) => model.id === preferredModelId)
       ? preferredModelId
-      : initialModels[0]?.id ?? '';
+      : (initialModels[0]?.id ?? '');
   const [mediaType, setMediaTypeState] = useState<MediaType>(resolvedInitial);
   const [activeGeneration, setActiveGeneration] =
     useState<VideoGenerationState | null>(null);
@@ -417,57 +438,66 @@ export function useMediaGeneratorController({
       setIsSubmitting(true);
 
       try {
-      const isSora = definition.id === 'sora';
-      const isNanoBanana = definition.id === 'nano-banana';
-      const isNanoBananaPro = definition.id === 'nano-banana-pro';
-      const isVeo3 = definition.id === 'veo3';
-      const isGptImage = definition.id === 'gpt-image-1.5';
-      const isZImage = definition.id === 'z-image';
-      if (isVeo3 && (definition.model ?? definition.modelName)) {
-        resolvedModelName = definition.model ?? definition.modelName;
-      }
-      const requestBody = (isSora
-        ? buildSoraRequestBody({
-            prompt: trimmedPrompt,
-            resolvedConfig,
-            fileUuids,
-          })
-          : isNanoBanana
-            ? buildNanoBananaRequestBody({
-              prompt: trimmedPrompt,
-              resolvedConfig,
-              fileUuids,
-            })
-            : isNanoBananaPro
-              ? buildNanoBananaProRequestBody({
+        const isSora = definition.id === 'sora';
+        const isNanoBanana = definition.id === 'nano-banana';
+        const isNanoBananaPro = definition.id === 'nano-banana-pro';
+        const isVeo3 = definition.id === 'veo3';
+        const isKling = definition.id === 'kling-2.6';
+        const isGptImage = definition.id === 'gpt-image-1.5';
+        const isZImage = definition.id === 'z-image';
+        if (isVeo3 && (definition.model ?? definition.modelName)) {
+          resolvedModelName = definition.model ?? definition.modelName;
+        }
+        const requestBody = (
+          isSora
+            ? buildSoraRequestBody({
                 prompt: trimmedPrompt,
                 resolvedConfig,
                 fileUuids,
               })
-            : isVeo3
-              ? buildVeo3RequestBody({
-                prompt: trimmedPrompt,
-                resolvedConfig,
-                fileUuids,
-              })
-              : isGptImage
-                ? buildGptImageRequestBody({
+            : isNanoBanana
+              ? buildNanoBananaRequestBody({
                   prompt: trimmedPrompt,
                   resolvedConfig,
                   fileUuids,
                 })
-                : isZImage
-                  ? buildZImageRequestBody({
+              : isNanoBananaPro
+                ? buildNanoBananaProRequestBody({
                     prompt: trimmedPrompt,
                     resolvedConfig,
+                    fileUuids,
                   })
-                : {
-                  mediaType: payload.mediaType.toUpperCase(),
-                  modelName: resolvedModelName,
-                  model: definition.model ?? definition.modelName,
-                  prompt: trimmedPrompt,
-                  ...resolvedConfig,
-                }) as Record<string, unknown>;
+                : isVeo3
+                  ? buildVeo3RequestBody({
+                      prompt: trimmedPrompt,
+                      resolvedConfig,
+                      fileUuids,
+                    })
+                  : isKling
+                    ? buildKlingRequestBody({
+                        prompt: trimmedPrompt,
+                        resolvedConfig,
+                        fileUuids,
+                      })
+                    : isGptImage
+                      ? buildGptImageRequestBody({
+                          prompt: trimmedPrompt,
+                          resolvedConfig,
+                          fileUuids,
+                        })
+                      : isZImage
+                        ? buildZImageRequestBody({
+                            prompt: trimmedPrompt,
+                            resolvedConfig,
+                          })
+                        : {
+                            mediaType: payload.mediaType.toUpperCase(),
+                            modelName: resolvedModelName,
+                            model: definition.model ?? definition.modelName,
+                            prompt: trimmedPrompt,
+                            ...resolvedConfig,
+                          }
+        ) as Record<string, unknown>;
 
         if (isVeo3) {
           const generationType =
@@ -476,9 +506,9 @@ export function useMediaGeneratorController({
               : rawGenerationType;
           const imageUrls = Array.isArray(requestBody.imageUrls)
             ? requestBody.imageUrls.filter(
-              (item): item is string =>
-                typeof item === 'string' && item.trim().length > 0
-            )
+                (item): item is string =>
+                  typeof item === 'string' && item.trim().length > 0
+              )
             : [];
 
           if (
@@ -508,13 +538,27 @@ export function useMediaGeneratorController({
             return;
           }
         }
+        if (isKling) {
+          const mode =
+            typeof resolvedConfig.model === 'string'
+              ? resolvedConfig.model.trim()
+              : '';
+          if (mode === 'kling-2.6/image-to-video' && fileUuids.length === 0) {
+            toast.error('Add at least 1 input image.');
+            isSubmittingRef.current = false;
+            setIsSubmitting(false);
+            return;
+          }
+        }
 
         const queryParams = new URLSearchParams();
         queryParams.set('mediaType', payload.mediaType.toUpperCase());
         queryParams.set('modelName', resolvedModelName);
         const uuidParamName = isNanoBananaPro
           ? 'inputFileUuids'
-          : 'fileUuids';
+          : isKling
+            ? 'inputFileUuids'
+            : 'fileUuids';
         Array.from(new Set(fileUuids)).forEach((uuid) => {
           queryParams.append(uuidParamName, uuid);
         });
@@ -649,9 +693,9 @@ export function useMediaGeneratorController({
         setActiveGeneration((prev) =>
           prev && prev.taskId === taskId
             ? {
-              ...prev,
-              errorMessage: message,
-            }
+                ...prev,
+                errorMessage: message,
+              }
             : prev
         );
       }

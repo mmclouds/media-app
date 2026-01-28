@@ -210,11 +210,7 @@ function AssetsRow({
       style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
     >
       {row.items.map((asset) => (
-        <AssetCard
-          key={asset.id}
-          asset={asset}
-          onOpenDetail={onOpenDetail}
-        />
+        <AssetCard key={asset.id} asset={asset} onOpenDetail={onOpenDetail} />
       ))}
     </div>
   );
