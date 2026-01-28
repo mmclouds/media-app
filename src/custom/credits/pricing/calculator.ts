@@ -45,6 +45,14 @@ function extractPricingParams(payload: Record<string, unknown>): {
     params.quality = input.quality.trim();
   }
 
+  // 提取 resolution（分辨率等级）
+  if (
+    typeof input.resolution === 'string' &&
+    input.resolution.trim().length > 0
+  ) {
+    params.resolution = input.resolution.trim();
+  }
+
   // 提取 duration（视频时长）
   if (typeof input.duration === 'string' && input.duration.trim().length > 0) {
     params.duration = input.duration.trim();

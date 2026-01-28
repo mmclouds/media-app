@@ -100,17 +100,17 @@ export const currentPricingConfig: CreditPricingConfig = {
 
     // ==================== nano-banana-pro ====================
     {
-      model: 'google/nano-banana-pro',
+      model: 'nano-banana-pro',
       params: { resolution: '1K' },
       priceUsd: 0.09, // 18 积分
     },
     {
-      model: 'google/nano-banana-pro',
+      model: 'nano-banana-pro',
       params: { resolution: '2K' },
       priceUsd: 0.09, // 18 积分
     },
     {
-      model: 'google/nano-banana-pro',
+      model: 'nano-banana-pro',
       params: { resolution: '4K' },
       priceUsd: 0.12, // 24 积分
     },

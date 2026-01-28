@@ -212,7 +212,7 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
       provider: 'Google',
       mediaType: 'image',
       modelName: 'nano-banana-pro',
-      model: 'google/nano-banana-pro',
+      model: 'nano-banana-pro',
       defaultConfig: {
         outputFormat: 'png',
         resolution: '2K',
@@ -284,7 +284,7 @@ export function useMediaGeneratorController({
   const initialModels = MODEL_REGISTRY[resolvedInitial] ?? [];
   const initialModelId =
     preferredModelId &&
-    initialModels.some((model) => model.id === preferredModelId)
+      initialModels.some((model) => model.id === preferredModelId)
       ? preferredModelId
       : (initialModels[0]?.id ?? '');
   const [mediaType, setMediaTypeState] = useState<MediaType>(resolvedInitial);
@@ -451,52 +451,52 @@ export function useMediaGeneratorController({
         const requestBody = (
           isSora
             ? buildSoraRequestBody({
+              prompt: trimmedPrompt,
+              resolvedConfig,
+              fileUuids,
+            })
+            : isNanoBanana
+              ? buildNanoBananaRequestBody({
                 prompt: trimmedPrompt,
                 resolvedConfig,
                 fileUuids,
               })
-            : isNanoBanana
-              ? buildNanoBananaRequestBody({
+              : isNanoBananaPro
+                ? buildNanoBananaProRequestBody({
                   prompt: trimmedPrompt,
                   resolvedConfig,
                   fileUuids,
                 })
-              : isNanoBananaPro
-                ? buildNanoBananaProRequestBody({
+                : isVeo3
+                  ? buildVeo3RequestBody({
                     prompt: trimmedPrompt,
                     resolvedConfig,
                     fileUuids,
                   })
-                : isVeo3
-                  ? buildVeo3RequestBody({
+                  : isKling
+                    ? buildKlingRequestBody({
                       prompt: trimmedPrompt,
                       resolvedConfig,
                       fileUuids,
                     })
-                  : isKling
-                    ? buildKlingRequestBody({
+                    : isGptImage
+                      ? buildGptImageRequestBody({
                         prompt: trimmedPrompt,
                         resolvedConfig,
                         fileUuids,
                       })
-                    : isGptImage
-                      ? buildGptImageRequestBody({
-                          prompt: trimmedPrompt,
-                          resolvedConfig,
-                          fileUuids,
-                        })
                       : isZImage
                         ? buildZImageRequestBody({
-                            prompt: trimmedPrompt,
-                            resolvedConfig,
-                          })
+                          prompt: trimmedPrompt,
+                          resolvedConfig,
+                        })
                         : {
-                            mediaType: payload.mediaType.toUpperCase(),
-                            modelName: resolvedModelName,
-                            model: definition.model ?? definition.modelName,
-                            prompt: trimmedPrompt,
-                            ...resolvedConfig,
-                          }
+                          mediaType: payload.mediaType.toUpperCase(),
+                          modelName: resolvedModelName,
+                          model: definition.model ?? definition.modelName,
+                          prompt: trimmedPrompt,
+                          ...resolvedConfig,
+                        }
         ) as Record<string, unknown>;
 
         if (isVeo3) {
@@ -506,9 +506,9 @@ export function useMediaGeneratorController({
               : rawGenerationType;
           const imageUrls = Array.isArray(requestBody.imageUrls)
             ? requestBody.imageUrls.filter(
-                (item): item is string =>
-                  typeof item === 'string' && item.trim().length > 0
-              )
+              (item): item is string =>
+                typeof item === 'string' && item.trim().length > 0
+            )
             : [];
 
           if (
@@ -693,9 +693,9 @@ export function useMediaGeneratorController({
         setActiveGeneration((prev) =>
           prev && prev.taskId === taskId
             ? {
-                ...prev,
-                errorMessage: message,
-              }
+              ...prev,
+              errorMessage: message,
+            }
             : prev
         );
       }
