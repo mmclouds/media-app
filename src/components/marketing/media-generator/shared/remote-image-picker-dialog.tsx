@@ -2,7 +2,6 @@
 
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { buildPublicFileDownloadUrl } from '@/lib/file-transfer';
-import { useEffect, useMemo, useState } from 'react';
 import type { MediaFeedItem, MediaFeedResponse } from '../types';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useVirtualFeed } from '@/hooks/use-virtual-feed';
