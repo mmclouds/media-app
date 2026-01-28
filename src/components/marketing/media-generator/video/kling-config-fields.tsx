@@ -182,11 +182,15 @@ export function KlingConfigFields({
           onUploaded={(files) => {
             const uploadedUrls = files
               .map((file) => file.downloadUrl)
-              .filter((url): url is string => typeof url === 'string' && url);
+              .filter(
+                (url): url is string =>
+                  typeof url === 'string' && url.trim().length > 0
+              );
             const uploadedUuids = files
               .map((file) => file.uuid)
               .filter(
-                (uuid): uuid is string => typeof uuid === 'string' && uuid
+                (uuid): uuid is string =>
+                  typeof uuid === 'string' && uuid.trim().length > 0
               );
             const nextImageUrls = [...imageUrls, ...uploadedUrls].slice(0, 5);
             const nextImageUuids = [...imageUuids, ...uploadedUuids].slice(
