@@ -59,6 +59,7 @@ export const buildKlingRequestBody = ({
 }) => {
   const model = resolveMode(normalizeStringValue(resolvedConfig.model));
   const duration = resolveDuration(resolvedConfig.duration);
+  const durationValue = String(duration);
   const sound =
     typeof resolvedConfig.sound === 'boolean' ? resolvedConfig.sound : true;
   const aspectRatio = resolveAspectRatio(
@@ -76,7 +77,7 @@ export const buildKlingRequestBody = ({
 
   const input: Record<string, unknown> = {
     prompt,
-    duration,
+    duration: durationValue,
     sound,
   };
 

@@ -46,8 +46,13 @@ function extractPricingParams(payload: Record<string, unknown>): {
   }
 
   // 提取 duration（视频时长）
-  if (typeof input.duration === 'number' && Number.isFinite(input.duration)) {
-    params.duration = input.duration;
+  if (typeof input.duration === 'string' && input.duration.trim().length > 0) {
+    params.duration = input.duration.trim();
+  } else if (
+    typeof input.duration === 'number' &&
+    Number.isFinite(input.duration)
+  ) {
+    params.duration = String(input.duration);
   }
 
   // 提取 sound（是否生成音频）
