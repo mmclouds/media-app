@@ -76,6 +76,23 @@ export const currentPricingConfig: CreditPricingConfig = {
       priceUsd: 0.02, // 4 积分
     },
 
+    // ==================== nano-banana-pro ====================
+    {
+      model: 'google/nano-banana-pro',
+      params: { resolution: '1K' },
+      priceUsd: 0.09, // 18 积分
+    },
+    {
+      model: 'google/nano-banana-pro',
+      params: { resolution: '2K' },
+      priceUsd: 0.09, // 18 积分
+    },
+    {
+      model: 'google/nano-banana-pro',
+      params: { resolution: '4K' },
+      priceUsd: 0.12, // 24 积分
+    },
+
     // ==================== gpt-image-1.5 ====================
     {
       model: ['gpt-image/1.5-text-to-image', 'gpt-image/1.5-image-to-image'],

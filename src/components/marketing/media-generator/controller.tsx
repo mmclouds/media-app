@@ -17,6 +17,10 @@ import {
   buildNanoBananaRequestBody,
 } from './image/nano-banana-config-fields';
 import {
+  NanoBananaProConfigFields,
+  buildNanoBananaProRequestBody,
+} from './image/nano-banana-pro-config-fields';
+import {
   GptImageConfigFields,
   buildGptImageRequestBody,
 } from './image/gpt-image-1-5-config-fields';
@@ -177,6 +181,23 @@ export const MODEL_REGISTRY: Record<MediaType, MediaModelDefinition[]> = {
         imageSize: 'auto',
       },
       configComponent: NanoBananaConfigFields,
+      supportsCreditEstimate: true,
+    },
+    {
+      id: 'nano-banana-pro',
+      label: 'Nano Banana Pro',
+      description:
+        "Google DeepMind's Nano Banana Pro delivers sharper 2K imagery, intelligent 4K scaling",
+      provider: 'Google',
+      mediaType: 'image',
+      modelName: 'nano-banana-pro',
+      model: 'google/nano-banana-pro',
+      defaultConfig: {
+        outputFormat: 'png',
+        resolution: '2K',
+        aspectRatio: 'auto',
+      },
+      configComponent: NanoBananaProConfigFields,
       supportsCreditEstimate: true,
     },
     {
@@ -398,6 +419,7 @@ export function useMediaGeneratorController({
       try {
       const isSora = definition.id === 'sora';
       const isNanoBanana = definition.id === 'nano-banana';
+      const isNanoBananaPro = definition.id === 'nano-banana-pro';
       const isVeo3 = definition.id === 'veo3';
       const isGptImage = definition.id === 'gpt-image-1.5';
       const isZImage = definition.id === 'z-image';
@@ -416,6 +438,12 @@ export function useMediaGeneratorController({
               resolvedConfig,
               fileUuids,
             })
+            : isNanoBananaPro
+              ? buildNanoBananaProRequestBody({
+                prompt: trimmedPrompt,
+                resolvedConfig,
+                fileUuids,
+              })
             : isVeo3
               ? buildVeo3RequestBody({
                 prompt: trimmedPrompt,
@@ -484,8 +512,11 @@ export function useMediaGeneratorController({
         const queryParams = new URLSearchParams();
         queryParams.set('mediaType', payload.mediaType.toUpperCase());
         queryParams.set('modelName', resolvedModelName);
+        const uuidParamName = isNanoBananaPro
+          ? 'inputFileUuids'
+          : 'fileUuids';
         Array.from(new Set(fileUuids)).forEach((uuid) => {
-          queryParams.append('fileUuids', uuid);
+          queryParams.append(uuidParamName, uuid);
         });
 
         const queryString = queryParams.toString();

@@ -29,12 +29,13 @@ export async function generateMetadata({
 }): Promise<Metadata | undefined> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'Metadata' });
+  const ht = await getTranslations({ locale, namespace: 'HomePage' });
 
   return constructMetadata({
-    title: t('title'),
-    description: t('description'),
+    title: ht('meta.title') || t('title'),
+    description: ht('meta.description') || t('description'),
     locale,
-    pathname: '',
+    pathname: '/',
   });
 }
 
@@ -43,10 +44,32 @@ interface HomePageProps {
 }
 
 export default async function HomePage(props: HomePageProps) {
-  await props.params;
+  const { locale } = await props.params;
+  const faq = await getTranslations({ locale, namespace: 'HomePage.faqs' });
+  const faqItems = Object.values(
+    faq.raw('items') as Record<string, { question: string; answer: string }>
+  );
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
   return (
     <>
       <div className="flex flex-col">
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD needed for SEO.
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
         {/* <div className="relative z-50 w-full">
           <MediaGeneratorWorkspace className="h-full w-full" />
         </div> */}

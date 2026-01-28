@@ -858,8 +858,8 @@
     "title": "vlook.ai",
     "description": "Generate images, video, and music in one AI studio. Fast, affordable, and built for creators.",
     "hero": {
-      "title": "Create images, video, and music in one AI studio.",
-      "description": "vlook.ai brings leading models together so you can prompt, compare, and export without jumping between tools.",
+      "title": "The AI video, image & music generator for creators.",
+      "description": "vlook unifies top models in one studio so you can create, compare, and export fast.",
       "introduction": "Meet vlook.ai",
       "primary": "Start Free Trial",
       "secondary": "View Pricing"
@@ -958,6 +958,12 @@
           "title": "Fast iteration",
           "description": "Quick previews, clean history, easy exports."
         }
+      },
+      "images": {
+        "item-1": "AI Models Integration - Gemini, Sora, Veo, Suno",
+        "item-2": "Multimodal Generation - Images, Video, Music",
+        "item-3": "Free Trial and Transparent Pricing",
+        "item-4": "Fast and Smooth User Experience"
       }
     },
     "features2": {
@@ -1010,20 +1016,20 @@
       "subtitle": "Quick answers about vlook.ai",
       "items": {
         "item-1": {
-          "question": "What is vlook.ai?",
-          "answer": "vlook.ai is an all-in-one AI media studio for creating images, video, and music from prompts."
+          "question": "Is vlook an AI video, image, and music generator?",
+          "answer": "Yes. vlook is an AI video, image, and music generator that lets you create multimodal content from prompts."
         },
         "item-2": {
-          "question": "How do I get started?",
-          "answer": "Enter a text prompt, upload an image, or add a video reference, then choose a model and generate."
+          "question": "How do I generate AI video, images, or music?",
+          "answer": "Enter a prompt or add a reference, choose a model, and generate AI video, images, or music in one studio."
         },
         "item-3": {
           "question": "How fast is generation?",
           "answer": "Speed depends on the model and input complexity, but vlook.ai is built for fast previews and iteration."
         },
         "item-4": {
-          "question": "Why use the video generator?",
-          "answer": "Create clips from text or references with leading models like Veo 3.1 and Nano Banana Pro."
+          "question": "What makes vlook a strong AI video generator?",
+          "answer": "vlook unifies leading models, offers fast previews, and makes AI video generation simple to iterate and export."
         },
         "item-5": {
           "question": "Are my outputs unique?",
@@ -1154,6 +1160,46 @@
       "description": "Generate images, video, and music with leading AI models. Start free today.",
       "primaryButton": "Start Free Trial",
       "secondaryButton": "View Pricing"
+    },
+    "meta": {
+      "title": "vlook | AI Video, Image & Music Generator",
+      "description": "vlook is an AI video, image & music generator that brings top models into one studio. Create, compare, and export fast."
+    },
+    "showcase": {
+      "prompt": {
+        "title": "AI video generator examples (Sora2)",
+        "subtitle": "Real prompts and AI video outputs",
+        "items": {
+          "item-1": {
+            "title": "AI video generator: cyberpunk alley",
+            "description": "Moody neon, rain-soaked streets, and cinematic motion."
+          },
+          "item-2": {
+            "title": "AI video generator: Times Square panda",
+            "description": "High-energy dance with fast social-style cuts."
+          }
+        }
+      },
+      "reference": {
+        "title": "AI video generator from image (Veo3.1)",
+        "subtitle": "Reference image + prompt to AI video",
+        "items": {
+          "item-1": {
+            "title": "AI video from image: surreal sink surfers",
+            "description": "Photoreal macro scene with sound cues and motion."
+          }
+        }
+      },
+      "frame": {
+        "title": "AI video generator with first/last frame control",
+        "subtitle": "Guide the opening and closing frame for your AI video",
+        "items": {
+          "item-1": {
+            "title": "AI video with frame control: ginger cat launch",
+            "description": "Set the first and last frames to shape the final clip."
+          }
+        }
+      }
     }
   },
   "AITextPage": {
