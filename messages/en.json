@@ -1273,7 +1273,7 @@
     "eyebrow": "Gemini 2.5 Flash Image",
     "hero": {
       "title": "Nano Banana AI image generator",
-      "subtitle": "Nano Banana uses google/nano-banana for text-to-image and google/nano-banana-edit for image editing. Built on Gemini 2.5 Flash Image (nano-banana), this AI image generator supports multi-image references (up to 10), output formats png/jpeg, and image_size/aspect ratios for precise creative control.",
+      "subtitle": "Gemini 3 Image Preview (aka Nano Banana) is an advanced AI model excelling in natural language-driven image generation and editing. It produces hyper-realistic, physics-aware visuals with seamless style transformations.",
       "primaryCta": "Open Nano Banana studio",
       "secondaryCta": "Explore capabilities",
       "tags": {
@@ -1281,59 +1281,54 @@
         "tag-2": "Consistent style",
         "tag-3": "Editable with references"
       },
-      "cta": "Use the workspace below to generate or edit images in seconds."
+      "cta": "Generate or edit images in the live workspace below."
     },
     "studio": {
-      "title": "Live studio",
-      "description": "Switch between text-to-image and image-to-image, upload up to 10 references, then set output format and image_size/aspect ratios before generating.",
-      "subtitle": "Nano Banana image workspace"
+      "title": "Live workspace",
+      "description": "Switch between text-to-image and image-to-image, add up to 10 references, then set output format and image_size/aspect ratios before you generate.",
+      "subtitle": "Nano Banana image studio"
     },
     "snapshot": {
       "title": "Nano Banana capabilities",
-      "description": "The Nano Banana model (google/nano-banana) delivers fast Gemini 2.5 Flash Image (nano-banana) quality for image editing, ad concepts, and production-ready assets.",
+      "description": "The Nano Banana model (google/nano-banana) delivers fast Gemini 2.5 Flash Image (nano-banana) quality for edits, ad concepts, and production-ready assets.",
       "items": {
         "item-1": {
           "title": "Text-to-image speed for daily production",
-          "description": "Use the Nano Banana AI image generator to turn prompts into crisp visuals with stable composition.",
+          "description": "Turn prompts into crisp, on-brand visuals with stable composition.",
           "alt": "Text-to-image preview"
         },
         "item-2": {
-          "title": "Image-to-image + multi-image references",
-          "description": "Edit, remix, and refine with multi-image references (up to 10) for consistent subjects.",
+          "title": "Image-to-image with multi-image references",
+          "description": "Edit, remix, and refine with up to 10 references to keep subjects consistent.",
           "alt": "Multi-image reference editing"
         },
         "item-3": {
-          "title": "Output formats png/jpeg",
-          "description": "Export clean PNG or JPEG files ready for product pages, ads, and social.",
+          "title": "PNG/JPEG exports",
+          "description": "Export clean files ready for product pages, ads, and social.",
           "alt": "Output format preview"
-        },
-        "item-4": {
-          "title": "image_size / aspect ratios control",
-          "description": "Choose image_size/aspect ratios: auto, 1:1, 9:16, 16:9, 3:4, 4:3, 3:2, 2:3, 5:4, 4:5, 21:9.",
-          "alt": "Aspect ratio grid"
         }
       }
     },
     "workflow": {
       "title": "How Nano Banana works",
-      "description": "A repeatable flow for text-to-image, image-to-image, and image editing campaigns.",
+      "description": "A repeatable flow for text-to-image, image-to-image, and fast image editing.",
       "stepLabel": "Step {index}",
       "items": {
         "item-1": {
-          "title": "Pick a mode: text-to-image or image-to-image",
-          "description": "Start with a fresh prompt or guide edits with reference images."
+          "title": "Pick a mode",
+          "description": "Start with a prompt or guide edits with reference images."
         },
         "item-2": {
-          "title": "Add multi-image references (up to 10)",
+          "title": "Add references",
           "description": "Upload product, brand, or style images to keep outputs consistent."
         },
         "item-3": {
-          "title": "Set output format and image_size",
-          "description": "Choose png/jpeg and select image_size/aspect ratios that fit your channel."
+          "title": "Set output",
+          "description": "Choose png/jpeg and select image_size/aspect ratios that fit each channel."
         },
         "item-4": {
-          "title": "Generate, refine, export",
-          "description": "Iterate quickly, then download the final Nano Banana outputs."
+          "title": "Generate & export",
+          "description": "Iterate quickly, then download final Nano Banana outputs."
         }
       }
     },
@@ -1365,15 +1360,15 @@
       "items": {
         "item-1": {
           "question": "What is Nano Banana (google/nano-banana)?",
-          "answer": "Nano Banana is Gemini 2.5 Flash Image (nano-banana), an AI image generator for text-to-image and image editing at speed."
+          "answer": "Nano Banana is Gemini 2.5 Flash Image (nano-banana), built for fast text-to-image and image editing."
         },
         "item-2": {
           "question": "Does Nano Banana support image-to-image?",
-          "answer": "Yes. Use image-to-image with multi-image references (up to 10) to steer edits and variations."
+          "answer": "Yes. Use image-to-image with up to 10 references to steer edits and variations."
         },
         "item-3": {
           "question": "What output formats are available?",
-          "answer": "Output formats png/jpeg are supported for easy publishing."
+          "answer": "PNG and JPEG outputs are supported for easy publishing."
         },
         "item-4": {
           "question": "Which image_size/aspect ratios can I choose?",
@@ -1381,7 +1376,7 @@
         },
         "item-5": {
           "question": "Can I keep brand style consistent?",
-          "answer": "Yes. Multi-image references and prompt controls keep style, lighting, and palette aligned across outputs."
+          "answer": "Yes. Multi-image references and prompt controls keep style, lighting, and palette aligned."
         }
       }
     },
@@ -1393,13 +1388,13 @@
     },
     "examples": {
       "title": "Nano Banana image-to-image examples",
-      "subtitle": "Real multi-image reference edits with output images",
+      "subtitle": "Real multi-image reference edits and final outputs",
       "inputLabel": "Input images",
       "outputLabel": "Output image",
       "items": {
         "item-1": {
           "title": "Editorial portrait relight",
-          "description": "Two inputs guide lighting and styling; Nano Banana blends the references into a clean editorial upgrade.",
+          "description": "Two inputs guide lighting and styling; Nano Banana blends references into a clean editorial upgrade.",
           "prompt": "Edit the portrait to match the lighting and style references while keeping facial identity."
         },
         "item-2": {

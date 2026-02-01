@@ -1273,67 +1273,62 @@
     "eyebrow": "Gemini 2.5 Flash Image",
     "hero": {
       "title": "Nano Banana AI 图片生成",
-      "subtitle": "Nano Banana 使用 google/nano-banana 进行 text-to-image，使用 google/nano-banana-edit 进行 image editing。基于 Gemini 2.5 Flash Image (nano-banana)，这套 AI image generator 支持 multi-image references (up to 10)、output formats png/jpeg，以及 image_size/aspect ratios 以精准控制画面。",
-      "primaryCta": "进入 Nano Banana 工作室",
+      "subtitle": "Gemini 3 Image Preview（又称 Nano Banana）是一款先进的 AI 模型，擅长用自然语言驱动图像生成与编辑，可输出超真实、具物理感的画面，并实现无缝风格迁移。",
+      "primaryCta": "打开 Nano Banana 工作室",
       "secondaryCta": "查看能力",
       "tags": {
         "tag-1": "快速迭代",
         "tag-2": "风格一致",
         "tag-3": "参考图可编辑"
       },
-      "cta": "在下方工作区快速生成或编辑图片。"
+      "cta": "在下方实时工作区生成或编辑图片。"
     },
     "studio": {
       "title": "实时工作台",
-      "description": "在同一工作区切换 text-to-image 与 image-to-image，上传最多 10 张参考图，然后选择输出格式与 image_size/aspect ratios。",
-      "subtitle": "Nano Banana 图像工作区"
+      "description": "在 text-to-image 与 image-to-image 间切换，上传最多 10 张参考图，再选择输出格式与 image_size/aspect ratios。",
+      "subtitle": "Nano Banana 图像工作室"
     },
     "snapshot": {
       "title": "Nano Banana 能力概览",
-      "description": "Nano Banana（google/nano-banana）以 Gemini 2.5 Flash Image (nano-banana) 速度输出，适合 image editing 与营销素材生成。",
+      "description": "Nano Banana（google/nano-banana）以 Gemini 2.5 Flash Image (nano-banana) 速度输出，适合高质量编辑与营销素材生成。",
       "items": {
         "item-1": {
-          "title": "Text-to-image 快速出图",
-          "description": "使用 Nano Banana AI image generator 将提示词转为清晰视觉。",
+          "title": "Text-to-image 快速产出",
+          "description": "将提示词转为清晰、稳定的画面。",
           "alt": "Text-to-image 预览"
         },
         "item-2": {
-          "title": "Image-to-image + multi-image references",
+          "title": "Image-to-image 多参考控制",
           "description": "最多 10 张参考图引导编辑与变体，保持主体一致。",
           "alt": "多图参考编辑"
         },
         "item-3": {
-          "title": "Output formats png/jpeg",
+          "title": "PNG/JPEG 输出",
           "description": "支持 PNG 或 JPEG 输出，适配网站、广告和社媒。",
           "alt": "输出格式预览"
-        },
-        "item-4": {
-          "title": "image_size / aspect ratios 可控",
-          "description": "可选 image_size/aspect ratios：auto、1:1、9:16、16:9、3:4、4:3、3:2、2:3、5:4、4:5、21:9。",
-          "alt": "画幅比例示意"
         }
       }
     },
     "workflow": {
       "title": "Nano Banana 工作流程",
-      "description": "适用于 text-to-image、image-to-image 与 image editing 的可复用流程。",
+      "description": "适用于 text-to-image、image-to-image 与快速 image editing 的标准流程。",
       "stepLabel": "步骤 {index}",
       "items": {
         "item-1": {
-          "title": "选择 text-to-image 或 image-to-image 模式",
+          "title": "选择模式",
           "description": "从提示词开始或用参考图驱动编辑。"
         },
         "item-2": {
-          "title": "添加 multi-image references (up to 10)",
+          "title": "添加参考",
           "description": "上传产品/品牌/风格参考，确保输出一致。"
         },
         "item-3": {
-          "title": "设置输出格式与 image_size",
+          "title": "设置输出",
           "description": "选择 png/jpeg 与所需 image_size/aspect ratios。"
         },
         "item-4": {
-          "title": "生成、微调、导出",
-          "description": "快速迭代并下载最终 Nano Banana 结果。"
+          "title": "生成导出",
+          "description": "快速迭代并下载最终结果。"
         }
       }
     },
@@ -1365,15 +1360,15 @@
       "items": {
         "item-1": {
           "question": "什么是 Nano Banana（google/nano-banana）？",
-          "answer": "Nano Banana 是 Gemini 2.5 Flash Image (nano-banana)，一套用于 text-to-image 与 image editing 的 AI image generator。"
+          "answer": "Nano Banana 是 Gemini 2.5 Flash Image (nano-banana)，用于快速 text-to-image 与 image editing。"
         },
         "item-2": {
           "question": "Nano Banana 支持 image-to-image 吗？",
-          "answer": "支持。可通过 multi-image references (up to 10) 引导编辑与变体。"
+          "answer": "支持。可通过最多 10 张参考图引导编辑与变体。"
         },
         "item-3": {
           "question": "支持哪些输出格式？",
-          "answer": "支持 output formats png/jpeg，方便发布与投放。"
+          "answer": "支持 PNG/JPEG 输出，方便发布与投放。"
         },
         "item-4": {
           "question": "image_size/aspect ratios 有哪些选择？",
@@ -1381,30 +1376,30 @@
         },
         "item-5": {
           "question": "如何保持品牌风格一致？",
-          "answer": "使用参考图与提示词控制，即可保持风格、光线与配色一致。"
+          "answer": "使用多图参考与提示词控制，即可保持风格、光线与配色一致。"
         }
       }
     },
     "cta": {
       "title": "用 Nano Banana 快速生成品牌视觉",
-      "description": "在 VLook.ai Studio 使用 text-to-image、image-to-image 与 image editing 快速产出素材。",
+      "description": "在 VLook.ai Studio 使用 text-to-image、image-to-image 与快速 image editing 产出素材。",
       "primaryCta": "开始使用工作室",
       "secondaryCta": "查看价格"
     },
     "examples": {
       "title": "Nano Banana 图生图示例",
-      "subtitle": "真实多图参考与输出图像",
+      "subtitle": "多图参考编辑与真实输出",
       "inputLabel": "输入图片",
       "outputLabel": "输出图片",
       "items": {
         "item-1": {
           "title": "编辑级人像光线优化",
-          "description": "两张参考图引导光线与风格，输出干净的人像质感。",
-          "prompt": "根据参考图调整人像光线与风格，同时保持身份一致。"
+          "description": "两张参考图引导光线与风格，输出干净的人像升级。",
+          "prompt": "根据参考图匹配光线与风格，同时保持人物身份。"
         },
         "item-2": {
           "title": "双风格角色混合",
-          "description": "合并两张参考脸部风格，得到统一的风格化输出。",
+          "description": "融合两张参考脸部风格，得到统一的风格化肖像。",
           "prompt": "融合两张参考图为一张统一风格的肖像，保持一致色调。"
         }
       }

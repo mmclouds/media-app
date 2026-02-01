@@ -9,6 +9,7 @@ import Container from '@/components/layout/container';
 import { Footer } from '@/components/layout/footer';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
+import { StudioHashCleaner } from '@/components/marketing/media-studio/studio-hash-cleaner';
 import { Button } from '@/components/ui/button';
 import { constructMetadata } from '@/lib/metadata';
 import type { Metadata } from 'next';
@@ -71,16 +72,6 @@ export default async function NanoBananaStudioPage() {
         height: 929,
       },
     },
-    {
-      title: t('snapshot.items.item-4.title'),
-      description: t('snapshot.items.item-4.description'),
-      image: {
-        src: '/images/generated/sora2-character-injection-20260123-003.jpg',
-        alt: t('snapshot.items.item-4.alt'),
-        width: 1207,
-        height: 929,
-      },
-    },
   ];
 
   const workflowItems = [
@@ -139,6 +130,7 @@ export default async function NanoBananaStudioPage() {
     <>
       <Navbar scroll={true} />
       <main className="bg-background text-foreground">
+        <StudioHashCleaner />
         <div className="mb-12 lg:mb-16">
           <HeroSection
             eyebrow={t('eyebrow')}

@@ -45,7 +45,7 @@ export default function WorkflowStepsSection({
             <Fragment key={`workflow-step-${index + 1}`}>
               <div className="flex-1 rounded-2xl border border-border/60 bg-background/80 p-6 shadow-sm">
                 <div className="flex items-center gap-3">
-                  <span className="flex size-10 items-center justify-center rounded-full bg-foreground text-sm font-semibold text-background">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-foreground text-sm font-semibold leading-none text-background">
                     {index + 1}
                   </span>
                   <h3 className="text-lg font-semibold text-foreground">

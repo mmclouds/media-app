@@ -200,25 +200,23 @@ export function AspectRatioField({
     <div className="space-y-2">
       <div className="flex items-center justify-between">{label} </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2" role="radiogroup" aria-label={label}>
         {options.map((option) => {
           const isChecked = option === selectedValue;
           const { width, height } = getDimensions(option);
           return (
-            <label
+            <button
               key={option}
+              type="button"
+              role="radio"
+              aria-checked={isChecked}
               className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-xs transition ${
                 isChecked
                   ? 'border-white/40 bg-white/10 text-white'
                   : 'border-white/15 bg-[#0b0d10] text-white/70 hover:border-white/40 hover:bg-white/5'
               }`}
+              onClick={() => onChange(option)}
             >
-              <input
-                type="checkbox"
-                className="sr-only"
-                checked={isChecked}
-                onChange={() => onChange(option)}
-              />
               <span
                 aria-hidden
                 className="flex items-center justify-center overflow-hidden rounded-sm bg-white/10 ring-1 ring-white/20"
@@ -227,7 +225,7 @@ export function AspectRatioField({
                 <span className="h-full w-full border border-white/40" />
               </span>
               <span className="font-medium">{option}</span>
-            </label>
+            </button>
           );
         })}
       </div>
