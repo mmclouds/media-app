@@ -1289,11 +1289,11 @@
   },
   "NanoBananaStudioPage": {
     "title": "Nano Banana AI image generator",
-    "description": "Create hyper-realistic images in seconds with Nano Banana. Gemini 3 Image Preview powers natural-language generation, seamless edits, and physics-aware detail for ads and social.",
+    "description": "Create hyper-realistic images in seconds with Nano Banana. It powers natural-language generation, seamless edits, and physics-aware detail for ads and social.",
     "eyebrow": "Gemini 2.5 Flash Image",
     "hero": {
       "title": "Nano Banana AI image generator",
-      "subtitle": "Gemini 3 Image Preview (aka Nano Banana) is an advanced AI model excelling in natural language-driven image generation and editing. It produces hyper-realistic, physics-aware visuals with seamless style transformations.",
+      "subtitle": "Nano Banana (Gemini 2.5 Flash Image) is an advanced AI model excelling in natural language-driven image generation and editing. It produces hyper-realistic, physics-aware visuals with seamless style transformations.",
       "primaryCta": "Open Nano Banana studio",
       "secondaryCta": "Explore capabilities",
       "tags": {
@@ -1309,23 +1309,30 @@
       "subtitle": "Nano Banana image studio"
     },
     "snapshot": {
+      "eyebrow": "Capabilities",
       "title": "Nano Banana capabilities",
-      "description": "The Nano Banana model (google/nano-banana) delivers fast Gemini 2.5 Flash Image (nano-banana) quality for edits, ad concepts, and production-ready assets.",
+      "description": "Built for rapid creative cycles with consistent composition, brand-ready color, and export control for ads, social, and ecommerce.",
+      "cardLabel": "Capability {index}",
+      "brandLabel": "Nano Banana",
       "items": {
         "item-1": {
-          "title": "Text-to-image speed for daily production",
-          "description": "Turn prompts into crisp, on-brand visuals with stable composition.",
+          "title": "Fast text-to-image with brand-ready consistency",
+          "description": "Generate clean compositions, accurate lighting, and repeatable style in seconds.",
           "alt": "Text-to-image preview"
         },
         "item-2": {
-          "title": "Image-to-image with multi-image references",
-          "description": "Edit, remix, and refine with up to 10 references to keep subjects consistent.",
+          "title": "Multi-reference image-to-image edits",
+          "description": "Blend up to 10 references to lock identity, materials, and art direction.",
           "alt": "Multi-image reference editing"
         },
         "item-3": {
-          "title": "PNG/JPEG exports",
-          "description": "Export clean files ready for product pages, ads, and social.",
+          "title": "Production exports for teams",
+          "description": "Deliver PNG/JPEG assets that drop into product pages, ads, and social without cleanup.",
           "alt": "Output format preview"
+        },
+        "item-4": {
+          "title": "Precise size + aspect control",
+          "description": "Pick vertical, square, or cinematic frames and keep framing intact across variations."
         }
       }
     },
@@ -1376,11 +1383,11 @@
     },
     "faq": {
       "title": "Nano Banana FAQ",
-      "description": "Answers about google/nano-banana, Gemini 2.5 Flash Image (nano-banana), and usage.",
+      "description": "Answers about nano-banana(Gemini 2.5 Flash Image)and usage.",
       "items": {
         "item-1": {
-          "question": "What is Nano Banana (google/nano-banana)?",
-          "answer": "Nano Banana is Gemini 2.5 Flash Image (nano-banana), built for fast text-to-image and image editing."
+          "question": "What is Nano Banana?",
+          "answer": "built for fast text-to-image and image editing."
         },
         "item-2": {
           "question": "Does Nano Banana support image-to-image?",
@@ -1445,8 +1452,11 @@
       "subtitle": "GPT-Image-1.5 image studio"
     },
     "snapshot": {
+      "eyebrow": "Capabilities",
       "title": "GPT-Image-1.5 capabilities",
       "description": "Reliable outputs for marketing, ecommerce, and concept art.",
+      "cardLabel": "Capability {index}",
+      "brandLabel": "GPT-Image-1.5",
       "items": {
         "item-1": {
           "title": "Text-to-image clarity",
@@ -1559,8 +1569,11 @@
       "subtitle": "Z-Image studio"
     },
     "snapshot": {
+      "eyebrow": "Capabilities",
       "title": "Z-Image capabilities",
       "description": "Efficient image generation for quick turnarounds and consistent style.",
+      "cardLabel": "Capability {index}",
+      "brandLabel": "Z-Image",
       "items": {
         "item-1": {
           "title": "Fast iteration",
@@ -1673,8 +1686,11 @@
       "subtitle": "Nano Banana Pro studio"
     },
     "snapshot": {
+      "eyebrow": "Capabilities",
       "title": "Nano Banana Pro capabilities",
       "description": "Premium outputs for brand campaigns and high-end visuals.",
+      "cardLabel": "Capability {index}",
+      "brandLabel": "Nano Banana Pro",
       "items": {
         "item-1": {
           "title": "Premium detail",
@@ -1787,8 +1803,11 @@
       "subtitle": "Kling 2.6 video studio"
     },
     "snapshot": {
+      "eyebrow": "Capabilities",
       "title": "Kling 2.6 capabilities",
       "description": "Cinematic motion for short-form video production.",
+      "cardLabel": "Capability {index}",
+      "brandLabel": "Kling 2.6",
       "items": {
         "item-1": {
           "title": "Text-to-video generation",
@@ -1901,8 +1920,11 @@
       "subtitle": "Suno music studio"
     },
     "snapshot": {
+      "eyebrow": "Capabilities",
       "title": "Suno capabilities",
       "description": "Original music for content, ads, and storytelling.",
+      "cardLabel": "Capability {index}",
+      "brandLabel": "Suno",
       "items": {
         "item-1": {
           "title": "Prompt-to-music",

@@ -1,4 +1,3 @@
-import AlternatingMediaSection from '@/components/custom-blocks/alternating-media/alternating-media';
 import FaqSection from '@/components/custom-blocks/faqs/faqs';
 import HeroSection from '@/components/custom-blocks/hero/hero';
 import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-promo';
@@ -9,6 +8,7 @@ import Container from '@/components/layout/container';
 import { Footer } from '@/components/layout/footer';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
+import { CapabilitiesCardsSection } from '@/components/custom-blocks/capabilities-cards/capabilities-cards';
 import { StudioHashCleaner } from '@/components/marketing/media-studio/studio-hash-cleaner';
 import { Button } from '@/components/ui/button';
 import { constructMetadata } from '@/lib/metadata';
@@ -40,37 +40,22 @@ export async function generateMetadata({
 export default async function NanoBananaStudioPage() {
   const t = await getTranslations('NanoBananaStudioPage');
 
-  const highlightItems = [
+  const capabilityItems = [
     {
       title: t('snapshot.items.item-1.title'),
       description: t('snapshot.items.item-1.description'),
-      image: {
-        src: '/images/generated/kitten-dreamy-20260123-001.jpg',
-        alt: t('snapshot.items.item-1.alt'),
-        width: 1207,
-        height: 929,
-        priority: true,
-      },
     },
     {
       title: t('snapshot.items.item-2.title'),
       description: t('snapshot.items.item-2.description'),
-      image: {
-        src: '/images/generated/sora2-multishot-continuity-20260123-003.jpg',
-        alt: t('snapshot.items.item-2.alt'),
-        width: 1207,
-        height: 929,
-      },
     },
     {
       title: t('snapshot.items.item-3.title'),
       description: t('snapshot.items.item-3.description'),
-      image: {
-        src: '/images/generated/sora2-physics-realism-20260123-002.jpg',
-        alt: t('snapshot.items.item-3.alt'),
-        width: 1207,
-        height: 929,
-      },
+    },
+    {
+      title: t('snapshot.items.item-4.title'),
+      description: t('snapshot.items.item-4.description'),
     },
   ];
 
@@ -203,12 +188,16 @@ export default async function NanoBananaStudioPage() {
           </Container>
         </section>
 
-        <AlternatingMediaSection
+        <CapabilitiesCardsSection
           id="highlights"
-          subtitle={t('snapshot.title')}
+          eyebrow={t('snapshot.eyebrow')}
+          title={t('snapshot.title')}
           description={t('snapshot.description')}
-          items={highlightItems}
-          className="[&_h2]:text-4xl [&_h2]:font-bold"
+          items={capabilityItems}
+          getCardLabel={(index) =>
+            t('snapshot.cardLabel', { index })
+          }
+          brandLabel={t('snapshot.brandLabel')}
         />
 
         <WorkflowStepsSection

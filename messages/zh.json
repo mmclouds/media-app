@@ -1289,11 +1289,11 @@
   },
   "NanoBananaStudioPage": {
     "title": "Nano Banana AI 图片生成",
-    "description": "用 Nano Banana 几秒生成超真实图像。Gemini 3 Image Preview 支持自然语言生成与编辑，物理细节更真实，适配广告与社媒。",
+    "description": "用 Nano Banana 几秒生成超真实图像。它支持自然语言生成与编辑，物理细节更真实，适配广告与社媒。",
     "eyebrow": "Gemini 2.5 Flash Image",
     "hero": {
       "title": "Nano Banana AI 图片生成",
-      "subtitle": "Gemini 3 Image Preview（又称 Nano Banana）是一款先进的 AI 模型，擅长用自然语言驱动图像生成与编辑，可输出超真实、具物理感的画面，并实现无缝风格迁移。",
+      "subtitle": "Nano Banana（Gemini 2.5 Flash Image）是一款先进的 AI 模型，擅长用自然语言驱动图像生成与编辑，可输出超真实、具物理感的画面，并实现无缝风格迁移。",
       "primaryCta": "打开 Nano Banana 工作室",
       "secondaryCta": "查看能力",
       "tags": {
@@ -1305,33 +1305,40 @@
     },
     "studio": {
       "title": "实时工作台",
-      "description": "在 text-to-image 与 image-to-image 间切换，上传最多 10 张参考图，再选择输出格式与 image_size/aspect ratios。",
+      "description": "在 文生图 与 图生图 间切换，上传最多 10 张参考图，再选择输出格式与 image_size/aspect ratios。",
       "subtitle": "Nano Banana 图像工作室"
     },
     "snapshot": {
+      "eyebrow": "能力概览",
       "title": "Nano Banana 能力概览",
-      "description": "Nano Banana（google/nano-banana）以 Gemini 2.5 Flash Image (nano-banana) 速度输出，适合高质量编辑与营销素材生成。",
+      "description": "面向高频创意迭代，兼顾画面稳定、品牌一致与投放落地。",
+      "cardLabel": "能力 {index}",
+      "brandLabel": "Nano Banana",
       "items": {
         "item-1": {
-          "title": "Text-to-image 快速产出",
-          "description": "将提示词转为清晰、稳定的画面。",
-          "alt": "Text-to-image 预览"
+          "title": "文生图 高速且风格稳定",
+          "description": "几秒生成清晰构图与可靠光影，保持品牌一致性。",
+          "alt": "文生图 预览"
         },
         "item-2": {
-          "title": "Image-to-image 多参考控制",
-          "description": "最多 10 张参考图引导编辑与变体，保持主体一致。",
+          "title": "图生图 多参考精细编辑",
+          "description": "最多 10 张参考图锁定主体、材质与风格方向。",
           "alt": "多图参考编辑"
         },
         "item-3": {
-          "title": "PNG/JPEG 输出",
-          "description": "支持 PNG 或 JPEG 输出，适配网站、广告和社媒。",
+          "title": "团队级输出",
+          "description": "直接产出 PNG/JPEG，适配商品页、广告与社媒。",
           "alt": "输出格式预览"
+        },
+        "item-4": {
+          "title": "尺寸与画幅精控",
+          "description": "方形、竖版、横版自由切换，构图不跑位。"
         }
       }
     },
     "workflow": {
       "title": "Nano Banana 工作流程",
-      "description": "适用于 text-to-image、image-to-image 与快速 image editing 的标准流程。",
+      "description": "适用于 文生图、图生图 与快速 image editing 的标准流程。",
       "stepLabel": "步骤 {index}",
       "items": {
         "item-1": {
@@ -1376,14 +1383,14 @@
     },
     "faq": {
       "title": "Nano Banana 常见问题",
-      "description": "关于 google/nano-banana、Gemini 2.5 Flash Image (nano-banana) 与使用方式的解答。",
+      "description": "关于 nano-banana(Gemini 2.5 Flash Image)与使用方式的解答。",
       "items": {
         "item-1": {
-          "question": "什么是 Nano Banana（google/nano-banana）？",
-          "answer": "Nano Banana 是 Gemini 2.5 Flash Image (nano-banana)，用于快速 text-to-image 与 image editing。"
+          "question": "什么是 Nano Banana？",
+          "answer": "Nano Banana 是 Gemini 2.5 Flash Image (nano-banana)，用于快速 文生图 与 image editing。"
         },
         "item-2": {
-          "question": "Nano Banana 支持 image-to-image 吗？",
+          "question": "Nano Banana 支持 图生图 吗？",
           "answer": "支持。可通过最多 10 张参考图引导编辑与变体。"
         },
         "item-3": {
@@ -1402,7 +1409,7 @@
     },
     "cta": {
       "title": "用 Nano Banana 快速生成品牌视觉",
-      "description": "在 VLook.ai Studio 使用 text-to-image、image-to-image 与快速 image editing 产出素材。",
+      "description": "在 VLook.ai Studio 使用 文生图、图生图 与快速 image editing 产出素材。",
       "primaryCta": "开始使用工作室",
       "secondaryCta": "查看价格"
     },
@@ -1434,29 +1441,32 @@
     "eyebrow": "OpenAI GPT-Image-1.5",
     "hero": {
       "title": "GPT-Image-1.5 AI image generator",
-      "subtitle": "GPT-Image-1.5 supports fast text-to-image and image-to-image workflows with clean composition and consistent results.",
+      "subtitle": "GPT-Image-1.5 supports fast 文生图 and 图生图 workflows with clean composition and consistent results.",
       "primaryCta": "Open GPT-Image-1.5 studio",
       "secondaryCta": "Explore capabilities",
       "cta": "Generate or edit images in the live workspace below."
     },
     "studio": {
       "title": "Live workspace",
-      "description": "Switch between text-to-image and image-to-image, upload references, then set output format and size before you generate.",
+      "description": "Switch between 文生图 and 图生图, upload references, then set output format and size before you generate.",
       "subtitle": "GPT-Image-1.5 image studio"
     },
     "snapshot": {
+      "eyebrow": "Capabilities",
       "title": "GPT-Image-1.5 capabilities",
       "description": "Reliable outputs for marketing, ecommerce, and concept art.",
+      "cardLabel": "Capability {index}",
+      "brandLabel": "GPT-Image-1.5",
       "items": {
         "item-1": {
-          "title": "Text-to-image clarity",
+          "title": "文生图 clarity",
           "description": "Create crisp visuals with balanced lighting and stable composition.",
-          "alt": "Text-to-image preview"
+          "alt": "文生图 preview"
         },
         "item-2": {
-          "title": "Image-to-image refinement",
+          "title": "图生图 refinement",
           "description": "Guide edits with reference images and style cues.",
-          "alt": "Image-to-image preview"
+          "alt": "图生图 preview"
         },
         "item-3": {
           "title": "Flexible exports",
@@ -1494,10 +1504,10 @@
       "items": {
         "item-1": {
           "question": "What is GPT-Image-1.5?",
-          "answer": "GPT-Image-1.5 is an OpenAI image model for text-to-image and image-to-image generation."
+          "answer": "GPT-Image-1.5 is an OpenAI image model for 文生图 and 图生图 generation."
         },
         "item-2": {
-          "question": "Does it support image-to-image?",
+          "question": "Does it support 图生图?",
           "answer": "Yes. Upload reference images to guide edits and variations."
         },
         "item-3": {
@@ -1516,13 +1526,13 @@
     },
     "cta": {
       "title": "Create visuals with GPT-Image-1.5",
-      "description": "Generate campaign-ready images with text-to-image and image-to-image workflows in VLook.ai Studio.",
+      "description": "Generate campaign-ready images with 文生图 and 图生图 workflows in VLook.ai Studio.",
       "primaryCta": "Start in the studio",
       "secondaryCta": "See pricing"
     },
     "examples": {
       "title": "GPT-Image-1.5 examples",
-      "subtitle": "Text-to-image and image-to-image samples",
+      "subtitle": "文生图 and 图生图 samples",
       "inputLabel": "Input images",
       "outputLabel": "Output image",
       "items": {
@@ -1555,12 +1565,15 @@
     },
     "studio": {
       "title": "Live workspace",
-      "description": "Switch between text-to-image and image-to-image, upload references, then set output format and size before you generate.",
+      "description": "Switch between 文生图 and 图生图, upload references, then set output format and size before you generate.",
       "subtitle": "Z-Image studio"
     },
     "snapshot": {
+      "eyebrow": "Capabilities",
       "title": "Z-Image capabilities",
       "description": "Efficient image generation for quick turnarounds and consistent style.",
+      "cardLabel": "Capability {index}",
+      "brandLabel": "Z-Image",
       "items": {
         "item-1": {
           "title": "Fast iteration",
@@ -1569,7 +1582,7 @@
         },
         "item-2": {
           "title": "Reference-guided edits",
-          "description": "Keep brand style aligned with image-to-image references.",
+          "description": "Keep brand style aligned with 图生图 references.",
           "alt": "Reference edit preview"
         },
         "item-3": {
@@ -1611,7 +1624,7 @@
           "answer": "Z-Image is an efficient image generation model designed for fast iteration."
         },
         "item-2": {
-          "question": "Does it support image-to-image?",
+          "question": "Does it support 图生图?",
           "answer": "Yes. Upload reference images to guide edits."
         },
         "item-3": {
@@ -1636,7 +1649,7 @@
     },
     "examples": {
       "title": "Z-Image examples",
-      "subtitle": "Text-to-image and image-to-image samples",
+      "subtitle": "文生图 and 图生图 samples",
       "inputLabel": "Input images",
       "outputLabel": "Output image",
       "items": {
@@ -1669,12 +1682,15 @@
     },
     "studio": {
       "title": "Live workspace",
-      "description": "Switch between text-to-image and image-to-image, upload references, then set output format and size before you generate.",
+      "description": "Switch between 文生图 and 图生图, upload references, then set output format and size before you generate.",
       "subtitle": "Nano Banana Pro studio"
     },
     "snapshot": {
+      "eyebrow": "Capabilities",
       "title": "Nano Banana Pro capabilities",
       "description": "Premium outputs for brand campaigns and high-end visuals.",
+      "cardLabel": "Capability {index}",
+      "brandLabel": "Nano Banana Pro",
       "items": {
         "item-1": {
           "title": "Premium detail",
@@ -1725,7 +1741,7 @@
           "answer": "Nano Banana Pro is a premium image model for high-quality visuals."
         },
         "item-2": {
-          "question": "Does it support image-to-image?",
+          "question": "Does it support 图生图?",
           "answer": "Yes. Upload references to guide edits and variations."
         },
         "item-3": {
@@ -1750,7 +1766,7 @@
     },
     "examples": {
       "title": "Nano Banana Pro examples",
-      "subtitle": "Text-to-image and image-to-image samples",
+      "subtitle": "文生图 and 图生图 samples",
       "inputLabel": "Input images",
       "outputLabel": "Output image",
       "items": {
@@ -1787,8 +1803,11 @@
       "subtitle": "Kling 2.6 video studio"
     },
     "snapshot": {
+      "eyebrow": "Capabilities",
       "title": "Kling 2.6 capabilities",
       "description": "Cinematic motion for short-form video production.",
+      "cardLabel": "Capability {index}",
+      "brandLabel": "Kling 2.6",
       "items": {
         "item-1": {
           "title": "Text-to-video generation",
@@ -1901,8 +1920,11 @@
       "subtitle": "Suno music studio"
     },
     "snapshot": {
+      "eyebrow": "Capabilities",
       "title": "Suno capabilities",
       "description": "Original music for content, ads, and storytelling.",
+      "cardLabel": "Capability {index}",
+      "brandLabel": "Suno",
       "items": {
         "item-1": {
           "title": "Prompt-to-music",
