@@ -99,22 +99,22 @@ export default async function NanoBananaStudioPage() {
       description: t('examples.items.item-1.description'),
       prompt: t('examples.items.item-1.prompt'),
       inputImages: [
-        'https://replicate.delivery/pbxt/NbYIclp4A5HWLsJ8lF5KgiYSNaLBBT1jUcYcHYQmN1uy5OnN/tmpcqc07f_q.png',
-        'https://replicate.delivery/pbxt/NbYId45yH8s04sptdtPcGqFIhV7zS5GTcdS3TtNliyTAoYPO/Screenshot%202025-08-26%20at%205.30.12%E2%80%AFPM.png',
+        '/images/generated/nano-banana-example-input-1.png',
+        '/images/generated/nano-banana-example-input-2.png',
       ],
       output:
-        'https://replicate.delivery/xezq/eQ2MQYrD6XzheEgCe7OcHlUJAXYc8HaMJmGPmbTOCClZS7dqA/tmp4vqrduzh.jpg',
+        '/images/generated/nano-banana-example-output-1.jpg',
     },
     {
       title: t('examples.items.item-2.title'),
       description: t('examples.items.item-2.description'),
       prompt: t('examples.items.item-2.prompt'),
       inputImages: [
-        'https://replicate.delivery/pbxt/NeRx7gSc6ORMdhCjOzV0Of9VAEDNjQ56RJWVXFTjT53AK5L1/billie.jpeg',
-        'https://replicate.delivery/pbxt/NeRx7dSeZKRgWr0V6ilLhZsk8HSZgV3Z9VsauD7FSYrrvuXD/michael.jpeg',
+        '/images/generated/nano-banana-example-input-3.jpeg',
+        '/images/generated/nano-banana-example-input-4.jpeg',
       ],
       output:
-        'https://replicate.delivery/xezq/mbE0pfJqUtTfu0vp7gjG93nkNYNsy78a1onho9oos56fkTjqA/tmpgxxuv701.jpg',
+        '/images/generated/nano-banana-example-output-2.jpg',
     },
   ];
 
@@ -125,12 +125,35 @@ export default async function NanoBananaStudioPage() {
     'faq.items.item-4',
     'faq.items.item-5',
   ] as const;
+  const faqItems = faqItemKeys.map((itemKey, index) => ({
+    id: `faq-${index + 1}`,
+    question: t(`${itemKey}.question`),
+    answer: t(`${itemKey}.answer`),
+  }));
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
 
   return (
     <>
       <Navbar scroll={true} />
       <main className="bg-background text-foreground">
         <StudioHashCleaner />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema),
+          }}
+        />
         <div className="mb-12 lg:mb-16">
           <HeroSection
             eyebrow={t('eyebrow')}
@@ -209,11 +232,7 @@ export default async function NanoBananaStudioPage() {
           <FaqSection
             title={t('faq.title')}
             subtitle={t('faq.description')}
-            items={faqItemKeys.map((itemKey, index) => ({
-              id: `faq-${index + 1}`,
-              question: t(`${itemKey}.question`),
-              answer: t(`${itemKey}.answer`),
-            }))}
+            items={faqItems}
           />
         </div>
 

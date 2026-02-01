@@ -1269,7 +1269,7 @@
   },
   "NanoBananaStudioPage": {
     "title": "Nano Banana AI 图片生成",
-    "description": "Nano Banana（google/nano-banana）基于 Gemini 2.5 Flash Image (nano-banana)，面向 AI image generator 工作流，支持 text-to-image、image-to-image 与 image editing，并提供 png/jpeg 输出与 image_size/aspect ratios 控制。",
+    "description": "用 Nano Banana 几秒生成超真实图像。Gemini 3 Image Preview 支持自然语言生成与编辑，物理细节更真实，适配广告与社媒。",
     "eyebrow": "Gemini 2.5 Flash Image",
     "hero": {
       "title": "Nano Banana AI 图片生成",

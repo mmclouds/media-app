@@ -1269,7 +1269,7 @@
   },
   "NanoBananaStudioPage": {
     "title": "Nano Banana AI image generator",
-    "description": "Nano Banana (google/nano-banana) is Gemini 2.5 Flash Image (nano-banana) built for fast AI image generator workflows, combining text-to-image, image-to-image, and image editing with png/jpeg outputs and image_size/aspect ratios.",
+    "description": "Create hyper-realistic images in seconds with Nano Banana. Gemini 3 Image Preview powers natural-language generation, seamless edits, and physics-aware detail for ads and social.",
     "eyebrow": "Gemini 2.5 Flash Image",
     "hero": {
       "title": "Nano Banana AI image generator",
