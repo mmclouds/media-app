@@ -118,7 +118,7 @@ const MediaPromptShowcase = ({
                       ) : (
                         <img
                           src={item.output}
-                          alt={`${item.title} output image`}
+                          alt={`${item.title} output`}
                           loading="lazy"
                           className="h-full w-full object-cover"
                         />

@@ -95,7 +95,7 @@ const ImageToMediaShowcase = ({
                         >
                           <img
                             src={image}
-                            alt={`${item.title} input image ${imageIndex + 1}`}
+                            alt={`${item.title} input ${imageIndex + 1}`}
                             loading="lazy"
                             className="h-full w-full object-contain"
                           />
@@ -118,7 +118,7 @@ const ImageToMediaShowcase = ({
                         ) : (
                           <img
                             src={item.output}
-                            alt={`${item.title} output image`}
+                            alt={`${item.title} output`}
                             loading="lazy"
                             className="aspect-video h-full w-full object-contain"
                           />

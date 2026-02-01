@@ -230,13 +230,16 @@ export function AssetDetailDialog({
                         }`}
                       >
                         {detailData.mediaType === 'video' && (
-                          <video
-                            controls
-                            playsInline
-                            poster={detailData.coverUrl ?? undefined}
-                            className="h-full w-full rounded-2xl bg-black object-contain"
-                            src={detailData.mediaUrl}
-                          />
+                          <>
+                            {/* biome-ignore lint/a11y/useMediaCaption: 详情预览暂无字幕文件。 */}
+                            <video
+                              controls
+                              playsInline
+                              poster={detailData.coverUrl ?? undefined}
+                              className="h-full w-full rounded-2xl bg-black object-contain"
+                              src={detailData.mediaUrl}
+                            />
+                          </>
                         )}
 
                         {detailData.mediaType === 'image' && (
@@ -307,7 +310,7 @@ export function AssetDetailDialog({
                                 <img
                                   key={`${url}-${index}`}
                                   src={url}
-                                  alt={`Source image ${index + 1}`}
+                                  alt={`Source ${index + 1}`}
                                   className="w-full max-h-48 rounded-xl bg-black object-contain"
                                 />
                               ))}

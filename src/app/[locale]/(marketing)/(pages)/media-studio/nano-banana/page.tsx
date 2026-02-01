@@ -1,8 +1,16 @@
+import AlternatingMediaSection from '@/components/custom-blocks/alternating-media/alternating-media';
+import FaqSection from '@/components/custom-blocks/faqs/faqs';
+import HeroSection from '@/components/custom-blocks/hero/hero';
+import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-promo';
+import WorkflowStepsSection from '@/components/custom-blocks/workflow-steps/workflow-steps';
+import ImageToMediaShowcase from '@/components/cutomer/image-to-media-showcase';
+import type { ImageToMediaExample } from '@/components/cutomer/image-to-media-showcase';
+import Container from '@/components/layout/container';
+import { Footer } from '@/components/layout/footer';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { constructMetadata } from '@/lib/metadata';
-import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
@@ -30,36 +38,95 @@ export async function generateMetadata({
 
 export default async function NanoBananaStudioPage() {
   const t = await getTranslations('NanoBananaStudioPage');
-  const heroTagKeys = [
-    'hero.tags.tag-1',
-    'hero.tags.tag-2',
-    'hero.tags.tag-3',
-  ] as const;
-  const snapshotItemKeys = [
-    'snapshot.items.item-1',
-    'snapshot.items.item-2',
-    'snapshot.items.item-3',
-    'snapshot.items.item-4',
-  ] as const;
-  const workflowItemKeys = [
-    'workflow.items.item-1',
-    'workflow.items.item-2',
-    'workflow.items.item-3',
-    'workflow.items.item-4',
-  ] as const;
-  const useCaseKeys = [
-    'useCases.items.item-1',
-    'useCases.items.item-2',
-    'useCases.items.item-3',
-    'useCases.items.item-4',
-    'useCases.items.item-5',
-    'useCases.items.item-6',
-  ] as const;
-  const promptExampleKeys = [
-    'promptTips.examples.item-1',
-    'promptTips.examples.item-2',
-    'promptTips.examples.item-3',
-  ] as const;
+
+  const highlightItems = [
+    {
+      title: t('snapshot.items.item-1.title'),
+      description: t('snapshot.items.item-1.description'),
+      image: {
+        src: '/images/generated/kitten-dreamy-20260123-001.jpg',
+        alt: t('snapshot.items.item-1.alt'),
+        width: 1207,
+        height: 929,
+        priority: true,
+      },
+    },
+    {
+      title: t('snapshot.items.item-2.title'),
+      description: t('snapshot.items.item-2.description'),
+      image: {
+        src: '/images/generated/sora2-multishot-continuity-20260123-003.jpg',
+        alt: t('snapshot.items.item-2.alt'),
+        width: 1207,
+        height: 929,
+      },
+    },
+    {
+      title: t('snapshot.items.item-3.title'),
+      description: t('snapshot.items.item-3.description'),
+      image: {
+        src: '/images/generated/sora2-physics-realism-20260123-002.jpg',
+        alt: t('snapshot.items.item-3.alt'),
+        width: 1207,
+        height: 929,
+      },
+    },
+    {
+      title: t('snapshot.items.item-4.title'),
+      description: t('snapshot.items.item-4.description'),
+      image: {
+        src: '/images/generated/sora2-character-injection-20260123-003.jpg',
+        alt: t('snapshot.items.item-4.alt'),
+        width: 1207,
+        height: 929,
+      },
+    },
+  ];
+
+  const workflowItems = [
+    {
+      title: t('workflow.items.item-1.title'),
+      description: t('workflow.items.item-1.description'),
+    },
+    {
+      title: t('workflow.items.item-2.title'),
+      description: t('workflow.items.item-2.description'),
+    },
+    {
+      title: t('workflow.items.item-3.title'),
+      description: t('workflow.items.item-3.description'),
+    },
+    {
+      title: t('workflow.items.item-4.title'),
+      description: t('workflow.items.item-4.description'),
+    },
+  ];
+
+  const exampleItems: ImageToMediaExample[] = [
+    {
+      title: t('examples.items.item-1.title'),
+      description: t('examples.items.item-1.description'),
+      prompt: t('examples.items.item-1.prompt'),
+      inputImages: [
+        'https://replicate.delivery/pbxt/NbYIclp4A5HWLsJ8lF5KgiYSNaLBBT1jUcYcHYQmN1uy5OnN/tmpcqc07f_q.png',
+        'https://replicate.delivery/pbxt/NbYId45yH8s04sptdtPcGqFIhV7zS5GTcdS3TtNliyTAoYPO/Screenshot%202025-08-26%20at%205.30.12%E2%80%AFPM.png',
+      ],
+      output:
+        'https://replicate.delivery/xezq/eQ2MQYrD6XzheEgCe7OcHlUJAXYc8HaMJmGPmbTOCClZS7dqA/tmp4vqrduzh.jpg',
+    },
+    {
+      title: t('examples.items.item-2.title'),
+      description: t('examples.items.item-2.description'),
+      prompt: t('examples.items.item-2.prompt'),
+      inputImages: [
+        'https://replicate.delivery/pbxt/NeRx7gSc6ORMdhCjOzV0Of9VAEDNjQ56RJWVXFTjT53AK5L1/billie.jpeg',
+        'https://replicate.delivery/pbxt/NeRx7dSeZKRgWr0V6ilLhZsk8HSZgV3Z9VsauD7FSYrrvuXD/michael.jpeg',
+      ],
+      output:
+        'https://replicate.delivery/xezq/mbE0pfJqUtTfu0vp7gjG93nkNYNsy78a1onho9oos56fkTjqA/tmpgxxuv701.jpg',
+    },
+  ];
+
   const faqItemKeys = [
     'faq.items.item-1',
     'faq.items.item-2',
@@ -71,212 +138,104 @@ export default async function NanoBananaStudioPage() {
   return (
     <>
       <Navbar scroll={true} />
-      <main className="min-h-screen w-full bg-[#020202] px-6 py-10 text-white">
-        <div className="mx-auto w-full max-w-6xl space-y-10">
-          <header className="space-y-4">
-            <p className="text-xs uppercase tracking-[0.28em] text-white/40">
-              {t('eyebrow')}
-            </p>
-            <h1 className="text-3xl font-semibold text-white md:text-4xl">
-              {t('hero.title')}
-            </h1>
-            <p className="max-w-2xl text-sm text-white/60 md:text-base">
-              {t('hero.subtitle')}
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {heroTagKeys.map((tagKey) => (
-                <span
-                  key={tagKey}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70"
-                >
-                  {t(tagKey)}
-                </span>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <Button asChild size="lg" className="cursor-pointer">
-                <a href="#studio">{t('hero.primaryCta')}</a>
-              </Button>
-              <Link
-                href="/pricing"
-                className={cn(
-                  buttonVariants({ variant: 'outline', size: 'lg' }),
-                  'cursor-pointer border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white'
-                )}
-              >
-                {t('hero.secondaryCta')}
-              </Link>
-            </div>
-          </header>
+      <main className="bg-background text-foreground">
+        <div className="mb-12 lg:mb-16">
+          <HeroSection
+            eyebrow={t('eyebrow')}
+            title={t('hero.title')}
+            description={t('hero.subtitle')}
+            cta={t('hero.cta')}
+            primaryLabel={t('hero.primaryCta')}
+            secondaryLabel={t('hero.secondaryCta')}
+            primaryHref="#studio"
+            secondaryHref="#highlights"
+          />
+        </div>
 
-          <section
-            id="studio"
-            className="scroll-mt-24 space-y-4 rounded-3xl border border-white/10 bg-white/5 p-6"
-          >
-            <div className="space-y-2">
-              <h2 className="text-xl font-semibold text-white md:text-2xl">
+        <section id="studio" className="relative overflow-hidden">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsla(0,0%,90%,0.25),transparent_55%),radial-gradient(circle_at_top_right,hsla(0,0%,80%,0.2),transparent_60%)]"
+          />
+          <Container className="relative px-6 pb-16 pt-10 lg:pt-16">
+            <div className="mx-auto max-w-3xl space-y-3 text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
                 {t('studio.title')}
+              </p>
+              <h2 className="text-3xl font-semibold text-foreground">
+                {t('studio.subtitle')}
               </h2>
-              <p className="text-sm text-white/60 md:text-base">
+              <p className="text-base text-muted-foreground">
                 {t('studio.description')}
               </p>
             </div>
-            <MediaGeneratorWorkspace
-              className="h-[720px]"
-              initialMediaType="image"
-              preferredModelId="nano-banana"
-            />
-          </section>
-
-          <section className="grid gap-6 lg:grid-cols-[1.1fr_1.5fr]">
-            <div className="space-y-3">
-              <h2 className="text-2xl font-semibold text-white">
-                {t('snapshot.title')}
-              </h2>
-              <p className="text-sm text-white/60 md:text-base">
-                {t('snapshot.description')}
-              </p>
+            <div className="mt-10 rounded-3xl border border-border/60 bg-muted/40 p-3 shadow-lg">
+              <MediaGeneratorWorkspace
+                className="h-[720px]"
+                initialMediaType="image"
+                preferredModelId="nano-banana"
+              />
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {snapshotItemKeys.map((itemKey) => (
-                <div
-                  key={itemKey}
-                  className="rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-transparent p-4"
-                >
-                  <h3 className="text-base font-semibold text-white">
-                    {t(`${itemKey}.title`)}
-                  </h3>
-                  <p className="mt-2 text-sm text-white/60">
-                    {t(`${itemKey}.description`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="space-y-6 rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div className="space-y-2">
-              <h2 className="text-2xl font-semibold text-white">
-                {t('workflow.title')}
-              </h2>
-              <p className="text-sm text-white/60 md:text-base">
-                {t('workflow.description')}
-              </p>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              {workflowItemKeys.map((itemKey, index) => (
-                <div
-                  key={itemKey}
-                  className="rounded-2xl border border-white/10 bg-[#0b0b0b] p-4"
-                >
-                  <p className="text-xs uppercase tracking-[0.2em] text-white/40">
-                    {t('workflow.stepLabel', { index: index + 1 })}
-                  </p>
-                  <h3 className="mt-2 text-base font-semibold text-white">
-                    {t(`${itemKey}.title`)}
-                  </h3>
-                  <p className="mt-2 text-sm text-white/60">
-                    {t(`${itemKey}.description`)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="space-y-6">
-            <div className="space-y-2">
-              <h2 className="text-2xl font-semibold text-white">
-                {t('useCases.title')}
-              </h2>
-              <p className="text-sm text-white/60 md:text-base">
-                {t('useCases.description')}
-              </p>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {useCaseKeys.map((itemKey) => (
-                <div
-                  key={itemKey}
-                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80"
-                >
-                  {t(itemKey)}
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="grid gap-6 lg:grid-cols-[1.1fr_1.5fr]">
-            <div className="space-y-2">
-              <h2 className="text-2xl font-semibold text-white">
-                {t('promptTips.title')}
-              </h2>
-              <p className="text-sm text-white/60 md:text-base">
-                {t('promptTips.description')}
-              </p>
-              <div className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-4 text-sm text-white/70">
-                {t('promptTips.formula')}
-              </div>
-            </div>
-            <div className="space-y-3">
-              {promptExampleKeys.map((itemKey) => (
-                <div
-                  key={itemKey}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/70"
-                >
-                  {t(itemKey)}
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section className="space-y-6 rounded-3xl border border-white/10 bg-white/5 p-6">
-            <div className="space-y-2">
-              <h2 className="text-2xl font-semibold text-white">
-                {t('faq.title')}
-              </h2>
-              <p className="text-sm text-white/60 md:text-base">
-                {t('faq.description')}
-              </p>
-            </div>
-            <dl className="space-y-4">
-              {faqItemKeys.map((itemKey) => (
-                <div
-                  key={itemKey}
-                  className="rounded-2xl border border-white/10 bg-[#0b0b0b] p-4"
-                >
-                  <dt className="text-sm font-semibold text-white">
-                    {t(`${itemKey}.question`)}
-                  </dt>
-                  <dd className="mt-2 text-sm text-white/60">
-                    {t(`${itemKey}.answer`)}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </section>
-
-          <section className="rounded-3xl border border-white/10 bg-gradient-to-br from-[#1b1b1b] via-[#111111] to-[#0a0a0a] p-8 text-center">
-            <h2 className="text-2xl font-semibold text-white md:text-3xl">
-              {t('cta.title')}
-            </h2>
-            <p className="mt-3 text-sm text-white/60 md:text-base">
-              {t('cta.description')}
-            </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
-              <Button asChild size="lg" className="cursor-pointer">
-                <a href="#studio">{t('cta.primaryCta')}</a>
-              </Button>
-              <Link
-                href="/pricing"
-                className={cn(
-                  buttonVariants({ variant: 'outline', size: 'lg' }),
-                  'cursor-pointer border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white'
-                )}
+            <div className="mt-6 flex justify-center">
+              <Button
+                asChild
+                size="lg"
+                className="cursor-pointer h-12 px-8 text-base md:h-14 md:px-10 md:text-lg"
               >
-                {t('cta.secondaryCta')}
-              </Link>
+                <Link href="/media-studio">{t('immersiveStudio.label')}</Link>
+              </Button>
             </div>
-          </section>
+          </Container>
+        </section>
+
+        <AlternatingMediaSection
+          id="highlights"
+          subtitle={t('snapshot.title')}
+          description={t('snapshot.description')}
+          items={highlightItems}
+          className="[&_h2]:text-4xl [&_h2]:font-bold"
+        />
+
+        <WorkflowStepsSection
+          id="workflow"
+          subtitle={t('workflow.title')}
+          description={t('workflow.description')}
+          items={workflowItems}
+          className="[&_h2]:text-4xl [&_h2]:font-bold"
+        />
+
+        <ImageToMediaShowcase
+          id="examples"
+          title={t('examples.title')}
+          subtitle={t('examples.subtitle')}
+          inputLabel={t('examples.inputLabel')}
+          outputLabel={t('examples.outputLabel')}
+          items={exampleItems}
+        />
+
+        <div className="[&_h2]:text-4xl [&_h2]:font-bold">
+          <FaqSection
+            title={t('faq.title')}
+            subtitle={t('faq.description')}
+            items={faqItemKeys.map((itemKey, index) => ({
+              id: `faq-${index + 1}`,
+              question: t(`${itemKey}.question`),
+              answer: t(`${itemKey}.answer`),
+            }))}
+          />
         </div>
+
+        <StudioPromoSection
+          id="studio-promo"
+          title={t('cta.title')}
+          description={t('cta.description')}
+          primaryLabel={t('cta.primaryCta')}
+          secondaryLabel={t('cta.secondaryCta')}
+          primaryHref="#studio"
+          secondaryHref="/pricing"
+        />
+
+        <Footer />
       </main>
     </>
   );
