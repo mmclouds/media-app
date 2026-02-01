@@ -345,6 +345,10 @@
             "veo3": {
               "title": "Veo 3",
               "description": "Create high-fidelity videos with Veo 3."
+            },
+            "kling26": {
+              "title": "Kling 2.6",
+              "description": "Create cinematic video outputs with Kling 2.6."
             }
           }
         },
@@ -354,6 +358,18 @@
             "nanoBanana": {
               "title": "Nano Banana",
               "description": "Create sharp, vibrant images with Nano Banana."
+            },
+            "gptImage15": {
+              "title": "GPT-Image-1.5",
+              "description": "Generate high-quality images with GPT-Image-1.5."
+            },
+            "zImage": {
+              "title": "Z-Image",
+              "description": "Create clean, efficient visuals with Z-Image."
+            },
+            "nanoBananaPro": {
+              "title": "Nano Banana Pro",
+              "description": "Produce premium, consistent visuals with Nano Banana Pro."
             }
           }
         },
@@ -500,7 +516,8 @@
           "title": "Video Models",
           "items": {
             "sora2": "Sora 2",
-            "veo3": "Veo 3"
+            "veo3": "Veo 3",
+            "kling26": "Kling 2.6"
           }
         },
         "music": {
@@ -512,7 +529,10 @@
         "image": {
           "title": "Image Models",
           "items": {
-            "nanoBanana": "Nano Banana"
+            "nanoBanana": "Nano Banana",
+            "gptImage15": "GPT-Image-1.5",
+            "zImage": "Z-Image",
+            "nanoBananaPro": "Nano Banana Pro"
           }
         }
       },
@@ -1401,6 +1421,576 @@
           "title": "Dual-style character remix",
           "description": "Combine two reference faces to create a cohesive, stylized output with balanced lighting.",
           "prompt": "Blend the two reference images into a single cohesive portrait with consistent color grading."
+        }
+      }
+    },
+    "immersiveStudio": {
+      "label": "Open immersive studio"
+    }
+  },
+  "GptImage15StudioPage": {
+    "title": "GPT-Image-1.5 AI image generator",
+    "description": "Generate detailed images with GPT-Image-1.5 for product, brand, and concept work.",
+    "eyebrow": "OpenAI GPT-Image-1.5",
+    "hero": {
+      "title": "GPT-Image-1.5 AI image generator",
+      "subtitle": "GPT-Image-1.5 supports fast text-to-image and image-to-image workflows with clean composition and consistent results.",
+      "primaryCta": "Open GPT-Image-1.5 studio",
+      "secondaryCta": "Explore capabilities",
+      "cta": "Generate or edit images in the live workspace below."
+    },
+    "studio": {
+      "title": "Live workspace",
+      "description": "Switch between text-to-image and image-to-image, upload references, then set output format and size before you generate.",
+      "subtitle": "GPT-Image-1.5 image studio"
+    },
+    "snapshot": {
+      "title": "GPT-Image-1.5 capabilities",
+      "description": "Reliable outputs for marketing, ecommerce, and concept art.",
+      "items": {
+        "item-1": {
+          "title": "Text-to-image clarity",
+          "description": "Create crisp visuals with balanced lighting and stable composition.",
+          "alt": "Text-to-image preview"
+        },
+        "item-2": {
+          "title": "Image-to-image refinement",
+          "description": "Guide edits with reference images and style cues.",
+          "alt": "Image-to-image preview"
+        },
+        "item-3": {
+          "title": "Flexible exports",
+          "description": "Export PNG or JPEG for quick publishing.",
+          "alt": "Export format preview"
+        }
+      }
+    },
+    "workflow": {
+      "title": "How GPT-Image-1.5 works",
+      "description": "A repeatable flow for fast image generation and edits.",
+      "stepLabel": "Step {index}",
+      "items": {
+        "item-1": {
+          "title": "Pick a mode",
+          "description": "Start from a prompt or edit with reference images."
+        },
+        "item-2": {
+          "title": "Add references",
+          "description": "Upload brand, product, or style images to steer results."
+        },
+        "item-3": {
+          "title": "Set output",
+          "description": "Choose format and image size for each channel."
+        },
+        "item-4": {
+          "title": "Generate & export",
+          "description": "Iterate quickly, then download final outputs."
+        }
+      }
+    },
+    "faq": {
+      "title": "GPT-Image-1.5 FAQ",
+      "description": "Answers about GPT-Image-1.5 usage and outputs.",
+      "items": {
+        "item-1": {
+          "question": "What is GPT-Image-1.5?",
+          "answer": "GPT-Image-1.5 is an OpenAI image model for text-to-image and image-to-image generation."
+        },
+        "item-2": {
+          "question": "Does it support image-to-image?",
+          "answer": "Yes. Upload reference images to guide edits and variations."
+        },
+        "item-3": {
+          "question": "What formats can I export?",
+          "answer": "PNG and JPEG outputs are supported."
+        },
+        "item-4": {
+          "question": "Can I control size and aspect ratio?",
+          "answer": "Yes. Choose the output format and size before generating."
+        },
+        "item-5": {
+          "question": "Is it suitable for marketing assets?",
+          "answer": "Yes. It is designed for clean, consistent, production-ready visuals."
+        }
+      }
+    },
+    "cta": {
+      "title": "Create visuals with GPT-Image-1.5",
+      "description": "Generate campaign-ready images with text-to-image and image-to-image workflows in VLook.ai Studio.",
+      "primaryCta": "Start in the studio",
+      "secondaryCta": "See pricing"
+    },
+    "examples": {
+      "title": "GPT-Image-1.5 examples",
+      "subtitle": "Text-to-image and image-to-image samples",
+      "inputLabel": "Input images",
+      "outputLabel": "Output image",
+      "items": {
+        "item-1": {
+          "title": "Clean product hero",
+          "description": "A minimal product hero with soft lighting and premium materials.",
+          "prompt": "Minimalist skincare bottle on a white studio backdrop, soft daylight, crisp shadow."
+        },
+        "item-2": {
+          "title": "Brand color variations",
+          "description": "Use references to keep palette and style consistent across variants.",
+          "prompt": "Recolor the product to match the reference palette while keeping the same lighting and composition."
+        }
+      }
+    },
+    "immersiveStudio": {
+      "label": "Open immersive studio"
+    }
+  },
+  "ZImageStudioPage": {
+    "title": "Z-Image AI image generator",
+    "description": "Create efficient, clean visuals with Z-Image for daily marketing and design work.",
+    "eyebrow": "Tongyi Z-Image",
+    "hero": {
+      "title": "Z-Image AI image generator",
+      "subtitle": "Z-Image delivers fast, efficient image generation with stable composition for everyday creative needs.",
+      "primaryCta": "Open Z-Image studio",
+      "secondaryCta": "Explore capabilities",
+      "cta": "Generate or edit images in the live workspace below."
+    },
+    "studio": {
+      "title": "Live workspace",
+      "description": "Switch between text-to-image and image-to-image, upload references, then set output format and size before you generate.",
+      "subtitle": "Z-Image studio"
+    },
+    "snapshot": {
+      "title": "Z-Image capabilities",
+      "description": "Efficient image generation for quick turnarounds and consistent style.",
+      "items": {
+        "item-1": {
+          "title": "Fast iteration",
+          "description": "Generate crisp visuals for daily creative production.",
+          "alt": "Fast generation preview"
+        },
+        "item-2": {
+          "title": "Reference-guided edits",
+          "description": "Keep brand style aligned with image-to-image references.",
+          "alt": "Reference edit preview"
+        },
+        "item-3": {
+          "title": "Ready-to-use exports",
+          "description": "Export PNG or JPEG for immediate use.",
+          "alt": "Export format preview"
+        }
+      }
+    },
+    "workflow": {
+      "title": "How Z-Image works",
+      "description": "A simple flow for fast image generation and edits.",
+      "stepLabel": "Step {index}",
+      "items": {
+        "item-1": {
+          "title": "Pick a mode",
+          "description": "Start with a prompt or edit with references."
+        },
+        "item-2": {
+          "title": "Add references",
+          "description": "Upload style or product images to guide results."
+        },
+        "item-3": {
+          "title": "Set output",
+          "description": "Choose format and image size for delivery."
+        },
+        "item-4": {
+          "title": "Generate & export",
+          "description": "Create outputs and download instantly."
+        }
+      }
+    },
+    "faq": {
+      "title": "Z-Image FAQ",
+      "description": "Answers about Z-Image usage and outputs.",
+      "items": {
+        "item-1": {
+          "question": "What is Z-Image?",
+          "answer": "Z-Image is an efficient image generation model designed for fast iteration."
+        },
+        "item-2": {
+          "question": "Does it support image-to-image?",
+          "answer": "Yes. Upload reference images to guide edits."
+        },
+        "item-3": {
+          "question": "What formats can I export?",
+          "answer": "PNG and JPEG outputs are supported."
+        },
+        "item-4": {
+          "question": "Can I set output size?",
+          "answer": "Yes. Choose the output format and size before generating."
+        },
+        "item-5": {
+          "question": "Is it good for daily production work?",
+          "answer": "Yes. It is optimized for fast, consistent results."
+        }
+      }
+    },
+    "cta": {
+      "title": "Create faster with Z-Image",
+      "description": "Generate efficient, brand-ready visuals in VLook.ai Studio.",
+      "primaryCta": "Start in the studio",
+      "secondaryCta": "See pricing"
+    },
+    "examples": {
+      "title": "Z-Image examples",
+      "subtitle": "Text-to-image and image-to-image samples",
+      "inputLabel": "Input images",
+      "outputLabel": "Output image",
+      "items": {
+        "item-1": {
+          "title": "Product spotlight",
+          "description": "Clean compositions for product and ecommerce imagery.",
+          "prompt": "Studio product photo with softbox lighting and clean shadow."
+        },
+        "item-2": {
+          "title": "Style transfer",
+          "description": "Use references to keep style consistent across assets.",
+          "prompt": "Match the reference color palette and lighting while keeping the subject intact."
+        }
+      }
+    },
+    "immersiveStudio": {
+      "label": "Open immersive studio"
+    }
+  },
+  "NanoBananaProStudioPage": {
+    "title": "Nano Banana Pro AI image generator",
+    "description": "Produce premium, consistent visuals with Nano Banana Pro for high-end marketing assets.",
+    "eyebrow": "Nano Banana Pro",
+    "hero": {
+      "title": "Nano Banana Pro AI image generator",
+      "subtitle": "Nano Banana Pro delivers premium image generation with consistent style control and refined detail.",
+      "primaryCta": "Open Nano Banana Pro studio",
+      "secondaryCta": "Explore capabilities",
+      "cta": "Generate or edit images in the live workspace below."
+    },
+    "studio": {
+      "title": "Live workspace",
+      "description": "Switch between text-to-image and image-to-image, upload references, then set output format and size before you generate.",
+      "subtitle": "Nano Banana Pro studio"
+    },
+    "snapshot": {
+      "title": "Nano Banana Pro capabilities",
+      "description": "Premium outputs for brand campaigns and high-end visuals.",
+      "items": {
+        "item-1": {
+          "title": "Premium detail",
+          "description": "Generate high-fidelity textures and materials.",
+          "alt": "Premium detail preview"
+        },
+        "item-2": {
+          "title": "Consistent brand style",
+          "description": "Use references to keep colors and lighting aligned.",
+          "alt": "Consistent style preview"
+        },
+        "item-3": {
+          "title": "Ready-to-use exports",
+          "description": "Export PNG or JPEG for production use.",
+          "alt": "Export format preview"
+        }
+      }
+    },
+    "workflow": {
+      "title": "How Nano Banana Pro works",
+      "description": "A repeatable flow for premium image generation.",
+      "stepLabel": "Step {index}",
+      "items": {
+        "item-1": {
+          "title": "Pick a mode",
+          "description": "Start from a prompt or edit with references."
+        },
+        "item-2": {
+          "title": "Add references",
+          "description": "Upload product or style references to guide output."
+        },
+        "item-3": {
+          "title": "Set output",
+          "description": "Choose format and size for delivery."
+        },
+        "item-4": {
+          "title": "Generate & export",
+          "description": "Iterate quickly and download final assets."
+        }
+      }
+    },
+    "faq": {
+      "title": "Nano Banana Pro FAQ",
+      "description": "Answers about Nano Banana Pro usage and outputs.",
+      "items": {
+        "item-1": {
+          "question": "What is Nano Banana Pro?",
+          "answer": "Nano Banana Pro is a premium image model for high-quality visuals."
+        },
+        "item-2": {
+          "question": "Does it support image-to-image?",
+          "answer": "Yes. Upload references to guide edits and variations."
+        },
+        "item-3": {
+          "question": "What formats can I export?",
+          "answer": "PNG and JPEG outputs are supported."
+        },
+        "item-4": {
+          "question": "Can I control size and aspect ratio?",
+          "answer": "Yes. Choose the output format and size before generating."
+        },
+        "item-5": {
+          "question": "Is it suited for premium campaigns?",
+          "answer": "Yes. It is designed for high-end marketing assets."
+        }
+      }
+    },
+    "cta": {
+      "title": "Create premium visuals with Nano Banana Pro",
+      "description": "Generate campaign-ready images with premium consistency in VLook.ai Studio.",
+      "primaryCta": "Start in the studio",
+      "secondaryCta": "See pricing"
+    },
+    "examples": {
+      "title": "Nano Banana Pro examples",
+      "subtitle": "Text-to-image and image-to-image samples",
+      "inputLabel": "Input images",
+      "outputLabel": "Output image",
+      "items": {
+        "item-1": {
+          "title": "Luxury product render",
+          "description": "High-end materials with refined lighting and shadows.",
+          "prompt": "Luxury watch on black marble, soft spotlight, premium reflections."
+        },
+        "item-2": {
+          "title": "Brand-consistent variations",
+          "description": "Keep styling aligned across multiple versions.",
+          "prompt": "Match the reference lighting and palette while changing the background to a warm studio scene."
+        }
+      }
+    },
+    "immersiveStudio": {
+      "label": "Open immersive studio"
+    }
+  },
+  "Kling26StudioPage": {
+    "title": "Kling 2.6 AI video generator",
+    "description": "Create cinematic videos with Kling 2.6 for ads, social, and storytelling.",
+    "eyebrow": "Kling 2.6",
+    "hero": {
+      "title": "Kling 2.6 AI video generator",
+      "subtitle": "Kling 2.6 turns text or images into cinematic video clips with strong motion and style control.",
+      "primaryCta": "Open Kling 2.6 studio",
+      "secondaryCta": "Explore capabilities",
+      "cta": "Generate videos in the live workspace below."
+    },
+    "studio": {
+      "title": "Live workspace",
+      "description": "Choose text-to-video or image-to-video, upload references, then set aspect ratio and duration before you generate.",
+      "subtitle": "Kling 2.6 video studio"
+    },
+    "snapshot": {
+      "title": "Kling 2.6 capabilities",
+      "description": "Cinematic motion for short-form video production.",
+      "items": {
+        "item-1": {
+          "title": "Text-to-video generation",
+          "description": "Create cinematic clips from detailed prompts.",
+          "alt": "Text-to-video preview"
+        },
+        "item-2": {
+          "title": "Image-to-video animation",
+          "description": "Animate still frames into moving scenes.",
+          "alt": "Image-to-video preview"
+        },
+        "item-3": {
+          "title": "Video exports",
+          "description": "Download MP4 outputs for publishing.",
+          "alt": "Video export preview"
+        }
+      }
+    },
+    "workflow": {
+      "title": "How Kling 2.6 works",
+      "description": "A repeatable flow for video generation.",
+      "stepLabel": "Step {index}",
+      "items": {
+        "item-1": {
+          "title": "Pick a mode",
+          "description": "Start with a text prompt or image reference."
+        },
+        "item-2": {
+          "title": "Add references",
+          "description": "Upload keyframes or style references as needed."
+        },
+        "item-3": {
+          "title": "Set output",
+          "description": "Choose aspect ratio, duration, and options."
+        },
+        "item-4": {
+          "title": "Generate & export",
+          "description": "Review clips and download final video."
+        }
+      }
+    },
+    "faq": {
+      "title": "Kling 2.6 FAQ",
+      "description": "Answers about Kling 2.6 usage and outputs.",
+      "items": {
+        "item-1": {
+          "question": "What is Kling 2.6?",
+          "answer": "Kling 2.6 is an AI video generation model for text-to-video and image-to-video."
+        },
+        "item-2": {
+          "question": "Does it support image-to-video?",
+          "answer": "Yes. Upload an image to animate it into a short clip."
+        },
+        "item-3": {
+          "question": "What formats can I export?",
+          "answer": "MP4 outputs are supported."
+        },
+        "item-4": {
+          "question": "Can I control aspect ratio and duration?",
+          "answer": "Yes. Choose output settings before you generate."
+        },
+        "item-5": {
+          "question": "Is it good for social ads?",
+          "answer": "Yes. It is optimized for short, cinematic clips."
+        }
+      }
+    },
+    "cta": {
+      "title": "Create cinematic clips with Kling 2.6",
+      "description": "Generate short-form video content in VLook.ai Studio.",
+      "primaryCta": "Start in the studio",
+      "secondaryCta": "See pricing"
+    },
+    "examples": {
+      "title": "Kling 2.6 examples",
+      "subtitle": "Text-to-video and image-to-video samples",
+      "inputLabel": "Input images",
+      "outputLabel": "Output video",
+      "items": {
+        "item-1": {
+          "title": "City night timelapse",
+          "description": "A cinematic clip with neon lighting and smooth camera motion.",
+          "prompt": "A futuristic city street at night, neon reflections, slow cinematic dolly."
+        },
+        "item-2": {
+          "title": "Product reveal",
+          "description": "Animate a product hero into a motion reveal.",
+          "prompt": "Slow rotating product shot with soft studio lighting and subtle fog."
+        }
+      }
+    },
+    "immersiveStudio": {
+      "label": "Open immersive studio"
+    }
+  },
+  "SunoStudioPage": {
+    "title": "Suno AI music generator",
+    "description": "Generate original music and audio with Suno for content, ads, and storytelling.",
+    "eyebrow": "Suno",
+    "hero": {
+      "title": "Suno AI music generator",
+      "subtitle": "Suno creates original music and audio tracks from prompts with fast iteration and consistent mood.",
+      "primaryCta": "Open Suno studio",
+      "secondaryCta": "Explore capabilities",
+      "cta": "Generate music in the live workspace below."
+    },
+    "studio": {
+      "title": "Live workspace",
+      "description": "Describe mood, genre, and instrumentation, then set output options before you generate.",
+      "subtitle": "Suno music studio"
+    },
+    "snapshot": {
+      "title": "Suno capabilities",
+      "description": "Original music for content, ads, and storytelling.",
+      "items": {
+        "item-1": {
+          "title": "Prompt-to-music",
+          "description": "Generate tracks from text descriptions and genre cues.",
+          "alt": "Prompt-to-music preview"
+        },
+        "item-2": {
+          "title": "Mood control",
+          "description": "Guide tempo, energy, and instrumentation with prompts.",
+          "alt": "Mood control preview"
+        },
+        "item-3": {
+          "title": "Audio exports",
+          "description": "Download tracks for publishing.",
+          "alt": "Audio export preview"
+        }
+      }
+    },
+    "workflow": {
+      "title": "How Suno works",
+      "description": "A repeatable flow for music generation.",
+      "stepLabel": "Step {index}",
+      "items": {
+        "item-1": {
+          "title": "Describe the track",
+          "description": "Write a prompt with genre, mood, and instruments."
+        },
+        "item-2": {
+          "title": "Set output",
+          "description": "Choose options and length before generating."
+        },
+        "item-3": {
+          "title": "Generate",
+          "description": "Create tracks in seconds for rapid iteration."
+        },
+        "item-4": {
+          "title": "Export",
+          "description": "Download audio for publishing."
+        }
+      }
+    },
+    "faq": {
+      "title": "Suno FAQ",
+      "description": "Answers about Suno usage and outputs.",
+      "items": {
+        "item-1": {
+          "question": "What is Suno?",
+          "answer": "Suno is an AI music model for generating original audio tracks."
+        },
+        "item-2": {
+          "question": "Can I control genre and mood?",
+          "answer": "Yes. Prompts can specify genre, mood, and instrumentation."
+        },
+        "item-3": {
+          "question": "What formats can I export?",
+          "answer": "Audio exports are supported for publishing."
+        },
+        "item-4": {
+          "question": "How long does it take to generate?",
+          "answer": "Most tracks generate in seconds depending on settings."
+        },
+        "item-5": {
+          "question": "Is it suitable for ads and social content?",
+          "answer": "Yes. It is designed for short-form, reusable audio."
+        }
+      }
+    },
+    "cta": {
+      "title": "Create original music with Suno",
+      "description": "Generate ready-to-use audio tracks in VLook.ai Studio.",
+      "primaryCta": "Start in the studio",
+      "secondaryCta": "See pricing"
+    },
+    "examples": {
+      "title": "Suno examples",
+      "subtitle": "Prompt-driven music samples",
+      "inputLabel": "Input images",
+      "outputLabel": "Output audio",
+      "items": {
+        "item-1": {
+          "title": "Ambient brand bed",
+          "description": "A calm, modern track for product promos.",
+          "prompt": "Minimal ambient track, soft synths, warm pads, 90 BPM."
+        },
+        "item-2": {
+          "title": "Upbeat social clip",
+          "description": "Bright, energetic music for short-form content.",
+          "prompt": "Upbeat pop track with punchy drums, bright synths, 120 BPM."
         }
       }
     },

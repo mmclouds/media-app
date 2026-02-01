@@ -24,6 +24,11 @@ export enum Routes {
   MediaStudioSora2 = '/media-studio/sora2',
   MediaStudioVeo3 = '/media-studio/veo3',
   MediaStudioNanoBanana = '/media-studio/nano-banana',
+  MediaStudioGptImage15 = '/media-studio/gpt-image-1-5',
+  MediaStudioZImage = '/media-studio/z-image',
+  MediaStudioNanoBananaPro = '/media-studio/nano-banana-pro',
+  MediaStudioKling26 = '/media-studio/kling-2-6',
+  MediaStudioSuno = '/media-studio/suno',
 
   // auth routes
   Login = '/auth/login',

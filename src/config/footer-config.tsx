@@ -32,6 +32,11 @@ export function useFooterLinks(): NestedMenuItem[] {
           href: Routes.MediaStudioVeo3,
           external: false,
         },
+        {
+          title: t('models.video.items.kling26'),
+          href: Routes.MediaStudioKling26,
+          external: false,
+        },
       ],
     },
 
@@ -43,6 +48,21 @@ export function useFooterLinks(): NestedMenuItem[] {
           href: Routes.MediaStudioNanoBanana,
           external: false,
         },
+        {
+          title: t('models.image.items.gptImage15'),
+          href: Routes.MediaStudioGptImage15,
+          external: false,
+        },
+        {
+          title: t('models.image.items.zImage'),
+          href: Routes.MediaStudioZImage,
+          external: false,
+        },
+        {
+          title: t('models.image.items.nanoBananaPro'),
+          href: Routes.MediaStudioNanoBananaPro,
+          external: false,
+        },
       ],
     },
     {
@@ -50,7 +70,7 @@ export function useFooterLinks(): NestedMenuItem[] {
       items: [
         {
           title: t('models.music.items.suno'),
-          href: Routes.AIAudio,
+          href: Routes.MediaStudioSuno,
           external: false,
         },
       ],

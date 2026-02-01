@@ -24,7 +24,7 @@ description: 使用 302ai-custom-mcp 生成图片并落地到项目 public 目�
 - 明确 16:9 或“宽屏”
 
 ### 3) 生成图片（必须 16:9）
-- 使用 `functions.mcp__302ai-custom-mcp__Nano-Banana-Pro-Image_Generation`
+- 使用`302ai-custom-mcp`mcp下面的工具：`xxxImages_Generations`
 - prompt 必须明确 16:9 比例（如 “16:9” 或 “宽屏”）
 - 输出 JSON 的图片地址位于 `content.data.outputs`（数组）
 
