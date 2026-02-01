@@ -1289,11 +1289,11 @@
   },
   "NanoBananaStudioPage": {
     "title": "Nano Banana AI image generator",
-    "description": "Create hyper-realistic images in seconds with Nano Banana. It powers natural-language generation, seamless edits, and physics-aware detail for ads and social.",
+    "description": "Create hyper-realistic images in seconds with Nano Banana. It powers natural-language generation, seamless edits, and physics-aware detail for ads, ecommerce, and social content.",
     "eyebrow": "Gemini 2.5 Flash Image",
     "hero": {
       "title": "Nano Banana AI image generator",
-      "subtitle": "Nano Banana (Gemini 2.5 Flash Image) is an advanced AI model excelling in natural language-driven image generation and editing. It produces hyper-realistic, physics-aware visuals with seamless style transformations.",
+      "subtitle": "Nano Banana (Gemini 2.5 Flash Image) is an advanced AI model excelling in natural language-driven image generation and editing. It delivers crisp composition, believable materials, and smooth style transformations so teams ship visuals faster.",
       "primaryCta": "Open Nano Banana studio",
       "secondaryCta": "Explore capabilities",
       "tags": {
@@ -1301,67 +1301,67 @@
         "tag-2": "Consistent style",
         "tag-3": "Editable with references"
       },
-      "cta": "Generate or edit images in the live workspace below."
+      "cta": "Generate or edit images in the live workspace below, then iterate with references before export."
     },
     "studio": {
       "title": "Live workspace",
-      "description": "Switch between text-to-image and image-to-image, add up to 10 references, then set output format and image_size/aspect ratios before you generate.",
+      "description": "Switch between text-to-image and image-to-image, add up to 10 references, then set output format and image_size/aspect ratios before you generate. Use the same prompt to produce channel-ready sizes.",
       "subtitle": "Nano Banana image studio"
     },
     "snapshot": {
       "eyebrow": "Capabilities",
       "title": "Nano Banana capabilities",
-      "description": "Built for rapid creative cycles with consistent composition, brand-ready color, and export control for ads, social, and ecommerce.",
+      "description": "Built for rapid creative cycles with consistent composition, brand-ready color, and export control for ads, social, and ecommerce. Keep campaigns aligned without heavy post-production.",
       "cardLabel": "Capability {index}",
       "brandLabel": "Nano Banana",
       "items": {
         "item-1": {
           "title": "Fast text-to-image with brand-ready consistency",
-          "description": "Generate clean compositions, accurate lighting, and repeatable style in seconds.",
+          "description": "Generate clean compositions, accurate lighting, and repeatable style in seconds for daily marketing production.",
           "alt": "Text-to-image preview"
         },
         "item-2": {
           "title": "Multi-reference image-to-image edits",
-          "description": "Blend up to 10 references to lock identity, materials, and art direction.",
+          "description": "Blend up to 10 references to lock identity, materials, and art direction while exploring variations.",
           "alt": "Multi-image reference editing"
         },
         "item-3": {
           "title": "Production exports for teams",
-          "description": "Deliver PNG/JPEG assets that drop into product pages, ads, and social without cleanup.",
+          "description": "Deliver PNG/JPEG assets that drop into product pages, ads, and social without cleanup or rework.",
           "alt": "Output format preview"
         },
         "item-4": {
           "title": "Precise size + aspect control",
-          "description": "Pick vertical, square, or cinematic frames and keep framing intact across variations."
+          "description": "Pick vertical, square, or cinematic frames and keep framing intact across variations and channels."
         }
       }
     },
     "workflow": {
       "title": "How Nano Banana works",
-      "description": "A repeatable flow for text-to-image, image-to-image, and fast image editing.",
+      "description": "A repeatable flow for text-to-image, image-to-image, and fast image editing that keeps teams aligned and output consistent.",
       "stepLabel": "Step {index}",
       "items": {
         "item-1": {
           "title": "Pick a mode",
-          "description": "Start with a prompt or guide edits with reference images."
+          "description": "Start with a prompt for new concepts, or guide edits with reference images."
         },
         "item-2": {
           "title": "Add references",
-          "description": "Upload product, brand, or style images to keep outputs consistent."
+          "description": "Upload product, brand, or style images to keep outputs consistent across variants."
         },
         "item-3": {
           "title": "Set output",
-          "description": "Choose png/jpeg and select image_size/aspect ratios that fit each channel."
+          "description": "Choose png/jpeg and select image_size/aspect ratios that fit each channel and placement."
         },
         "item-4": {
           "title": "Generate & export",
-          "description": "Iterate quickly, then download final Nano Banana outputs."
+          "description": "Iterate quickly, review options, then download final Nano Banana outputs."
         }
       }
     },
     "useCases": {
       "title": "Made for marketing teams",
-      "description": "Ship scroll-stopping visuals without the long production cycles.",
+      "description": "Ship scroll-stopping visuals without long production cycles, from concept to final assets.",
       "items": {
         "item-1": "Product mockups",
         "item-2": "Ad concepts",
@@ -1373,7 +1373,7 @@
     },
     "promptTips": {
       "title": "Prompt formula that converts",
-      "description": "Use a repeatable structure to keep campaigns consistent.",
+      "description": "Use a repeatable structure to keep campaigns consistent and make results easier to reproduce.",
       "formula": "Subject + Style + Lighting + Lens",
       "examples": {
         "item-1": "Minimalist skincare bottle, soft daylight, clean shadow, 50mm product shot.",
@@ -1383,50 +1383,50 @@
     },
     "faq": {
       "title": "Nano Banana FAQ",
-      "description": "Answers about nano-banana(Gemini 2.5 Flash Image)and usage.",
+      "description": "Answers about Nano Banana (Gemini 2.5 Flash Image) and usage, including formats, ratios, and consistency.",
       "items": {
         "item-1": {
           "question": "What is Nano Banana?",
-          "answer": "built for fast text-to-image and image editing."
+          "answer": "Nano Banana is built for fast text-to-image and image editing, making it reliable for daily creative production."
         },
         "item-2": {
           "question": "Does Nano Banana support image-to-image?",
-          "answer": "Yes. Use image-to-image with up to 10 references to steer edits and variations."
+          "answer": "Yes. Use image-to-image with up to 10 references to steer edits, variations, and style continuity."
         },
         "item-3": {
           "question": "What output formats are available?",
-          "answer": "PNG and JPEG outputs are supported for easy publishing."
+          "answer": "PNG and JPEG outputs are supported for easy publishing across web, ads, and social."
         },
         "item-4": {
           "question": "Which image_size/aspect ratios can I choose?",
-          "answer": "Pick image_size/aspect ratios like auto, 1:1, 9:16, 16:9, 3:4, 4:3, 3:2, 2:3, 5:4, 4:5, or 21:9."
+          "answer": "Pick image_size/aspect ratios like auto, 1:1, 9:16, 16:9, 3:4, 4:3, 3:2, 2:3, 5:4, 4:5, or 21:9 to match each placement."
         },
         "item-5": {
           "question": "Can I keep brand style consistent?",
-          "answer": "Yes. Multi-image references and prompt controls keep style, lighting, and palette aligned."
+          "answer": "Yes. Multi-image references and prompt controls keep style, lighting, and palette aligned across sets."
         }
       }
     },
     "cta": {
       "title": "Create on-brand visuals with Nano Banana",
-      "description": "Generate campaign-ready images with text-to-image, image-to-image, and fast image editing in VLook.ai Studio.",
+      "description": "Generate campaign-ready images with text-to-image, image-to-image, and fast image editing in VLook.ai Studio, then export assets ready to publish.",
       "primaryCta": "Start in the studio",
       "secondaryCta": "See pricing"
     },
     "examples": {
       "title": "Nano Banana image-to-image examples",
-      "subtitle": "Real multi-image reference edits and final outputs",
+      "subtitle": "Real multi-image reference edits and final outputs for marketing-ready results",
       "inputLabel": "Input images",
       "outputLabel": "Output image",
       "items": {
         "item-1": {
           "title": "Editorial portrait relight",
-          "description": "Two inputs guide lighting and styling; Nano Banana blends references into a clean editorial upgrade.",
+          "description": "Two inputs guide lighting and styling; Nano Banana blends references into a clean editorial upgrade that stays on-brand.",
           "prompt": "Edit the portrait to match the lighting and style references while keeping facial identity."
         },
         "item-2": {
           "title": "Dual-style character remix",
-          "description": "Combine two reference faces to create a cohesive, stylized output with balanced lighting.",
+          "description": "Combine two reference faces to create a cohesive, stylized output with balanced lighting and consistent tone.",
           "prompt": "Blend the two reference images into a single cohesive portrait with consistent color grading."
         }
       }
