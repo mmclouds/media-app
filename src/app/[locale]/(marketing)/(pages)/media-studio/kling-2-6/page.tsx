@@ -79,23 +79,15 @@ export default async function Kling26StudioPage() {
       title: t('examples.items.item-1.title'),
       description: t('examples.items.item-1.description'),
       prompt: t('examples.items.item-1.prompt'),
-      inputImages: [
-        '/images/generated/nano-banana-example-input-1.png',
-        '/images/generated/nano-banana-example-input-2.png',
-      ],
-      output:
-        '/images/generated/nano-banana-example-output-1.jpg',
+      inputImages: [],
+      output: '/images/studio-examples/kling-2-6/kling-banner.png',
     },
     {
       title: t('examples.items.item-2.title'),
       description: t('examples.items.item-2.description'),
       prompt: t('examples.items.item-2.prompt'),
-      inputImages: [
-        '/images/generated/nano-banana-example-input-3.jpeg',
-        '/images/generated/nano-banana-example-input-4.jpeg',
-      ],
-      output:
-        '/images/generated/nano-banana-example-output-2.jpg',
+      inputImages: ['/images/studio-examples/kling-2-6/kling-logo.png'],
+      output: '/images/studio-examples/kling-2-6/kling-banner.png',
     },
   ];
 
