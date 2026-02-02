@@ -233,6 +233,7 @@ export function KlingConfigFields({
       ) : null}
 
       <SwitchField
+        title="Sound"
         label="Include sound"
         checked={sound}
         onChange={(value) =>

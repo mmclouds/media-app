@@ -1436,588 +1436,588 @@
     }
   },
   "GptImage15StudioPage": {
-    "title": "GPT-Image-1.5 AI image generator",
-    "description": "Generate detailed images with GPT-Image-1.5 for product, brand, and concept work.",
+    "title": "GPT-Image-1.5 AI 图像生成器",
+    "description": "使用 GPT-Image-1.5 生成细节丰富的图像，适用于产品、品牌与概念设计。",
     "eyebrow": "OpenAI GPT-Image-1.5",
     "hero": {
-      "title": "GPT-Image-1.5 AI image generator",
-      "subtitle": "GPT-Image-1.5 supports fast 文生图 and 图生图 workflows with clean composition and consistent results.",
-      "primaryCta": "Open GPT-Image-1.5 studio",
-      "secondaryCta": "Explore capabilities",
-      "cta": "Generate or edit images in the live workspace below."
+      "title": "GPT-Image-1.5 AI 图像生成器",
+      "subtitle": "GPT-Image-1.5 支持高效文生图与图生图流程，构图干净、结果稳定。",
+      "primaryCta": "打开 GPT-Image-1.5 工作室",
+      "secondaryCta": "查看能力亮点",
+      "cta": "在下方实时工作台生成或编辑图像。"
     },
     "studio": {
-      "title": "Live workspace",
-      "description": "Switch between 文生图 and 图生图, upload references, then set output format and size before you generate.",
-      "subtitle": "GPT-Image-1.5 image studio"
+      "title": "实时工作台",
+      "description": "在文生图与图生图之间切换，上传参考图，然后设置输出格式与尺寸再生成。",
+      "subtitle": "GPT-Image-1.5 图像工作室"
     },
     "snapshot": {
-      "eyebrow": "Capabilities",
-      "title": "GPT-Image-1.5 capabilities",
-      "description": "Reliable outputs for marketing, ecommerce, and concept art.",
-      "cardLabel": "Capability {index}",
+      "eyebrow": "能力亮点",
+      "title": "GPT-Image-1.5 能力概览",
+      "description": "为营销、电商与概念设计提供可靠输出。",
+      "cardLabel": "能力 {index}",
       "brandLabel": "GPT-Image-1.5",
       "items": {
         "item-1": {
-          "title": "文生图 clarity",
-          "description": "Create crisp visuals with balanced lighting and stable composition.",
-          "alt": "文生图 preview"
+          "title": "文生图清晰度",
+          "description": "生成光线平衡、构图稳定的清晰画面。",
+          "alt": "文生图预览"
         },
         "item-2": {
-          "title": "图生图 refinement",
-          "description": "Guide edits with reference images and style cues.",
-          "alt": "图生图 preview"
+          "title": "图生图精修",
+          "description": "借助参考图与风格提示进行定向编辑。",
+          "alt": "图生图预览"
         },
         "item-3": {
-          "title": "Flexible exports",
-          "description": "Export PNG or JPEG for quick publishing.",
-          "alt": "Export format preview"
+          "title": "灵活导出",
+          "description": "支持 PNG 或 JPEG，便于快速发布。",
+          "alt": "导出格式预览"
         }
       }
     },
     "workflow": {
-      "title": "How GPT-Image-1.5 works",
-      "description": "A repeatable flow for fast image generation and edits.",
-      "stepLabel": "Step {index}",
+      "title": "GPT-Image-1.5 工作流程",
+      "description": "用于快速生成与编辑图像的可复用流程。",
+      "stepLabel": "步骤 {index}",
       "items": {
         "item-1": {
-          "title": "Pick a mode",
-          "description": "Start from a prompt or edit with reference images."
+          "title": "选择模式",
+          "description": "从提示词开始，或基于参考图进行编辑。"
         },
         "item-2": {
-          "title": "Add references",
-          "description": "Upload brand, product, or style images to steer results."
+          "title": "添加参考",
+          "description": "上传品牌、产品或风格图片来引导结果。"
         },
         "item-3": {
-          "title": "Set output",
-          "description": "Choose format and image size for each channel."
+          "title": "设置输出",
+          "description": "为不同渠道选择格式与尺寸。"
         },
         "item-4": {
-          "title": "Generate & export",
-          "description": "Iterate quickly, then download final outputs."
+          "title": "生成并导出",
+          "description": "快速迭代后下载最终输出。"
         }
       }
     },
     "faq": {
-      "title": "GPT-Image-1.5 FAQ",
-      "description": "Answers about GPT-Image-1.5 usage and outputs.",
+      "title": "GPT-Image-1.5 常见问题",
+      "description": "关于 GPT-Image-1.5 使用与输出的解答。",
       "items": {
         "item-1": {
-          "question": "What is GPT-Image-1.5?",
-          "answer": "GPT-Image-1.5 is an OpenAI image model for 文生图 and 图生图 generation."
+          "question": "GPT-Image-1.5 是什么？",
+          "answer": "GPT-Image-1.5 是 OpenAI 的图像模型，支持文生图与图生图生成。"
         },
         "item-2": {
-          "question": "Does it support 图生图?",
-          "answer": "Yes. Upload reference images to guide edits and variations."
+          "question": "支持图生图吗？",
+          "answer": "支持。上传参考图即可引导编辑与变体。"
         },
         "item-3": {
-          "question": "What formats can I export?",
-          "answer": "PNG and JPEG outputs are supported."
+          "question": "可以导出哪些格式？",
+          "answer": "支持 PNG 与 JPEG 输出。"
         },
         "item-4": {
-          "question": "Can I control size and aspect ratio?",
-          "answer": "Yes. Choose the output format and size before generating."
+          "question": "能控制尺寸和比例吗？",
+          "answer": "可以。在生成前选择输出格式与尺寸。"
         },
         "item-5": {
-          "question": "Is it suitable for marketing assets?",
-          "answer": "Yes. It is designed for clean, consistent, production-ready visuals."
+          "question": "适合做营销素材吗？",
+          "answer": "适合。它提供干净、稳定、可直接使用的视觉输出。"
         }
       }
     },
     "cta": {
-      "title": "Create visuals with GPT-Image-1.5",
-      "description": "Generate campaign-ready images with 文生图 and 图生图 workflows in VLook.ai Studio.",
-      "primaryCta": "Start in the studio",
-      "secondaryCta": "See pricing"
+      "title": "用 GPT-Image-1.5 创建视觉素材",
+      "description": "在 VLook.ai Studio 通过文生图与图生图流程生成可直接投放的图片。",
+      "primaryCta": "进入工作室",
+      "secondaryCta": "查看价格"
     },
     "examples": {
-      "title": "GPT-Image-1.5 examples",
-      "subtitle": "文生图 and 图生图 samples",
-      "inputLabel": "Input images",
-      "outputLabel": "Output image",
+      "title": "GPT-Image-1.5 示例",
+      "subtitle": "文生图与图生图示例",
+      "inputLabel": "输入图片",
+      "outputLabel": "输出图片",
       "items": {
         "item-1": {
-          "title": "Clean product hero",
-          "description": "A minimal product hero with soft lighting and premium materials.",
-          "prompt": "Minimalist skincare bottle on a white studio backdrop, soft daylight, crisp shadow."
+          "title": "清爽产品主视觉",
+          "description": "柔和光线与高级材质的极简产品主图。",
+          "prompt": "白色摄影棚背景上的极简护肤瓶，柔和日光，清晰阴影。"
         },
         "item-2": {
-          "title": "Brand color variations",
-          "description": "Use references to keep palette and style consistent across variants.",
-          "prompt": "Recolor the product to match the reference palette while keeping the same lighting and composition."
+          "title": "品牌配色变体",
+          "description": "使用参考图保持配色与风格一致。",
+          "prompt": "在保持光线与构图不变的前提下，将产品配色调整为参考图的色板。"
         }
       }
     },
     "immersiveStudio": {
-      "label": "Open immersive studio"
+      "label": "打开沉浸式工作室"
     }
   },
   "ZImageStudioPage": {
-    "title": "Z-Image AI image generator",
-    "description": "Create efficient, clean visuals with Z-Image for daily marketing and design work.",
-    "eyebrow": "Tongyi Z-Image",
+    "title": "Z-Image AI 图像生成器",
+    "description": "使用 Z-Image 高效生成干净视觉，用于日常营销与设计。",
+    "eyebrow": "通义 Z-Image",
     "hero": {
-      "title": "Z-Image AI image generator",
-      "subtitle": "Z-Image delivers fast, efficient image generation with stable composition for everyday creative needs.",
-      "primaryCta": "Open Z-Image studio",
-      "secondaryCta": "Explore capabilities",
-      "cta": "Generate or edit images in the live workspace below."
+      "title": "Z-Image AI 图像生成器",
+      "subtitle": "Z-Image 提供快速高效的图像生成，构图稳定，满足日常创作需求。",
+      "primaryCta": "打开 Z-Image 工作室",
+      "secondaryCta": "查看能力亮点",
+      "cta": "在下方实时工作台生成或编辑图像。"
     },
     "studio": {
-      "title": "Live workspace",
-      "description": "Switch between 文生图 and 图生图, upload references, then set output format and size before you generate.",
-      "subtitle": "Z-Image studio"
+      "title": "实时工作台",
+      "description": "在文生图与图生图之间切换，上传参考图，然后设置输出格式与尺寸再生成。",
+      "subtitle": "Z-Image 工作室"
     },
     "snapshot": {
-      "eyebrow": "Capabilities",
-      "title": "Z-Image capabilities",
-      "description": "Efficient image generation for quick turnarounds and consistent style.",
-      "cardLabel": "Capability {index}",
+      "eyebrow": "能力亮点",
+      "title": "Z-Image 能力概览",
+      "description": "面向快速交付与稳定风格的高效生成。",
+      "cardLabel": "能力 {index}",
       "brandLabel": "Z-Image",
       "items": {
         "item-1": {
-          "title": "Fast iteration",
-          "description": "Generate crisp visuals for daily creative production.",
-          "alt": "Fast generation preview"
+          "title": "快速迭代",
+          "description": "面向日常创作快速生成清晰画面。",
+          "alt": "快速生成预览"
         },
         "item-2": {
-          "title": "Reference-guided edits",
-          "description": "Keep brand style aligned with 图生图 references.",
-          "alt": "Reference edit preview"
+          "title": "参考图编辑",
+          "description": "结合图生图参考保持品牌风格统一。",
+          "alt": "参考编辑预览"
         },
         "item-3": {
-          "title": "Ready-to-use exports",
-          "description": "Export PNG or JPEG for immediate use.",
-          "alt": "Export format preview"
+          "title": "即用导出",
+          "description": "支持 PNG 或 JPEG 立即交付。",
+          "alt": "导出格式预览"
         }
       }
     },
     "workflow": {
-      "title": "How Z-Image works",
-      "description": "A simple flow for fast image generation and edits.",
-      "stepLabel": "Step {index}",
+      "title": "Z-Image 工作流程",
+      "description": "用于快速生成与编辑的简洁流程。",
+      "stepLabel": "步骤 {index}",
       "items": {
         "item-1": {
-          "title": "Pick a mode",
-          "description": "Start with a prompt or edit with references."
+          "title": "选择模式",
+          "description": "从提示词开始，或基于参考图编辑。"
         },
         "item-2": {
-          "title": "Add references",
-          "description": "Upload style or product images to guide results."
+          "title": "添加参考",
+          "description": "上传风格或产品图片引导结果。"
         },
         "item-3": {
-          "title": "Set output",
-          "description": "Choose format and image size for delivery."
+          "title": "设置输出",
+          "description": "选择交付所需的格式与尺寸。"
         },
         "item-4": {
-          "title": "Generate & export",
-          "description": "Create outputs and download instantly."
+          "title": "生成并导出",
+          "description": "生成后即时下载。"
         }
       }
     },
     "faq": {
-      "title": "Z-Image FAQ",
-      "description": "Answers about Z-Image usage and outputs.",
+      "title": "Z-Image 常见问题",
+      "description": "关于 Z-Image 使用与输出的解答。",
       "items": {
         "item-1": {
-          "question": "What is Z-Image?",
-          "answer": "Z-Image is an efficient image generation model designed for fast iteration."
+          "question": "Z-Image 是什么？",
+          "answer": "Z-Image 是一款面向快速迭代的高效图像生成模型。"
         },
         "item-2": {
-          "question": "Does it support 图生图?",
-          "answer": "Yes. Upload reference images to guide edits."
+          "question": "支持图生图吗？",
+          "answer": "支持。上传参考图即可引导编辑。"
         },
         "item-3": {
-          "question": "What formats can I export?",
-          "answer": "PNG and JPEG outputs are supported."
+          "question": "可以导出哪些格式？",
+          "answer": "支持 PNG 与 JPEG 输出。"
         },
         "item-4": {
-          "question": "Can I set output size?",
-          "answer": "Yes. Choose the output format and size before generating."
+          "question": "可以设置输出尺寸吗？",
+          "answer": "可以。在生成前选择格式与尺寸。"
         },
         "item-5": {
-          "question": "Is it good for daily production work?",
-          "answer": "Yes. It is optimized for fast, consistent results."
+          "question": "适合日常产出吗？",
+          "answer": "适合。它针对快速、稳定的结果做了优化。"
         }
       }
     },
     "cta": {
-      "title": "Create faster with Z-Image",
-      "description": "Generate efficient, brand-ready visuals in VLook.ai Studio.",
-      "primaryCta": "Start in the studio",
-      "secondaryCta": "See pricing"
+      "title": "用 Z-Image 更快出图",
+      "description": "在 VLook.ai Studio 生成高效、品牌可用的视觉素材。",
+      "primaryCta": "进入工作室",
+      "secondaryCta": "查看价格"
     },
     "examples": {
-      "title": "Z-Image examples",
-      "subtitle": "文生图 and 图生图 samples",
-      "inputLabel": "Input images",
-      "outputLabel": "Output image",
+      "title": "Z-Image 示例",
+      "subtitle": "文生图与图生图示例",
+      "inputLabel": "输入图片",
+      "outputLabel": "输出图片",
       "items": {
         "item-1": {
-          "title": "Product spotlight",
-          "description": "Clean compositions for product and ecommerce imagery.",
-          "prompt": "Studio product photo with softbox lighting and clean shadow."
+          "title": "产品聚焦图",
+          "description": "适合产品与电商的干净构图。",
+          "prompt": "柔光棚拍产品照，干净阴影与背景。"
         },
         "item-2": {
-          "title": "Style transfer",
-          "description": "Use references to keep style consistent across assets.",
-          "prompt": "Match the reference color palette and lighting while keeping the subject intact."
+          "title": "风格迁移",
+          "description": "使用参考图保持风格一致。",
+          "prompt": "在保持主体不变的情况下，匹配参考图的配色与光线。"
         }
       }
     },
     "immersiveStudio": {
-      "label": "Open immersive studio"
+      "label": "打开沉浸式工作室"
     }
   },
   "NanoBananaProStudioPage": {
-    "title": "Nano Banana Pro AI image generator",
-    "description": "Produce premium, consistent visuals with Nano Banana Pro for high-end marketing assets.",
+    "title": "Nano Banana Pro AI 图像生成器",
+    "description": "使用 Nano Banana Pro 生成高级、稳定的视觉素材，适合高端营销。",
     "eyebrow": "Nano Banana Pro",
     "hero": {
-      "title": "Nano Banana Pro AI image generator",
-      "subtitle": "Nano Banana Pro delivers premium image generation with consistent style control and refined detail.",
-      "primaryCta": "Open Nano Banana Pro studio",
-      "secondaryCta": "Explore capabilities",
-      "cta": "Generate or edit images in the live workspace below."
+      "title": "Nano Banana Pro AI 图像生成器",
+      "subtitle": "Nano Banana Pro 提供高级图像生成，风格控制稳定、细节精致。",
+      "primaryCta": "打开 Nano Banana Pro 工作室",
+      "secondaryCta": "查看能力亮点",
+      "cta": "在下方实时工作台生成或编辑图像。"
     },
     "studio": {
-      "title": "Live workspace",
-      "description": "Switch between 文生图 and 图生图, upload references, then set output format and size before you generate.",
-      "subtitle": "Nano Banana Pro studio"
+      "title": "实时工作台",
+      "description": "在文生图与图生图之间切换，上传参考图，然后设置输出格式与尺寸再生成。",
+      "subtitle": "Nano Banana Pro 工作室"
     },
     "snapshot": {
-      "eyebrow": "Capabilities",
-      "title": "Nano Banana Pro capabilities",
-      "description": "Premium outputs for brand campaigns and high-end visuals.",
-      "cardLabel": "Capability {index}",
+      "eyebrow": "能力亮点",
+      "title": "Nano Banana Pro 能力概览",
+      "description": "面向品牌战役与高端视觉的高级输出。",
+      "cardLabel": "能力 {index}",
       "brandLabel": "Nano Banana Pro",
       "items": {
         "item-1": {
-          "title": "Premium detail",
-          "description": "Generate high-fidelity textures and materials.",
-          "alt": "Premium detail preview"
+          "title": "高级细节",
+          "description": "生成高保真纹理与材质表现。",
+          "alt": "高级细节预览"
         },
         "item-2": {
-          "title": "Consistent brand style",
-          "description": "Use references to keep colors and lighting aligned.",
-          "alt": "Consistent style preview"
+          "title": "品牌风格一致",
+          "description": "通过参考图保持配色与光线统一。",
+          "alt": "一致风格预览"
         },
         "item-3": {
-          "title": "Ready-to-use exports",
-          "description": "Export PNG or JPEG for production use.",
-          "alt": "Export format preview"
+          "title": "即用导出",
+          "description": "支持 PNG 或 JPEG 用于生产交付。",
+          "alt": "导出格式预览"
         }
       }
     },
     "workflow": {
-      "title": "How Nano Banana Pro works",
-      "description": "A repeatable flow for premium image generation.",
-      "stepLabel": "Step {index}",
+      "title": "Nano Banana Pro 工作流程",
+      "description": "用于高级图像生成的可复用流程。",
+      "stepLabel": "步骤 {index}",
       "items": {
         "item-1": {
-          "title": "Pick a mode",
-          "description": "Start from a prompt or edit with references."
+          "title": "选择模式",
+          "description": "从提示词开始，或基于参考图编辑。"
         },
         "item-2": {
-          "title": "Add references",
-          "description": "Upload product or style references to guide output."
+          "title": "添加参考",
+          "description": "上传产品或风格参考引导输出。"
         },
         "item-3": {
-          "title": "Set output",
-          "description": "Choose format and size for delivery."
+          "title": "设置输出",
+          "description": "选择交付所需的格式与尺寸。"
         },
         "item-4": {
-          "title": "Generate & export",
-          "description": "Iterate quickly and download final assets."
+          "title": "生成并导出",
+          "description": "快速迭代并下载最终素材。"
         }
       }
     },
     "faq": {
-      "title": "Nano Banana Pro FAQ",
-      "description": "Answers about Nano Banana Pro usage and outputs.",
+      "title": "Nano Banana Pro 常见问题",
+      "description": "关于 Nano Banana Pro 使用与输出的解答。",
       "items": {
         "item-1": {
-          "question": "What is Nano Banana Pro?",
-          "answer": "Nano Banana Pro is a premium image model for high-quality visuals."
+          "question": "Nano Banana Pro 是什么？",
+          "answer": "Nano Banana Pro 是面向高质量视觉的高级图像模型。"
         },
         "item-2": {
-          "question": "Does it support 图生图?",
-          "answer": "Yes. Upload references to guide edits and variations."
+          "question": "支持图生图吗？",
+          "answer": "支持。上传参考图即可引导编辑与变体。"
         },
         "item-3": {
-          "question": "What formats can I export?",
-          "answer": "PNG and JPEG outputs are supported."
+          "question": "可以导出哪些格式？",
+          "answer": "支持 PNG 与 JPEG 输出。"
         },
         "item-4": {
-          "question": "Can I control size and aspect ratio?",
-          "answer": "Yes. Choose the output format and size before generating."
+          "question": "能控制尺寸和比例吗？",
+          "answer": "可以。在生成前选择输出格式与尺寸。"
         },
         "item-5": {
-          "question": "Is it suited for premium campaigns?",
-          "answer": "Yes. It is designed for high-end marketing assets."
+          "question": "适合高端营销吗？",
+          "answer": "适合。它针对高端营销素材进行设计。"
         }
       }
     },
     "cta": {
-      "title": "Create premium visuals with Nano Banana Pro",
-      "description": "Generate campaign-ready images with premium consistency in VLook.ai Studio.",
-      "primaryCta": "Start in the studio",
-      "secondaryCta": "See pricing"
+      "title": "用 Nano Banana Pro 创造高级视觉",
+      "description": "在 VLook.ai Studio 生成稳定一致的高端营销图片。",
+      "primaryCta": "进入工作室",
+      "secondaryCta": "查看价格"
     },
     "examples": {
-      "title": "Nano Banana Pro examples",
-      "subtitle": "文生图 and 图生图 samples",
-      "inputLabel": "Input images",
-      "outputLabel": "Output image",
+      "title": "Nano Banana Pro 示例",
+      "subtitle": "文生图与图生图示例",
+      "inputLabel": "输入图片",
+      "outputLabel": "输出图片",
       "items": {
         "item-1": {
-          "title": "Luxury product render",
-          "description": "High-end materials with refined lighting and shadows.",
-          "prompt": "Luxury watch on black marble, soft spotlight, premium reflections."
+          "title": "奢华产品渲染",
+          "description": "细腻材质与精致光影。",
+          "prompt": "黑色大理石上的奢华腕表，柔和聚光，高级反射。"
         },
         "item-2": {
-          "title": "Brand-consistent variations",
-          "description": "Keep styling aligned across multiple versions.",
-          "prompt": "Match the reference lighting and palette while changing the background to a warm studio scene."
+          "title": "品牌一致的变体",
+          "description": "保持风格统一的多版本输出。",
+          "prompt": "在保持光线与配色一致的情况下，将背景改为暖色摄影棚场景。"
         }
       }
     },
     "immersiveStudio": {
-      "label": "Open immersive studio"
+      "label": "打开沉浸式工作室"
     }
   },
   "Kling26StudioPage": {
-    "title": "Kling 2.6 AI video generator",
-    "description": "Create cinematic videos with Kling 2.6 for ads, social, and storytelling.",
+    "title": "Kling 2.6 AI 视频生成器",
+    "description": "使用 Kling 2.6 生成电影感视频，适合广告、社媒与叙事内容。",
     "eyebrow": "Kling 2.6",
     "hero": {
-      "title": "Kling 2.6 AI video generator",
-      "subtitle": "Kling 2.6 turns text or images into cinematic video clips with strong motion and style control.",
-      "primaryCta": "Open Kling 2.6 studio",
-      "secondaryCta": "Explore capabilities",
-      "cta": "Generate videos in the live workspace below."
+      "title": "Kling 2.6 AI 视频生成器",
+      "subtitle": "Kling 2.6 可将文字或图片转为电影感视频片段，运动和风格控制出色。",
+      "primaryCta": "打开 Kling 2.6 工作室",
+      "secondaryCta": "查看能力亮点",
+      "cta": "在下方实时工作台生成视频。"
     },
     "studio": {
-      "title": "Live workspace",
-      "description": "Choose text-to-video or image-to-video, upload references, then set aspect ratio and duration before you generate.",
-      "subtitle": "Kling 2.6 video studio"
+      "title": "实时工作台",
+      "description": "选择文生视频或图生视频，上传参考图后设置画面比例与时长再生成。",
+      "subtitle": "Kling 2.6 视频工作室"
     },
     "snapshot": {
-      "eyebrow": "Capabilities",
-      "title": "Kling 2.6 capabilities",
-      "description": "Cinematic motion for short-form video production.",
-      "cardLabel": "Capability {index}",
+      "eyebrow": "能力亮点",
+      "title": "Kling 2.6 能力概览",
+      "description": "面向短视频制作的电影感动效。",
+      "cardLabel": "能力 {index}",
       "brandLabel": "Kling 2.6",
       "items": {
         "item-1": {
-          "title": "Text-to-video generation",
-          "description": "Create cinematic clips from detailed prompts.",
-          "alt": "Text-to-video preview"
+          "title": "文生视频",
+          "description": "通过详细提示生成电影感片段。",
+          "alt": "文生视频预览"
         },
         "item-2": {
-          "title": "Image-to-video animation",
-          "description": "Animate still frames into moving scenes.",
-          "alt": "Image-to-video preview"
+          "title": "图生视频动效",
+          "description": "将静态画面转为动态场景。",
+          "alt": "图生视频预览"
         },
         "item-3": {
-          "title": "Video exports",
-          "description": "Download MP4 outputs for publishing.",
-          "alt": "Video export preview"
+          "title": "视频导出",
+          "description": "下载 MP4 用于发布。",
+          "alt": "视频导出预览"
         }
       }
     },
     "workflow": {
-      "title": "How Kling 2.6 works",
-      "description": "A repeatable flow for video generation.",
-      "stepLabel": "Step {index}",
+      "title": "Kling 2.6 工作流程",
+      "description": "可复用的视频生成流程。",
+      "stepLabel": "步骤 {index}",
       "items": {
         "item-1": {
-          "title": "Pick a mode",
-          "description": "Start with a text prompt or image reference."
+          "title": "选择模式",
+          "description": "从文字提示或图片参考开始。"
         },
         "item-2": {
-          "title": "Add references",
-          "description": "Upload keyframes or style references as needed."
+          "title": "添加参考",
+          "description": "按需上传关键帧或风格参考。"
         },
         "item-3": {
-          "title": "Set output",
-          "description": "Choose aspect ratio, duration, and options."
+          "title": "设置输出",
+          "description": "选择画面比例、时长与参数。"
         },
         "item-4": {
-          "title": "Generate & export",
-          "description": "Review clips and download final video."
+          "title": "生成并导出",
+          "description": "查看片段并下载最终视频。"
         }
       }
     },
     "faq": {
-      "title": "Kling 2.6 FAQ",
-      "description": "Answers about Kling 2.6 usage and outputs.",
+      "title": "Kling 2.6 常见问题",
+      "description": "关于 Kling 2.6 使用与输出的解答。",
       "items": {
         "item-1": {
-          "question": "What is Kling 2.6?",
-          "answer": "Kling 2.6 is an AI video generation model for text-to-video and image-to-video."
+          "question": "Kling 2.6 是什么？",
+          "answer": "Kling 2.6 是一款支持文生视频与图生视频的 AI 视频模型。"
         },
         "item-2": {
-          "question": "Does it support image-to-video?",
-          "answer": "Yes. Upload an image to animate it into a short clip."
+          "question": "支持图生视频吗？",
+          "answer": "支持。上传图片即可生成动态短片。"
         },
         "item-3": {
-          "question": "What formats can I export?",
-          "answer": "MP4 outputs are supported."
+          "question": "可以导出哪些格式？",
+          "answer": "支持 MP4 输出。"
         },
         "item-4": {
-          "question": "Can I control aspect ratio and duration?",
-          "answer": "Yes. Choose output settings before you generate."
+          "question": "能控制比例和时长吗？",
+          "answer": "可以。在生成前设置输出参数。"
         },
         "item-5": {
-          "question": "Is it good for social ads?",
-          "answer": "Yes. It is optimized for short, cinematic clips."
+          "question": "适合社媒广告吗？",
+          "answer": "适合。它针对短、电影感片段进行了优化。"
         }
       }
     },
     "cta": {
-      "title": "Create cinematic clips with Kling 2.6",
-      "description": "Generate short-form video content in VLook.ai Studio.",
-      "primaryCta": "Start in the studio",
-      "secondaryCta": "See pricing"
+      "title": "用 Kling 2.6 制作电影感短片",
+      "description": "在 VLook.ai Studio 生成短视频内容。",
+      "primaryCta": "进入工作室",
+      "secondaryCta": "查看价格"
     },
     "examples": {
-      "title": "Kling 2.6 examples",
-      "subtitle": "Text-to-video and image-to-video samples",
-      "inputLabel": "Input images",
-      "outputLabel": "Output video",
+      "title": "Kling 2.6 示例",
+      "subtitle": "文生视频与图生视频示例",
+      "inputLabel": "输入图片",
+      "outputLabel": "输出视频",
       "items": {
         "item-1": {
-          "title": "City night timelapse",
-          "description": "A cinematic clip with neon lighting and smooth camera motion.",
-          "prompt": "A futuristic city street at night, neon reflections, slow cinematic dolly."
+          "title": "城市夜景延时",
+          "description": "霓虹光影与平滑镜头运动的电影感片段。",
+          "prompt": "夜晚未来感城市街道，霓虹反射，缓慢电影推镜。"
         },
         "item-2": {
-          "title": "Product reveal",
-          "description": "Animate a product hero into a motion reveal.",
-          "prompt": "Slow rotating product shot with soft studio lighting and subtle fog."
+          "title": "产品揭幕",
+          "description": "将产品主图转为动效展示。",
+          "prompt": "柔和棚灯与薄雾中的慢速旋转产品镜头。"
         }
       }
     },
     "immersiveStudio": {
-      "label": "Open immersive studio"
+      "label": "打开沉浸式工作室"
     }
   },
   "SunoStudioPage": {
-    "title": "Suno AI music generator",
-    "description": "Generate original music and audio with Suno for content, ads, and storytelling.",
+    "title": "Suno AI 音乐生成器",
+    "description": "使用 Suno 生成原创音乐与音频，适合内容、广告与叙事。",
     "eyebrow": "Suno",
     "hero": {
-      "title": "Suno AI music generator",
-      "subtitle": "Suno creates original music and audio tracks from prompts with fast iteration and consistent mood.",
-      "primaryCta": "Open Suno studio",
-      "secondaryCta": "Explore capabilities",
-      "cta": "Generate music in the live workspace below."
+      "title": "Suno AI 音乐生成器",
+      "subtitle": "Suno 可根据提示生成原创音乐与音轨，迭代快速、氛围稳定。",
+      "primaryCta": "打开 Suno 工作室",
+      "secondaryCta": "查看能力亮点",
+      "cta": "在下方实时工作台生成音乐。"
     },
     "studio": {
-      "title": "Live workspace",
-      "description": "Describe mood, genre, and instrumentation, then set output options before you generate.",
-      "subtitle": "Suno music studio"
+      "title": "实时工作台",
+      "description": "描述情绪、风格与配器，然后设置输出选项再生成。",
+      "subtitle": "Suno 音乐工作室"
     },
     "snapshot": {
-      "eyebrow": "Capabilities",
-      "title": "Suno capabilities",
-      "description": "Original music for content, ads, and storytelling.",
-      "cardLabel": "Capability {index}",
+      "eyebrow": "能力亮点",
+      "title": "Suno 能力概览",
+      "description": "面向内容、广告与叙事的原创音乐。",
+      "cardLabel": "能力 {index}",
       "brandLabel": "Suno",
       "items": {
         "item-1": {
-          "title": "Prompt-to-music",
-          "description": "Generate tracks from text descriptions and genre cues.",
-          "alt": "Prompt-to-music preview"
+          "title": "提示词生音乐",
+          "description": "通过文字描述与风格提示生成音轨。",
+          "alt": "提示词生音乐预览"
         },
         "item-2": {
-          "title": "Mood control",
-          "description": "Guide tempo, energy, and instrumentation with prompts.",
-          "alt": "Mood control preview"
+          "title": "情绪控制",
+          "description": "用提示控制速度、能量与配器。",
+          "alt": "情绪控制预览"
         },
         "item-3": {
-          "title": "Audio exports",
-          "description": "Download tracks for publishing.",
-          "alt": "Audio export preview"
+          "title": "音频导出",
+          "description": "下载音轨用于发布。",
+          "alt": "音频导出预览"
         }
       }
     },
     "workflow": {
-      "title": "How Suno works",
-      "description": "A repeatable flow for music generation.",
-      "stepLabel": "Step {index}",
+      "title": "Suno 工作流程",
+      "description": "可复用的音乐生成流程。",
+      "stepLabel": "步骤 {index}",
       "items": {
         "item-1": {
-          "title": "Describe the track",
-          "description": "Write a prompt with genre, mood, and instruments."
+          "title": "描述音乐",
+          "description": "写下风格、情绪与乐器提示。"
         },
         "item-2": {
-          "title": "Set output",
-          "description": "Choose options and length before generating."
+          "title": "设置输出",
+          "description": "生成前选择选项与时长。"
         },
         "item-3": {
-          "title": "Generate",
-          "description": "Create tracks in seconds for rapid iteration."
+          "title": "生成",
+          "description": "数秒内生成音轨便于快速迭代。"
         },
         "item-4": {
-          "title": "Export",
-          "description": "Download audio for publishing."
+          "title": "导出",
+          "description": "下载音频用于发布。"
         }
       }
     },
     "faq": {
-      "title": "Suno FAQ",
-      "description": "Answers about Suno usage and outputs.",
+      "title": "Suno 常见问题",
+      "description": "关于 Suno 使用与输出的解答。",
       "items": {
         "item-1": {
-          "question": "What is Suno?",
-          "answer": "Suno is an AI music model for generating original audio tracks."
+          "question": "Suno 是什么？",
+          "answer": "Suno 是用于生成原创音轨的 AI 音乐模型。"
         },
         "item-2": {
-          "question": "Can I control genre and mood?",
-          "answer": "Yes. Prompts can specify genre, mood, and instrumentation."
+          "question": "可以控制风格和情绪吗？",
+          "answer": "可以。提示词可指定风格、情绪与配器。"
         },
         "item-3": {
-          "question": "What formats can I export?",
-          "answer": "Audio exports are supported for publishing."
+          "question": "可以导出哪些格式？",
+          "answer": "支持音频输出用于发布。"
         },
         "item-4": {
-          "question": "How long does it take to generate?",
-          "answer": "Most tracks generate in seconds depending on settings."
+          "question": "生成要多久？",
+          "answer": "大多数音轨在数秒内生成，取决于设置。"
         },
         "item-5": {
-          "question": "Is it suitable for ads and social content?",
-          "answer": "Yes. It is designed for short-form, reusable audio."
+          "question": "适合广告和社媒吗？",
+          "answer": "适合。它针对短视频可复用音频进行了设计。"
         }
       }
     },
     "cta": {
-      "title": "Create original music with Suno",
-      "description": "Generate ready-to-use audio tracks in VLook.ai Studio.",
-      "primaryCta": "Start in the studio",
-      "secondaryCta": "See pricing"
+      "title": "用 Suno 创作原创音乐",
+      "description": "在 VLook.ai Studio 生成可直接使用的音频。",
+      "primaryCta": "进入工作室",
+      "secondaryCta": "查看价格"
     },
     "examples": {
-      "title": "Suno examples",
-      "subtitle": "Prompt-driven music samples",
-      "inputLabel": "Input images",
-      "outputLabel": "Output audio",
+      "title": "Suno 示例",
+      "subtitle": "提示词驱动音乐示例",
+      "inputLabel": "输入提示",
+      "outputLabel": "输出音频",
       "items": {
         "item-1": {
-          "title": "Ambient brand bed",
-          "description": "A calm, modern track for product promos.",
-          "prompt": "Minimal ambient track, soft synths, warm pads, 90 BPM."
+          "title": "氛围品牌底乐",
+          "description": "用于产品宣传的冷静现代音乐。",
+          "prompt": "极简氛围音乐，柔和合成器，暖色铺底，90 BPM。"
         },
         "item-2": {
-          "title": "Upbeat social clip",
-          "description": "Bright, energetic music for short-form content.",
-          "prompt": "Upbeat pop track with punchy drums, bright synths, 120 BPM."
+          "title": "活力社媒短片",
+          "description": "适合短视频的明亮高能音乐。",
+          "prompt": "明亮流行曲，强劲鼓点，明亮合成器，120 BPM。"
         }
       }
     },
     "immersiveStudio": {
-      "label": "Open immersive studio"
+      "label": "打开沉浸式工作室"
     }
   }
 }

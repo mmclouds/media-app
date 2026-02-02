@@ -348,11 +348,13 @@ export function ToggleField({
 }
 
 export function SwitchField({
+  title,
   label,
   checked,
   helperText,
   onChange,
 }: {
+  title?: string;
   label: string;
   checked: boolean;
   helperText?: string;
@@ -360,9 +362,18 @@ export function SwitchField({
 }) {
   return (
     <div className="space-y-2">
-      <div className="flex items-center justify-between rounded-xl border border-white/20 bg-[#0b0d10] px-4 py-2 text-sm text-white/80 shadow-inner shadow-black/40">
-        <span className="font-medium">{label}</span>
-        <Switch checked={checked} onCheckedChange={onChange} />
+      {title ? (
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-semibold text-white">{title}</p>
+        </div>
+      ) : null}
+      <div className="flex items-center">
+        <span className="sr-only">{label}</span>
+        <Switch
+          checked={checked}
+          onCheckedChange={onChange}
+          aria-label={label}
+        />
       </div>
       {helperText ? (
         <p className="text-xs text-white/50">{helperText}</p>
