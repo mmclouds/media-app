@@ -5,6 +5,8 @@ import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-p
 import WorkflowStepsSection from '@/components/custom-blocks/workflow-steps/workflow-steps';
 import ImageToMediaShowcase from '@/components/cutomer/image-to-media-showcase';
 import type { ImageToMediaExample } from '@/components/cutomer/image-to-media-showcase';
+import MediaPromptShowcase from '@/components/cutomer/media-prompt-showcase';
+import type { MediaPromptExample } from '@/components/cutomer/media-prompt-showcase';
 import Container from '@/components/layout/container';
 import { Footer } from '@/components/layout/footer';
 import { Navbar } from '@/components/layout/navbar';
@@ -74,20 +76,26 @@ export default async function Kling26StudioPage() {
     },
   ];
 
-  const exampleItems: ImageToMediaExample[] = [
+  const promptExampleItems: MediaPromptExample[] = [
     {
       title: t('examples.items.item-1.title'),
       description: t('examples.items.item-1.description'),
-      prompt: t('examples.items.item-1.prompt'),
-      inputImages: [],
-      output: '/images/studio-examples/kling-2-6/kling-banner.png',
+      prompts: [t('examples.items.item-1.prompt')],
+      output:
+        'https://media.vlook.ai/media/download/0/public/kling-2-6-text-to-video-secret.mp4',
     },
+  ];
+
+  const referenceExampleItems: ImageToMediaExample[] = [
     {
       title: t('examples.items.item-2.title'),
       description: t('examples.items.item-2.description'),
       prompt: t('examples.items.item-2.prompt'),
-      inputImages: ['/images/studio-examples/kling-2-6/kling-logo.png'],
-      output: '/images/studio-examples/kling-2-6/kling-banner.png',
+      inputImages: [
+        'https://media.vlook.ai/media/download/0/public/kling-2-6-podcast-input.png',
+      ],
+      output:
+        'https://media.vlook.ai/media/download/0/public/kling-2-6-podcast-output.mp4',
     },
   ];
 
@@ -196,13 +204,21 @@ export default async function Kling26StudioPage() {
           className="[&_h2]:text-4xl [&_h2]:font-bold"
         />
 
-        <ImageToMediaShowcase
+        <MediaPromptShowcase
           id="examples"
-          title={t('examples.title')}
-          subtitle={t('examples.subtitle')}
+          title={t('examples.promptTitle')}
+          subtitle={t('examples.promptSubtitle')}
+          promptSetLabel={t('examples.promptSetLabel')}
+          outputPreviewLabel={t('examples.outputPreviewLabel')}
+          items={promptExampleItems}
+        />
+
+        <ImageToMediaShowcase
+          title={t('examples.referenceTitle')}
+          subtitle={t('examples.referenceSubtitle')}
           inputLabel={t('examples.inputLabel')}
           outputLabel={t('examples.outputLabel')}
-          items={exampleItems}
+          items={referenceExampleItems}
         />
 
         <div className="[&_h2]:text-4xl [&_h2]:font-bold">

@@ -1805,24 +1805,24 @@
     "snapshot": {
       "eyebrow": "能力亮点",
       "title": "Kling 2.6 能力概览",
-      "description": "面向短视频制作的电影感动效。",
+      "description": "更深的语义理解、更自然的音画同步与更精细的声音层次，让短片更像真实混音后的成片。",
       "cardLabel": "能力 {index}",
       "brandLabel": "Kling 2.6",
       "items": {
         "item-1": {
-          "title": "文生视频",
-          "description": "通过详细提示生成电影感片段。",
+          "title": "音画同步",
+          "description": "画面动作与声音节奏实现深度对齐，语速、环境音与镜头节拍紧密协同，避免传统生成中“画面和声音分离”的割裂感，观感更完整、更有沉浸感。",
           "alt": "文生视频预览"
         },
         "item-2": {
-          "title": "图生视频动效",
-          "description": "将静态画面转为动态场景。",
+          "title": "音质与层次",
+          "description": "全面升级声音生成能力，支持人声、音效与环境音等多类型声音，音质更干净、层次更丰富，听感更接近真实混音，满足专业创作者对细节的要求。",
           "alt": "图生视频预览"
         },
         "item-3": {
-          "title": "视频导出",
-          "description": "下载 MP4 用于发布。",
-          "alt": "视频导出预览"
+          "title": "语义理解",
+          "description": "对文本描述、对白语气与复杂剧情具备更强语义理解能力，能更准确把握创作意图，在多场景下输出更连贯、更符合逻辑的音画内容。",
+          "alt": "多音轨预览"
         }
       }
     },
@@ -1884,18 +1884,24 @@
     "examples": {
       "title": "Kling 2.6 示例",
       "subtitle": "文生视频与图生视频示例",
+      "promptTitle": "文生视频示例",
+      "promptSubtitle": "纯文本提示生成音画短片",
+      "promptSetLabel": "提示词",
+      "outputPreviewLabel": "输出预览",
+      "referenceTitle": "图生视频示例",
+      "referenceSubtitle": "参考图 + 对话场景",
       "inputLabel": "输入图片",
       "outputLabel": "输出视频",
       "items": {
         "item-1": {
-          "title": "城市夜景延时",
-          "description": "霓虹光影与平滑镜头运动的电影感片段。",
-          "prompt": "夜晚未来感城市街道，霓虹反射，缓慢电影推镜。"
+          "title": "客厅低语",
+          "description": "在温暖室内环境里用轻声对白完成口播。",
+          "prompt": "A young asian woman, casually dressed, sitting on a sofa in a cozy living room, softly saying: “I have a secret, Kling 2.6 is coming.”"
         },
         "item-2": {
-          "title": "产品揭幕",
-          "description": "将产品主图转为动效展示。",
-          "prompt": "柔和棚灯与薄雾中的慢速旋转产品镜头。"
+          "title": "播客双人对话",
+          "description": "双人轮流对白并在末尾自然鼓掌欢笑。",
+          "prompt": "A woman and a man are having a podcast conversation. The woman speaks first, then pauses. The man continues speaking. The woman says, \"Why do you always work overtime until late at night?\" At this point, the speaker switches. The man smiles and replies, \"Because I make decisions during the day, and I'm responsible for changing those decisions at night.\" Both of them start clapping and laughing together."
         }
       }
     },

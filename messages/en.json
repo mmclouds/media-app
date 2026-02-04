@@ -1805,24 +1805,24 @@
     "snapshot": {
       "eyebrow": "Capabilities",
       "title": "Kling 2.6 capabilities",
-      "description": "Cinematic motion for short-form video production.",
+      "description": "Deeper semantic understanding, tighter audio-visual sync, and more detailed sound layers for a more lifelike mix.",
       "cardLabel": "Capability {index}",
       "brandLabel": "Kling 2.6",
       "items": {
         "item-1": {
-          "title": "Text-to-video generation",
-          "description": "Create cinematic clips from detailed prompts.",
+          "title": "Audio-visual sync",
+          "description": "Visual motion and sound rhythms stay tightly aligned. Speech pacing, ambience, and on-screen actions move in lockstep, avoiding the common “separate audio and visuals” feeling.",
           "alt": "Text-to-video preview"
         },
         "item-2": {
-          "title": "Image-to-video animation",
-          "description": "Animate still frames into moving scenes.",
+          "title": "Audio quality & layers",
+          "description": "Upgraded sound generation supports voices, SFX, and ambience with cleaner audio, richer layers, and a mix that feels closer to real-world production.",
           "alt": "Image-to-video preview"
         },
         "item-3": {
-          "title": "Video exports",
-          "description": "Download MP4 outputs for publishing.",
-          "alt": "Video export preview"
+          "title": "Semantic understanding",
+          "description": "Stronger comprehension of detailed prompts, spoken language, and multi-scene storylines helps capture intent and produce more coherent, logical audio-visual results.",
+          "alt": "Multi-track audio preview"
         }
       }
     },
@@ -1884,18 +1884,24 @@
     "examples": {
       "title": "Kling 2.6 examples",
       "subtitle": "Text-to-video and image-to-video samples",
+      "promptTitle": "Text-to-video example",
+      "promptSubtitle": "Prompt-only generation with synced audio",
+      "promptSetLabel": "Prompt",
+      "outputPreviewLabel": "Output preview",
+      "referenceTitle": "Image-to-video example",
+      "referenceSubtitle": "Reference image with dialogue and reactions",
       "inputLabel": "Input images",
       "outputLabel": "Output video",
       "items": {
         "item-1": {
-          "title": "City night timelapse",
-          "description": "A cinematic clip with neon lighting and smooth camera motion.",
-          "prompt": "A futuristic city street at night, neon reflections, slow cinematic dolly."
+          "title": "Cozy living room confession",
+          "description": "A spoken line with soft delivery in a warm, intimate scene.",
+          "prompt": "A young asian woman, casually dressed, sitting on a sofa in a cozy living room, softly saying: “I have a secret, Kling 2.6 is coming.”"
         },
         "item-2": {
-          "title": "Product reveal",
-          "description": "Animate a product hero into a motion reveal.",
-          "prompt": "Slow rotating product shot with soft studio lighting and subtle fog."
+          "title": "Podcast dialogue switch",
+          "description": "A two-speaker conversation with natural turn-taking and shared laughter.",
+          "prompt": "A woman and a man are having a podcast conversation. The woman speaks first, then pauses. The man continues speaking. The woman says, \"Why do you always work overtime until late at night?\" At this point, the speaker switches. The man smiles and replies, \"Because I make decisions during the day, and I'm responsible for changing those decisions at night.\" Both of them start clapping and laughing together."
         }
       }
     },
