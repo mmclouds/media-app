@@ -53,6 +53,14 @@ export default async function GptImage15StudioPage() {
       title: t('snapshot.items.item-3.title'),
       description: t('snapshot.items.item-3.description'),
     },
+    {
+      title: t('snapshot.items.item-4.title'),
+      description: t('snapshot.items.item-4.description'),
+    },
+    {
+      title: t('snapshot.items.item-5.title'),
+      description: t('snapshot.items.item-5.description'),
+    },
   ];
 
   const workflowItems = [
@@ -79,18 +87,73 @@ export default async function GptImage15StudioPage() {
       title: t('examples.items.item-1.title'),
       description: t('examples.items.item-1.description'),
       prompt: t('examples.items.item-1.prompt'),
-      inputImages: [],
-      output: '/images/studio-examples/gpt-image-1-5/nb-01.jpg',
+      inputImages: [
+        'https://images.ctfassets.net/kftzwdyauwt9/5cwVlwaPmq2DToD9aownyp/e96fe76cb42c7494970aa2228e0601e8/chatgpt-images-example-1-input-2.png?w=256&q=90&fm=webp',
+        'https://images.ctfassets.net/kftzwdyauwt9/3ItRm2R52GpUvn4o98aTE1/7a0679e3821ba3c4833d1f81baacd03b/chatgpt-images-example-1-input-1.png?w=256&q=90&fm=webp',
+        'https://images.ctfassets.net/kftzwdyauwt9/6u6hRASp14bolVMdGkRsjz/f507cedcf291a87708155c7e37649d66/chatgpt-images-example-1-input-3.png?w=256&q=90&fm=webp',
+      ],
+      output:
+        'https://images.ctfassets.net/kftzwdyauwt9/3p5PZNWvpu3Ok2c42uyVBC/4bc40d7dfa085b24319dc9c145f52414/chatgpt-images-example-1-output-1.png?w=828&q=90&fm=webp',
     },
     {
       title: t('examples.items.item-2.title'),
       description: t('examples.items.item-2.description'),
       prompt: t('examples.items.item-2.prompt'),
       inputImages: [
-        '/images/studio-examples/gpt-image-1-5/nb-02.jpg',
-        '/images/studio-examples/gpt-image-1-5/nb-03.png',
+        'https://images.ctfassets.net/kftzwdyauwt9/4oFLXvcd0Vav1Fe48Ozq13/1ae87cae6ac3ef8b0ad82cdf72b7d5bf/sama.png?w=256&q=90&fm=webp',
       ],
-      output: '/images/studio-examples/gpt-image-1-5/nb-04.jpg',
+      output:
+        'https://images.ctfassets.net/kftzwdyauwt9/1U1FGWLDM7kU1PDnIHJYYi/5c29eacf9e9aecb58a6541228fc371a5/chatgpt-images-example-3-output-10.png?w=640&q=90&fm=webp',
+    },
+    {
+      title: t('examples.items.item-3.title'),
+      description: t('examples.items.item-3.description'),
+      prompt: t('examples.items.item-3.prompt'),
+      inputImages: [
+        'https://images.ctfassets.net/kftzwdyauwt9/4oFLXvcd0Vav1Fe48Ozq13/1ae87cae6ac3ef8b0ad82cdf72b7d5bf/sama.png?w=256&q=90&fm=webp',
+      ],
+      output:
+        'https://images.ctfassets.net/kftzwdyauwt9/5E7lWlQcXfCm5awAjPY1wU/ff629b44d5cc902edbfe5e73ba046850/chatgpt-images-example-3-output-9.png?w=640&q=90&fm=webp',
+    },
+    {
+      title: t('examples.items.item-4.title'),
+      description: t('examples.items.item-4.description'),
+      prompt: t('examples.items.item-4.prompt'),
+      inputImages: [],
+      output:
+        'https://images.ctfassets.net/kftzwdyauwt9/5oMdYDrJ0rnoqcaSPEUWjN/e248e4e693e25e53f18cd9098fbf68a4/chatgpt-images-instruction-following-new.png?w=640&q=90&fm=webp',
+    },
+    {
+      title: t('examples.items.item-5.title'),
+      description: t('examples.items.item-5.description'),
+      prompt: t('examples.items.item-5.prompt'),
+      inputImages: [],
+      output:
+        'https://images.ctfassets.net/kftzwdyauwt9/4HNQQQAV3fy7AGI8iSXvkD/06314d3aee5fed93f0ed6d701abf542d/fibonacci1.png?w=828&q=90&fm=webp',
+    },
+    {
+      title: t('examples.items.item-6.title'),
+      description: t('examples.items.item-6.description'),
+      prompt: t('examples.items.item-6.prompt'),
+      inputImages: [],
+      output:
+        'https://images.ctfassets.net/kftzwdyauwt9/3DoDfZK3NJkTRfPoDyFST/886db80876a70561a50a277809e87b70/gpt5.2.png?w=640&q=90&fm=webp',
+    },
+    {
+      title: t('examples.items.item-7.title'),
+      description: t('examples.items.item-7.description'),
+      prompt: t('examples.items.item-7.prompt'),
+      inputImages: [],
+      output:
+        'https://images.ctfassets.net/kftzwdyauwt9/61MZEpV2QadEsiVho5qUMs/a3d65485561efea74bb2722f7cf18df9/chatgpt-images-quality-1.png?w=640&q=90&fm=webp',
+    },
+    {
+      title: t('examples.items.item-8.title'),
+      description: t('examples.items.item-8.description'),
+      prompt: t('examples.items.item-8.prompt'),
+      inputImages: [],
+      output:
+        'https://images.ctfassets.net/kftzwdyauwt9/2bIYfVd1EvdlOVYHFkQe3M/c1f7f2a64a76aac43d26305b8989ba9e/chatgpt-images-quality-7.png?w=640&q=90&fm=webp',
     },
   ];
 
