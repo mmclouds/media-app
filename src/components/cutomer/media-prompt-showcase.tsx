@@ -25,6 +25,8 @@ type MediaPromptShowcaseProps = {
   title: string;
   subtitle?: string;
   exampleLabel?: string;
+  promptSetLabel?: string;
+  outputPreviewLabel?: string;
   items: MediaPromptExample[];
   className?: string;
 };
@@ -34,6 +36,8 @@ const MediaPromptShowcase = ({
   title,
   subtitle,
   exampleLabel = 'Example',
+  promptSetLabel = 'Prompt Set',
+  outputPreviewLabel = 'Output Preview',
   items,
   className,
 }: MediaPromptShowcaseProps) => {
@@ -74,39 +78,49 @@ const MediaPromptShowcase = ({
               </div>
 
               <div className="grid gap-6 lg:grid-cols-2">
-                <div className="h-[300px] overflow-hidden rounded-2xl border border-border/70 bg-muted/40 p-5 md:h-[320px]">
-                  <ul className="h-full space-y-3 overflow-y-auto pr-2 text-base leading-relaxed text-foreground">
-                    {item.prompts.map((prompt, promptIndex) => (
-                      <li key={`${item.title}-prompt-${promptIndex}`}>
-                        <span>{prompt}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="space-y-3">
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
+                    {promptSetLabel}
+                  </p>
+                  <div className="h-[300px] overflow-hidden rounded-2xl border border-border/70 bg-muted/40 p-5 md:h-[320px]">
+                    <ul className="h-full space-y-3 overflow-y-auto pr-2 text-base leading-relaxed text-foreground">
+                      {item.prompts.map((prompt, promptIndex) => (
+                        <li key={`${item.title}-prompt-${promptIndex}`}>
+                          <span>{prompt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
                 {(() => {
                   const kind = getMediaKind(item.output);
                   return (
-                    <div className="h-[300px] overflow-hidden rounded-2xl border border-border/60 bg-muted/30 p-4 shadow-sm md:h-[320px]">
-                      {kind === 'video' ? (
-                        <video
-                          controls
-                          muted
-                          playsInline
-                          preload="metadata"
-                          className="h-full w-full object-contain"
-                          aria-label={`${item.title} output video`}
-                        >
-                          <source src={item.output} />
-                        </video>
-                      ) : (
-                        <img
-                          src={item.output}
-                          alt={`${item.title} output`}
-                          loading="lazy"
-                          className="h-full w-full object-contain"
-                        />
-                      )}
+                    <div className="space-y-3">
+                      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
+                        {outputPreviewLabel}
+                      </p>
+                      <div className="h-[300px] overflow-hidden rounded-2xl border border-border/60 bg-muted/30 p-4 shadow-sm md:h-[320px]">
+                        {kind === 'video' ? (
+                          <video
+                            controls
+                            muted
+                            playsInline
+                            preload="metadata"
+                            className="h-full w-full object-contain"
+                            aria-label={`${item.title} output video`}
+                          >
+                            <source src={item.output} />
+                          </video>
+                        ) : (
+                          <img
+                            src={item.output}
+                            alt={`${item.title} output`}
+                            loading="lazy"
+                            className="h-full w-full object-contain"
+                          />
+                        )}
+                      </div>
                     </div>
                   );
                 })()}
