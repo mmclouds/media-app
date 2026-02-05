@@ -1,10 +1,8 @@
-import { CapabilitiesCardsSection } from '@/components/custom-blocks/capabilities-cards/capabilities-cards';
+import AlternatingMediaSection from '@/components/custom-blocks/alternating-media/alternating-media';
 import FaqSection from '@/components/custom-blocks/faqs/faqs';
 import HeroSection from '@/components/custom-blocks/hero/hero';
 import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-promo';
 import WorkflowStepsSection from '@/components/custom-blocks/workflow-steps/workflow-steps';
-import ImageToMediaShowcase from '@/components/cutomer/image-to-media-showcase';
-import type { ImageToMediaExample } from '@/components/cutomer/image-to-media-showcase';
 import Container from '@/components/layout/container';
 import { Footer } from '@/components/layout/footer';
 import { Navbar } from '@/components/layout/navbar';
@@ -40,18 +38,31 @@ export async function generateMetadata({
 export default async function ZImageStudioPage() {
   const t = await getTranslations('ZImageStudioPage');
 
-  const capabilityItems = [
+  const highlightItems = [
     {
-      title: t('snapshot.items.item-1.title'),
-      description: t('snapshot.items.item-1.description'),
+      title: t('highlights.items.item-1.title'),
+      description: t('highlights.items.item-1.description'),
+      image: {
+        src: '/images/studio-examples/z-image/showcase_realistic.png',
+        alt: 'Photorealistic showcase preview',
+        priority: true,
+      },
     },
     {
-      title: t('snapshot.items.item-2.title'),
-      description: t('snapshot.items.item-2.description'),
+      title: t('highlights.items.item-2.title'),
+      description: t('highlights.items.item-2.description'),
+      image: {
+        src: '/images/studio-examples/z-image/showcase_rendering.png',
+        alt: 'Bilingual text rendering preview',
+      },
     },
     {
-      title: t('snapshot.items.item-3.title'),
-      description: t('snapshot.items.item-3.description'),
+      title: t('highlights.items.item-3.title'),
+      description: t('highlights.items.item-3.description'),
+      image: {
+        src: '/images/studio-examples/z-image/reasoning.png',
+        alt: 'Prompt enhancer reasoning preview',
+      },
     },
   ];
 
@@ -74,22 +85,6 @@ export default async function ZImageStudioPage() {
     },
   ];
 
-  const exampleItems: ImageToMediaExample[] = [
-    {
-      title: t('examples.items.item-1.title'),
-      description: t('examples.items.item-1.description'),
-      prompt: t('examples.items.item-1.prompt'),
-      inputImages: [],
-      output: '/images/studio-examples/z-image/reality-1.png',
-    },
-    {
-      title: t('examples.items.item-2.title'),
-      description: t('examples.items.item-2.description'),
-      prompt: t('examples.items.item-2.prompt'),
-      inputImages: ['/images/studio-examples/z-image/editing-1.jpg'],
-      output: '/images/studio-examples/z-image/showcase_editing.png',
-    },
-  ];
 
   const faqItemKeys = [
     'faq.items.item-1',
@@ -176,16 +171,11 @@ export default async function ZImageStudioPage() {
           </Container>
         </section>
 
-        <CapabilitiesCardsSection
+        <AlternatingMediaSection
           id="highlights"
-          eyebrow={t('snapshot.eyebrow')}
-          title={t('snapshot.title')}
-          description={t('snapshot.description')}
-          items={capabilityItems}
-          getCardLabel={(index) =>
-            t('snapshot.cardLabel', { index })
-          }
-          brandLabel={t('snapshot.brandLabel')}
+          subtitle={t('highlights.title')}
+          items={highlightItems}
+          className="[&_h2]:text-4xl [&_h2]:font-bold"
         />
 
         <WorkflowStepsSection
@@ -194,15 +184,6 @@ export default async function ZImageStudioPage() {
           description={t('workflow.description')}
           items={workflowItems}
           className="[&_h2]:text-4xl [&_h2]:font-bold"
-        />
-
-        <ImageToMediaShowcase
-          id="examples"
-          title={t('examples.title')}
-          subtitle={t('examples.subtitle')}
-          inputLabel={t('examples.inputLabel')}
-          outputLabel={t('examples.outputLabel')}
-          items={exampleItems}
         />
 
         <div className="[&_h2]:text-4xl [&_h2]:font-bold">

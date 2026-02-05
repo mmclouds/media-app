@@ -1614,6 +1614,23 @@
       "description": "Switch between text-to-image and image-to-image, upload references, then set output format and size before you generate.",
       "subtitle": "Z-Image studio"
     },
+    "highlights": {
+      "title": "Key Highlights",
+      "items": {
+        "item-1": {
+          "title": "Photorealistic Quality",
+          "description": "Z-Image-Turbo delivers strong photorealistic image generation while maintaining excellent aesthetic quality."
+        },
+        "item-2": {
+          "title": "Accurate Bilingual Text Rendering",
+          "description": "Z-Image-Turbo excels at accurately rendering complex Chinese and English text."
+        },
+        "item-3": {
+          "title": "Prompt Enhancing & Reasoning",
+          "description": "Prompt Enhancer empowers the model with reasoning capabilities, enabling it to transcend surface-level descriptions and tap into underlying world knowledge."
+        }
+      }
+    },
     "snapshot": {
       "eyebrow": "Capabilities",
       "title": "Z-Image capabilities",
@@ -1692,24 +1709,6 @@
       "description": "Generate efficient, brand-ready visuals in VLook.ai Studio.",
       "primaryCta": "Start in the studio",
       "secondaryCta": "See pricing"
-    },
-    "examples": {
-      "title": "Z-Image examples",
-      "subtitle": "Text-to-image and image-to-image samples",
-      "inputLabel": "Input images",
-      "outputLabel": "Output image",
-      "items": {
-        "item-1": {
-          "title": "Product spotlight",
-          "description": "Clean compositions for product and ecommerce imagery.",
-          "prompt": "Studio product photo with softbox lighting and clean shadow."
-        },
-        "item-2": {
-          "title": "Style transfer",
-          "description": "Use references to keep style consistent across assets.",
-          "prompt": "Match the reference color palette and lighting while keeping the subject intact."
-        }
-      }
     },
     "immersiveStudio": {
       "label": "Open immersive studio"

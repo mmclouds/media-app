@@ -1600,19 +1600,36 @@
   },
   "ZImageStudioPage": {
     "title": "Z-Image AI 图像生成器",
-    "description": "使用 Z-Image 高效生成干净视觉，用于日常营销与设计。",
+    "description": "用更低成本、更快速度生成干净视觉，适合日常营销与设计。",
     "eyebrow": "通义 Z-Image",
     "hero": {
       "title": "Z-Image AI 图像生成器",
-      "subtitle": "Z-Image 提供快速高效的图像生成，构图稳定，满足日常创作需求。",
+      "subtitle": "Z-Image 以更低成本与更快速度生成图像，构图稳定，满足日常创作需求。",
       "primaryCta": "打开 Z-Image 工作室",
       "secondaryCta": "查看能力亮点",
       "cta": "在下方实时工作台生成或编辑图像。"
     },
     "studio": {
       "title": "实时工作台",
-      "description": "在文生图与图生图之间切换，上传参考图，然后设置输出格式与尺寸再生成。",
+      "description": "用更低成本、更快速度完成文生图与图生图，上传参考图后设置格式与尺寸即可生成。",
       "subtitle": "Z-Image 工作室"
+    },
+    "highlights": {
+      "title": "Key Highlights",
+      "items": {
+        "item-1": {
+          "title": "Photorealistic Quality",
+          "description": "Z-Image-Turbo delivers strong photorealistic image generation while maintaining excellent aesthetic quality."
+        },
+        "item-2": {
+          "title": "Accurate Bilingual Text Rendering",
+          "description": "Z-Image-Turbo excels at accurately rendering complex Chinese and English text."
+        },
+        "item-3": {
+          "title": "Prompt Enhancing & Reasoning",
+          "description": "Prompt Enhancer empowers the model with reasoning capabilities, enabling it to transcend surface-level descriptions and tap into underlying world knowledge."
+        }
+      }
     },
     "snapshot": {
       "eyebrow": "能力亮点",
@@ -1692,24 +1709,6 @@
       "description": "在 VLook.ai Studio 生成高效、品牌可用的视觉素材。",
       "primaryCta": "进入工作室",
       "secondaryCta": "查看价格"
-    },
-    "examples": {
-      "title": "Z-Image 示例",
-      "subtitle": "文生图与图生图示例",
-      "inputLabel": "输入图片",
-      "outputLabel": "输出图片",
-      "items": {
-        "item-1": {
-          "title": "产品聚焦图",
-          "description": "适合产品与电商的干净构图。",
-          "prompt": "柔光棚拍产品照，干净阴影与背景。"
-        },
-        "item-2": {
-          "title": "风格迁移",
-          "description": "使用参考图保持风格一致。",
-          "prompt": "在保持主体不变的情况下，匹配参考图的配色与光线。"
-        }
-      }
     },
     "immersiveStudio": {
       "label": "打开沉浸式工作室"
