@@ -8,9 +8,18 @@ import { getBaseUrl } from '../lib/urls/urls';
 type Href = Parameters<typeof getLocalePathname>[0]['href'];
 
 /**
- * 仅输出首页，其他页面不进入 sitemap
+ * 输出首页与媒体模型内页（排除音乐模型）
  */
-const staticRoutes = ['/'];
+const staticRoutes = [
+  '/',
+  '/media-studio/sora2',
+  '/media-studio/veo3',
+  '/media-studio/kling-2-6',
+  '/media-studio/nano-banana',
+  '/media-studio/nano-banana-pro',
+  '/media-studio/gpt-image-1-5',
+  '/media-studio/z-image',
+];
 
 /**
  * Generate a sitemap for the website with hreflang support

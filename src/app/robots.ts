@@ -8,10 +8,22 @@ export default function robots(): MetadataRoute.Robots {
     `/${locale}`,
     `/${locale}/`,
   ]);
+  const modelPaths = [
+    '/media-studio/sora2',
+    '/media-studio/veo3',
+    '/media-studio/kling-2-6',
+    '/media-studio/nano-banana',
+    '/media-studio/nano-banana-pro',
+    '/media-studio/gpt-image-1-5',
+    '/media-studio/z-image',
+  ];
+  const localeModelPaths = locales.flatMap((locale) =>
+    modelPaths.map((path) => `/${locale}${path}`)
+  );
   return {
     rules: {
       userAgent: '*',
-      allow: ['/', ...localeRootPaths],
+      allow: ['/', ...localeRootPaths, ...modelPaths, ...localeModelPaths],
       disallow: ['/*'],
     },
     sitemap: `${getBaseUrl()}/sitemap.xml`,
