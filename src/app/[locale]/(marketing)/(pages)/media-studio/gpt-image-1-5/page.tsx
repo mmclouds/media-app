@@ -5,6 +5,8 @@ import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-p
 import WorkflowStepsSection from '@/components/custom-blocks/workflow-steps/workflow-steps';
 import ImageToMediaShowcase from '@/components/cutomer/image-to-media-showcase';
 import type { ImageToMediaExample } from '@/components/cutomer/image-to-media-showcase';
+import MediaPromptShowcase from '@/components/cutomer/media-prompt-showcase';
+import type { MediaPromptExample } from '@/components/cutomer/media-prompt-showcase';
 import Container from '@/components/layout/container';
 import { Footer } from '@/components/layout/footer';
 import { Navbar } from '@/components/layout/navbar';
@@ -82,7 +84,7 @@ export default async function GptImage15StudioPage() {
     },
   ];
 
-  const exampleItems: ImageToMediaExample[] = [
+  const referenceExampleItems: ImageToMediaExample[] = [
     {
       title: t('examples.items.item-1.title'),
       description: t('examples.items.item-1.description'),
@@ -115,43 +117,41 @@ export default async function GptImage15StudioPage() {
       output:
         'https://images.ctfassets.net/kftzwdyauwt9/5E7lWlQcXfCm5awAjPY1wU/ff629b44d5cc902edbfe5e73ba046850/chatgpt-images-example-3-output-9.png?w=640&q=90&fm=webp',
     },
+  ];
+
+  const promptExampleItems: MediaPromptExample[] = [
     {
       title: t('examples.items.item-4.title'),
       description: t('examples.items.item-4.description'),
-      prompt: t('examples.items.item-4.prompt'),
-      inputImages: [],
+      prompts: [t('examples.items.item-4.prompt')],
       output:
         'https://images.ctfassets.net/kftzwdyauwt9/5oMdYDrJ0rnoqcaSPEUWjN/e248e4e693e25e53f18cd9098fbf68a4/chatgpt-images-instruction-following-new.png?w=640&q=90&fm=webp',
     },
     {
       title: t('examples.items.item-5.title'),
       description: t('examples.items.item-5.description'),
-      prompt: t('examples.items.item-5.prompt'),
-      inputImages: [],
+      prompts: [t('examples.items.item-5.prompt')],
       output:
         'https://images.ctfassets.net/kftzwdyauwt9/4HNQQQAV3fy7AGI8iSXvkD/06314d3aee5fed93f0ed6d701abf542d/fibonacci1.png?w=828&q=90&fm=webp',
     },
     {
       title: t('examples.items.item-6.title'),
       description: t('examples.items.item-6.description'),
-      prompt: t('examples.items.item-6.prompt'),
-      inputImages: [],
+      prompts: [t('examples.items.item-6.prompt')],
       output:
         'https://images.ctfassets.net/kftzwdyauwt9/3DoDfZK3NJkTRfPoDyFST/886db80876a70561a50a277809e87b70/gpt5.2.png?w=640&q=90&fm=webp',
     },
     {
       title: t('examples.items.item-7.title'),
       description: t('examples.items.item-7.description'),
-      prompt: t('examples.items.item-7.prompt'),
-      inputImages: [],
+      prompts: [t('examples.items.item-7.prompt')],
       output:
         'https://images.ctfassets.net/kftzwdyauwt9/61MZEpV2QadEsiVho5qUMs/a3d65485561efea74bb2722f7cf18df9/chatgpt-images-quality-1.png?w=640&q=90&fm=webp',
     },
     {
       title: t('examples.items.item-8.title'),
       description: t('examples.items.item-8.description'),
-      prompt: t('examples.items.item-8.prompt'),
-      inputImages: [],
+      prompts: [t('examples.items.item-8.prompt')],
       output:
         'https://images.ctfassets.net/kftzwdyauwt9/2bIYfVd1EvdlOVYHFkQe3M/c1f7f2a64a76aac43d26305b8989ba9e/chatgpt-images-quality-7.png?w=640&q=90&fm=webp',
     },
@@ -264,11 +264,17 @@ export default async function GptImage15StudioPage() {
 
         <ImageToMediaShowcase
           id="examples"
-          title={t('examples.title')}
-          subtitle={t('examples.subtitle')}
+          title={t('examples.referenceTitle')}
+          subtitle={t('examples.referenceSubtitle')}
           inputLabel={t('examples.inputLabel')}
           outputLabel={t('examples.outputLabel')}
-          items={exampleItems}
+          items={referenceExampleItems}
+        />
+
+        <MediaPromptShowcase
+          title={t('examples.promptTitle')}
+          subtitle={t('examples.promptSubtitle')}
+          items={promptExampleItems}
         />
 
         <div className="[&_h2]:text-4xl [&_h2]:font-bold">

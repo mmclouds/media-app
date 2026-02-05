@@ -208,8 +208,6 @@ export default async function Kling26StudioPage() {
           id="examples"
           title={t('examples.promptTitle')}
           subtitle={t('examples.promptSubtitle')}
-          promptSetLabel={t('examples.promptSetLabel')}
-          outputPreviewLabel={t('examples.outputPreviewLabel')}
           items={promptExampleItems}
         />
 

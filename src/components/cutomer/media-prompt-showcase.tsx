@@ -25,8 +25,6 @@ type MediaPromptShowcaseProps = {
   title: string;
   subtitle?: string;
   exampleLabel?: string;
-  promptSetLabel?: string;
-  outputPreviewLabel?: string;
   items: MediaPromptExample[];
   className?: string;
 };
@@ -36,15 +34,13 @@ const MediaPromptShowcase = ({
   title,
   subtitle,
   exampleLabel = 'Example',
-  promptSetLabel = 'Prompt Set',
-  outputPreviewLabel = 'Output Preview',
   items,
   className,
 }: MediaPromptShowcaseProps) => {
   return (
     <section id={id} className={clsx('py-16 lg:py-24', className)}>
-      <Container className="space-y-12">
-        <div className="space-y-4">
+      <Container className="space-y-8">
+        <div className="space-y-3">
           {subtitle ? (
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
               {subtitle}
@@ -55,13 +51,13 @@ const MediaPromptShowcase = ({
           </h2>
         </div>
 
-        <div className="space-y-10">
+        <div className="space-y-8">
           {items.map((item, index) => (
             <div
               key={`${item.title}-${index}`}
-              className="grid items-start gap-8 rounded-3xl border border-border/60 bg-background/80 p-6 shadow-sm lg:grid-cols-[1.05fr_1fr] lg:gap-12 lg:p-10"
+              className="space-y-6 rounded-3xl border border-border/60 bg-background/80 p-6 shadow-sm lg:p-10"
             >
-              <div className="space-y-6">
+              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div className="space-y-3">
                   <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
                     {exampleLabel} {index + 1}
@@ -69,48 +65,36 @@ const MediaPromptShowcase = ({
                   <h3 className="text-2xl font-semibold text-foreground">
                     {item.title}
                   </h3>
-                  {item.description ? (
-                    <p className="text-base leading-relaxed text-muted-foreground">
-                      {item.description}
-                    </p>
-                  ) : null}
                 </div>
-
-                <div className="rounded-2xl border border-border/70 bg-muted/40 p-5">
-                  <p className="text-sm font-semibold uppercase tracking-[0.26em] text-muted-foreground">
-                    {promptSetLabel}
+                {item.description ? (
+                  <p className="max-w-xl text-base leading-relaxed text-muted-foreground md:pb-0.5">
+                    {item.description}
                   </p>
-                  <ul className="mt-4 space-y-3">
+                ) : null}
+              </div>
+
+              <div className="grid gap-6 lg:grid-cols-2">
+                <div className="h-[300px] overflow-hidden rounded-2xl border border-border/70 bg-muted/40 p-5 md:h-[320px]">
+                  <ul className="h-full space-y-3 overflow-y-auto pr-2 text-base leading-relaxed text-foreground">
                     {item.prompts.map((prompt, promptIndex) => (
-                      <li
-                        key={`${item.title}-prompt-${promptIndex}`}
-                        className="flex gap-3 text-base leading-relaxed text-foreground"
-                      >
-                        <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-                          {promptIndex + 1}
-                        </span>
+                      <li key={`${item.title}-prompt-${promptIndex}`}>
                         <span>{prompt}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-              </div>
 
-              <div className="space-y-4">
-                <p className="text-sm font-semibold uppercase tracking-[0.26em] text-muted-foreground">
-                  {outputPreviewLabel}
-                </p>
                 {(() => {
                   const kind = getMediaKind(item.output);
                   return (
-                    <div className="aspect-video overflow-hidden rounded-2xl border border-border/60 bg-muted/30 shadow-sm">
+                    <div className="h-[300px] overflow-hidden rounded-2xl border border-border/60 bg-muted/30 p-4 shadow-sm md:h-[320px]">
                       {kind === 'video' ? (
                         <video
                           controls
                           muted
                           playsInline
                           preload="metadata"
-                          className="h-full w-full object-cover"
+                          className="h-full w-full object-contain"
                           aria-label={`${item.title} output video`}
                         >
                           <source src={item.output} />
@@ -120,7 +104,7 @@ const MediaPromptShowcase = ({
                           src={item.output}
                           alt={`${item.title} output`}
                           loading="lazy"
-                          className="h-full w-full object-cover"
+                          className="h-full w-full object-contain"
                         />
                       )}
                     </div>
