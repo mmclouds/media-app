@@ -1288,12 +1288,12 @@
     "description": "Generate original music with Suno in seconds."
   },
   "NanoBananaStudioPage": {
-    "title": "Nano Banana AI image generator",
-    "description": "Create hyper-realistic images in seconds with Nano Banana. It powers natural-language generation, seamless edits, and physics-aware detail for ads, ecommerce, and social content.",
+    "title": "Nano Banana AI Image Generator",
+    "description": "Create realistic, on-brand images fast with Nano Banana. Generate, edit, and iterate with multi-image references for ads, ecommerce, and social.",
     "eyebrow": "Gemini 2.5 Flash Image",
     "hero": {
-      "title": "Nano Banana AI image generator",
-      "subtitle": "Nano Banana (Gemini 2.5 Flash Image) is an advanced AI model excelling in natural language-driven image generation and editing. It delivers crisp composition, believable materials, and smooth style transformations so teams ship visuals faster.",
+      "title": "Nano Banana AI Image Generator",
+      "subtitle": "Nano Banana (Gemini 2.5 Flash Image) delivers fast, natural-language image generation and editing with crisp composition, believable materials, and smooth style transforms.",
       "primaryCta": "Open Nano Banana studio",
       "secondaryCta": "Explore capabilities",
       "tags": {
@@ -1301,23 +1301,23 @@
         "tag-2": "Consistent style",
         "tag-3": "Editable with references"
       },
-      "cta": "Generate or edit images in the live workspace below, then iterate with references before export."
+      "cta": "Generate or edit images in the live workspace below, then refine with references before export."
     },
     "studio": {
       "title": "Live workspace",
-      "description": "Switch between text-to-image and image-to-image, add up to 10 references, then set output format and image_size/aspect ratios before you generate. Use the same prompt to produce channel-ready sizes.",
+      "description": "Switch between text-to-image and image-to-image, add up to 10 references, then choose size and format before you generate. Reuse one prompt to produce channel-ready sizes.",
       "subtitle": "Nano Banana image studio"
     },
     "snapshot": {
       "eyebrow": "Capabilities",
       "title": "Nano Banana capabilities",
-      "description": "Built for rapid creative cycles with consistent composition, brand-ready color, and export control for ads, social, and ecommerce. Keep campaigns aligned without heavy post-production.",
+      "description": "Built for rapid creative cycles with consistent composition, brand-ready color, and export control.",
       "cardLabel": "Capability {index}",
       "brandLabel": "Nano Banana",
       "items": {
         "item-1": {
-          "title": "Fast text-to-image with brand-ready consistency",
-          "description": "Generate clean compositions, accurate lighting, and repeatable style in seconds for daily marketing production.",
+          "title": "Fast text-to-image, consistent style",
+          "description": "Generate clean compositions and reliable lighting in seconds for daily marketing production.",
           "alt": "Text-to-image preview"
         },
         "item-2": {
@@ -1327,18 +1327,18 @@
         },
         "item-3": {
           "title": "Production exports for teams",
-          "description": "Deliver PNG/JPEG assets that drop into product pages, ads, and social without cleanup or rework.",
+          "description": "Export PNG/JPEG assets that drop into product pages, ads, and social without rework.",
           "alt": "Output format preview"
         },
         "item-4": {
           "title": "Precise size + aspect control",
-          "description": "Pick vertical, square, or cinematic frames and keep framing intact across variations and channels."
+          "description": "Pick vertical, square, or cinematic frames and keep framing intact across variations."
         }
       }
     },
     "workflow": {
       "title": "How Nano Banana works",
-      "description": "A repeatable flow for text-to-image, image-to-image, and fast image editing that keeps teams aligned and output consistent.",
+      "description": "A repeatable flow for text-to-image, image-to-image, and fast edits that keeps teams aligned.",
       "stepLabel": "Step {index}",
       "items": {
         "item-1": {
@@ -1351,17 +1351,17 @@
         },
         "item-3": {
           "title": "Set output",
-          "description": "Choose png/jpeg and select image_size/aspect ratios that fit each channel and placement."
+          "description": "Choose PNG/JPEG and pick size/aspect ratio for each channel."
         },
         "item-4": {
           "title": "Generate & export",
-          "description": "Iterate quickly, review options, then download final Nano Banana outputs."
+          "description": "Iterate quickly, review options, then download final outputs."
         }
       }
     },
     "useCases": {
       "title": "Made for marketing teams",
-      "description": "Ship scroll-stopping visuals without long production cycles, from concept to final assets.",
+      "description": "Ship scroll-stopping visuals without long production cycles—from concept to final assets.",
       "items": {
         "item-1": "Product mockups",
         "item-2": "Ad concepts",
@@ -1372,8 +1372,8 @@
       }
     },
     "promptTips": {
-      "title": "Prompt formula that converts",
-      "description": "Use a repeatable structure to keep campaigns consistent and make results easier to reproduce.",
+      "title": "High-performing prompt formula",
+      "description": "Use a repeatable structure to keep campaigns consistent and easier to reproduce.",
       "formula": "Subject + Style + Lighting + Lens",
       "examples": {
         "item-1": "Minimalist skincare bottle, soft daylight, clean shadow, 50mm product shot.",
@@ -1398,8 +1398,8 @@
           "answer": "PNG and JPEG outputs are supported for easy publishing across web, ads, and social."
         },
         "item-4": {
-          "question": "Which image_size/aspect ratios can I choose?",
-          "answer": "Pick image_size/aspect ratios like auto, 1:1, 9:16, 16:9, 3:4, 4:3, 3:2, 2:3, 5:4, 4:5, or 21:9 to match each placement."
+          "question": "Which size and aspect ratios can I choose?",
+          "answer": "Pick size/aspect ratios like auto, 1:1, 9:16, 16:9, 3:4, 4:3, 3:2, 2:3, 5:4, 4:5, or 21:9 to match each placement."
         },
         "item-5": {
           "question": "Can I keep brand style consistent?",
@@ -1409,13 +1409,13 @@
     },
     "cta": {
       "title": "Create on-brand visuals with Nano Banana",
-      "description": "Generate campaign-ready images with text-to-image, image-to-image, and fast image editing in VLook.ai Studio, then export assets ready to publish.",
+      "description": "Generate campaign-ready images with text-to-image, image-to-image, and fast edits in VLook.ai Studio, then export assets ready to publish.",
       "primaryCta": "Start in the studio",
       "secondaryCta": "See pricing"
     },
     "examples": {
       "title": "Nano Banana image-to-image examples",
-      "subtitle": "Real multi-image reference edits and final outputs for marketing-ready results",
+      "subtitle": "Multi-image reference edits and final outputs for marketing-ready results",
       "inputLabel": "Input images",
       "outputLabel": "Output image",
       "items": {
@@ -1436,75 +1436,75 @@
     }
   },
   "GptImage15StudioPage": {
-    "title": "GPT-Image-1.5 AI image generator",
-    "description": "Precise edits, creative transformations, reliable instruction following, and crisp text rendering for production-ready images.",
+    "title": "GPT-Image-1.5 AI Image Generator",
+    "description": "Precise edits, reliable instruction following, and sharp text rendering for marketing and product visuals.",
     "eyebrow": "OpenAI GPT-Image-1.5",
     "hero": {
-      "title": "GPT-Image-1.5 AI image generator",
-      "subtitle": "GPT-Image-1.5 excels at precise edits, imaginative transformations, and instruction-following with clean text rendering.",
-      "primaryCta": "Open GPT-Image-1.5 studio",
-      "secondaryCta": "Explore capabilities",
-      "cta": "Generate or edit images in the live workspace below."
+      "title": "GPT-Image-1.5 AI Image Generator",
+      "subtitle": "Create and edit images with fine-grained control, clean typography, and consistent style—ideal for production workflows.",
+      "primaryCta": "Open GPT-Image-1.5 Studio",
+      "secondaryCta": "View capabilities",
+      "cta": "Create or edit images in the live workspace below."
     },
     "studio": {
       "title": "Live workspace",
-      "description": "Switch between text-to-image and image-to-image, upload references, then set output format and size before you generate.",
-      "subtitle": "GPT-Image-1.5 image studio"
+      "description": "Switch between text-to-image and image-to-image, upload references, then choose size and format before you generate.",
+      "subtitle": "GPT-Image-1.5 Image Studio"
     },
     "snapshot": {
       "eyebrow": "Capabilities",
       "title": "GPT-Image-1.5 highlights",
-      "description": "From precision edits to dense text rendering, GPT-Image-1.5 delivers reliable control across complex image tasks.",
+      "description": "Designed for precise edits, complex layouts, and dependable typography.",
       "cardLabel": "Highlight {index}",
       "brandLabel": "GPT-Image-1.5",
       "items": {
         "item-1": {
           "title": "Precision edits",
-          "description": "Add, remove, merge, blend, or reposition elements while preserving distinctive details.",
+          "description": "Add, remove, or reposition elements while preserving identity, lighting, and texture.",
           "alt": "Precision edit preview"
         },
         "item-2": {
           "title": "Creative transformations",
-          "description": "Remix ideas with new elements, typography, and layouts while keeping key details intact.",
+          "description": "Remix concepts with new layouts, props, or typography without losing the core subject.",
           "alt": "Creative transformation preview"
         },
         "item-3": {
           "title": "Instruction following",
-          "description": "Handles complex compositions with stable relationships between many objects and labels.",
+          "description": "Maintains relationships across many objects, labels, and layout constraints.",
           "alt": "Instruction following preview"
         },
         "item-4": {
           "title": "Text rendering",
-          "description": "Renders dense, small text more reliably for infographics, code, and layouts.",
+          "description": "Renders small, dense text for infographics, UI mockups, and labels.",
           "alt": "Text rendering preview"
         },
         "item-5": {
-          "title": "Quality upgrades",
-          "description": "Improved realism for crowded scenes, natural lighting, and usable production outputs.",
+          "title": "Production quality",
+          "description": "Cleaner realism, lighting, and detail for assets that ship faster.",
           "alt": "Quality upgrade preview"
         }
       }
     },
     "workflow": {
       "title": "How GPT-Image-1.5 works",
-      "description": "A repeatable flow for precise edits and creative generation.",
+      "description": "A repeatable flow for edits and fresh generations.",
       "stepLabel": "Step {index}",
       "items": {
         "item-1": {
           "title": "Pick a mode",
-          "description": "Start from a prompt or edit with reference images."
+          "description": "Start from a prompt or edit an existing image."
         },
         "item-2": {
           "title": "Add references",
-          "description": "Upload subjects, styles, or layout references to steer results."
+          "description": "Upload subjects, styles, or layout guides to steer results."
         },
         "item-3": {
           "title": "Set output",
-          "description": "Choose format and image size for delivery."
+          "description": "Choose size, aspect ratio, and format."
         },
         "item-4": {
           "title": "Generate & export",
-          "description": "Iterate quickly, then download final outputs."
+          "description": "Iterate, compare, then download finals."
         }
       }
     },
@@ -1514,7 +1514,7 @@
       "items": {
         "item-1": {
           "question": "What is GPT-Image-1.5?",
-          "answer": "GPT-Image-1.5 is an OpenAI image model for text-to-image and image-to-image generation."
+          "answer": "GPT-Image-1.5 is an OpenAI image model for text-to-image and image-to-image generation in VLook.ai Studio."
         },
         "item-2": {
           "question": "Does it support image-to-image?",
@@ -1526,17 +1526,17 @@
         },
         "item-4": {
           "question": "Can I control size and aspect ratio?",
-          "answer": "Yes. Choose the output format and size before generating."
+          "answer": "Yes. Pick size and aspect ratio before generating."
         },
         "item-5": {
           "question": "Is it suitable for professional design work?",
-          "answer": "Yes. It is optimized for reliable edits, readable text, and production-ready visuals."
+          "answer": "Yes. It is optimized for precise edits, readable text, and production-ready visuals."
         }
       }
     },
     "cta": {
-      "title": "Create visuals with GPT-Image-1.5",
-      "description": "Generate precise edits and high-quality images in VLook.ai Studio.",
+      "title": "Create production-ready visuals with GPT-Image-1.5",
+      "description": "Generate precise edits and high-quality images in VLook.ai Studio, then export for production.",
       "primaryCta": "Start in the studio",
       "secondaryCta": "See pricing"
     },
@@ -1599,35 +1599,35 @@
     }
   },
   "ZImageStudioPage": {
-    "title": "Z-Image AI image generator",
-    "description": "Create efficient, clean visuals with Z-Image for daily marketing and design work.",
+    "title": "Z-Image AI Image Generator",
+    "description": "Create clean, efficient visuals with Z-Image for daily marketing and design work.",
     "eyebrow": "Tongyi Z-Image",
     "hero": {
-      "title": "Z-Image AI image generator",
-      "subtitle": "Z-Image delivers fast, efficient image generation with stable composition for everyday creative needs.",
+      "title": "Z-Image AI Image Generator",
+      "subtitle": "Z-Image delivers fast image generation with stable composition for everyday creative needs.",
       "primaryCta": "Open Z-Image studio",
       "secondaryCta": "Explore capabilities",
       "cta": "Generate or edit images in the live workspace below."
     },
     "studio": {
       "title": "Live workspace",
-      "description": "Switch between text-to-image and image-to-image, upload references, then set output format and size before you generate.",
+      "description": "Switch between text-to-image and image-to-image, upload references, then choose size and format before you generate.",
       "subtitle": "Z-Image studio"
     },
     "highlights": {
       "title": "Key Highlights",
       "items": {
         "item-1": {
-          "title": "Photorealistic Quality",
-          "description": "Z-Image-Turbo delivers strong photorealistic image generation while maintaining excellent aesthetic quality."
+          "title": "Photorealistic quality",
+          "description": "Z-Image-Turbo produces realistic images with clean lighting and strong aesthetics."
         },
         "item-2": {
-          "title": "Accurate Bilingual Text Rendering",
-          "description": "Z-Image-Turbo excels at accurately rendering complex Chinese and English text."
+          "title": "Accurate bilingual text",
+          "description": "Renders complex Chinese and English text more reliably for labels and layouts."
         },
         "item-3": {
-          "title": "Prompt Enhancing & Reasoning",
-          "description": "Prompt Enhancer empowers the model with reasoning capabilities, enabling it to transcend surface-level descriptions and tap into underlying world knowledge."
+          "title": "Prompt enhancement",
+          "description": "Prompt Enhancer adds reasoning to expand simple prompts into richer, more accurate visuals."
         }
       }
     },
@@ -1715,19 +1715,19 @@
     }
   },
   "NanoBananaProStudioPage": {
-    "title": "Nano Banana Pro AI image generator",
-    "description": "Produce premium, consistent visuals with Nano Banana Pro for high-end marketing assets.",
+    "title": "Nano Banana Pro AI Image Generator",
+    "description": "Produce premium, consistent visuals with Nano Banana Pro for high-end campaigns and brand work.",
     "eyebrow": "Nano Banana Pro",
     "hero": {
-      "title": "Nano Banana Pro AI image generator",
-      "subtitle": "Nano Banana Pro delivers premium image generation with consistent style control and refined detail.",
+      "title": "Nano Banana Pro AI Image Generator",
+      "subtitle": "Nano Banana Pro delivers premium image generation with refined detail and stable style control.",
       "primaryCta": "Open Nano Banana Pro studio",
       "secondaryCta": "Explore capabilities",
       "cta": "Generate or edit images in the live workspace below."
     },
     "studio": {
       "title": "Live workspace",
-      "description": "Switch between text-to-image and image-to-image, upload references, then set output format and size before you generate.",
+      "description": "Switch between text-to-image and image-to-image, upload references, then choose size and format before you generate.",
       "subtitle": "Nano Banana Pro studio"
     },
     "snapshot": {
@@ -1739,24 +1739,24 @@
       "items": {
         "item-1": {
           "title": "Premium detail",
-          "description": "Generate high-fidelity textures and materials.",
+          "description": "Generate high-fidelity textures, materials, and lighting.",
           "alt": "Premium detail preview"
         },
         "item-2": {
           "title": "Consistent brand style",
-          "description": "Use references to keep colors and lighting aligned.",
+          "description": "Use references to keep colors, lighting, and styling aligned.",
           "alt": "Consistent style preview"
         },
         "item-3": {
           "title": "Ready-to-use exports",
-          "description": "Export PNG or JPEG for production use.",
+          "description": "Export PNG or JPEG ready for production.",
           "alt": "Export format preview"
         }
       }
     },
     "workflow": {
       "title": "How Nano Banana Pro works",
-      "description": "A repeatable flow for premium image generation.",
+      "description": "A repeatable flow for premium image generation and edits.",
       "stepLabel": "Step {index}",
       "items": {
         "item-1": {
@@ -1783,7 +1783,7 @@
       "items": {
         "item-1": {
           "question": "What is Nano Banana Pro?",
-          "answer": "Nano Banana Pro is a premium image model for high-quality visuals."
+          "answer": "Nano Banana Pro is a premium image model for high-quality, brand-sensitive visuals."
         },
         "item-2": {
           "question": "Does it support image-to-image?",
@@ -1799,13 +1799,13 @@
         },
         "item-5": {
           "question": "Is it suited for premium campaigns?",
-          "answer": "Yes. It is designed for high-end marketing assets."
+          "answer": "Yes. It is designed for high-end marketing assets with consistent style."
         }
       }
     },
     "cta": {
       "title": "Create premium visuals with Nano Banana Pro",
-      "description": "Generate campaign-ready images with premium consistency in VLook.ai Studio.",
+      "description": "Generate campaign-ready images with premium consistency in VLook.ai Studio, then export for production.",
       "primaryCta": "Start in the studio",
       "secondaryCta": "See pricing"
     },
@@ -1832,48 +1832,48 @@
     }
   },
   "Kling26StudioPage": {
-    "title": "Kling 2.6 AI video generator",
-    "description": "Create cinematic videos with Kling 2.6 for ads, social, and storytelling.",
+    "title": "Kling 2.6 AI Video Generator",
+    "description": "Create cinematic short videos with synced audio for ads, social, and storytelling.",
     "eyebrow": "Kling 2.6",
     "hero": {
-      "title": "Kling 2.6 AI video generator",
-      "subtitle": "Kling 2.6 turns text or images into cinematic video clips with strong motion and style control.",
-      "primaryCta": "Open Kling 2.6 studio",
-      "secondaryCta": "Explore capabilities",
+      "title": "Kling 2.6 AI Video Generator",
+      "subtitle": "Kling 2.6 turns text or images into cinematic clips with strong motion, style control, and audio sync.",
+      "primaryCta": "Open Kling 2.6 Studio",
+      "secondaryCta": "View capabilities",
       "cta": "Generate videos in the live workspace below."
     },
     "studio": {
       "title": "Live workspace",
       "description": "Choose text-to-video or image-to-video, upload references, then set aspect ratio and duration before you generate.",
-      "subtitle": "Kling 2.6 video studio"
+      "subtitle": "Kling 2.6 Video Studio"
     },
     "snapshot": {
       "eyebrow": "Capabilities",
       "title": "Kling 2.6 capabilities",
-      "description": "Deeper semantic understanding, tighter audio-visual sync, and more detailed sound layers for a more lifelike mix.",
+      "description": "Improved audio-visual sync, cleaner sound layers, and stronger prompt understanding.",
       "cardLabel": "Capability {index}",
       "brandLabel": "Kling 2.6",
       "items": {
         "item-1": {
           "title": "Audio-visual sync",
-          "description": "Visual motion and sound rhythms stay tightly aligned. Speech pacing, ambience, and on-screen actions move in lockstep, avoiding the common “separate audio and visuals” feeling.",
+          "description": "Dialogue, SFX, and motion stay aligned for a cohesive scene.",
           "alt": "Text-to-video preview"
         },
         "item-2": {
           "title": "Audio quality & layers",
-          "description": "Upgraded sound generation supports voices, SFX, and ambience with cleaner audio, richer layers, and a mix that feels closer to real-world production.",
+          "description": "Voices, SFX, and ambience mix cleanly with more depth and clarity.",
           "alt": "Image-to-video preview"
         },
         "item-3": {
           "title": "Semantic understanding",
-          "description": "Stronger comprehension of detailed prompts, spoken language, and multi-scene storylines helps capture intent and produce more coherent, logical audio-visual results.",
+          "description": "Understands detailed prompts and multi-scene direction for more coherent results.",
           "alt": "Multi-track audio preview"
         }
       }
     },
     "workflow": {
       "title": "How Kling 2.6 works",
-      "description": "A repeatable flow for video generation.",
+      "description": "A repeatable flow for short-form video generation.",
       "stepLabel": "Step {index}",
       "items": {
         "item-1": {
@@ -1886,11 +1886,11 @@
         },
         "item-3": {
           "title": "Set output",
-          "description": "Choose aspect ratio, duration, and options."
+          "description": "Choose aspect ratio, duration, and other options."
         },
         "item-4": {
           "title": "Generate & export",
-          "description": "Review clips and download final video."
+          "description": "Review clips, iterate, then download final video."
         }
       }
     },
@@ -1900,7 +1900,7 @@
       "items": {
         "item-1": {
           "question": "What is Kling 2.6?",
-          "answer": "Kling 2.6 is an AI video generation model for text-to-video and image-to-video."
+          "answer": "Kling 2.6 is an AI video model for text-to-video and image-to-video generation."
         },
         "item-2": {
           "question": "Does it support image-to-video?",
@@ -1912,17 +1912,17 @@
         },
         "item-4": {
           "question": "Can I control aspect ratio and duration?",
-          "answer": "Yes. Choose output settings before you generate."
+          "answer": "Yes. Set aspect ratio and duration before you generate."
         },
         "item-5": {
           "question": "Is it good for social ads?",
-          "answer": "Yes. It is optimized for short, cinematic clips."
+          "answer": "Yes. It is optimized for short, cinematic clips with synced audio."
         }
       }
     },
     "cta": {
       "title": "Create cinematic clips with Kling 2.6",
-      "description": "Generate short-form video content in VLook.ai Studio.",
+      "description": "Generate short-form video content in VLook.ai Studio with synced audio and flexible formats.",
       "primaryCta": "Start in the studio",
       "secondaryCta": "See pricing"
     },

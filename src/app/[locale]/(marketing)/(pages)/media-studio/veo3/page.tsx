@@ -24,13 +24,13 @@ const PAGE_CONTENT = {
     meta: {
       title: 'Veo3.1 AI video generator',
       description:
-        'Create 8-second, high-fidelity Veo3.1 video with native audio and flexible formats including 720p, 1080p, and 4k.',
+        'Create 8-second, high-fidelity Veo 3.1 videos with native audio and flexible formats up to 4K.',
     },
     hero: {
       eyebrow: 'AI video generation',
       title: 'Veo3.1 AI video generator',
       subtitle:
-        'Veo3.1 video delivers 8-second, high-fidelity video in 720p, 1080p, or 4k with native audio. The Veo3.1 video generator supports vertical 9:16, first/last frame control, video extension, and multi-image guidance for dependable, director-style shots.',
+        'Veo 3.1 delivers 8-second, high-fidelity video in 720p, 1080p, or 4K with native audio. It supports vertical 9:16, first/last frame control, video extension, and multi-image guidance for dependable, director-style shots.',
       cta: 'Start creating in the workspace below.',
       primaryLabel: 'Open studio',
       secondaryLabel: 'View capabilities',
@@ -39,25 +39,24 @@ const PAGE_CONTENT = {
       title: 'Key Highlights',
       items: [
         {
-          title: 'Native audio for Veo3.1 video: dialogue, SFX, ambience',
+          title: 'Native audio: dialogue, SFX, ambience',
           description:
-            'Describe dialogue in quotes, call out SFX events like tire screeches or engine roars, and paint ambience such as low hum, wind, or birds. Veo3.1 understands the details and generates a synchronized soundtrack for every Veo3.1 video.',
+            'Describe dialogue in quotes, call out SFX events like tire screeches or engine roars, and paint ambience such as low hum, wind, or birds. Veo 3.1 generates a synchronized soundtrack to match the scene.',
         },
         {
-          title: 'First/last frame control for Veo3.1 video storytelling',
+          title: 'First/last frame control',
           description:
-            'Veo3.1 lets you define the first and last frame to guide transitions, lock disappearance/appearance beats, and pin opening/closing shots for ads or storyboards in each Veo3.1 video.',
+            'Define the opening and closing frames to guide transitions, lock key beats, and anchor ad or storyboard shots.',
         },
         {
-          title: 'Reference images for consistent Veo3.1 video subjects',
+          title: 'Reference images for consistency',
           description:
-            'Veo3.1 supports up to three clear reference images to keep people, characters, or products visually consistent across Veo3.1 video outputs.',
+            'Use up to three reference images to keep people, characters, or products visually consistent.',
         },
         {
-          title:
-            'Aspect ratio + resolution for Veo3.1 video: 16:9 or 9:16, 720p–4K',
+          title: 'Aspect ratio + resolution control',
           description:
-            'Choose 16:9 (default) or 9:16 for Reels/Shorts/TikTok, and generate 720p, 1080p, or 4K. Higher resolutions add latency and cost more for each Veo3.1 video.',
+            'Choose 16:9 (default) or 9:16 for Reels/Shorts/TikTok, and generate 720p, 1080p, or 4K. Higher resolutions add latency and cost more.',
         },
       ],
     },
@@ -67,25 +66,25 @@ const PAGE_CONTENT = {
         {
           title: 'Text-to-video',
           description:
-            'Generate high-fidelity 8-second Veo3.1 video clips from prompts.',
+            'Generate high-fidelity 8-second clips from prompts.',
         },
         {
           title: 'Image guidance',
           description:
-            'Guide Veo3.1 video generation with up to three reference images for consistency.',
+            'Guide generation with up to three reference images for consistency.',
         },
         {
           title: 'First/last frame control',
           description:
-            'Specify a start or end frame to lock key beats in Veo3.1 video.',
+            'Specify a start or end frame to lock key beats.',
         },
         {
           title: 'Vertical video',
           description:
-            'Choose 16:9 or 9:16 output for Veo3.1 video platform fit.',
+            'Choose 16:9 or 9:16 output for platform fit.',
         },
       ],
-      note: 'Every Veo3.1 video output includes native audio and supports 720p, 1080p, or 4k.',
+      note: 'Every output includes native audio and supports 720p, 1080p, or 4K.',
     },
     workflow: {
       title: 'How It Works',
@@ -98,12 +97,12 @@ const PAGE_CONTENT = {
         {
           title: 'Set parameters',
           description:
-            'Choose 16:9 or 9:16, resolution, and the Veo3.1 preset.',
+            'Choose 16:9 or 9:16, resolution, and the Veo 3.1 preset.',
         },
         {
           title: 'Generate',
           description:
-            'Veo3.1 video renders an 8-second clip aligned to your shot intent.',
+            'Veo 3.1 renders an 8-second clip aligned to your shot intent.',
         },
         {
           title: 'Refine and export',
@@ -145,8 +144,8 @@ const PAGE_CONTENT = {
       ],
     },
     mediaShowcase: {
-      title: 'Veo3.1 video prompt to visual outputs',
-      subtitle: 'Real prompts paired with Veo3.1 video previews',
+      title: 'Veo 3.1 prompt to visual outputs',
+      subtitle: 'Real prompts paired with Veo 3.1 previews',
       items: [
         {
           title: 'Joyful snow leopard animation',
@@ -165,8 +164,8 @@ const PAGE_CONTENT = {
       ],
     },
     imageToMediaReference: {
-      title: 'Reference-Image-to-Video for Veo3.1 video',
-      subtitle: 'Reference images + Veo3.1 video prompt in',
+      title: 'Reference Image to Video',
+      subtitle: 'Reference images + Veo 3.1 prompt in',
       inputLabel: 'Input Images',
       outputLabel: 'Output',
       items: [
@@ -184,9 +183,9 @@ const PAGE_CONTENT = {
       ],
     },
     imageToMediaFrames: {
-      title: 'Veo3.1 video first/last frame control',
+      title: 'First/last frame control',
       subtitle:
-        'Define the opening and closing frame for a guided Veo3.1 video clip',
+        'Define the opening and closing frame for a guided Veo 3.1 clip',
       inputLabel: 'First & Last Frames',
       outputLabel: 'Output',
       items: [
@@ -213,32 +212,32 @@ const PAGE_CONTENT = {
         {
           question: 'What is the Veo3.1 video generator?',
           answer:
-            'Veo3.1 is Google DeepMind’s newest AI video model. The Veo3.1 video generator creates high-quality videos from text or image prompts, with stronger subject consistency, style control, and camera direction.',
+            'Veo 3.1 is Google DeepMind’s newest AI video model. The Veo 3.1 generator creates high-quality videos from text or image prompts, with stronger subject consistency, style control, and camera direction.',
         },
         {
           question: 'How is Veo3.1 video different from Veo 2?',
           answer:
-            'Veo3.1 can generate native audio alongside video. Veo3.1 video improves realism with better physics, stronger lip sync, and a deeper understanding of complex narrative prompts.',
+            'Veo 3.1 can generate native audio alongside video. It improves realism with better physics, stronger lip sync, and a deeper understanding of complex narrative prompts.',
         },
         {
           question: 'How does Google ensure responsible Veo3.1 video usage?',
           answer:
-            'Veo3.1 videos include invisible SynthID watermarks that label content as AI-generated, improving transparency and reducing misinformation risks for Veo3.1 video.',
+            'Veo 3.1 videos include invisible SynthID watermarks that label content as AI-generated, improving transparency and reducing misinformation risks.',
         },
         {
           question: 'What inputs and controls are supported in Veo3.1 video?',
           answer:
-            'Use text prompts, up to three reference images, and optional first/last frames. You can also set aspect ratio (16:9 or 9:16) and resolution for Veo3.1 video.',
+            'Use text prompts, up to three reference images, and optional first/last frames. You can also set aspect ratio (16:9 or 9:16) and resolution.',
         },
         {
           question: 'What outputs can I expect from Veo3.1 video?',
           answer:
-            'Veo3.1 generates 8-second clips with native audio. Veo3.1 video outputs support MP4 export in 720p, 1080p, or 4k.',
+            'Veo 3.1 generates 8-second clips with native audio. Outputs support MP4 export in 720p, 1080p, or 4K.',
         },
         {
           question: 'Can I generate or sync audio?',
           answer:
-            'Yes. Describe dialogue in quotes, call out SFX events, and define ambience so Veo3.1 can build a synchronized soundtrack for Veo3.1 video.',
+            'Yes. Describe dialogue in quotes, call out SFX events, and define ambience so Veo 3.1 can build a synchronized soundtrack.',
         },
         {
           question: 'Can I use generated content commercially?',
@@ -284,7 +283,7 @@ const PAGE_CONTENT = {
     studioPromo: {
       title: 'VLook.ai Studio: Fast AI video creation for teams',
       description:
-        'Create high-fidelity clips with VLook.ai. Prompt, refine, and publish in minutes.',
+        'Create high-fidelity clips with VLook.ai. Prompt, refine, and export in minutes.',
       primaryLabel: 'Open VLook.ai Studio',
       secondaryLabel: 'Explore VLook.ai',
     },
@@ -296,13 +295,13 @@ const PAGE_CONTENT = {
     meta: {
       title: 'Veo3.1 AI视频生成',
       description:
-        'Veo3.1 video 可生成 8 秒高保真视频，支持 720p、1080p、4k 与原生音频输出。',
+        'Veo 3.1 可生成 8 秒高保真视频，支持 720p、1080p、4K 与原生音频输出。',
     },
     hero: {
       eyebrow: 'AI 视频生成',
       title: 'Veo3.1 AI视频生成',
       subtitle:
-        'Veo3.1 video 支持 8 秒 720p/1080p/4k 高保真视频与原生音频，同时 Veo3.1 video generator 提供 9:16 竖屏、首尾帧控制、视频扩展与多图参考，让镜头更可控。',
+        'Veo 3.1 支持 8 秒 720p/1080p/4K 高保真视频与原生音频，并提供 9:16 竖屏、首尾帧控制、视频扩展与多图参考，让镜头更可控。',
       cta: '在下方工作区开始创作。',
       primaryLabel: '进入工作室',
       secondaryLabel: '查看能力',
@@ -311,26 +310,24 @@ const PAGE_CONTENT = {
       title: '关键亮点',
       items: [
         {
-          title: 'Veo3.1 video 原生音频：对话 / SFX / 环境声一条提示生成',
+          title: '原生音频：对白 / SFX / 环境声',
           description:
-            'Veo3.1 支持在提示词中直接描述音频：对话用引号写台词，音效（SFX）明确描述声音事件（如轮胎尖叫、引擎轰鸣），环境声描述声景氛围（如低频嗡鸣、风声、鸟鸣），模型会理解细节并为 Veo3.1 video 生成同步音轨。',
+            '提示词中可直接描述音频：对白用引号写台词，音效（SFX）明确描述事件（如轮胎尖叫、引擎轰鸣），环境声描写声景（如低频嗡鸣、风声、鸟鸣），模型会生成同步音轨。',
         },
         {
-          title:
-            'Veo3.1 video 首尾帧能力（First/Last Frame）：用“起始+结束”锁定镜头叙事',
+          title: '首尾帧控制：锁定镜头叙事',
           description:
-            'Veo3.1 支持通过指定第一帧与最后一帧来生成视频（仅适用于 Veo3.1）。适合让镜头从 A 场景自然过渡到 B 场景，控制消失/出现/变形等关键结尾画面，并固定广告或剧情分镜的开头与收尾，强化 Veo3.1 video 的叙事稳定性。',
+            '通过指定第一帧与最后一帧来生成视频，适合从 A 场景自然过渡到 B 场景，锁定关键镜头与结尾画面，适配广告或分镜叙事。',
         },
         {
-          title:
-            'Veo3.1 video 参考图生成（Reference Images）：最多 3 张清晰参考图保持主体一致',
+          title: '参考图保持主体一致',
           description:
-            'Veo3.1 现支持最多 3 张参考图片（人物/角色/产品均可），用来指导生成并在输出中保留 Veo3.1 video 主体外观一致性。',
+            '支持最多 3 张参考图（人物/角色/产品均可），用来指导生成并保持主体外观一致性。',
         },
         {
-          title: 'Veo3.1 video 画幅与分辨率可控：横屏/竖屏 + 720p/1080p/4K',
+          title: '画幅与分辨率可控',
           description:
-            '画幅支持 16:9（默认）与 9:16，适配 Reels / Shorts / TikTok 等竖屏场景；分辨率可选 720p、1080p 或 4K，分辨率越高延迟越长且 4K 价格更高，Veo3.1 video 亦如此。',
+            '画幅支持 16:9（默认）与 9:16，适配 Reels/Shorts/TikTok 等竖屏场景；分辨率可选 720p、1080p 或 4K，分辨率越高延迟越长、成本更高。',
         },
       ],
     },
@@ -339,22 +336,22 @@ const PAGE_CONTENT = {
       items: [
         {
           title: '文本生成视频',
-          description: '用提示词生成 8 秒高保真 Veo3.1 video 短片。',
+          description: '用提示词生成 8 秒高保真短片。',
         },
         {
           title: '参考图引导',
-          description: '最多三张参考图，保持 Veo3.1 video 风格与主体一致。',
+          description: '最多三张参考图，保持风格与主体一致。',
         },
         {
           title: '首尾帧控制',
-          description: '指定起始或结束画面，锁定 Veo3.1 video 关键镜头。',
+          description: '指定起始或结束画面，锁定关键镜头。',
         },
         {
           title: '竖屏输出',
-          description: '支持 16:9 或 9:16，适配不同平台的 Veo3.1 video。',
+          description: '支持 16:9 或 9:16，适配不同平台。',
         },
       ],
-      note: 'Veo3.1 video 支持原生音频与 720p/1080p/4k 输出。',
+      note: '支持原生音频与 720p/1080p/4K 输出。',
     },
     workflow: {
       title: '工作流程',
@@ -365,11 +362,11 @@ const PAGE_CONTENT = {
         },
         {
           title: '设置参数',
-          description: '选择 16:9 或 9:16、分辨率与 Veo3.1 预设。',
+          description: '选择 16:9 或 9:16、分辨率与 Veo 3.1 预设。',
         },
         {
           title: '生成视频',
-          description: '模型输出 8 秒 Veo3.1 video 短片并保持镜头意图一致。',
+          description: '模型输出 8 秒短片并保持镜头意图一致。',
         },
         {
           title: '润色与导出',
@@ -409,8 +406,8 @@ const PAGE_CONTENT = {
       ],
     },
     mediaShowcase: {
-      title: 'Veo3.1 video 文生视频',
-      subtitle: '基于 Veo3.1 video 提示词生成视频内容',
+      title: 'Veo 3.1 文生视频',
+      subtitle: '基于 Veo 3.1 提示词生成视频内容',
       items: [
         {
           title: '雪豹精灵的欢乐动画',
@@ -429,8 +426,8 @@ const PAGE_CONTENT = {
       ],
     },
     imageToMediaReference: {
-      title: 'Veo3.1 video 参考图生成视频',
-      subtitle: '参考图与 Veo3.1 video 提示词输入',
+      title: '参考图生成视频',
+      subtitle: '参考图与 Veo 3.1 提示词输入',
       inputLabel: '输入图片',
       outputLabel: '生成结果',
       items: [
@@ -448,8 +445,8 @@ const PAGE_CONTENT = {
       ],
     },
     imageToMediaFrames: {
-      title: 'Veo3.1 video 首尾帧控制',
-      subtitle: '指定首帧与尾帧，生成受控 Veo3.1 video 镜头',
+      title: '首尾帧控制',
+      subtitle: '指定首帧与尾帧，生成受控 Veo 3.1 镜头',
       inputLabel: '首帧与尾帧',
       outputLabel: '生成结果',
       items: [
@@ -476,32 +473,32 @@ const PAGE_CONTENT = {
         {
           question: '什么是 Veo3.1 video generator？',
           answer:
-            'Veo3.1 是 Google DeepMind 最新的 AI 视频生成模型，Veo3.1 video generator 可根据文本或图像提示生成高质量视频，并强化角色一致性、风格控制与镜头可控性。',
+            'Veo 3.1 是 Google DeepMind 最新的 AI 视频生成模型，可根据文本或图像提示生成高质量视频，并强化主体一致性、风格控制与镜头可控性。',
         },
         {
           question: 'Veo3.1 video 与 Veo 2 有何不同？',
           answer:
-            '相较 Veo 2，Veo3.1 可同时生成原生音频与视频，Veo3.1 video 通过更逼真的物理效果、更好的口型同步与更强的叙事理解提供更高质量的输出。',
+            '相较 Veo 2，Veo 3.1 可同时生成原生音频与视频，并通过更逼真的物理效果、更好的口型同步与更强叙事理解提供更高质量输出。',
         },
         {
           question: 'Google 如何确保以合乎道德的方式使用 Veo3.1 video？',
           answer:
-            '所有 Veo3.1 视频都包含隐形的 SynthID 水印，可将内容标识为 AI 生成，有助于提升透明度并减少错误信息，覆盖 Veo3.1 video 输出。',
+            '所有 Veo 3.1 视频都包含隐形的 SynthID 水印，可将内容标识为 AI 生成，有助于提升透明度并减少错误信息。',
         },
         {
           question: 'Veo3.1 video 支持哪些输入与控制？',
           answer:
-            '支持文本提示词、最多三张参考图与首尾帧输入，并可设置画幅（16:9 或 9:16）与分辨率，适用于 Veo3.1 video。',
+            '支持文本提示词、最多三张参考图与首尾帧输入，并可设置画幅（16:9 或 9:16）与分辨率。',
         },
         {
           question: 'Veo3.1 video 输出时长与格式是怎样的？',
           answer:
-            'Veo3.1 默认生成约 8 秒短片，Veo3.1 video 支持导出 MP4，并提供 720p、1080p 或 4K 选择。',
+            '默认生成约 8 秒短片，支持导出 MP4，并提供 720p、1080p 或 4K 选择。',
         },
         {
           question: '可以生成或同步音频吗？',
           answer:
-            '可以。提示词中可写对白、音效（SFX）与环境声描述，Veo3.1 会为 Veo3.1 video 生成同步音轨。',
+            '可以。提示词中可写对白、音效（SFX）与环境声描述，模型会生成同步音轨。',
         },
         {
           question: '生成内容可以商用吗？',
@@ -547,7 +544,7 @@ const PAGE_CONTENT = {
     studioPromo: {
       title: 'VLook.ai 工作室：团队级 AI 视频高效创作',
       description:
-        '使用 VLook.ai 快速生成高质量短片：输入提示词、微调细节、分钟级发布。',
+        '使用 VLook.ai 快速生成高质量短片：输入提示词、微调细节、分钟级导出。',
       primaryLabel: '打开 VLook.ai 工作室',
       secondaryLabel: '了解 VLook.ai',
     },

@@ -23,13 +23,13 @@ const PAGE_CONTENT = {
     meta: {
       title: 'Sora2 AI Video Generator',
       description:
-        'Generate cinematic AI videos with OpenAI Sora 2. Stronger physics realism, higher fidelity, and better multi-scene control.',
+        'Generate cinematic AI videos with OpenAI Sora 2, featuring stronger physics realism, higher fidelity, and better multi-scene control.',
     },
     hero: {
       eyebrow: 'AI video generation',
       title: 'Sora2 AI Video Generator',
       subtitle:
-        'Turn text or images into cinematic short videos with improved physical realism, continuity, and sound. Sora 2 (2025) upgrades physical understanding, visual fidelity, and controllability for multi-shot storytelling.',
+        'Turn text or images into cinematic short videos with stronger realism, continuity, and control. Sora 2 upgrades physics understanding, visual fidelity, and multi-shot consistency for storytelling.',
       cta: 'Start creating in the workspace below.',
       primaryLabel: 'Open studio',
       secondaryLabel: 'View capabilities',
@@ -38,19 +38,19 @@ const PAGE_CONTENT = {
       title: 'Key Highlights',
       items: [
         {
-          title: 'Stronger physics consistency, more realistic results',
+          title: 'Better physics, more believable motion',
           description:
-            'Sora 2 follows real-world physics and cause-and-effect more closely. It avoids breaking common sense just to satisfy prompts, and instead simulates believable outcomes.',
+            'Sora 2 follows real-world cause and effect so scenes feel grounded and coherent.',
         },
         {
-          title: 'Cinematic visuals with a complete audio-visual experience',
+          title: 'Cinematic visuals with synced audio',
           description:
-            'Compared with the previous version, Sora 2 greatly improves realism, lighting, texture, and motion continuity, delivering photoreal, cinematic, and high-quality animation styles. It also auto-generates matching dialogue, sound effects, and background music with tight sync for deeper immersion.',
+            'Sora 2 improves realism, lighting, texture, and motion continuity. It can also generate matching dialogue, sound effects, and music with tight sync for deeper immersion.',
         },
         {
-          title: 'Greater control and long-range continuity',
+          title: 'Longer continuity and shot control',
           description:
-            'Sora 2 understands complex instructions, supports multi-shot and multi-scene generation, and keeps people, environments, and objects consistent. New “character injection” lets you bring specific faces and voices into scenes for efficient, controllable storytelling.',
+            'Sora 2 understands complex directions, supports multi-shot and multi-scene generation, and keeps people, environments, and objects consistent. Character injection lets you reuse specific faces and voices for controllable storytelling.',
         },
       ],
     },
@@ -68,7 +68,7 @@ const PAGE_CONTENT = {
             'Animate an uploaded image or extend a short clip into a sequence.',
         },
       ],
-      note: 'Generated videos include synchronized audio such as ambience, music, and simple dialogue.',
+      note: 'Generated videos can include synchronized audio such as ambience, music, and simple dialogue.',
     },
     workflow: {
       title: 'How It Works',
@@ -81,12 +81,12 @@ const PAGE_CONTENT = {
         {
           title: 'Set parameters',
           description:
-            'Choose aspect ratio, resolution, duration of variations.',
+            'Choose aspect ratio, resolution, duration, and variations.',
         },
         {
           title: 'Generate',
           description:
-            'Sora renders a short video in seconds to minutes with audio.',
+            'Sora can render a short video in seconds to minutes with audio.',
         },
         {
           title: 'Refine and export',
@@ -151,12 +151,12 @@ const PAGE_CONTENT = {
         {
           question: 'Does Sora output include audio?',
           answer:
-            'Yes, Sora 2 adds synced ambience, music, and basic dialogue to complete the scene.',
+            'Sora 2 can generate synced ambience, music, and simple dialogue to complete the scene.',
         },
         {
           question: 'How long can videos be?',
           answer:
-            'Official limits vary by plan, with typical ranges around 10-15 seconds.',
+            'Length depends on plan and settings; typical outputs are short clips around 10-15 seconds.',
         },
 
         {
@@ -205,7 +205,7 @@ const PAGE_CONTENT = {
     studioPromo: {
       title: 'VLook.ai Studio: Cinematic AI video creation for everyone',
       description:
-        'Create high-fidelity clips fast with VLook.ai. Prompt, refine, and publish in minutes.',
+        'Create high-fidelity clips fast with VLook.ai. Prompt, refine, and export in minutes.',
       primaryLabel: 'Open VLook.ai Studio',
       secondaryLabel: 'Explore VLook.ai',
     },
@@ -223,7 +223,7 @@ const PAGE_CONTENT = {
       eyebrow: 'AI 视频生成',
       title: 'Sora2 AI Video Generator',
       subtitle:
-        '将文本或图片转化为电影感短视频，具备更强的物理真实感与连贯性。Sora 2（2025）在物理理解、画面清晰度与多镜头可控性上进一步升级。',
+        '将文本或图片转化为电影感短视频，具备更强的真实感、连贯性与可控性。Sora 2 在物理理解、画面清晰度与多镜头一致性上进一步升级。',
       cta: '在下方工作区开始创作。',
       primaryLabel: '进入工作室',
       secondaryLabel: '查看能力',
@@ -232,19 +232,19 @@ const PAGE_CONTENT = {
       title: '核心亮点',
       items: [
         {
-          title: '物理一致性更强，结果更真实',
+          title: '更真实的物理表现',
           description:
-            'Sora 2 在视频生成中更加遵循现实世界的物理与因果规律。它不会为了“完成指令”而违背常识，而是合理模拟真实结果。',
+            'Sora 2 更贴近真实世界的因果关系，让画面动作更自然、更可信。',
         },
         {
-          title: '电影级画质与完整视听体验',
+          title: '电影级画质与同步音频',
           description:
-            '相较前代，Sora 2 在画面真实度、光影质感和动作连续性上大幅提升，能够稳定生成写实、电影级及高质量动画风格的视频。同时，视频会自动生成匹配的对白、音效与背景音乐，画面与声音高度同步，沉浸感更强。',
+            'Sora 2 在画面真实度、光影质感与动作连续性上大幅提升，并可生成匹配的对白、音效与背景音乐，画面与声音更一致。',
         },
         {
-          title: '更高可控性与长程连贯性',
+          title: '更高可控性与长程一致性',
           description:
-            'Sora 2 能理解复杂指令，支持多镜头、多场景的连续生成，并保持人物、环境和物体状态的一致性。新增“角色注入”等能力，允许用户将特定人物的外貌与声音融入视频创作，使复杂叙事与个性化创作更加高效可控。',
+            'Sora 2 能理解复杂指令，支持多镜头、多场景连续生成，并保持人物、环境与物体的一致性。“角色注入”可复用特定人物外貌与声音，提升叙事可控性。',
         },
       ],
     },
@@ -260,7 +260,7 @@ const PAGE_CONTENT = {
           description: '动画化上传图片或扩展短片为连贯序列。',
         },
       ],
-      note: '生成视频包含同步音频，如环境声、音乐与简单对白。',
+      note: '生成视频可包含同步音频，如环境声、音乐与简单对白。',
     },
     workflow: {
       title: '工作流程',
@@ -271,11 +271,11 @@ const PAGE_CONTENT = {
         },
         {
           title: '设置参数',
-          description: '选择比例、清晰度、时长',
+          description: '选择比例、清晰度、时长与变体。',
         },
         {
           title: '生成视频',
-          description: 'Sora 在数秒到数分钟内输出带音频的短片。',
+          description: 'Sora 可在数秒到数分钟内输出带音频的短片。',
         },
         {
           title: '润色与导出',
@@ -332,11 +332,11 @@ const PAGE_CONTENT = {
         },
         {
           question: '输出是否包含音频？',
-          answer: '是的，Sora 2 会同步生成环境声、音乐与基础对白。',
+          answer: 'Sora 2 可同步生成环境声、音乐与基础对白。',
         },
         {
           question: '视频最长能生成多长？',
-          answer: '长度受套餐限制，通常在 10-15 秒范围内。',
+          answer: '长度受套餐与参数限制，通常为 10-15 秒的短片。',
         },
 
         {
@@ -382,7 +382,7 @@ const PAGE_CONTENT = {
     studioPromo: {
       title: 'VLook.ai 工作室：人人可用的电影级 AI 视频创作',
       description:
-        '通过 VLook.ai 快速生成高质量视频：输入提示词、微调细节、数分钟内发布。',
+        '通过 VLook.ai 快速生成高质量视频：输入提示词、微调细节、数分钟内导出。',
       primaryLabel: '打开 VLook.ai 工作室',
       secondaryLabel: '了解 VLook.ai',
     },
