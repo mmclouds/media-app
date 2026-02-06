@@ -1,4 +1,4 @@
-import { CapabilitiesCardsSection } from '@/components/custom-blocks/capabilities-cards/capabilities-cards';
+import AlternatingMediaSection from '@/components/custom-blocks/alternating-media/alternating-media';
 import FaqSection from '@/components/custom-blocks/faqs/faqs';
 import HeroSection from '@/components/custom-blocks/hero/hero';
 import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-promo';
@@ -39,21 +39,6 @@ export async function generateMetadata({
 
 export default async function SunoStudioPage() {
   const t = await getTranslations('SunoStudioPage');
-
-  const capabilityItems = [
-    {
-      title: t('snapshot.items.item-1.title'),
-      description: t('snapshot.items.item-1.description'),
-    },
-    {
-      title: t('snapshot.items.item-2.title'),
-      description: t('snapshot.items.item-2.description'),
-    },
-    {
-      title: t('snapshot.items.item-3.title'),
-      description: t('snapshot.items.item-3.description'),
-    },
-  ];
 
   const workflowItems = [
     {
@@ -176,16 +161,46 @@ export default async function SunoStudioPage() {
           </Container>
         </section>
 
-        <CapabilitiesCardsSection
+        <AlternatingMediaSection
           id="highlights"
-          eyebrow={t('snapshot.eyebrow')}
-          title={t('snapshot.title')}
-          description={t('snapshot.description')}
-          items={capabilityItems}
-          getCardLabel={(index) =>
-            t('snapshot.cardLabel', { index })
-          }
-          brandLabel={t('snapshot.brandLabel')}
+          subtitle={t('highlights.title')}
+          items={[
+            {
+              title: t('highlights.items.item-1.title'),
+              description: t('highlights.items.item-1.description'),
+              image: {
+                src: '/images/studio-examples/suno/suno-meta-preview.jpg',
+                alt: 'Prompt-to-song preview',
+                width: 1920,
+                height: 1080,
+                className: 'scale-95',
+                priority: true,
+              },
+            },
+            {
+              title: t('highlights.items.item-2.title'),
+              description: t('highlights.items.item-2.description'),
+              image: {
+                src: '/images/studio-examples/suno/suno-meta-preview.jpg',
+                alt: 'Advanced music controls preview',
+                width: 1920,
+                height: 1080,
+                className: 'scale-95',
+              },
+            },
+            {
+              title: t('highlights.items.item-3.title'),
+              description: t('highlights.items.item-3.description'),
+              image: {
+                src: '/images/studio-examples/suno/suno-meta-preview.jpg',
+                alt: 'Commercial-ready export preview',
+                width: 1920,
+                height: 1080,
+                className: 'scale-95',
+              },
+            },
+          ]}
+          className="[&_h2]:text-4xl [&_h2]:font-bold"
         />
 
         <WorkflowStepsSection

@@ -1289,11 +1289,11 @@
   },
   "NanoBananaStudioPage": {
     "title": "Nano Banana AI Image Generator",
-    "description": "Create realistic, on-brand images fast with Nano Banana. Generate, edit, and iterate with multi-image references for ads, ecommerce, and social.",
+    "description": "Nano Banana AI Image Generator helps you create realistic, on-brand images fast with multi-image references for ads, ecommerce, and social.",
     "eyebrow": "Gemini 2.5 Flash Image",
     "hero": {
       "title": "Nano Banana AI Image Generator",
-      "subtitle": "Nano Banana (Gemini 2.5 Flash Image) delivers fast, natural-language image generation and editing with crisp composition, believable materials, and smooth style transforms.",
+      "subtitle": "The Nano Banana AI Image Generator (Gemini 2.5 Flash Image) delivers fast, natural-language image generation and editing with crisp composition, believable materials, and smooth style transforms.",
       "primaryCta": "Open Nano Banana studio",
       "secondaryCta": "Explore capabilities",
       "tags": {
@@ -1437,11 +1437,11 @@
   },
   "GptImage15StudioPage": {
     "title": "GPT-Image-1.5 AI Image Generator",
-    "description": "Precise edits, reliable instruction following, and sharp text rendering for marketing and product visuals.",
+    "description": "GPT-Image-1.5 AI Image Generator delivers precise edits, reliable instruction following, and sharp text rendering for marketing and product visuals.",
     "eyebrow": "OpenAI GPT-Image-1.5",
     "hero": {
       "title": "GPT-Image-1.5 AI Image Generator",
-      "subtitle": "Create and edit images with fine-grained control, clean typography, and consistent style—ideal for production workflows.",
+      "subtitle": "The GPT-Image-1.5 AI Image Generator gives fine-grained control, clean typography, and consistent style for production workflows.",
       "primaryCta": "Open GPT-Image-1.5 Studio",
       "secondaryCta": "View capabilities",
       "cta": "Create or edit images in the live workspace below."
@@ -1600,11 +1600,11 @@
   },
   "ZImageStudioPage": {
     "title": "Z-Image AI Image Generator",
-    "description": "Create clean, efficient visuals with Z-Image for daily marketing and design work.",
+    "description": "Z-Image AI Image Generator creates clean, efficient visuals for daily marketing and design work.",
     "eyebrow": "Tongyi Z-Image",
     "hero": {
       "title": "Z-Image AI Image Generator",
-      "subtitle": "Z-Image delivers fast image generation with stable composition for everyday creative needs.",
+      "subtitle": "The Z-Image AI Image Generator delivers fast image generation with stable composition for everyday creative needs.",
       "primaryCta": "Open Z-Image studio",
       "secondaryCta": "Explore capabilities",
       "cta": "Generate or edit images in the live workspace below."
@@ -1716,11 +1716,11 @@
   },
   "NanoBananaProStudioPage": {
     "title": "Nano Banana Pro AI Image Generator",
-    "description": "Produce premium, consistent visuals with Nano Banana Pro for high-end campaigns and brand work.",
+    "description": "Nano Banana Pro AI Image Generator produces premium, consistent visuals for high-end campaigns and brand work.",
     "eyebrow": "Nano Banana Pro",
     "hero": {
       "title": "Nano Banana Pro AI Image Generator",
-      "subtitle": "Nano Banana Pro delivers premium image generation with refined detail and stable style control.",
+      "subtitle": "The Nano Banana Pro AI Image Generator delivers premium image generation with refined detail and stable style control.",
       "primaryCta": "Open Nano Banana Pro studio",
       "secondaryCta": "Explore capabilities",
       "cta": "Generate or edit images in the live workspace below."
@@ -1833,11 +1833,11 @@
   },
   "Kling26StudioPage": {
     "title": "Kling 2.6 AI Video Generator",
-    "description": "Create cinematic short videos with synced audio for ads, social, and storytelling.",
+    "description": "Kling 2.6 AI Video Generator creates cinematic short videos with synced audio for ads, social, and storytelling.",
     "eyebrow": "Kling 2.6",
     "hero": {
       "title": "Kling 2.6 AI Video Generator",
-      "subtitle": "Kling 2.6 turns text or images into cinematic clips with strong motion, style control, and audio sync.",
+      "subtitle": "The Kling 2.6 AI Video Generator turns text or images into cinematic clips with strong motion, style control, and audio sync.",
       "primaryCta": "Open Kling 2.6 Studio",
       "secondaryCta": "View capabilities",
       "cta": "Generate videos in the live workspace below."
@@ -1969,6 +1969,23 @@
       "title": "Live workspace",
       "description": "Describe mood, genre, and instrumentation, then set output options before you generate.",
       "subtitle": "Suno music studio"
+    },
+    "highlights": {
+      "title": "Key Highlights",
+      "items": {
+        "item-1": {
+          "title": "Prompt-to-track in seconds",
+          "description": "Start with a simple prompt or a vibe and get a full song draft instantly for hooks, demos, and quick inspiration."
+        },
+        "item-2": {
+          "title": "Pro controls for precise sound",
+          "description": "Steer genre, energy, and arrangement with Personas, Inspo, exclusions, and vocal gender without a full DAW."
+        },
+        "item-3": {
+          "title": "Commercial-ready exports and stems",
+          "description": "Export full tracks or up to 12 time-aligned stems to finish in your DAW, with commercial rights on paid plans."
+        }
+      }
     },
     "snapshot": {
       "eyebrow": "Capabilities",

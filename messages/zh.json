@@ -1289,11 +1289,11 @@
   },
   "NanoBananaStudioPage": {
     "title": "Nano Banana AI 图像生成器",
-    "description": "用 Nano Banana 快速生成真实、品牌一致的图像，支持多参考编辑，适配广告、电商与社媒。",
+    "description": "Nano Banana AI 图像生成器可快速生成真实、品牌一致的图像，支持多参考编辑，适配广告、电商与社媒。",
     "eyebrow": "Gemini 2.5 Flash Image",
     "hero": {
       "title": "Nano Banana AI 图像生成器",
-      "subtitle": "Nano Banana（Gemini 2.5 Flash Image）提供高速的自然语言图像生成与编辑，构图清晰、材质可信、风格迁移顺滑，帮助团队更快交付素材。",
+      "subtitle": "Nano Banana AI 图像生成器（Gemini 2.5 Flash Image）提供高速的自然语言图像生成与编辑，构图清晰、材质可信、风格迁移顺滑，帮助团队更快交付素材。",
       "primaryCta": "打开 Nano Banana 工作室",
       "secondaryCta": "查看能力",
       "tags": {
@@ -1437,11 +1437,11 @@
   },
   "GptImage15StudioPage": {
     "title": "GPT-Image-1.5 AI 图像生成器",
-    "description": "精准编辑、可靠指令跟随与清晰文字渲染，适合营销与产品视觉。",
+    "description": "GPT-Image-1.5 AI 图像生成器提供精准编辑、可靠指令跟随与清晰文字渲染，适合营销与产品视觉。",
     "eyebrow": "OpenAI GPT-Image-1.5",
     "hero": {
       "title": "GPT-Image-1.5 AI 图像生成器",
-      "subtitle": "通过精细控制、清晰排版与稳定风格进行图像生成与编辑，适合生产流程。",
+      "subtitle": "GPT-Image-1.5 AI 图像生成器支持精细控制、清晰排版与稳定风格的生成与编辑，适合生产流程。",
       "primaryCta": "打开 GPT-Image-1.5 工作室",
       "secondaryCta": "查看能力",
       "cta": "在下方实时工作区生成或编辑图像。"
@@ -1600,11 +1600,11 @@
   },
   "ZImageStudioPage": {
     "title": "Z-Image AI 图像生成器",
-    "description": "用 Z-Image 高效生成干净视觉，适合日常营销与设计工作。",
+    "description": "Z-Image AI 图像生成器可高效生成干净视觉，适合日常营销与设计工作。",
     "eyebrow": "通义 Z-Image",
     "hero": {
       "title": "Z-Image AI 图像生成器",
-      "subtitle": "Z-Image 以更快速度生成稳定构图的图像，满足日常创作需求。",
+      "subtitle": "Z-Image AI 图像生成器以更快速度生成稳定构图的图像，满足日常创作需求。",
       "primaryCta": "打开 Z-Image 工作室",
       "secondaryCta": "查看能力亮点",
       "cta": "在下方实时工作台生成或编辑图像。"
@@ -1716,11 +1716,11 @@
   },
   "NanoBananaProStudioPage": {
     "title": "Nano Banana Pro AI 图像生成器",
-    "description": "用 Nano Banana Pro 生成高端、稳定的视觉素材，适合品牌战役与高规格营销。",
+    "description": "Nano Banana Pro AI 图像生成器可生成高端、稳定的视觉素材，适合品牌战役与高规格营销。",
     "eyebrow": "Nano Banana Pro",
     "hero": {
       "title": "Nano Banana Pro AI 图像生成器",
-      "subtitle": "Nano Banana Pro 提供更精细的质感与稳定的风格控制，适合高端视觉产出。",
+      "subtitle": "Nano Banana Pro AI 图像生成器提供更精细的质感与稳定的风格控制，适合高端视觉产出。",
       "primaryCta": "打开 Nano Banana Pro 工作室",
       "secondaryCta": "查看能力亮点",
       "cta": "在下方实时工作台生成或编辑图像。"
@@ -1833,11 +1833,11 @@
   },
   "Kling26StudioPage": {
     "title": "Kling 2.6 AI 视频生成器",
-    "description": "用 Kling 2.6 生成带同步音频的电影感短片，适合广告、社媒与叙事内容。",
+    "description": "Kling 2.6 AI 视频生成器可生成带同步音频的电影感短片，适合广告、社媒与叙事内容。",
     "eyebrow": "Kling 2.6",
     "hero": {
       "title": "Kling 2.6 AI 视频生成器",
-      "subtitle": "Kling 2.6 将文本或图片转为电影感短片，运动、风格与音画同步更可控。",
+      "subtitle": "Kling 2.6 AI 视频生成器将文本或图片转为电影感短片，运动、风格与音画同步更可控。",
       "primaryCta": "打开 Kling 2.6 工作室",
       "secondaryCta": "查看能力",
       "cta": "在下方实时工作台生成视频。"
@@ -1969,6 +1969,23 @@
       "title": "实时工作台",
       "description": "描述情绪、风格与配器，然后设置输出选项再生成。",
       "subtitle": "Suno 音乐工作室"
+    },
+    "highlights": {
+      "title": "核心亮点",
+      "items": {
+        "item-1": {
+          "title": "一句话生成完整歌曲",
+          "description": "从简单提示或一个氛围出发，快速得到完整歌曲草稿，用于灵感、demo 或社媒短片。"
+        },
+        "item-2": {
+          "title": "更细颗粒的音乐控制",
+          "description": "通过 Personas、Inspo、排除项与人声性别等参数，精准控制曲风、能量与编排。"
+        },
+        "item-3": {
+          "title": "可商用导出与分轨",
+          "description": "导出完整成品或最多 12 轨时间对齐的分轨，便于在 DAW 深度制作，付费计划支持商用权。"
+        }
+      }
     },
     "snapshot": {
       "eyebrow": "能力亮点",

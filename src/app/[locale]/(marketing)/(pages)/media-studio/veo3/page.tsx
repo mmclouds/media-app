@@ -24,13 +24,13 @@ const PAGE_CONTENT = {
     meta: {
       title: 'Veo3.1 AI video generator',
       description:
-        'Create 8-second, high-fidelity Veo 3.1 videos with native audio and flexible formats up to 4K.',
+        'Veo3.1 AI video generator creates 8-second, high-fidelity Veo 3.1 videos with native audio and flexible formats up to 4K.',
     },
     hero: {
       eyebrow: 'AI video generation',
       title: 'Veo3.1 AI video generator',
       subtitle:
-        'Veo 3.1 delivers 8-second, high-fidelity video in 720p, 1080p, or 4K with native audio. It supports vertical 9:16, first/last frame control, video extension, and multi-image guidance for dependable, director-style shots.',
+        'The Veo3.1 AI video generator delivers 8-second, high-fidelity video in 720p, 1080p, or 4K with native audio. It supports vertical 9:16, first/last frame control, video extension, and multi-image guidance for dependable, director-style shots.',
       cta: 'Start creating in the workspace below.',
       primaryLabel: 'Open studio',
       secondaryLabel: 'View capabilities',
@@ -295,13 +295,13 @@ const PAGE_CONTENT = {
     meta: {
       title: 'Veo3.1 AI视频生成',
       description:
-        'Veo 3.1 可生成 8 秒高保真视频，支持 720p、1080p、4K 与原生音频输出。',
+        'Veo3.1 AI视频生成可生成 8 秒高保真视频，支持 720p、1080p、4K 与原生音频输出。',
     },
     hero: {
       eyebrow: 'AI 视频生成',
       title: 'Veo3.1 AI视频生成',
       subtitle:
-        'Veo 3.1 支持 8 秒 720p/1080p/4K 高保真视频与原生音频，并提供 9:16 竖屏、首尾帧控制、视频扩展与多图参考，让镜头更可控。',
+        'Veo3.1 AI视频生成支持 8 秒 720p/1080p/4K 高保真视频与原生音频，并提供 9:16 竖屏、首尾帧控制、视频扩展与多图参考，让镜头更可控。',
       cta: '在下方工作区开始创作。',
       primaryLabel: '进入工作室',
       secondaryLabel: '查看能力',
@@ -564,7 +564,7 @@ export async function generateMetadata({
     PAGE_CONTENT[locale as keyof typeof PAGE_CONTENT] ?? PAGE_CONTENT.en;
 
   return constructMetadata({
-    title: `${content.meta.title} | VLook.AI`,
+    title: `${content.meta.title} | VLook.ai`,
     description: content.meta.description,
     locale,
     pathname: '/media-studio/veo3',
@@ -672,11 +672,34 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
         inputImages: [...item.inputImages],
       };
     });
+  const faqItems = content.faq.items.map((item, index) => ({
+    id: `faq-${index + 1}`,
+    question: item.question,
+    answer: item.answer,
+  }));
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
 
   return (
     <>
       <Navbar scroll={true} />
       <main className="bg-background text-foreground">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema),
+          }}
+        />
         <div className="mb-12 lg:mb-16">
           <HeroSection
             eyebrow={content.hero.eyebrow}
@@ -787,11 +810,7 @@ export default async function Veo3StudioPage(props: Veo3StudioPageProps) {
           <FaqSection
             title={content.faq.title}
             subtitle={content.faq.subtitle}
-            items={content.faq.items.map((item, index) => ({
-              id: `faq-${index + 1}`,
-              question: item.question,
-              answer: item.answer,
-            }))}
+            items={faqItems}
           />
         </div>
 

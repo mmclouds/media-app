@@ -9,6 +9,7 @@ export default function robots(): MetadataRoute.Robots {
     `/${locale}/`,
   ]);
   const modelPaths = [
+    '/media-studio',
     '/media-studio/sora2',
     '/media-studio/veo3',
     '/media-studio/kling-2-6',

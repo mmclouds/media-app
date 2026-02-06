@@ -12,6 +12,7 @@ type Href = Parameters<typeof getLocalePathname>[0]['href'];
  */
 const staticRoutes = [
   '/',
+  '/media-studio',
   '/media-studio/sora2',
   '/media-studio/veo3',
   '/media-studio/kling-2-6',

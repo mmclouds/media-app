@@ -44,7 +44,7 @@ export async function generateMetadata({
   return constructMetadata({
     title: 'Media Studio | ' + t('title'),
     description:
-      'Create immersive AI media with unified workflows for video, image, and audio generation plus multi-track editing.',
+      'Media Studio lets you create immersive AI media with unified workflows for video, image, and audio generation plus multi-track editing.',
     locale,
     pathname: '/media-studio',
   });
@@ -55,6 +55,7 @@ export default async function MediaStudioPage() {
 
   return (
     <main className="relative h-screen w-full overflow-hidden bg-[#0B0D10] text-white antialiased [background-image:radial-gradient(80%_60%_at_20%_0%,rgba(59,130,246,0.25),rgba(2,2,2,0)),radial-gradient(60%_50%_at_80%_10%,rgba(249,115,22,0.18),rgba(2,2,2,0)),linear-gradient(180deg,rgba(15,23,42,0.6),rgba(2,2,2,0.9))]">
+      <h1 className="sr-only">Media Studio</h1>
       <MediaGeneratorWorkspace
         className="h-full w-full max-h-screen"
         persistKey="media-studio-selection"

@@ -23,13 +23,13 @@ const PAGE_CONTENT = {
     meta: {
       title: 'Sora2 AI Video Generator',
       description:
-        'Generate cinematic AI videos with OpenAI Sora 2, featuring stronger physics realism, higher fidelity, and better multi-scene control.',
+        'Sora2 AI Video Generator creates cinematic AI videos with OpenAI Sora 2, featuring stronger physics realism, higher fidelity, and better multi-scene control.',
     },
     hero: {
       eyebrow: 'AI video generation',
       title: 'Sora2 AI Video Generator',
       subtitle:
-        'Turn text or images into cinematic short videos with stronger realism, continuity, and control. Sora 2 upgrades physics understanding, visual fidelity, and multi-shot consistency for storytelling.',
+        'The Sora2 AI Video Generator turns text or images into cinematic short videos with stronger realism, continuity, and control. Sora 2 upgrades physics understanding, visual fidelity, and multi-shot consistency for storytelling.',
       cta: 'Start creating in the workspace below.',
       primaryLabel: 'Open studio',
       secondaryLabel: 'View capabilities',
@@ -217,13 +217,13 @@ const PAGE_CONTENT = {
     meta: {
       title: 'Sora2 AI Video Generator',
       description:
-        '使用 OpenAI Sora 2 生成电影感 AI 视频，物理真实感更强、清晰度更高，并支持多场景控制。',
+        'Sora2 AI Video Generator 使用 OpenAI Sora 2 生成电影感 AI 视频，物理真实感更强、清晰度更高，并支持多场景控制。',
     },
     hero: {
       eyebrow: 'AI 视频生成',
       title: 'Sora2 AI Video Generator',
       subtitle:
-        '将文本或图片转化为电影感短视频，具备更强的真实感、连贯性与可控性。Sora 2 在物理理解、画面清晰度与多镜头一致性上进一步升级。',
+        'Sora2 AI Video Generator 将文本或图片转化为电影感短视频，具备更强的真实感、连贯性与可控性。Sora 2 在物理理解、画面清晰度与多镜头一致性上进一步升级。',
       cta: '在下方工作区开始创作。',
       primaryLabel: '进入工作室',
       secondaryLabel: '查看能力',
@@ -404,7 +404,7 @@ export async function generateMetadata({
     PAGE_CONTENT[locale as keyof typeof PAGE_CONTENT] ?? PAGE_CONTENT.en;
 
   return constructMetadata({
-    title: `${content.meta.title} | VLook.AI`,
+    title: `${content.meta.title} | VLook.ai`,
     description: content.meta.description,
     locale,
     pathname: '/media-studio/sora2',
@@ -472,10 +472,33 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
       },
     },
   ];
+  const faqItems = content.faq.items.map((item, index) => ({
+    id: `faq-${index + 1}`,
+    question: item.question,
+    answer: item.answer,
+  }));
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
   return (
     <>
       <Navbar scroll={true} />
       <main className="bg-background text-foreground">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema),
+          }}
+        />
         <div className="mb-12 lg:mb-16">
           <HeroSection
             eyebrow={content.hero.eyebrow}
@@ -561,11 +584,7 @@ export default async function Sora2StudioPage(props: Sora2StudioPageProps) {
           <FaqSection
             title={content.faq.title}
             subtitle={content.faq.subtitle}
-            items={content.faq.items.map((item, index) => ({
-              id: `faq-${index + 1}`,
-              question: item.question,
-              answer: item.answer,
-            }))}
+            items={faqItems}
           />
         </div>
 
