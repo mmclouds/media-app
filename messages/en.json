@@ -349,6 +349,10 @@
             "kling26": {
               "title": "Kling 2.6",
               "description": "Create cinematic video outputs with Kling 2.6."
+            },
+            "kling3": {
+              "title": "Kling 3.0",
+              "description": "Direct cinematic AI videos with Kling 3.0."
             }
           }
         },
@@ -517,7 +521,8 @@
           "items": {
             "sora2": "Sora 2",
             "veo3": "Veo 3",
-            "kling26": "Kling 2.6"
+            "kling26": "Kling 2.6",
+            "kling3": "Kling 3.0"
           }
         },
         "music": {

@@ -3,6 +3,8 @@ import FaqSection from '@/components/custom-blocks/faqs/faqs';
 import HeroSection from '@/components/custom-blocks/hero/hero';
 import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-promo';
 import WorkflowStepsSection from '@/components/custom-blocks/workflow-steps/workflow-steps';
+import XContentSection from '@/components/custom-blocks/x-content/x-content';
+import YouTubeContentSection from '@/components/custom-blocks/youtube-content/youtube-content';
 import ImageToMediaShowcase from '@/components/cutomer/image-to-media-showcase';
 import type { ImageToMediaExample } from '@/components/cutomer/image-to-media-showcase';
 import Container from '@/components/layout/container';
@@ -20,45 +22,44 @@ const PAGE_CONTENT = {
     meta: {
       title: 'Kling 3.0 AI video generator',
       description:
-        'Create cinematic 3-15s videos with Kling 3.0. Multi-shot direction, stronger subject consistency, native character-aware audio, and precise text rendering in one workflow.',
+        'Create cinematic 3-15 second videos with Kling 3.0. Direct multiple shots, keep characters consistent, add native multilingual audio, and render clear in-scene text in one workflow.',
     },
     hero: {
       eyebrow: 'AI video generation',
       title: 'Kling 3.0 AI video generator',
       subtitle:
-        'Direct richer stories in one generation with multi-shot scene control, stronger reference consistency, native audio with speaker targeting, and native-level text rendering.',
-      cta: 'Start creating in the workspace below.',
+        'Go from prompt to polished 3-15 second video in one workflow. Plan multiple shots, keep subjects consistent, assign dialogue by character, and render clear on-screen text.',
+      cta: 'Generate your first Kling 3.0 clip below.',
       primaryLabel: 'Open studio',
-      secondaryLabel: 'View highlights',
+      secondaryLabel: 'See what is new in 3.0',
     },
     highlights: {
       eyebrow: 'Key highlights',
       title: 'Key Highlights',
       description:
-        'From cinematic shot planning to multilingual audio and precise lettering, Kling 3.0 is built for end-to-end visual storytelling.',
+        'Kling 3.0 helps creators move from idea to publish-ready video faster, with stronger control over shots, audio, and text.',
       cardLabel: 'Highlight',
       brandLabel: 'Kling 3.0',
       items: [
         {
-          title: 'Multi-Shot: AI Director onboard, one-click cinematic output',
+          title: 'Direct multiple shots in a single prompt',
           description:
-            'Describe shot coverage in one prompt and let Kling 3.0 automatically coordinate camera angles, compositions, and transitions for coherent cinematic flow.',
+            'Describe sequence, angle, and motion once, and Kling 3.0 coordinates shot order and transitions for a smoother cinematic flow.',
         },
         {
-          title: 'World-first image-to-video with enhanced subject consistency',
+          title: 'Keep characters and scenes consistent',
           description:
-            'Use multi-image references and element-level grounding to keep characters, objects, and environments stable as camera movement and scene progression evolve.',
+            'Use multiple references and element-level grounding to keep faces, objects, and environments stable across scene changes.',
         },
         {
-          title:
-            'Upgraded native audio with character referencing and more languages',
+          title: 'Add native audio with speaker-level control',
           description:
-            'Assign speaking lines to specific characters, support multilingual dialogue and accents, and keep lip movement and expressions synchronized naturally.',
+            'Assign lines to specific characters, generate multilingual dialogue with accents, and keep voice and motion naturally aligned.',
         },
         {
-          title: 'Native-level text output with precise lettering',
+          title: 'Render clear in-scene text for brand content',
           description:
-            'Preserve or generate clear in-scene text, including packaging, captions, and signage, with structured layouts suitable for high-fidelity commercial content.',
+            'Preserve or generate readable labels, captions, and signage so product videos stay usable for real campaigns.',
         },
       ],
     },
@@ -66,31 +67,61 @@ const PAGE_CONTENT = {
       title: 'How It Works',
       steps: [
         {
-          title: 'Describe your scene',
+          title: 'Write the scene',
           description:
-            'Write a cinematic prompt with shot intent, dialogue, and motion.',
+            'Describe the story, camera intent, motion, and dialogue in one prompt.',
         },
         {
-          title: 'Attach references',
+          title: 'Add references',
           description:
-            'Add one or more image/video elements to anchor subjects and style.',
+            'Upload image or element references to lock identity, product details, and style.',
         },
         {
-          title: 'Set timing and language',
+          title: 'Set duration and audio',
           description:
-            'Choose 3-15s duration and configure multilingual native audio if needed.',
+            'Choose a 3-15 second length and set multilingual audio when needed.',
         },
         {
-          title: 'Generate and iterate',
+          title: 'Generate, review, refine',
           description:
-            'Render once, review pacing and continuity, then refine key beats.',
+            'Render the first pass, review pacing and continuity, then iterate on key moments.',
+        },
+      ],
+    },
+    differentiation: {
+      eyebrow: '3.0 differences',
+      title: 'Why Kling 3.0 Is Different',
+      description:
+        'Kling 3.0 is not only a quality upgrade. It adds native multimodal generation, longer structured storytelling, and deeper audio-visual reference control.',
+      cardLabel: 'Difference',
+      brandLabel: 'Kling 3.0',
+      items: [
+        {
+          title: 'Unified multimodal model across creation tasks',
+          description:
+            'Text-to-video, image-to-video, reference-to-video, and video editing workflows are integrated into one native model, improving consistency across tasks.',
+        },
+        {
+          title: '3-15s output with storyboard-level shot control',
+          description:
+            'You can generate up to 15 seconds and define per-shot timing, size, perspective, and camera movement for smoother narrative progression.',
+        },
+        {
+          title: 'Native audio engine with speaker-level precision',
+          description:
+            'The model supports character-targeted dialogue, multiple languages, dialects, and mixed-language scenes with coherent lip sync and expressions.',
+        },
+        {
+          title: 'Elements 3.0 with video character and voice reference',
+          description:
+            'Build subjects from short character videos and optional voice input to preserve identity and voice traits across scenes.',
         },
       ],
     },
     multiShotShowcase: {
       title: 'Multi-Shot',
       subtitle: 'AI Director Onboard, One-Click Cinematic Output',
-      inputLabel: 'Image URLs',
+      inputLabel: 'Input',
       outputLabel: 'Video Output',
       items: [
         {
@@ -125,7 +156,7 @@ const PAGE_CONTENT = {
     nativeAudioShowcase: {
       title: 'Upgraded Native Audio Output',
       subtitle: 'Character Referencing & More Languages',
-      inputLabel: 'Image URLs',
+      inputLabel: 'Input',
       outputLabel: 'Video Output',
       items: [
         {
@@ -169,7 +200,7 @@ const PAGE_CONTENT = {
     textOutputShowcase: {
       title: 'Native-Level Text Output',
       subtitle: 'Precise Lettering Capabilities',
-      inputLabel: 'Image URLs',
+      inputLabel: 'Input',
       outputLabel: 'Video Output',
       items: [
         {
@@ -214,7 +245,7 @@ const PAGE_CONTENT = {
         {
           question: 'What is Kling 3.0?',
           answer:
-            "Kling 3.0 is Kling AI's latest video generation model with multi-shot directing, stronger reference consistency, native audio, and precise text rendering.",
+            'Kling 3.0 is an AI video model for cinematic short-form production, with multi-shot direction, stronger consistency, native audio, and clear text rendering.',
         },
         {
           question: 'How long can generated videos be?',
@@ -223,7 +254,7 @@ const PAGE_CONTENT = {
         {
           question: 'What references can I use?',
           answer:
-            'You can use single or multiple images, and element references including video-based character references for stronger consistency.',
+            'You can use single or multiple images plus element references, including video character references for stronger visual and audio consistency.',
         },
         {
           question: 'Does it support multilingual audio?',
@@ -235,13 +266,35 @@ const PAGE_CONTENT = {
           answer:
             'Yes. Kling 3.0 delivers native-level text rendering for signs, captions, and product lettering.',
         },
+        {
+          question:
+            'What is the difference between Kling 3.0 and Kling 2.6/O1?',
+          answer:
+            'Kling 3.0 introduces a unified multimodal training framework, extends generation up to 15 seconds, adds shot-level storyboard control, and upgrades Elements with video character plus voice reference for stronger audio-visual consistency.',
+        },
       ],
     },
-    studioPromo: {
-      title: 'VLook.ai Studio: cinematic Kling 3.0 creation',
+    social: {
+      title: 'X Highlights',
+      subtitle: 'Latest community takes on Kling 3.0',
       description:
-        'Prompt, direct, and export cinematic 3-15 second clips with VLook.ai.',
-      primaryLabel: 'Open VLook.ai Studio',
+        'See how creators share prompts, clips, and results in the wild.',
+      iframeTitlePrefix: 'X post preview',
+    },
+    youtube: {
+      title: 'YouTube Highlights',
+      subtitle: 'Kling 3.0 in action',
+      description:
+        'Watch creator demos, breakdowns, and real production workflows.',
+      prevLabel: 'Scroll to previous videos',
+      nextLabel: 'Scroll to next videos',
+      iframeTitlePrefix: 'YouTube video',
+    },
+    studioPromo: {
+      title: 'VLook.ai Studio for Kling 3.0',
+      description:
+        'Create, iterate, and export cinematic 3-15 second videos in minutes.',
+      primaryLabel: 'Open Kling 3.0 Studio',
       secondaryLabel: 'Explore VLook.ai',
     },
     immersiveStudio: {
@@ -252,44 +305,44 @@ const PAGE_CONTENT = {
     meta: {
       title: 'Kling 3.0 AI 视频生成',
       description:
-        '使用 Kling 3.0 生成 3-15 秒电影级视频：多镜头导演、一致性增强、原生音频与精准文字输出。',
+        '使用 Kling 3.0 在一个流程中生成 3-15 秒电影级视频：多镜头调度、角色一致性增强、多语言原生音频与清晰场景文字。',
     },
     hero: {
       eyebrow: 'AI 视频生成',
-      title: 'Kling 3.0 AI 视频生成',
+      title: 'Kling 3.0 AI 视频生成器',
       subtitle:
-        '通过多镜头场景控制、更强参考一致性、可指定说话角色的原生音频与原生级文字渲染，一次生成更完整的电影化叙事。',
-      cta: '在下方工作区开始创作。',
+        '从提示词到成片，一次完成 3-15 秒视频创作。支持多镜头叙事、主体一致性控制、角色指向对白与清晰文字渲染。',
+      cta: '在下方生成你的第一条 Kling 3.0 视频。',
       primaryLabel: '进入工作室',
-      secondaryLabel: '查看亮点',
+      secondaryLabel: '查看 3.0 新增能力',
     },
     highlights: {
       eyebrow: '关键亮点',
       title: '关键亮点',
       description:
-        '从镜头调度到多语言音频与文字渲染，Kling 3.0 提供端到端的视频创作能力。',
+        'Kling 3.0 帮你更快把创意变成可发布的视频，并在镜头、音频与文字上保留更高可控性。',
       cardLabel: '亮点',
       brandLabel: 'Kling 3.0',
       items: [
         {
-          title: 'Multi-Shot：AI 导演上场，一次生成电影感成片',
+          title: '一个提示词完成多镜头调度',
           description:
-            '在一个提示词中描述镜头覆盖，模型会自动协调机位、构图与转场，让叙事更连贯。',
+            '在一次生成中描述镜头顺序、机位与运动，模型自动编排转场，让叙事更连贯。',
         },
         {
-          title: '全球首发：图生视频 + 主体一致性增强',
+          title: '角色与场景跨镜头更稳定',
           description:
-            '支持多图参考与元素级锚定，在镜头运动和剧情推进中稳定保持人物、物体与场景特征。',
+            '支持多图参考和元素级锚定，在场景切换中稳定保留人物、物体和环境特征。',
         },
         {
-          title: '原生音频升级：角色指向 + 更多语言',
+          title: '原生音频支持角色级对白控制',
           description:
-            '可明确指定发声角色，支持多语言、多口音和同场景混合语言对话，口型与表情自然同步。',
+            '可指定具体角色发声，支持多语言与口音表达，并保持语音与画面节奏自然匹配。',
         },
         {
-          title: '原生级文本输出：更精准的字形与排版',
+          title: '场景文字清晰可读，适合商用内容',
           description:
-            '可保留或生成清晰场景文字，适用于品牌标识、包装文案、字幕标牌等高保真场景。',
+            '可保留或生成清晰的标牌、字幕和包装文字，让视频更适合品牌和营销场景。',
         },
       ],
     },
@@ -297,20 +350,50 @@ const PAGE_CONTENT = {
       title: '工作流程',
       steps: [
         {
-          title: '描述场景',
-          description: '编写包含镜头意图、动作与台词的提示词。',
+          title: '写下场景',
+          description: '在提示词中说明故事、镜头意图、动作与台词。',
         },
         {
-          title: '添加参考元素',
-          description: '上传一张或多张图片/视频元素，锁定主体与风格。',
+          title: '添加参考',
+          description: '上传图片或元素参考，锁定人物身份、产品细节和视觉风格。',
         },
         {
-          title: '设置时长与语言',
-          description: '选择 3-15 秒时长，并按需启用多语言原生音频。',
+          title: '设置时长与音频',
+          description: '选择 3-15 秒时长，并按需配置多语言原生音频。',
         },
         {
-          title: '生成并迭代',
-          description: '先产出完整结果，再针对关键节拍精修。',
+          title: '生成、复盘、迭代',
+          description: '先产出首版，再根据节奏和连贯性优化关键镜头。',
+        },
+      ],
+    },
+    differentiation: {
+      eyebrow: '3.0 差异化',
+      title: 'Kling 3.0 与前代的关键差异',
+      description:
+        'Kling 3.0 不只是画质升级，还在原生多模态、长时叙事与音画参考控制上完成了系统级进化。',
+      cardLabel: '差异点',
+      brandLabel: 'Kling 3.0',
+      items: [
+        {
+          title: '统一多模态模型覆盖多类创作任务',
+          description:
+            '将文生视频、图生视频、参考生视频与视频编辑等任务整合进同一原生模型，跨任务一致性更强。',
+        },
+        {
+          title: '3-15 秒输出并支持分镜级控制',
+          description:
+            '单次可生成最长 15 秒，并可按镜头定义时长、景别、视角与运镜，让叙事节奏更完整。',
+        },
+        {
+          title: '原生音频引擎支持角色级精准对白',
+          description:
+            '支持指定角色发声、多语言与口音、同场景混合语种，并保持口型和表情更自然一致。',
+        },
+        {
+          title: 'Elements 3.0 支持视频角色 + 声音参考',
+          description:
+            '可通过短视频提取角色外观与声音特征，在跨镜头与跨场景中维持更高的人物一致性。',
         },
       ],
     },
@@ -434,7 +517,7 @@ const PAGE_CONTENT = {
         {
           question: 'Kling 3.0 是什么？',
           answer:
-            'Kling 3.0 是 Kling AI 的新一代视频生成模型，具备多镜头导演、参考一致性增强、原生音频与精准文字渲染能力。',
+            'Kling 3.0 是面向电影感短视频创作的 AI 模型，支持多镜头调度、更强一致性、原生音频与清晰文字渲染。',
         },
         {
           question: '支持生成多长时长？',
@@ -443,7 +526,7 @@ const PAGE_CONTENT = {
         {
           question: '支持哪些参考输入？',
           answer:
-            '支持单图、多图与元素参考，并可使用视频角色参考提升视觉与音频的一致性。',
+            '支持单图、多图和元素参考，也支持视频角色参考以提升视觉与音频的一致性。',
         },
         {
           question: '支持多语言音频吗？',
@@ -455,12 +538,31 @@ const PAGE_CONTENT = {
           answer:
             '可实现原生级清晰文字输出，适用于标牌、字幕与产品包装等场景。',
         },
+        {
+          question: 'Kling 3.0 与 Kling 2.6 / O1 的主要差异是什么？',
+          answer:
+            'Kling 3.0 引入统一多模态训练框架，支持最长 15 秒输出与分镜级控制，并将 Elements 升级为可结合视频角色与声音参考，显著提升长叙事中的视听一致性。',
+        },
       ],
     },
+    social: {
+      title: 'X 精选内容',
+      subtitle: '社区最新的 Kling 3.0 观点',
+      description: '看看创作者如何分享提示词、视频片段与生成结果。',
+      iframeTitlePrefix: 'X 帖子预览',
+    },
+    youtube: {
+      title: 'YouTube 精选内容',
+      subtitle: 'Kling 3.0 实战演示',
+      description: '观看创作者演示、拆解与真实生产工作流。',
+      prevLabel: '查看上一组视频',
+      nextLabel: '查看下一组视频',
+      iframeTitlePrefix: 'YouTube 视频',
+    },
     studioPromo: {
-      title: 'VLook.ai 工作室：Kling 3.0 电影级创作',
-      description: '在 VLook.ai 中快速生成并迭代 3-15 秒电影感视频。',
-      primaryLabel: '打开 VLook.ai 工作室',
+      title: 'VLook.ai Kling 3.0 工作室',
+      description: '在几分钟内完成生成、迭代并导出 3-15 秒电影感视频。',
+      primaryLabel: '打开 Kling 3.0 工作室',
       secondaryLabel: '了解 VLook.ai',
     },
     immersiveStudio: {
@@ -495,10 +597,48 @@ export default async function Kling3StudioPage(props: Kling3StudioPageProps) {
   const content =
     PAGE_CONTENT[params.locale as keyof typeof PAGE_CONTENT] ?? PAGE_CONTENT.en;
 
+  const socialUrls = [
+    'https://x.com/Kling_ai/status/2019228615775604784',
+    'https://x.com/NasirBiswasTech/status/2019722657000993049',
+    'https://x.com/PJaccetturo/status/2019072637192843463',
+    'https://x.com/maxescu/status/2019069933175427427',
+    'https://x.com/mxvdxn/status/2019791311218335991',
+    'https://x.com/Diesol/status/2019064764589089256',
+    'https://x.com/techhalla/status/2019416032977514583',
+    'https://x.com/OrctonAI/status/2019089992748765214',
+  ];
+  const youtubeUrls = [
+    'https://www.youtube.com/watch?v=XD_7FNPhZQY',
+    'https://www.youtube.com/watch?v=z84WQAn6U0I',
+    'https://www.youtube.com/watch?v=Rme22R7a9O8',
+    'https://www.youtube.com/watch?v=YFF8x0kU4mU',
+  ];
+
   const highlightItems = content.highlights.items.map((item) => ({
     title: item.title,
     description: item.description,
   }));
+  const differentiationItems = content.differentiation.items.map((item) => ({
+    title: item.title,
+    description: item.description,
+  }));
+  const faqItems = content.faq.items.map((item, index) => ({
+    id: `faq-${index + 1}`,
+    question: item.question,
+    answer: item.answer,
+  }));
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
 
   const multiShotItems: ImageToMediaExample[] =
     content.multiShotShowcase.items.map((item) => ({
@@ -532,6 +672,7 @@ export default async function Kling3StudioPage(props: Kling3StudioPageProps) {
     <>
       <Navbar scroll={true} />
       <main className="bg-background text-foreground">
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <div className="mb-12 lg:mb-16">
           <HeroSection
             eyebrow={content.hero.eyebrow}
@@ -541,7 +682,7 @@ export default async function Kling3StudioPage(props: Kling3StudioPageProps) {
             primaryLabel={content.hero.primaryLabel}
             secondaryLabel={content.hero.secondaryLabel}
             primaryHref="#studio"
-            secondaryHref="#highlights"
+            secondaryHref="#differentiation"
           />
         </div>
 
@@ -594,6 +735,18 @@ export default async function Kling3StudioPage(props: Kling3StudioPageProps) {
           className="[&_h2]:text-4xl [&_h2]:font-bold"
         />
 
+        <CapabilitiesCardsSection
+          id="differentiation"
+          eyebrow={content.differentiation.eyebrow}
+          title={content.differentiation.title}
+          description={content.differentiation.description}
+          items={differentiationItems}
+          getCardLabel={(index) =>
+            `${content.differentiation.cardLabel} ${index}`
+          }
+          brandLabel={content.differentiation.brandLabel}
+        />
+
         <ImageToMediaShowcase
           id="multi-shot-examples"
           title={content.multiShotShowcase.title}
@@ -630,15 +783,33 @@ export default async function Kling3StudioPage(props: Kling3StudioPageProps) {
           items={elementReferenceItems}
         />
 
+        <YouTubeContentSection
+          id="youtube-highlights"
+          title={content.youtube.title}
+          subtitle={content.youtube.subtitle}
+          description={content.youtube.description}
+          prevLabel={content.youtube.prevLabel}
+          nextLabel={content.youtube.nextLabel}
+          iframeTitlePrefix={content.youtube.iframeTitlePrefix}
+          urls={youtubeUrls}
+          className="[&_h2]:text-4xl [&_h2]:font-bold"
+        />
+
+        <XContentSection
+          id="x-highlights"
+          title={content.social.title}
+          subtitle={content.social.subtitle}
+          description={content.social.description}
+          iframeTitlePrefix={content.social.iframeTitlePrefix}
+          urls={socialUrls}
+          className="[&_h2]:text-4xl [&_h2]:font-bold"
+        />
+
         <div className="[&_h2]:text-4xl [&_h2]:font-bold">
           <FaqSection
             title={content.faq.title}
             subtitle={content.faq.subtitle}
-            items={content.faq.items.map((item, index) => ({
-              id: `faq-${index + 1}`,
-              question: item.question,
-              answer: item.answer,
-            }))}
+            items={faqItems}
           />
         </div>
 

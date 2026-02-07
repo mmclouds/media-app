@@ -103,6 +103,13 @@ export function useNavbarLinks(): NestedMenuItem[] {
           href: Routes.MediaStudioKling26,
           external: false,
         },
+        {
+          title: t('models.video.items.kling3.title'),
+          description: t('models.video.items.kling3.description'),
+          icon: <FilmIcon className="size-4 shrink-0" />,
+          href: Routes.MediaStudioKling3,
+          external: false,
+        },
       ],
     },
     {

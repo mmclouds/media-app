@@ -28,6 +28,7 @@ export enum Routes {
   MediaStudioZImage = '/media-studio/z-image',
   MediaStudioNanoBananaPro = '/media-studio/nano-banana-pro',
   MediaStudioKling26 = '/media-studio/kling-2-6',
+  MediaStudioKling3 = '/media-studio/kling3',
   MediaStudioSuno = '/media-studio/suno',
 
   // auth routes

@@ -37,6 +37,11 @@ export function useFooterLinks(): NestedMenuItem[] {
           href: Routes.MediaStudioKling26,
           external: false,
         },
+        {
+          title: t('models.video.items.kling3'),
+          href: Routes.MediaStudioKling3,
+          external: false,
+        },
       ],
     },
 
