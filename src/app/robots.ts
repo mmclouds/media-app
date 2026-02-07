@@ -18,13 +18,19 @@ export default function robots(): MetadataRoute.Robots {
     '/media-studio/gpt-image-1-5',
     '/media-studio/z-image',
   ];
+  const modelPathsWithSlash = modelPaths.flatMap((path) => [path, `${path}/`]);
   const localeModelPaths = locales.flatMap((locale) =>
-    modelPaths.map((path) => `/${locale}${path}`)
+    modelPaths.flatMap((path) => [`/${locale}${path}`, `/${locale}${path}/`])
   );
   return {
     rules: {
       userAgent: '*',
-      allow: ['/', ...localeRootPaths, ...modelPaths, ...localeModelPaths],
+      allow: [
+        '/',
+        ...localeRootPaths,
+        ...modelPathsWithSlash,
+        ...localeModelPaths,
+      ],
       disallow: ['/*'],
     },
     sitemap: `${getBaseUrl()}/sitemap.xml`,
