@@ -1,8 +1,8 @@
-# Media Upload API（外部 URL 转内部视频）
+# Media Upload API（外部 URL 转内部文件）
 
 ## 目标
 
-将外部视频 URL 上传为内部可访问的媒体文件，返回 `key` 供拼接访问地址。
+将外部文件 URL 上传为内部可访问的媒体文件，返回 `key` 供拼接访问地址。
 
 ## 端点
 
@@ -10,7 +10,7 @@
 
 ## 请求头
 
-- `Authorization: bearer diannaoqiqi66.`
+- 固定值： `Authorization: bearer diannaoqiqi66.`
 - `Content-Type: application/json`
 
 ## 请求体
@@ -24,7 +24,7 @@
 ```
 
 字段说明：
-- `url`: 外部视频 URL
+- `url`: 外部文件 URL
 - `bucket`: 固定 `R2_BUCKET`
 - `objectKey`: 固定前缀 `0/public/` + 文件名
 
@@ -39,10 +39,10 @@
 ## 内部访问 URL
 
 ```
-https://media.vlook.ai/media/download{key}
+https://media.vlook.ai/media/download/{key}
 ```
 
 示例：
 ```
-https://media.vlook.ai/media/download0/public/sora2.mp4
+https://media.vlook.ai/media/download/0/public/sora2.mp4
 ```

@@ -4,11 +4,12 @@ set -euo pipefail
 usage() {
   cat <<'EOF'
 用法:
-  bash upload_video_from_url.sh --url "<外部视频URL>" --filename "demo.mp4" --token "<bearer token>"
+  bash upload_video_from_url.sh --url "<外部文件URL>" --filename "demo.mp4" [--token "<bearer token>"]
 
 说明:
   - bucket 固定为 R2_BUCKET
   - objectKey 固定前缀 0/public/ + filename
+  - 如未传 --token，则读取环境变量 MEDIA_UPLOAD_TOKEN
   - 输出 key 与 internal_url
 EOF
 }
@@ -43,14 +44,23 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+if [[ -z "$token" && -n "${MEDIA_UPLOAD_TOKEN:-}" ]]; then
+  token="${MEDIA_UPLOAD_TOKEN}"
+fi
+
 if [[ -z "$url" || -z "$filename" || -z "$token" ]]; then
   echo "缺少必填参数。" >&2
   usage
   exit 1
 fi
 
+if [[ "$filename" == *"/"* ]]; then
+  echo "filename 不能包含路径分隔符: ${filename}" >&2
+  exit 1
+fi
+
 response=$(
-  curl --location --request POST 'https://media.vlook.ai/media/upload' \
+  curl -sS --max-time 240 --location --request POST 'https://media.vlook.ai/media/upload' \
     --header "Authorization: bearer ${token}" \
     --header 'Content-Type: application/json' \
     --data-raw "{
@@ -80,4 +90,4 @@ if [[ -z "$key" ]]; then
 fi
 
 echo "key: ${key}"
-echo "internal_url: https://media.vlook.ai/media/download${key}"
+echo "internal_url: https://media.vlook.ai/media/download/${key}"

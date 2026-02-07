@@ -100,10 +100,10 @@ const PAGE_CONTENT = {
           prompt:
             "Cinematic shot on a European villa's outdoor terrace with shot-reverse-shot dialogue and emotional pacing.",
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770210949417_x41dja.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770210949417_x41dja.jpg',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770210919472_j4m945.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770210919472_j4m945.mp4',
         },
         {
           title: 'Orbiting Portrait with Warm Reunion Smile',
@@ -112,13 +112,13 @@ const PAGE_CONTENT = {
           prompt:
             'Orbit camera movement with natural expression transition and multi-reference consistency.',
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211265229_b8ta0x.jpg',
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211168009_dlazly.png',
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211168011_9pju78.png',
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211168012_tuqlyp.png',
+            'https://media.vlook.ai/media/download/0/public/1770211265229_b8ta0x.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770211168009_dlazly.png',
+            'https://media.vlook.ai/media/download/0/public/1770211168011_9pju78.png',
+            'https://media.vlook.ai/media/download/0/public/1770211168012_tuqlyp.png',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211225176_74uzl2.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770211225176_74uzl2.mp4',
         },
       ],
     },
@@ -135,10 +135,10 @@ const PAGE_CONTENT = {
           prompt:
             'Multi-character dialogue with speaker targeting and household ambient sound.',
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211317936_quj6rs.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770211317936_quj6rs.jpg',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211314559_1lz1nj.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770211314559_1lz1nj.mp4',
         },
         {
           title: 'Korean Rooftop Night Conversation',
@@ -147,10 +147,10 @@ const PAGE_CONTENT = {
           prompt:
             'Korean dialogue performance with ambient rooftop atmosphere and emotional timing.',
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770191657884_766eiq.jpeg',
+            'https://media.vlook.ai/media/download/0/public/1770191657884_766eiq.jpeg',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770196418822_ourx0z.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770196418822_ourx0z.mp4',
         },
         {
           title: 'Madrid Street Bilingual Wayfinding Scene',
@@ -159,10 +159,10 @@ const PAGE_CONTENT = {
           prompt:
             'Multilingual Spanish dialogue with accent styling and natural street interaction.',
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211365511_9av6ju.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770211365511_9av6ju.jpg',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211378159_vb2qio.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770211378159_vb2qio.mp4',
         },
       ],
     },
@@ -179,10 +179,10 @@ const PAGE_CONTENT = {
           prompt:
             'Product storytelling with clear lettering, controlled camera motion, and polished voiceover.',
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211450832_feisx9.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770211450832_feisx9.jpg',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211415228_mhabei.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770211415228_mhabei.mp4',
         },
       ],
     },
@@ -199,11 +199,11 @@ const PAGE_CONTENT = {
           prompt:
             'Element-driven product reveal with logo transformation and stable brand asset continuity.',
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211564487_5f8ph3.jpg',
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211681004_ej599z.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770211564487_5f8ph3.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770211681004_ej599z.jpg',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211666699_173y81.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770211666699_173y81.mp4',
         },
       ],
     },
@@ -326,10 +326,10 @@ const PAGE_CONTENT = {
             '提示词：欧洲别墅户外露台电影镜头。一位年轻白人女性身穿蓝白条纹短袖上衣、卡其短裤与棕色腰带，赤脚坐在铺有蓝白格子桌布的桌前；对面是一位身穿白色 T 恤的年轻白人男性。镜头缓慢推进。女性一边轻晃杯中的果汁，一边望向远处树林，说：“这些树一个月后就会变黄。”切到男性特写，他低头轻声说：“但明年夏天它们又会变绿。”随后女性转头对他微笑并问：“你总是这么乐观吗？”男性抬头看着她的眼睛回答：“只有和你一起度过的夏天。”高质量、4K、真实纹理、自然阳光、情绪氛围。',
           prompt: '欧洲别墅露台电影镜头，含对切对白与情绪递进。',
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770210949417_x41dja.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770210949417_x41dja.jpg',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770210919472_j4m945.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770210919472_j4m945.mp4',
         },
         {
           title: '环绕运镜与温暖抬头微笑',
@@ -337,13 +337,13 @@ const PAGE_CONTENT = {
             '提示词：镜头逐步环绕到女孩正面，随后她抬起头，朝镜头露出温暖笑容，仿佛多年后重逢老友。',
           prompt: '环绕运镜配合自然表情过渡，并保持多参考一致性。',
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211265229_b8ta0x.jpg',
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211168009_dlazly.png',
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211168011_9pju78.png',
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211168012_tuqlyp.png',
+            'https://media.vlook.ai/media/download/0/public/1770211265229_b8ta0x.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770211168009_dlazly.png',
+            'https://media.vlook.ai/media/download/0/public/1770211168011_9pju78.png',
+            'https://media.vlook.ai/media/download/0/public/1770211168012_tuqlyp.png',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211225176_74uzl2.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770211225176_74uzl2.mp4',
         },
       ],
     },
@@ -359,10 +359,10 @@ const PAGE_CONTENT = {
             '提示词：室内家庭环境，背景带有客厅空调轻微嗡鸣，营造真实日常氛围；母亲带着惊讶语气轻声感叹：“哇，我完全没想到剧情会这样。”；父亲用低沉平缓的声音回应：“是啊，太出乎意料了，真没想到会发生这种事。”；男孩开心地说：“这是最棒的反转！”；女孩兴奋点头：“我不敢相信他们真的这么拍了！”',
           prompt: '家庭场景多角色对白，支持角色指向与环境底噪。',
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211317936_quj6rs.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770211317936_quj6rs.jpg',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211314559_1lz1nj.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770211314559_1lz1nj.mp4',
         },
         {
           title: '韩高天台夜景对话',
@@ -370,10 +370,10 @@ const PAGE_CONTENT = {
             '提示词：韩国高中天台夜景，远处城市灯火与轻微风声作背景，夜空繁星闪烁；女主倚着栏杆发呆，男主拿着两罐可乐走来递给她一罐，她接过后拉开；男主用轻松语气说：“숙제 다 했어? 왜 여기 있어?”；女主叹气说：“시험이 너무 무서워.”；男主温柔回应：“걱정 마, 넌 잘할 거야.”',
           prompt: '韩语天台对话，结合夜景氛围音与情绪节奏。',
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770191657884_766eiq.jpeg',
+            'https://media.vlook.ai/media/download/0/public/1770191657884_766eiq.jpeg',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770196418822_ourx0z.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770196418822_ourx0z.mp4',
         },
         {
           title: '马德里街头双语问路场景',
@@ -381,10 +381,10 @@ const PAGE_CONTENT = {
             '提示词：阳光洒满马德里老街，一家面包店门前，一位中国女游客和一位穿灰色连帽衫的男性面带礼貌微笑走向店员；女游客用稍慢且带点生涩口音的西语问：“Disculpe, ¿dónde está la plaza mayor?”；白发西班牙店员微微转身并指向前方，用轻松语气回答：“Por allí, a dos calles. Muy cerca.”；女游客感激地点头，男游客也点头并补充：“Muchas gracias.”；店员微笑点头，两人随后朝指示方向走去。',
           prompt: '西语多角色问路对话，带口音表达与街景互动。',
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211365511_9av6ju.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770211365511_9av6ju.jpg',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211378159_vb2qio.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770211378159_vb2qio.mp4',
         },
       ],
     },
@@ -400,10 +400,10 @@ const PAGE_CONTENT = {
             '提示词：巴黎公寓窗边场景，背景是柔和法式钢琴 BGM；午后金色阳光穿过百叶窗洒在香水瓶上，形成斑驳光影；镜头从散落玫瑰花瓣缓慢推进，聚焦 Kling 香水瓶切面，旁白（慵懒法语女声、英式口音、慢语速）：“Bathe in the golden hour.”；镜头缓慢环绕香水瓶，捕捉金色字样与玻璃上的光影流动，旁白：“Kling, a whisper of Parisian elegance.”；镜头拉回全景，香水瓶立于丝绒底座，窗外隐约可见巴黎建筑，旁白收尾：“Wrap yourself in luxury with every breath.”',
           prompt: '产品叙事短片，突出清晰字样、镜头控制与高质旁白。',
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211450832_feisx9.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770211450832_feisx9.jpg',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211415228_mhabei.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770211415228_mhabei.mp4',
         },
       ],
     },
@@ -419,11 +419,11 @@ const PAGE_CONTENT = {
             '提示词：纯黑背景中，一道与 @kling 口红膏体同色的色流从黑暗中涌出，留下饱和且无瑕的轨迹；随后轨迹如液态河流般“活”起来，在表面优雅扩散、晕染，形成 @logo 图案；接着液态色彩重新汇聚为置于水面的 @kling 口红膏体；口红周围环绕细腻水波与花苞，花朵缓慢绽放，水面泛起轻柔涟漪。',
           prompt: '基于 Element 的产品显形，突出 Logo 变换与品牌要素稳定性。',
           inputImages: [
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211564487_5f8ph3.jpg',
-            'https://p4-kling.klingai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211681004_ej599z.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770211564487_5f8ph3.jpg',
+            'https://media.vlook.ai/media/download/0/public/1770211681004_ej599z.jpg',
           ],
           output:
-            'https://v4-kling.kechuangai.com/kcdn/cdn-kcdn112452/kling-release-notes/20260204/1770211666699_173y81.mp4',
+            'https://media.vlook.ai/media/download/0/public/1770211666699_173y81.mp4',
         },
       ],
     },
