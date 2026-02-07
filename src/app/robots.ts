@@ -12,6 +12,7 @@ export default function robots(): MetadataRoute.Robots {
     '/media-studio/sora2',
     '/media-studio/veo3',
     '/media-studio/kling-2-6',
+    '/media-studio/kling3',
     '/media-studio/nano-banana',
     '/media-studio/nano-banana-pro',
     '/media-studio/gpt-image-1-5',

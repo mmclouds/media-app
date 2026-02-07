@@ -1,3 +1,4 @@
+import { CapabilitiesCardsSection } from '@/components/custom-blocks/capabilities-cards/capabilities-cards';
 import FaqSection from '@/components/custom-blocks/faqs/faqs';
 import HeroSection from '@/components/custom-blocks/hero/hero';
 import StudioPromoSection from '@/components/custom-blocks/studio-promo/studio-promo';
@@ -8,7 +9,6 @@ import Container from '@/components/layout/container';
 import { Footer } from '@/components/layout/footer';
 import { Navbar } from '@/components/layout/navbar';
 import { MediaGeneratorWorkspace } from '@/components/marketing/media-generator/media-generator-workspace';
-import { CapabilitiesCardsSection } from '@/components/custom-blocks/capabilities-cards/capabilities-cards';
 import { StudioHashCleaner } from '@/components/marketing/media-studio/studio-hash-cleaner';
 import { Button } from '@/components/ui/button';
 import { constructMetadata } from '@/lib/metadata';
@@ -87,8 +87,7 @@ export default async function NanoBananaStudioPage() {
         '/images/generated/nano-banana-example-input-1.png',
         '/images/generated/nano-banana-example-input-2.png',
       ],
-      output:
-        '/images/generated/nano-banana-example-output-1.jpg',
+      output: '/images/generated/nano-banana-example-output-1.jpg',
     },
     {
       title: t('examples.items.item-2.title'),
@@ -98,8 +97,7 @@ export default async function NanoBananaStudioPage() {
         '/images/generated/nano-banana-example-input-3.jpeg',
         '/images/generated/nano-banana-example-input-4.jpeg',
       ],
-      output:
-        '/images/generated/nano-banana-example-output-2.jpg',
+      output: '/images/generated/nano-banana-example-output-2.jpg',
     },
   ];
 
@@ -194,9 +192,7 @@ export default async function NanoBananaStudioPage() {
           title={t('snapshot.title')}
           description={t('snapshot.description')}
           items={capabilityItems}
-          getCardLabel={(index) =>
-            t('snapshot.cardLabel', { index })
-          }
+          getCardLabel={(index) => t('snapshot.cardLabel', { index })}
           brandLabel={t('snapshot.brandLabel')}
         />
 

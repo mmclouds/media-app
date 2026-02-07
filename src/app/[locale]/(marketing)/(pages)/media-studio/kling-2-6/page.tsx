@@ -190,9 +190,7 @@ export default async function Kling26StudioPage() {
           title={t('snapshot.title')}
           description={t('snapshot.description')}
           items={capabilityItems}
-          getCardLabel={(index) =>
-            t('snapshot.cardLabel', { index })
-          }
+          getCardLabel={(index) => t('snapshot.cardLabel', { index })}
           brandLabel={t('snapshot.brandLabel')}
         />
 

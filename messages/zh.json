@@ -1416,7 +1416,7 @@
     "examples": {
       "title": "Nano Banana 图生图示例",
       "subtitle": "多图参考编辑与真实输出，适合营销落地场景",
-      "inputLabel": "输入图片",
+      "inputLabel": "Input",
       "outputLabel": "输出图片",
       "items": {
         "item-1": {
@@ -1549,7 +1549,7 @@
       "outputPreviewLabel": "生成预览",
       "referenceTitle": "图生图示例",
       "referenceSubtitle": "精准编辑与创意变换",
-      "inputLabel": "输入图片",
+      "inputLabel": "Input",
       "outputLabel": "生成结果",
       "items": {
         "item-1": {
@@ -1812,7 +1812,7 @@
     "examples": {
       "title": "Nano Banana Pro 示例",
       "subtitle": "文生图与图生图示例",
-      "inputLabel": "输入图片",
+      "inputLabel": "Input",
       "outputLabel": "输出图片",
       "items": {
         "item-1": {
@@ -1935,7 +1935,7 @@
       "outputPreviewLabel": "输出预览",
       "referenceTitle": "图生视频示例",
       "referenceSubtitle": "参考图 + 对话场景",
-      "inputLabel": "输入图片",
+      "inputLabel": "Input",
       "outputLabel": "输出视频",
       "items": {
         "item-1": {
@@ -2052,7 +2052,7 @@
     "examples": {
       "title": "Suno 示例",
       "subtitle": "提示词驱动音乐示例",
-      "inputLabel": "输入提示",
+      "inputLabel": "Input",
       "outputLabel": "输出音频",
       "items": {
         "item-1": {

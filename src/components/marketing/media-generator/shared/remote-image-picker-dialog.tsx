@@ -1,10 +1,10 @@
 'use client';
 
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
-import { buildPublicFileDownloadUrl } from '@/lib/file-transfer';
-import type { MediaFeedItem, MediaFeedResponse } from '../types';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useVirtualFeed } from '@/hooks/use-virtual-feed';
+import { buildPublicFileDownloadUrl } from '@/lib/file-transfer';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { MediaFeedItem, MediaFeedResponse } from '../types';
 
 type RemoteImagePickerItem = {
   id: string;
@@ -135,41 +135,40 @@ export function RemoteImagePickerDialog({
         }
 
         const data = result as MediaFeedResponse;
-        const nextItems = (data.content ?? [])
-          .map((item) => {
-            const previewUrl = resolvePreviewUrl(
-              item,
-              fallbackTenantId,
-              apiBaseUrl
-            );
-            const downloadUrl = resolveDownloadUrl(
-              item,
-              fallbackTenantId,
-              apiBaseUrl
-            );
-            const fileUuid =
-              typeof item.fileUuid === 'string'
-                ? item.fileUuid
-                : typeof item.coverFileUuid === 'string'
-                  ? item.coverFileUuid
-                  : '';
-            const id =
-              fileUuid ||
-              item.uuid ||
-              downloadUrl ||
-              previewUrl ||
-              `${Date.now()}-${Math.random()}`;
-            const isReady = previewUrl.length > 0;
-            return {
-              id,
-              fileUuid,
-              previewUrl,
-              downloadUrl,
-              createdAt: item.createdAt,
-              status: item.status,
-              isReady,
-            };
-          });
+        const nextItems = (data.content ?? []).map((item) => {
+          const previewUrl = resolvePreviewUrl(
+            item,
+            fallbackTenantId,
+            apiBaseUrl
+          );
+          const downloadUrl = resolveDownloadUrl(
+            item,
+            fallbackTenantId,
+            apiBaseUrl
+          );
+          const fileUuid =
+            typeof item.fileUuid === 'string'
+              ? item.fileUuid
+              : typeof item.coverFileUuid === 'string'
+                ? item.coverFileUuid
+                : '';
+          const id =
+            fileUuid ||
+            item.uuid ||
+            downloadUrl ||
+            previewUrl ||
+            `${Date.now()}-${Math.random()}`;
+          const isReady = previewUrl.length > 0;
+          return {
+            id,
+            fileUuid,
+            previewUrl,
+            downloadUrl,
+            createdAt: item.createdAt,
+            status: item.status,
+            isReady,
+          };
+        });
 
         setItems((prev) => {
           const baseItems = options?.replace ? [] : prev;
@@ -409,10 +408,11 @@ function RemoteImagePickerRow({
         <button
           key={item.id}
           type="button"
-          className={`group relative overflow-hidden rounded-xl border border-white/10 bg-black/40 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70 ${item.isReady
+          className={`group relative overflow-hidden rounded-xl border border-white/10 bg-black/40 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70 ${
+            item.isReady
               ? 'hover:border-blue-400/60 hover:shadow-[0_0_0_1px_rgba(37,99,235,0.35),0_12px_30px_rgba(37,99,235,0.25)]'
               : 'cursor-not-allowed opacity-70'
-            }`}
+          }`}
           onClick={() => {
             if (!item.isReady) {
               return;

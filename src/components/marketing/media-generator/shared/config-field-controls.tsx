@@ -200,7 +200,11 @@ export function AspectRatioField({
     <div className="space-y-2">
       <div className="flex items-center justify-between">{label} </div>
 
-      <div className="flex flex-wrap gap-2" role="radiogroup" aria-label={label}>
+      <div
+        className="flex flex-wrap gap-2"
+        role="radiogroup"
+        aria-label={label}
+      >
         {options.map((option) => {
           const isChecked = option === selectedValue;
           const { width, height } = getDimensions(option);

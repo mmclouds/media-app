@@ -49,9 +49,9 @@ export const buildNanoBananaProRequestBody = ({
       : '';
   const imageUuids = Array.isArray(resolvedConfig.imageUuids)
     ? resolvedConfig.imageUuids
-      .filter((item) => typeof item === 'string')
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0)
+        .filter((item) => typeof item === 'string')
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0)
     : [];
 
   const inputPayload: Record<string, unknown> = { prompt };
@@ -93,15 +93,15 @@ export function NanoBananaProConfigFields({
     typeof config.aspectRatio === 'string' ? config.aspectRatio : '';
   const imageUrls = Array.isArray(config.imageUrls)
     ? config.imageUrls
-      .filter((item): item is string => typeof item === 'string')
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0)
+        .filter((item): item is string => typeof item === 'string')
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0)
     : [];
   const imageUuids = Array.isArray(config.imageUuids)
     ? config.imageUuids
-      .filter((item): item is string => typeof item === 'string')
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0)
+        .filter((item): item is string => typeof item === 'string')
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0)
     : [];
 
   const creditEstimatePayload = useMemo(

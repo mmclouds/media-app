@@ -185,9 +185,7 @@ export default async function NanoBananaProStudioPage() {
           title={t('snapshot.title')}
           description={t('snapshot.description')}
           items={capabilityItems}
-          getCardLabel={(index) =>
-            t('snapshot.cardLabel', { index })
-          }
+          getCardLabel={(index) => t('snapshot.cardLabel', { index })}
           brandLabel={t('snapshot.brandLabel')}
         />
 

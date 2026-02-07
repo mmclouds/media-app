@@ -1416,7 +1416,7 @@
     "examples": {
       "title": "Nano Banana image-to-image examples",
       "subtitle": "Real multi-image reference edits and final outputs for marketing-ready results",
-      "inputLabel": "Input images",
+      "inputLabel": "Input",
       "outputLabel": "Output image",
       "items": {
         "item-1": {
@@ -1549,7 +1549,7 @@
       "outputPreviewLabel": "Output preview",
       "referenceTitle": "Image-to-image examples",
       "referenceSubtitle": "Precision edits and creative transformations",
-      "inputLabel": "Input images",
+      "inputLabel": "Input",
       "outputLabel": "Output image",
       "items": {
         "item-1": {
@@ -1812,7 +1812,7 @@
     "examples": {
       "title": "Nano Banana Pro examples",
       "subtitle": "Text-to-image and image-to-image samples",
-      "inputLabel": "Input images",
+      "inputLabel": "Input",
       "outputLabel": "Output image",
       "items": {
         "item-1": {
@@ -1935,7 +1935,7 @@
       "outputPreviewLabel": "Output preview",
       "referenceTitle": "Image-to-video example",
       "referenceSubtitle": "Reference image with dialogue and reactions",
-      "inputLabel": "Input images",
+      "inputLabel": "Input",
       "outputLabel": "Output video",
       "items": {
         "item-1": {
@@ -2052,7 +2052,7 @@
     "examples": {
       "title": "Suno examples",
       "subtitle": "Prompt-driven music samples",
-      "inputLabel": "Input images",
+      "inputLabel": "Input",
       "outputLabel": "Output audio",
       "items": {
         "item-1": {

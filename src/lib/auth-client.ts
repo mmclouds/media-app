@@ -7,7 +7,8 @@ import { getBaseUrl } from './urls/urls';
  * https://www.better-auth.com/docs/installation#create-client-instance
  */
 export const authClient = createAuthClient({
-  baseURL: getBaseUrl(),
+  baseURL:
+    typeof window === 'undefined' ? getBaseUrl() : window.location.origin,
   plugins: [
     // https://www.better-auth.com/docs/plugins/admin#add-the-client-plugin
     adminClient(),

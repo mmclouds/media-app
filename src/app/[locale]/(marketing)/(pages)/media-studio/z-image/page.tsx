@@ -85,7 +85,6 @@ export default async function ZImageStudioPage() {
     },
   ];
 
-
   const faqItemKeys = [
     'faq.items.item-1',
     'faq.items.item-2',
